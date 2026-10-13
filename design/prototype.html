@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Playnext</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+/* Layout: one calm column. Ask box on top, the conditions the system understood as editable chips, then evidence cards. Group mode adds a party panel. */
+:root {
+  --bg: #F3F4F7;
+  --surface: #FFFFFF;
+  --surface-2: #EDEFF4;
+  --ink: #14161D;
+  --ink-2: #4A5061;
+  --ink-3: #737A8C;
+  --line: #E0E3EA;
+  --accent: #2F52F5;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E7ECFF;
+  --accent-line: #C2CEFF;
+  --good: #0F7556;
+  --good-soft: #DDF2E9;
+  --warn: #935600;
+  --warn-soft: #FFF0D2;
+  --bad: #B3372A;
+  --bad-soft: #FBE5E1;
+  --m1: #2F52F5; --m2: #0B8F73; --m3: #D2543A; --m4: #8150D0; --m5: #B57B00; --m6: #3D7FA8;
+  --av-ink: #FFFFFF;
+  --shadow: 0 1px 2px rgba(20, 22, 29, .05), 0 6px 18px rgba(20, 22, 29, .05);
+  --font-display: "Bricolage Grotesque", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "Geist Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D0F14; --surface: #161921; --surface-2: #1F2331; --ink: #ECEEF4; --ink-2: #A8AEBE; --ink-3: #80879A; --line: #282D3A;
+    --accent: #7E95FF; --accent-ink: #0B0D12; --accent-soft: #1C2447; --accent-line: #35417C;
+    --good: #4FC79B; --good-soft: #0F2A20; --warn: #F0B45A; --warn-soft: #2D2210; --bad: #FF8272; --bad-soft: #34181A;
+    --m1: #6E86FF; --m2: #2DC2A0; --m3: #F07A5C; --m4: #A97DF0; --m5: #E1A82A; --m6: #5EA8D6;
+    --av-ink: #0B0D12;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 24px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D0F14; --surface: #161921; --surface-2: #1F2331; --ink: #ECEEF4; --ink-2: #A8AEBE; --ink-3: #80879A; --line: #282D3A;
+  --accent: #7E95FF; --accent-ink: #0B0D12; --accent-soft: #1C2447; --accent-line: #35417C;
+  --good: #4FC79B; --good-soft: #0F2A20; --warn: #F0B45A; --warn-soft: #2D2210; --bad: #FF8272; --bad-soft: #34181A;
+  --m1: #6E86FF; --m2: #2DC2A0; --m3: #F07A5C; --m4: #A97DF0; --m5: #E1A82A; --m6: #5EA8D6;
+  --av-ink: #0B0D12;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 24px rgba(0, 0, 0, .25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 920px; margin: 0 auto; padding-inline: 20px; }
+.muted { color: var(--ink-3); }
+.mono { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+
+/* Top bar */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.3) blur(12px);
+  -webkit-backdrop-filter: saturate(1.3) blur(12px);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand b { font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: -.01em; }
+.brand small { font-size: 13px; color: var(--ink-3); }
+.top-actions { display: flex; align-items: center; gap: 8px; }
+.region { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-3); }
+.region select {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px;
+  padding: 5px 8px 5px 12px; font-size: 13px; color: var(--ink); cursor: pointer;
+}
+.pop-wrap { position: relative; }
+.steam-btn {
+  display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--surface);
+  border-radius: 999px; padding: 4px 12px 4px 4px; font-size: 13px; cursor: pointer;
+}
+.steam-btn.off { padding: 6px 14px; }
+.pop {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 40;
+  width: min(320px, calc(100vw - 32px));
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+  padding: 16px; display: grid; gap: 10px; font-size: 14px;
+}
+.pop p { margin: 0; color: var(--ink-2); }
+.pop .note { font-size: 12.5px; color: var(--ink-3); }
+
+/* Avatars */
+.av {
+  width: 28px; height: 28px; border-radius: 50%; flex: none;
+  display: grid; place-items: center;
+  background: var(--h, var(--m1)); color: var(--av-ink);
+  font-size: 13px; font-weight: 600; line-height: 1;
+}
+.av.sm { width: 22px; height: 22px; font-size: 11px; }
+
+/* Ask */
+.ask { padding-block: 40px 4px; display: grid; gap: 18px; }
+.ask h1 {
+  margin: 0; font-size: clamp(30px, 5vw, 42px); line-height: 1.15; font-weight: 700;
+  letter-spacing: -.02em; text-wrap: balance;
+}
+.lede { margin: 0; color: var(--ink-2); font-size: 16px; max-width: 34em; }
+.seg { display: inline-flex; flex-wrap: wrap; padding: 4px; background: var(--surface-2); border-radius: 999px; gap: 2px; justify-self: start; }
+.seg button {
+  border: 0; background: transparent; color: var(--ink-2); font-size: 14px; font-weight: 500;
+  padding: 7px 16px; border-radius: 999px; cursor: pointer; transition: background .15s, color .15s;
+}
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.composer {
+  display: flex; gap: 10px; align-items: flex-end;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 10px 10px 10px 18px; box-shadow: var(--shadow);
+  transition: border-color .15s, box-shadow .15s;
+}
+.composer:focus-within { border-color: var(--accent-line); box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow); }
+.composer textarea {
+  flex: 1; min-width: 0; border: 0; outline: 0; resize: none; background: transparent;
+  font-size: 17px; line-height: 1.55; padding-block: 8px; min-height: 60px;
+}
+.composer textarea::placeholder { color: var(--ink-3); }
+.send {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 12px;
+  padding: 10px 18px; font-weight: 600; cursor: pointer; transition: filter .15s, transform .1s;
+}
+.send:hover { filter: brightness(1.08); }
+.send:active { transform: translateY(1px); }
+.examples { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.examples > span { font-size: 13px; color: var(--ink-3); }
+.ex {
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+  border-radius: 999px; padding: 5px 12px; font-size: 13.5px; cursor: pointer; text-align: left;
+}
+.ex:hover { border-color: var(--ink-3); color: var(--ink); }
+
+/* Understood conditions */
+.conds { padding-block: 22px 0; display: grid; gap: 10px; }
+.label-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.eyebrow { font-size: 13px; font-weight: 500; color: var(--ink-3); letter-spacing: .04em; }
+.hint { font-size: 12.5px; color: var(--ink-3); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: 4px 4px 4px 12px; font-size: 14px;
+}
+.chip.fixed { background: var(--accent-soft); border-color: var(--accent-line); padding-right: 12px; }
+.chip .x {
+  width: 24px; height: 24px; border-radius: 50%; border: 0; background: transparent; color: var(--ink-3);
+  display: grid; place-items: center; cursor: pointer;
+}
+.chip .x:hover { background: var(--surface-2); color: var(--ink); }
+.add { border: 1px dashed var(--ink-3); background: transparent; color: var(--ink-2); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; }
+.add:hover { color: var(--ink); border-color: var(--ink-2); }
+.menu {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 25; min-width: 210px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow);
+  padding: 6px; display: grid;
+}
+.menu button { text-align: left; border: 0; background: transparent; font-size: 14px; padding: 8px 10px; border-radius: 8px; cursor: pointer; }
+.menu button:hover:not(:disabled) { background: var(--surface-2); }
+.menu button:disabled { color: var(--ink-3); cursor: default; }
+.notice { font-size: 13px; color: var(--warn); background: var(--warn-soft); border-radius: 10px; padding: 8px 12px; justify-self: start; }
+
+/* Party */
+.party {
+  margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 18px; display: grid; gap: 16px;
+}
+.party-row { display: grid; gap: 10px; }
+.party-row > header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
+.party h2 { margin: 0; font-size: 15px; font-weight: 600; }
+.members { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.member {
+  display: inline-flex; align-items: center; gap: 8px; padding: 4px 4px 4px 4px;
+  border-radius: 999px; background: var(--surface-2); font-size: 14px;
+}
+.member .who { display: grid; line-height: 1.2; padding-right: 6px; }
+.member .who small { font-size: 11.5px; color: var(--ink-3); }
+.member .x { width: 24px; height: 24px; border-radius: 50%; border: 0; background: transparent; color: var(--ink-3); display: grid; place-items: center; cursor: pointer; }
+.member .x:hover { background: var(--surface); color: var(--ink); }
+.add-member { display: inline-flex; gap: 6px; align-items: center; }
+.add-member input {
+  width: 120px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 12px; font-size: 14px;
+}
+.place-help { margin: 0; font-size: 13px; color: var(--ink-3); }
+
+/* Results */
+.results { padding-block: 30px 8px; display: grid; gap: 16px; transition: opacity .18s; }
+.results.refresh { opacity: .45; }
+.res-head { display: grid; gap: 6px; }
+.res-head h2 { margin: 0; font-size: 22px; letter-spacing: -.01em; text-wrap: balance; }
+.funnel { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-family: var(--font-data); font-size: 12.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.funnel b { color: var(--ink); font-weight: 600; }
+.cards { display: grid; gap: 14px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px;
+  display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 20px;
+  animation: rise .35s ease both;
+}
+@keyframes rise { from { transform: translateY(6px); opacity: .6; } to { transform: none; opacity: 1; } }
+.cover {
+  position: relative; overflow: hidden; align-self: start;
+  aspect-ratio: 460 / 215; max-width: 100%; border-radius: 10px;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  display: flex; align-items: flex-end; padding: 10px 12px; color: #FFFFFF;
+}
+.cover::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 85% 0%, rgba(255, 255, 255, .26), transparent 55%); }
+.cover span { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.1; letter-spacing: -.01em; text-shadow: 0 1px 8px rgba(0, 0, 0, .3); }
+.cover em { position: absolute; z-index: 1; top: 8px; left: 10px; font-style: normal; font-family: var(--font-data); font-size: 11px; background: rgba(0, 0, 0, .38); color: #FFFFFF; padding: 1px 7px; border-radius: 999px; }
+.card-main { display: grid; gap: 12px; min-width: 0; align-content: start; }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.card-top h3 { margin: 0; font-family: var(--font-display); font-size: 21px; line-height: 1.2; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+.card-top .meta { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+.fit { flex: none; text-align: right; display: grid; justify-items: end; gap: 2px; }
+.fit .num { font-family: var(--font-data); font-size: 26px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.fit .lbl { font-size: 12px; color: var(--ink-3); }
+.fit .bar { width: 72px; height: 4px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+.fit .bar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+.reason { margin: 0; color: var(--ink-2); max-width: 44em; }
+.mode-row { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.facts { margin: 0; display: grid; gap: 6px; }
+.facts > div { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.facts dt { font-size: 13px; color: var(--ink-3); }
+.facts dd { margin: 0; font-size: 14px; }
+.tag { display: inline-block; font-size: 12.5px; line-height: 1.6; padding: 0 8px; border-radius: 6px; background: var(--accent-soft); margin: 0 4px 4px 0; }
+.tag.dim { background: var(--surface-2); color: var(--ink-2); }
+.kind { font-size: 11px; color: var(--ink-3); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; margin-left: 6px; white-space: nowrap; }
+.who-fit { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mfit { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px 2px 2px; border-radius: 999px; background: var(--surface-2); font-family: var(--font-data); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.mfit.low { background: var(--warn-soft); color: var(--warn); }
+.mfit.none { color: var(--ink-3); }
+.plan {
+  background: var(--surface-2); border-radius: 14px; padding: 14px 16px;
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px;
+}
+.plan h4 { margin: 0 0 6px; font-size: 13px; font-weight: 500; color: var(--ink-3); }
+.plan ol { margin: 0; padding-left: 1.3em; display: grid; gap: 3px; font-size: 14px; }
+.pay { display: grid; gap: 3px; font-size: 14px; }
+.pay > div { display: flex; justify-content: space-between; gap: 10px; }
+.pay .own { color: var(--good); }
+.pay .total { border-top: 1px solid var(--line); margin-top: 4px; padding-top: 6px; font-weight: 600; }
+.card-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+.price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 13.5px; color: var(--ink-2); }
+.price .now { font-family: var(--font-data); font-size: 18px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.off { font-family: var(--font-data); font-size: 12px; font-weight: 600; color: var(--good); background: var(--good-soft); border-radius: 6px; padding: 0 6px; }
+.was { font-family: var(--font-data); text-decoration: line-through; color: var(--ink-3); }
+.pill { display: inline-block; font-size: 12px; line-height: 1.7; border-radius: 999px; padding: 0 9px; white-space: nowrap; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.neutral { background: var(--surface-2); color: var(--ink-2); }
+.pill.accent { background: var(--accent-soft); color: var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.link {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 13.5px; color: var(--ink-2); text-decoration: none;
+  padding: 6px 10px; border-radius: 8px; border: 0; background: transparent; cursor: pointer;
+}
+.link:hover { background: var(--surface-2); color: var(--ink); }
+.src { font-size: 12px; color: var(--ink-3); margin: 0; }
+.more { justify-self: center; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 8px 18px; font-size: 14px; cursor: pointer; }
+.more:hover { color: var(--ink); border-color: var(--ink-3); }
+
+.sub-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-top: 8px; }
+.sub-head h3 { margin: 0; font-size: 16px; }
+.pend {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: start;
+}
+.pend h4 { margin: 0; font-size: 15px; display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.pend p { margin: 0; font-size: 13.5px; color: var(--ink-2); grid-column: 1 / -1; }
+.failed { border: 1px solid var(--line); border-radius: 14px; padding: 0 16px; background: transparent; }
+.failed summary { cursor: pointer; padding: 12px 0; font-size: 14px; color: var(--ink-2); }
+.fail-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 12px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.fail-row .why { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: grid; gap: 14px; }
+.panel h3 { margin: 0; font-size: 18px; text-wrap: balance; }
+.panel p { margin: 0; color: var(--ink-2); }
+.fix {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; text-align: left;
+  border: 1px solid var(--line); background: var(--bg); border-radius: 12px; padding: 12px 14px; cursor: pointer;
+}
+.fix:hover { border-color: var(--accent-line); }
+.fix b { font-family: var(--font-data); font-weight: 600; color: var(--accent); white-space: nowrap; }
+.step { display: flex; align-items: center; gap: 10px; color: var(--ink-3); font-size: 14px; }
+.step .dot { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; flex: none; }
+.step.done { color: var(--ink); }
+.step.done .dot { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.step.now { color: var(--ink); }
+.step.now .dot { border-color: var(--accent); animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 4px var(--accent-soft); } }
+
+.foot { margin-top: 36px; padding-block: 20px 48px; border-top: 1px solid var(--line); display: grid; gap: 6px; font-size: 12.5px; color: var(--ink-3); }
+.foot p { margin: 0; max-width: 60em; }
+
+@media (max-width: 680px) {
+  .brand small, .steam-btn .lbl-long { display: none; }
+  .ask { padding-block: 26px 0; }
+  .card { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 16px; }
+  .cover { aspect-ratio: 460 / 160; }
+  .plan { grid-template-columns: minmax(0, 1fr); }
+  .send .lbl { display: none; }
+  .send { padding: 10px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Playnext 首页">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="var(--accent)"/><path d="M8 8.5v11l7-5.5z" fill="var(--accent-ink)"/><path d="M15 8.5v11l7-5.5z" fill="var(--accent-ink)" opacity=".5"/></svg>
+      <b>Playnext</b><small>下一款玩什么</small>
+    </a>
+    <div class="top-actions">
+      <label class="region" for="region"><span>商店区</span>
+        <select id="region"><option value="CN">CN · ¥</option><option value="US">US · $</option></select>
+      </label>
+      <div class="pop-wrap" id="steam"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="ask" id="ask"></section>
+  <section class="conds" id="conds" aria-live="polite"></section>
+  <section id="party"></section>
+  <section class="results" id="results" aria-live="polite"></section>
+  <footer class="foot">
+    <p>这是 Playnext 的交互原型。价格、史低、标签、人数上限和评价数取自项目数据（2026-10 取数）。候选名单、契合度、推荐理由和成员信息是示例，用来演示界面，不是算法输出；自由输入用简单规则模拟理解过程，正式版由 LLM 解析。</p>
+    <p>数据来源：Steam 商店、IGDB、IsThereAnyDeal、Kaggle「Game Recommendations on Steam」。价格数据由 IsThereAnyDeal 提供。</p>
+  </footer>
+</main>
+
+<script>
+const DATA = {"seedNpos":103176,"games":{"1145360":{"name":"Hades","zh":null,"year":2020,"devs":["Supergiant Games"],"series":["Hades"],"pct":97,"reviews":286667,"free":false,"price":{"CN":{"final":92.0,"original":92.0,"disc":0,"low":23.0,"lowDate":"2025-09"},"US":{"final":24.99,"original":24.99,"disc":0,"low":6.24,"lowDate":"2025-09"}},"core":["动作类 Rogue","轻度 Rogue","砍杀","独立","神话","动作","类 Rogue","单人"],"tagW":{"动作类 Rogue":1.0,"轻度 Rogue":0.73,"砍杀":0.714,"独立":0.7,"神话":0.695,"动作":0.607,"类 Rogue":0.591,"单人":0.55,"好评原声音轨":0.53,"剧情丰富":0.518},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,13,23,41,42,43,62,28],"colike":null,"igdbSim":false},"1145350":{"name":"Hades II","zh":null,"year":2025,"devs":["Supergiant Games"],"series":["Hades"],"pct":95,"reviews":115044,"free":false,"price":{"CN":{"final":108.0,"original":108.0,"disc":0,"low":75.6,"lowDate":"2026-06"},"US":{"final":29.99,"original":29.99,"disc":0,"low":20.99,"lowDate":"2026-06"}},"core":["动作","类 Rogue","轻度 Rogue","砍杀","神话","动作类 Rogue","女性主角","角色扮演"],"tagW":{"动作":1.0,"类 Rogue":0.948,"轻度 Rogue":0.913,"砍杀":0.874,"神话":0.8,"动作类 Rogue":0.79,"女性主角":0.747,"角色扮演":0.719,"迷宫探索":0.686,"动作角色扮演":0.634},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,13,23,62,28,55,56,57,58],"colike":null,"igdbSim":true},"588650":{"name":"Dead Cells","zh":null,"year":2018,"devs":["Motion Twin","Evil Empire"],"series":[],"pct":97,"reviews":156801,"free":false,"price":{"CN":{"final":80.0,"original":80.0,"disc":0,"low":32.0,"lowDate":"2025-07"},"US":{"final":24.99,"original":24.99,"disc":0,"low":9.99,"lowDate":"2025-07"}},"core":["冒险","类 Rogue","类银河战士恶魔城","像素图形","动作类 Rogue","2D","轻度 Rogue","类魂系列"],"tagW":{"冒险":1.0,"类 Rogue":0.953,"类银河战士恶魔城":0.948,"像素图形":0.948,"动作类 Rogue":0.948,"2D":0.939,"轻度 Rogue":0.906,"类魂系列":0.903,"砍杀":0.877,"重玩价值":0.876},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,30,23,41,42,43,62,28],"colike":{"sim":0.0652,"co":3927,"rank":1},"igdbSim":false},"237930":{"name":"Transistor","zh":null,"year":2014,"devs":["Supergiant Games"],"series":[],"pct":93,"reviews":28006,"free":false,"price":{"CN":{"final":76.0,"original":76.0,"disc":0,"low":5.0,"lowDate":"2017-06"},"US":{"final":19.99,"original":19.99,"disc":0,"low":2.99,"lowDate":"2017-06"}},"core":["好评原声音轨","女性主角","独立","赛博朋克","剧情丰富","科幻"],"tagW":{"好评原声音轨":1.0,"女性主角":0.73,"独立":0.699,"赛博朋克":0.677,"剧情丰富":0.578,"科幻":0.565,"动作角色扮演":0.482,"单人":0.471,"角色扮演":0.444,"唯美":0.423},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,23,43,62,28],"colike":{"sim":0.0448,"co":1437,"rank":11},"igdbSim":false},"1313140":{"name":"Cult of the Lamb","zh":"咩咩启示录","year":2022,"devs":["Massive Monster"],"series":[],"pct":95,"reviews":112617,"free":false,"price":{"CN":{"final":118.0,"original":118.0,"disc":0,"low":47.2,"lowDate":"2026-01"},"US":{"final":24.99,"original":24.99,"disc":0,"low":9.99,"lowDate":"2026-01"}},"core":["基地建设","动作类 Rogue","可爱","邪教","单人","迷宫探索","轻度 Rogue","角色自定义"],"tagW":{"基地建设":1.0,"动作类 Rogue":0.874,"可爱":0.855,"邪教":0.784,"单人":0.766,"迷宫探索":0.743,"轻度 Rogue":0.735,"角色自定义":0.69,"殖民模拟":0.69,"黑色幽默":0.677},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":2.0,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,9,39,24,22,29,64,67,68,69,75,78,79,23,44,62,28,55,56,60],"colike":{"sim":0.0301,"co":1551,"rank":54},"igdbSim":false},"311690":{"name":"Enter the Gungeon","zh":"挺进地牢","year":2016,"devs":["Dodge Roll"],"series":["Gungeon"],"pct":95,"reviews":79478,"free":false,"price":{"CN":{"final":58.0,"original":58.0,"disc":0,"low":5.8,"lowDate":"2025-03"},"US":{"final":14.99,"original":14.99,"disc":0,"low":1.49,"lowDate":"2025-03"}},"core":["弹幕射击","动作类 Rogue","类 Rogue","像素图形"],"tagW":{"弹幕射击":1.0,"动作类 Rogue":0.569,"类 Rogue":0.566,"像素图形":0.522,"低容错":0.408,"迷宫探索":0.376,"独立":0.305,"本地合作":0.3,"多人":0.291,"双摇杆射击":0.26},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":2.0,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,24,22,23,41,42,43,44,62,28],"colike":{"sim":0.0422,"co":2475,"rank":15},"igdbSim":false},"632360":{"name":"Risk of Rain 2","zh":"雨中冒险 2","year":2020,"devs":["Hopoo Games"],"series":["Risk of Rain"],"pct":93,"reviews":240722,"free":false,"price":{"CN":{"final":26.4,"original":80.0,"disc":67,"low":26.4,"lowDate":"2024-06"},"US":{"final":8.24,"original":24.99,"disc":67,"low":8.24,"lowDate":"2024-06"}},"core":["第三人称射击","动作类 Rogue","多人","合作","类 Rogue","轻度 Rogue","动作","刷宝射击游戏"],"tagW":{"第三人称射击":1.0,"动作类 Rogue":0.983,"多人":0.957,"合作":0.853,"类 Rogue":0.79,"轻度 Rogue":0.783,"动作":0.765,"刷宝射击游戏":0.715,"刷宝":0.578,"在线合作":0.491},"horror":false,"cap":{"onlineCoop":4.0,"online":null,"localCoop":null,"desc":4.0,"mmo":false,"mixed":false},"cats":[2,1,49,36,9,38,29,64,67,68,69,70,78,23,25,41,42,43,62,28],"colike":{"sim":0.0411,"co":3108,"rank":20},"igdbSim":false},"107100":{"name":"Bastion","zh":null,"year":2011,"devs":["Supergiant Games"],"series":[],"pct":95,"reviews":28243,"free":false,"price":{"CN":{"final":58.0,"original":58.0,"disc":0,"low":5.0,"lowDate":"2017-06"},"US":{"final":14.99,"original":14.99,"disc":0,"low":2.24,"lowDate":"2013-12"}},"core":["好评原声音轨","独立","动作","单人","角色扮演","砍杀","剧情丰富","动态旁白"],"tagW":{"好评原声音轨":1.0,"独立":0.881,"动作":0.776,"单人":0.683,"角色扮演":0.615,"砍杀":0.584,"剧情丰富":0.564,"动态旁白":0.511,"等角视角":0.475,"冒险":0.423},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,23,25,41,42,43,62,28],"colike":{"sim":0.0382,"co":1440,"rank":27},"igdbSim":false},"462770":{"name":"Pyre","zh":null,"year":2017,"devs":["Supergiant Games"],"series":[],"pct":90,"reviews":8405,"free":false,"price":{"CN":{"final":76.0,"original":76.0,"disc":0,"low":15.2,"lowDate":"2023-04"},"US":{"final":19.99,"original":19.99,"disc":0,"low":3.99,"lowDate":"2023-04"}},"core":["独立","角色扮演","好评原声音轨","剧情丰富","动作","视觉小说"],"tagW":{"独立":1.0,"角色扮演":0.957,"好评原声音轨":0.909,"剧情丰富":0.801,"动作":0.704,"视觉小说":0.643,"氛围":0.484,"奇幻":0.435,"手绘":0.427,"选择取向":0.309},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":2.0,"mmo":false,"mixed":false},"cats":[2,1,49,37,22,29,13,23,41,42,43,44,62,28],"colike":{"sim":0.0467,"co":795,"rank":9},"igdbSim":false},"646570":{"name":"Slay the Spire","zh":null,"year":2019,"devs":["Mega Crit Games"],"series":["Slay the Spire"],"pct":97,"reviews":192403,"free":false,"price":{"CN":{"final":88.0,"original":88.0,"disc":0,"low":8.8,"lowDate":"2025-12"},"US":{"final":24.99,"original":24.99,"disc":0,"low":2.49,"lowDate":"2025-12"}},"core":["牌组构建式类 Rogue","卡牌游戏","卡牌战斗","类 Rogue","牌组构建","回合制"],"tagW":{"牌组构建式类 Rogue":1.0,"卡牌游戏":0.914,"卡牌战斗":0.879,"类 Rogue":0.835,"牌组构建":0.657,"回合制":0.599,"策略":0.474,"单人":0.413,"轻度 Rogue":0.387,"重玩价值":0.329},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,30,64,68,74,76,77,79,23,15,25,41,42,43,62,28],"colike":{"sim":0.0578,"co":4755,"rank":3},"igdbSim":false},"2379780":{"name":"Balatro","zh":null,"year":2024,"devs":["LocalThunk"],"series":[],"pct":97,"reviews":161542,"free":false,"price":{"CN":{"final":54.0,"original":54.0,"disc":0,"low":43.2,"lowDate":"2026-02"},"US":{"final":14.99,"original":14.99,"disc":0,"low":11.99,"lowDate":"2026-02"}},"core":["卡牌游戏","类 Rogue","牌组构建式类 Rogue","牌组构建","单人","策略","像素图形","重玩价值"],"tagW":{"卡牌游戏":1.0,"类 Rogue":0.939,"牌组构建式类 Rogue":0.892,"牌组构建":0.793,"单人":0.779,"策略":0.708,"像素图形":0.707,"重玩价值":0.687,"轻度 Rogue":0.631,"独立":0.563},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,66,68,74,76,77,23,62,28,57,58],"colike":null,"igdbSim":false},"367520":{"name":"Hollow Knight","zh":null,"year":2017,"devs":["Team Cherry"],"series":["Hollow Knight"],"pct":96,"reviews":505295,"free":false,"price":{"CN":{"final":58.0,"original":58.0,"disc":0,"low":19.2,"lowDate":"2022-05"},"US":{"final":14.99,"original":14.99,"disc":0,"low":5.99,"lowDate":"2022-05"}},"core":["类银河战士恶魔城","平台游戏","类魂系列","低容错","好评原声音轨","2D","独立","单人"],"tagW":{"类银河战士恶魔城":1.0,"平台游戏":0.749,"类魂系列":0.743,"低容错":0.736,"好评原声音轨":0.732,"2D":0.729,"独立":0.726,"单人":0.594,"探索":0.563,"氛围":0.559},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,23,41,42,43,62,28],"colike":{"sim":0.0383,"co":3029,"rank":26},"igdbSim":false},"1942280":{"name":"Brotato","zh":"土豆兄弟(Brotato)","year":2023,"devs":["Blobfish","Erabit Studios"],"series":[],"pct":95,"reviews":112033,"free":false,"price":{"CN":{"final":22.0,"original":22.0,"disc":0,"low":13.2,"lowDate":"2024-10"},"US":{"final":4.99,"original":4.99,"disc":0,"low":2.99,"lowDate":"2024-10"}},"core":["类 Rogue","单人","弹幕射击","动作类 Rogue","本地合作","逆弹幕射击","多人","生存"],"tagW":{"类 Rogue":1.0,"单人":0.865,"弹幕射击":0.842,"动作类 Rogue":0.838,"本地合作":0.798,"逆弹幕射击":0.787,"多人":0.782,"生存":0.748,"竞技场射击":0.717,"科幻":0.706},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":4.0,"mmo":false,"mixed":false},"cats":[2,1,9,39,24,22,29,30,23,43,44,62,28],"colike":{"sim":0.025,"co":768,"rank":105},"igdbSim":false},"3241660":{"name":"R.E.P.O.","zh":null,"year":2025,"devs":["semiwork"],"series":[],"pct":96,"reviews":344179,"free":false,"price":{"CN":{"final":35.0,"original":35.0,"disc":0,"low":22.75,"lowDate":"2026-06"},"US":{"final":9.99,"original":9.99,"disc":0,"low":6.49,"lowDate":"2025-10"}},"core":["恐怖","在线合作","多人","喜剧","合作","物理","第一人称"],"tagW":{"恐怖":1.0,"在线合作":0.997,"多人":0.913,"喜剧":0.78,"合作":0.703,"物理":0.519,"第一人称":0.502,"3D":0.467,"潜行":0.404,"生存":0.395},"horror":true,"cap":{"onlineCoop":6.0,"online":null,"localCoop":null,"desc":6.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,67,68,69,74,23,62],"colike":null,"igdbSim":false},"892970":{"name":"Valheim","zh":"Valheim: 英灵神殿","year":2026,"devs":["Iron Gate Studios"],"series":[],"pct":93,"reviews":472237,"free":false,"price":{"CN":{"final":89.0,"original":89.0,"disc":0,"low":35.0,"lowDate":"2024-03"},"US":{"final":29.99,"original":29.99,"disc":0,"low":9.99,"lowDate":"2024-03"}},"core":["开放世界生存制作","生存","在线合作","开放世界","多人","建造","制作","基地建设"],"tagW":{"开放世界生存制作":1.0,"生存":0.941,"在线合作":0.904,"开放世界":0.859,"多人":0.849,"建造":0.748,"制作":0.694,"基地建设":0.673,"探索":0.634,"合作":0.603},"horror":false,"cap":{"onlineCoop":10.0,"online":10.0,"localCoop":null,"desc":10.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,22,67,68,69,78,79,23,15,42,62,28,55,56,57,58],"colike":null,"igdbSim":false},"322330":{"name":"Don't Starve Together","zh":"饥荒联机版","year":2016,"devs":["Klei Entertainment"],"series":["Don't Starve"],"pct":94,"reviews":377064,"free":false,"price":{"CN":{"final":24.0,"original":24.0,"disc":0,"low":4.8,"lowDate":"2026-06"},"US":{"final":14.99,"original":14.99,"disc":0,"low":1.49,"lowDate":"2023-04"}},"core":["生存","开放世界生存制作"],"tagW":{"生存":1.0,"开放世界生存制作":0.992,"多人":0.261,"合作":0.204,"开放世界":0.146,"冒险":0.125,"制作":0.117,"在线合作":0.109,"沙盒":0.091,"低容错":0.068},"horror":false,"cap":{"onlineCoop":4.0,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,49,36,47,9,38,48,29,30,35,64,66,67,68,69,74,75,76,78,79,41,42,43,62,28],"colike":null,"igdbSim":false},"648800":{"name":"Raft","zh":null,"year":2022,"devs":["Redbeet Interactive"],"series":[],"pct":93,"reviews":324207,"free":false,"price":{"CN":{"final":77.0,"original":77.0,"disc":0,"low":34.0,"lowDate":"2024-05"},"US":{"final":19.99,"original":19.99,"disc":0,"low":9.99,"lowDate":"2024-05"}},"core":["生存","多人","开放世界生存制作","合作","制作"],"tagW":{"生存":1.0,"多人":0.874,"开放世界生存制作":0.825,"合作":0.727,"制作":0.548,"开放世界":0.487,"建造":0.461,"基地建设":0.422,"在线合作":0.388,"冒险":0.34},"horror":false,"cap":{"onlineCoop":8.0,"online":8.0,"localCoop":1.0,"desc":null,"mmo":true,"mixed":false},"cats":[2,1,9,38,22,23,62],"colike":null,"igdbSim":false},"548430":{"name":"Deep Rock Galactic","zh":"深岩银河","year":2020,"devs":["Ghost Ship Games"],"series":["Deep Rock Galactic"],"pct":97,"reviews":303774,"free":false,"price":{"CN":{"final":108.0,"original":108.0,"disc":0,"low":27.0,"lowDate":"2025-07"},"US":{"final":29.99,"original":29.99,"disc":0,"low":8.99,"lowDate":"2025-07"}},"core":["矮人"],"tagW":{"矮人":1.0,"合作":0.396,"玩家对战环境":0.33,"第一人称射击":0.304,"程序生成":0.281,"职业导向":0.275,"射击":0.271,"探索":0.264,"第一人称":0.256,"刷宝":0.241},"horror":false,"cap":{"onlineCoop":4.0,"online":4.0,"localCoop":null,"desc":4.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,22,29,13,65,66,67,68,69,74,78,23,42,43,62,28],"colike":{"sim":0.0439,"co":3771,"rank":12},"igdbSim":false},"1966720":{"name":"Lethal Company","zh":null,"year":2023,"devs":["Zeekerss"],"series":[],"pct":97,"reviews":411801,"free":false,"price":{"CN":{"final":42.0,"original":42.0,"disc":0,"low":27.3,"lowDate":"2025-01"},"US":{"final":9.99,"original":9.99,"disc":0,"low":6.49,"lowDate":"2025-01"}},"core":["在线合作","恐怖","第一人称","合作","生存恐怖","欢乐","探索","心理恐怖"],"tagW":{"在线合作":1.0,"恐怖":0.919,"第一人称":0.654,"合作":0.651,"生存恐怖":0.612,"欢乐":0.561,"探索":0.549,"心理恐怖":0.521,"科幻":0.412,"玩家对战环境":0.398},"horror":true,"cap":{"onlineCoop":4.0,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,9,38,68,69,62,18],"colike":null,"igdbSim":false},"105600":{"name":"Terraria","zh":null,"year":2011,"devs":["Re-Logic"],"series":["Terraria"],"pct":97,"reviews":1244628,"free":false,"price":{"CN":{"final":21.0,"original":42.0,"disc":50,"low":18.0,"lowDate":"2016-06"},"US":{"final":4.99,"original":9.99,"disc":50,"low":1.99,"lowDate":"2014-06"}},"core":["开放世界生存制作","沙盒","生存","2D","多人","像素图形","冒险","制作"],"tagW":{"开放世界生存制作":1.0,"沙盒":0.982,"生存":0.787,"2D":0.779,"多人":0.779,"像素图形":0.713,"冒险":0.708,"制作":0.648,"建造":0.619,"探索":0.55},"horror":false,"cap":{"onlineCoop":255.0,"online":255.0,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,49,36,9,38,22,29,23,41,42,43,62,28],"colike":{"sim":0.0213,"co":2155,"rank":165},"igdbSim":false},"602960":{"name":"Barotrauma","zh":"Barotrauma 潜渊症","year":2023,"devs":["Undertow Games","FakeFish"],"series":[],"pct":94,"reviews":62252,"free":false,"price":{"CN":{"final":130.0,"original":130.0,"disc":0,"low":7.49,"lowDate":"2022-09"},"US":{"final":34.99,"original":34.99,"disc":0,"low":5.99,"lowDate":"2023-01"}},"core":["合作","多人","生存","潜水艇","生存恐怖","恐怖","2D","水底"],"tagW":{"合作":1.0,"多人":0.901,"生存":0.856,"潜水艇":0.755,"生存恐怖":0.696,"恐怖":0.687,"2D":0.686,"水底":0.645,"模拟":0.554,"科幻":0.546},"horror":true,"cap":{"onlineCoop":16.0,"online":16.0,"localCoop":null,"desc":16.0,"mmo":false,"mixed":false},"cats":[2,1,49,36,9,38,22,29,30,23,17,62,63],"colike":null,"igdbSim":false},"427410":{"name":"Abiotic Factor","zh":"非生物因素","year":2025,"devs":["Deep Field Games"],"series":[],"pct":95,"reviews":42421,"free":false,"price":{"CN":{"final":102.4,"original":128.0,"disc":20,"low":73.6,"lowDate":"2024-05"},"US":{"final":27.99,"original":34.99,"disc":20,"low":19.99,"lowDate":"2024-05"}},"core":["生存","在线合作","开放世界生存制作","制作","基地建设","科幻","探索","合作战役"],"tagW":{"生存":1.0,"在线合作":0.937,"开放世界生存制作":0.93,"制作":0.914,"基地建设":0.905,"科幻":0.833,"探索":0.81,"合作战役":0.779,"多人":0.755,"第一人称":0.721},"horror":false,"cap":{"onlineCoop":6.0,"online":6.0,"localCoop":1.0,"desc":6.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,48,27,22,29,64,65,67,68,69,70,74,78,79,62,28,55,56,57,58],"colike":null,"igdbSim":false},"1621690":{"name":"Core Keeper","zh":"护核纪元","year":2024,"devs":["Pugstorm"],"series":[],"pct":92,"reviews":50436,"free":false,"price":{"CN":{"final":45.6,"original":76.0,"disc":40,"low":34.4,"lowDate":"2022-11"},"US":{"final":11.99,"original":19.99,"disc":40,"low":9.59,"lowDate":"2024-01"}},"core":["开放世界","生存","探索","像素图形","多人","沙盒","制作","建造"],"tagW":{"开放世界":1.0,"生存":0.99,"探索":0.94,"像素图形":0.933,"多人":0.93,"沙盒":0.915,"制作":0.904,"建造":0.88,"合作":0.88,"基地建设":0.872},"horror":false,"cap":{"onlineCoop":8.0,"online":8.0,"localCoop":1.0,"desc":8.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,23,62,28],"colike":null,"igdbSim":false},"1326470":{"name":"Sons Of The Forest","zh":null,"year":2024,"devs":["Endnight Games Ltd"],"series":["The Forest"],"pct":88,"reviews":285989,"free":false,"price":{"CN":{"final":108.0,"original":108.0,"disc":0,"low":31.32,"lowDate":"2026-10"},"US":{"final":29.99,"original":29.99,"disc":0,"low":8.69,"lowDate":"2026-10"}},"core":["生存","开放世界","多人","合作","生存恐怖","基地建设","恐怖","制作"],"tagW":{"生存":1.0,"开放世界":0.854,"多人":0.821,"合作":0.783,"生存恐怖":0.713,"基地建设":0.67,"恐怖":0.622,"制作":0.551,"建造":0.48,"第一人称":0.468},"horror":true,"cap":{"onlineCoop":8.0,"online":8.0,"localCoop":1.0,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,9,38,22,23,62,28,55,56,57,58],"colike":null,"igdbSim":false},"1426210":{"name":"It Takes Two","zh":"双人成行","year":2021,"devs":["Hazelight Studios"],"series":[],"pct":95,"reviews":219648,"free":false,"price":{"CN":{"final":198.0,"original":198.0,"disc":0,"low":39.6,"lowDate":"2024-12"},"US":{"final":39.99,"original":39.99,"disc":0,"low":7.99,"lowDate":"2024-12"}},"core":["合作","多人","分屏","本地合作"],"tagW":{"合作":1.0,"多人":0.727,"分屏":0.604,"本地合作":0.588,"在线合作":0.493,"解谜":0.457,"冒险":0.378,"剧情丰富":0.316,"合作战役":0.276,"本地多人":0.274},"horror":false,"cap":{"onlineCoop":2.0,"online":null,"localCoop":2.0,"desc":null,"mmo":false,"mixed":false},"cats":[1,9,38,39,24,22,29,69,70,23,44,28,55,57],"colike":{"sim":0.0286,"co":2244,"rank":62},"igdbSim":false},"728880":{"name":"Overcooked! 2","zh":null,"year":2018,"devs":["Ghost Town Games"],"series":["Overcooked"],"pct":90,"reviews":62321,"free":false,"price":{"CN":{"final":98.0,"original":98.0,"disc":0,"low":24.5,"lowDate":"2021-11"},"US":{"final":24.99,"original":24.99,"disc":0,"low":6.24,"lowDate":"2021-11"}},"core":["多人","本地合作","在线合作","合作","烹饪","休闲","欢乐"],"tagW":{"多人":1.0,"本地合作":0.909,"在线合作":0.905,"合作":0.676,"烹饪":0.601,"休闲":0.585,"欢乐":0.524,"4 人本地":0.438,"本地多人":0.372,"独立":0.364},"horror":false,"cap":{"onlineCoop":4.0,"online":4.0,"localCoop":4.0,"desc":4.0,"mmo":false,"mixed":false},"cats":[2,1,49,36,37,9,38,39,24,22,29,23,41,42,43,44,62,28],"colike":null,"igdbSim":false},"1016920":{"name":"Unrailed!","zh":null,"year":2020,"devs":["Indoor Astronaut"],"series":["Unrailed"],"pct":93,"reviews":13818,"free":false,"price":{"CN":{"final":90.0,"original":90.0,"disc":0,"low":13.5,"lowDate":"2025-07"},"US":{"final":19.99,"original":19.99,"disc":0,"low":2.99,"lowDate":"2025-07"}},"core":["多人","合作","在线合作","本地合作","休闲","火车","本地多人","动作"],"tagW":{"多人":1.0,"合作":0.963,"在线合作":0.929,"本地合作":0.914,"休闲":0.834,"火车":0.815,"本地多人":0.782,"动作":0.679,"程序生成":0.66,"独立":0.627},"horror":false,"cap":{"onlineCoop":4.0,"online":4.0,"localCoop":4.0,"desc":4.0,"mmo":false,"mixed":false},"cats":[2,1,49,36,37,9,38,39,24,27,22,29,25,41,42,43,44,62,28,55,56,57,58,60],"colike":null,"igdbSim":false},"431240":{"name":"Golf With Your Friends","zh":"友尽高尔夫","year":2020,"devs":["Blacklight Interactive"],"series":["Golf with your Friends"],"pct":88,"reviews":50958,"free":false,"price":{"CN":{"final":70.0,"original":70.0,"disc":0,"low":7.0,"lowDate":"2025-12"},"US":{"final":14.99,"original":14.99,"disc":0,"low":1.49,"lowDate":"2025-12"}},"core":["多人","休闲","迷你高尔夫","体育","高尔夫","独立","欢乐"],"tagW":{"多人":1.0,"休闲":0.832,"迷你高尔夫":0.802,"体育":0.763,"高尔夫":0.684,"独立":0.523,"欢乐":0.516,"阖家":0.453,"合作":0.401,"单人":0.35},"horror":false,"cap":{"onlineCoop":null,"online":12.0,"localCoop":null,"desc":12.0,"mmo":true,"mixed":false},"cats":[2,1,49,36,37,24,22,30,15,17,41,42,44,62,18],"colike":null,"igdbSim":false},"553310":{"name":"Lethal League Blaze","zh":null,"year":2018,"devs":["Team Reptile"],"series":["Lethal League"],"pct":97,"reviews":4770,"free":false,"price":{"CN":{"final":70.0,"original":70.0,"disc":0,"low":35.0,"lowDate":"2024-11"},"US":{"final":19.99,"original":19.99,"disc":0,"low":9.99,"lowDate":"2024-11"}},"core":["动作","独立","2D 格斗","好评原声音轨","体育","格斗","快节奏","本地多人"],"tagW":{"动作":1.0,"独立":1.0,"2D 格斗":0.971,"好评原声音轨":0.942,"体育":0.905,"格斗":0.891,"快节奏":0.774,"本地多人":0.693,"竞技":0.606,"多人":0.525},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":4.0,"mmo":false,"mixed":false},"cats":[2,1,49,36,37,24,22,23,41,42,43,44,62,28,55,56,57,58],"colike":null,"igdbSim":false},"2001120":{"name":"Split Fiction","zh":"双影奇境","year":2025,"devs":["Hazelight Studios"],"series":[],"pct":97,"reviews":78995,"free":false,"price":{"CN":{"final":198.0,"original":198.0,"disc":0,"low":128.7,"lowDate":"2026-06"},"US":{"final":49.99,"original":49.99,"disc":0,"low":32.49,"lowDate":"2026-06"}},"core":["合作","分屏","本地合作","女性主角","在线合作","动作冒险","3D 平台","奇幻"],"tagW":{"合作":1.0,"分屏":0.872,"本地合作":0.662,"女性主角":0.614,"在线合作":0.605,"动作冒险":0.571,"3D 平台":0.556,"奇幻":0.525,"科幻":0.515,"合作战役":0.478},"horror":false,"cap":{"onlineCoop":2.0,"online":2.0,"localCoop":2.0,"desc":null,"mmo":false,"mixed":false},"cats":[1,9,38,39,24,27,22,29,13,66,67,69,70,23,44,61,62,28,55,57,58],"colike":null,"igdbSim":false},"413150":{"name":"Stardew Valley","zh":null,"year":2016,"devs":["ConcernedApe"],"series":[],"pct":98,"reviews":898066,"free":false,"price":{"CN":{"final":48.0,"original":48.0,"disc":0,"low":14.99,"lowDate":"2023-03"},"US":{"final":14.99,"original":14.99,"disc":0,"low":7.49,"lowDate":"2021-02"}},"core":["农场模拟","像素图形","多人","生活模拟","角色扮演","放松","模拟","农业"],"tagW":{"农场模拟":1.0,"像素图形":0.917,"多人":0.908,"生活模拟":0.894,"角色扮演":0.797,"放松":0.796,"模拟":0.646,"农业":0.639,"制作":0.549,"独立":0.548},"horror":false,"cap":{"onlineCoop":4.0,"online":null,"localCoop":null,"desc":8.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,48,39,24,22,29,23,41,42,44,62,28],"colike":{"sim":0.0314,"co":2270,"rank":46},"igdbSim":false},"2709570":{"name":"Supermarket Together","zh":null,"year":2024,"devs":["DeadDevsTellNoLies"],"series":[],"pct":94,"reviews":100236,"free":true,"price":{"CN":{"final":0,"original":null,"disc":0,"low":null,"lowDate":null},"US":{"final":0,"original":null,"disc":0,"low":null,"lowDate":null}},"core":["模拟","在线合作","多人","免费开玩","管理","经济"],"tagW":{"模拟":1.0,"在线合作":0.927,"多人":0.925,"免费开玩":0.911,"管理":0.619,"经济":0.525,"单人":0.397,"生活模拟":0.327,"贸易":0.325,"沉浸式模拟":0.313},"horror":false,"cap":{"onlineCoop":16.0,"online":null,"localCoop":null,"desc":16.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,22,23,62],"colike":null,"igdbSim":false},"945360":{"name":"Among Us","zh":null,"year":2018,"devs":["Innersloth"],"series":["Among Us"],"pct":92,"reviews":661050,"free":false,"price":{"CN":{"final":15.0,"original":25.0,"disc":40,"low":5.0,"lowDate":"2020-06"},"US":{"final":2.99,"original":4.99,"disc":40,"low":1.24,"lowDate":"2020-06"}},"core":["多人","在线合作","社交推理","太空","生存","2D"],"tagW":{"多人":1.0,"在线合作":0.683,"社交推理":0.681,"太空":0.633,"生存":0.526,"2D":0.519,"欢乐":0.495,"社交聚会游戏":0.442,"心理":0.434,"合作":0.428},"horror":false,"cap":{"onlineCoop":15.0,"online":15.0,"localCoop":null,"desc":15.0,"mmo":false,"mixed":false},"cats":[1,49,36,47,9,38,48,27,22,29,35,41,42,62,28],"colike":{"sim":0.0217,"co":2436,"rank":155},"igdbSim":false},"815370":{"name":"Green Hell","zh":"绿色地狱","year":2019,"devs":["Creepy Jar"],"series":[],"pct":84,"reviews":80023,"free":false,"price":{"CN":{"final":8.7,"original":87.0,"disc":90,"low":8.0,"lowDate":"2025-12"},"US":{"final":2.79,"original":27.99,"disc":90,"low":2.49,"lowDate":"2025-12"}},"core":["生存","开放世界生存制作","多人","在线合作","开放世界","制作"],"tagW":{"生存":1.0,"开放世界生存制作":0.989,"多人":0.965,"在线合作":0.707,"开放世界":0.606,"制作":0.578,"动作":0.471,"基地建设":0.467,"单人":0.437,"合作":0.424},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,9,38,22,29,64,65,67,68,69,74,78,23,42,62,18],"colike":null,"igdbSim":false},"3146520":{"name":"WEBFISHING","zh":null,"year":2024,"devs":["lamedeveloper"],"series":[],"pct":97,"reviews":57411,"free":false,"price":{"CN":{"final":22.0,"original":22.0,"disc":0,"low":22.0,"lowDate":"2024-10"},"US":{"final":4.99,"original":4.99,"disc":0,"low":4.99,"lowDate":"2024-10"}},"core":["钓鱼","多人","休闲","可爱","角色自定义","生物收集","独立","在线合作"],"tagW":{"钓鱼":1.0,"多人":0.919,"休闲":0.873,"可爱":0.806,"角色自定义":0.723,"生物收集":0.648,"独立":0.619,"在线合作":0.568,"LGBTQ+":0.547,"3D":0.5},"horror":false,"cap":{"onlineCoop":null,"online":247.0,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,1,9,38,62],"colike":null,"igdbSim":false},"2141730":{"name":"Backrooms: Escape Together","zh":null,"year":2022,"devs":["Triiodide Studios"],"series":[],"pct":88,"reviews":42851,"free":false,"price":{"CN":{"final":42.0,"original":42.0,"disc":0,"low":17.6,"lowDate":"2022-10"},"US":{"final":9.99,"original":9.99,"disc":0,"low":3.99,"lowDate":"2022-10"}},"core":["多人","恐怖","在线合作","心理恐怖","生存恐怖","合作"],"tagW":{"多人":1.0,"恐怖":0.944,"在线合作":0.822,"心理恐怖":0.723,"生存恐怖":0.696,"合作":0.646,"氛围":0.482,"第一人称":0.466,"拟真":0.462,"抢先体验":0.443},"horror":true,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":6.0,"mmo":false,"mixed":false},"cats":[2,1,9,38,22,66,67,68,69,70,74,23,62,28,55,56,57,58,59],"colike":null,"igdbSim":false},"1336490":{"name":"Against the Storm","zh":"风暴之城 Against the Storm","year":2023,"devs":["Eremite Games"],"series":[],"pct":94,"reviews":33434,"free":false,"price":{"CN":{"final":29.7,"original":99.0,"disc":70,"low":29.7,"lowDate":"2025-12"},"US":{"final":8.99,"original":29.99,"disc":70,"low":8.99,"lowDate":"2025-12"}},"core":["策略","模拟","城市营造","基地建设","建造","大战略","管理","资源管理"],"tagW":{"策略":1.0,"模拟":0.991,"城市营造":0.987,"基地建设":0.979,"建造":0.976,"大战略":0.96,"管理":0.955,"资源管理":0.947,"殖民模拟":0.942,"历史":0.934},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,64,67,68,69,70,78,79,23,62],"colike":null,"igdbSim":false},"606150":{"name":"Moonlighter","zh":null,"year":2018,"devs":["Digital Sun Games"],"series":["Moonlighter"],"pct":82,"reviews":17335,"free":false,"price":{"CN":{"final":70.0,"original":70.0,"disc":0,"low":7.0,"lowDate":"2025-01"},"US":{"final":19.99,"original":19.99,"disc":0,"low":1.99,"lowDate":"2025-01"}},"core":["砍杀","像素图形","轻度 Rogue","迷宫探索","类 Rogue","动作类 Rogue","管理","角色扮演"],"tagW":{"砍杀":1.0,"像素图形":0.947,"轻度 Rogue":0.914,"迷宫探索":0.903,"类 Rogue":0.846,"动作类 Rogue":0.822,"管理":0.813,"角色扮演":0.811,"动作角色扮演":0.763,"冒险":0.751},"horror":false,"cap":{"onlineCoop":null,"online":null,"localCoop":null,"desc":null,"mmo":false,"mixed":false},"cats":[2,22,29,23,41,42,43,62,28],"colike":{"sim":0.0226,"co":505,"rank":136},"igdbSim":false}}};
+
+const G = (id) => DATA.games[id];
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const SEED = 1145360;
+const MY_LIB = { 1145360: 62, 105600: 140, 237930: 0, 728880: 9, 945360: 3, 548430: 0 };
+const LIB_COUNT = 186;
+const BUDGET = { solo: { CN: 60, US: 15 }, group: { CN: 50, US: 10 } };
+const CUR = { CN: "¥", US: "$" };
+const DELTA = 8;
+const ALPHA = 24.6, BETA = 5.4;
+const SHOW = 4;
+const STOP = new Set(["单人", "独立", "多人"]);
+const MECH = { rogue: ["动作类 Rogue", "类 Rogue", "轻度 Rogue"], base: ["基地建设", "殖民模拟", "管理", "城市营造"] };
+
+const COVERS = {
+  1145360: ["#7a1f1f", "#1d0b16"], 1145350: ["#3d2a6b", "#0f3b45"], 588650: ["#0f5e63", "#c9622a"], 646570: ["#8c1d2a", "#1c2547"],
+  632360: ["#3f7fb5", "#3a2a63"], 237930: ["#b4472d", "#183c45"], 311690: ["#4b3a2a", "#b5822b"], 107100: ["#6f8f3a", "#24402f"],
+  367520: ["#2b3a55", "#101622"], 1313140: ["#a3202b", "#1a0e14"], 2379780: ["#b83838", "#1e4f7a"], 462770: ["#6b4a8c", "#b8743a"],
+  1942280: ["#6f7f26", "#4a2e6b"], 1336490: ["#a8742a", "#2a4f6e"], 606150: ["#b87f2c", "#2d2f5e"],
+  105600: ["#3f8f3f", "#2f6fa8"], 3241660: ["#4a4f2a", "#b8601d"], 1621690: ["#2a3f7a", "#b88d2a"], 2709570: ["#178f9c", "#c99e2e"],
+  945360: ["#b42d28", "#151d3b"], 2141730: ["#7d6f28", "#2a2618"], 815370: ["#2f6b2f", "#14301c"], 3146520: ["#4b8fc4", "#5f9e82"],
+  548430: ["#5a4a2a", "#1e2f4a"], 1966720: ["#6f6236", "#20201a"], 322330: ["#6b5a3a", "#231c14"], 892970: ["#3a5f7a", "#18242e"],
+  648800: ["#2a72a8", "#a8874a"], 602960: ["#1f4a5a", "#0b1a22"], 427410: ["#3a6a5a", "#b5622a"], 1426210: ["#c44d36", "#3a62a6"],
+  728880: ["#d06c28", "#b33636"], 1016920: ["#36805a", "#b8932a"], 2001120: ["#5a3ab0", "#239494"], 1326470: ["#2f4a2f", "#120f0c"],
+  413150: ["#4f9a3a", "#8a5a2a"],
+};
+
+const MEMBERS0 = [
+  { id: "me", name: "我", hue: 1, steam: true },
+  { id: "jie", name: "阿杰", hue: 2, steam: true, own: [105600, 1621690, 892970], libCount: 92 },
+  { id: "yu", name: "小雨", hue: 3 },
+  { id: "zhou", name: "老周", hue: 4 },
+  { id: "mu", name: "木木", hue: 5 },
+];
+
+const SOLO_POOL = [
+  { id: 1145350, rel: .95, reason: "同一个工作室的正统续作。还是希腊神话、还是一局一局往下打，武器和祝福的组合更多，主角换成了墨利诺厄。" },
+  { id: 588650, rel: .91, reason: "推荐过《Hades》的玩家里，同时推荐它的人最多。同样是动作肉鸽，节奏更快，地图换成了横版的银河城结构。" },
+  { id: 646570, rel: .87, reason: "它是回合制的卡牌肉鸽，标签和《Hades》不太像，但喜欢《Hades》的玩家很多也推荐它。想换个思路玩肉鸽可以试试。" },
+  { id: 632360, rel: .85, reason: "同样是越打越强的动作肉鸽，换成了第三人称射击，最多 4 人联机。" },
+  { id: 237930, rel: .83, reason: "Supergiant 更早的作品。赛博朋克题材，剧情更重，战斗可以暂停下来规划招式，节奏比《Hades》慢。" },
+  { id: 311690, rel: .81, reason: "弹幕射击加动作肉鸽，一个房间一个房间地清，枪的种类很多。难度比《Hades》高。" },
+  { id: 107100, rel: .80, reason: "Supergiant 的第一款游戏，旁白会随你的操作实时解说。线性的动作 RPG，流程不长，没有肉鸽成分。" },
+  { id: 367520, rel: .79, reason: "推荐《Hades》的玩家常常也推荐它。手绘风横版探索，战斗要求高，地图很大。" },
+  { id: 1313140, rel: .77, reason: "一半是动作肉鸽地牢，一半是经营自己的教团营地。战斗比《Hades》简单，经营部分更花时间。" },
+  { id: 2379780, rel: .74, reason: "用扑克牌型组牌的肉鸽，一局二三十分钟。2024 年的新作，没有同好统计，主要看标签相似。" },
+  { id: 1942280, rel: .72, reason: "几分钟一局的竞技场肉鸽，自动射击，买装备堆数值。" },
+  { id: 462770, rel: .70, reason: "Supergiant 的作品，剧情和角色分量很重，玩法是 3 对 3 的仪式对抗，和《Hades》差别较大。" },
+];
+
+const MECH_POOL = [
+  { id: 1313140, rel: .94, reason: "在地牢里打肉鸽、收集资源，回到营地经营教团、盖建筑。两部分都是这款游戏的核心玩法，不是附带的小系统。" },
+  { id: 1336490, rel: .90, reason: "以城市建造为主。每一局在新地图上重建定居点，地图和可选建筑每次都不同，完成后带着成长进入下一轮。" },
+  { id: 606150, rel: .83, reason: "白天下地牢打怪捡货，晚上回店里定价卖货、升级小镇。经营比较轻，地牢战斗占大头。" },
+];
+
+const GROUP_ONLINE = [
+  { id: 105600, m: { me: 80, jie: 88, yu: 76, zhou: 72, mu: 84 }, reason: "大家进同一个世界，挖矿、盖房、打 Boss 可以自由分工，新手老手都有事做。" },
+  { id: 3241660, m: { me: 86, jie: 90, yu: 70, zhou: 88, mu: 78 }, reason: "一起把闹鬼的房子里值钱的东西搬出来，物理效果经常闹笑话。带恐怖元素，怕吓的人先说一声。" },
+  { id: 1621690, m: { me: 78, jie: 84, yu: 82, zhou: 68, mu: 86 }, reason: "像素风的地下探索。节奏慢，挖矿、种田、打 Boss 可以各干各的，适合边聊边玩。" },
+  { id: 2709570, m: { me: 70, jie: 68, yu: 86, zhou: 74, mu: 82 }, reason: "一起开超市：上货、收银、扩店。上手不用教，适合当热身。" },
+  { id: 945360, m: { me: 64, jie: 72, yu: 78, zhou: 80, mu: 70 }, reason: "社交推理，一局十几分钟。主要是互相找内鬼，聚会感强，合作成分少。" },
+  { id: 2141730, m: { me: 74, jie: 80, yu: 56, zhou: 82, mu: 62 }, reason: "第一人称恐怖解谜，人数上限来自商店介绍。适合喜欢被吓的小组。" },
+  { id: 815370, m: { me: 72, jie: 76, yu: 66, zhou: 78, mu: 70 }, reason: "" },
+  { id: 3146520, m: { me: 66, jie: 62, yu: 84, zhou: 60, mu: 86 }, reason: "" },
+  { id: 548430, m: { me: 92, jie: 88, yu: 70, zhou: 90, mu: 74 }, reason: "四人小队下矿打虫，职业分工明确，配合感很强。" },
+  { id: 1966720, m: { me: 88, jie: 90, yu: 64, zhou: 86, mu: 72 }, reason: "几个人去废弃星球捡破烂交差，恐怖又好笑。" },
+  { id: 322330, m: { me: 74, jie: 72, yu: 84, zhou: 66, mu: 88 }, reason: "一起在荒野里求生，季节和 Boss 逼着大家分工。" },
+  { id: 892970, m: { me: 90, jie: 84, yu: 78, zhou: 86, mu: 80 }, reason: "维京题材的生存建造，航海和打 Boss 都适合一群人。" },
+  { id: 648800, m: { me: 76, jie: 74, yu: 82, zhou: 72, mu: 86 }, reason: "在木筏上一起求生、扩建，节奏轻松。" },
+  { id: 427410, m: { me: 82, jie: 86, yu: 70, zhou: 84, mu: 72 }, reason: "地下科研设施里的合作生存，基地建设和探索都很扎实。" },
+  { id: 602960, m: { me: 72, jie: 82, yu: 54, zhou: 78, mu: 60 }, reason: "一起开潜艇，维修、导航、作战各管一摊。" },
+  { id: 1426210, m: { me: 90, jie: 86, yu: 88, zhou: 70, mu: 84 }, reason: "两人合作冒险，每关玩法都不一样。" },
+];
+
+const GROUP_LOCAL = [
+  { id: 728880, m: { me: 84, jie: 80, yu: 90, zhou: 76, mu: 88 }, reason: "几个人挤在一个厨房里切菜、端盘、灭火，越乱越好笑。" },
+  { id: 1942280, m: { me: 76, jie: 82, yu: 72, zhou: 78, mu: 80 }, reason: "几分钟一局，规则一看就懂。人数上限写在商店介绍里。" },
+  { id: 1016920, m: { me: 80, jie: 78, yu: 84, zhou: 74, mu: 86 }, reason: "一边铺铁轨一边砍树挖矿，火车不停往前开，手忙脚乱很热闹。" },
+  { id: 1426210, m: { me: 90, jie: 86, yu: 88, zhou: 70, mu: 84 }, reason: "两人合作冒险，每关玩法都不一样。" },
+  { id: 2001120, m: { me: 88, jie: 84, yu: 86, zhou: 72, mu: 82 }, reason: "两人合作，在科幻和奇幻世界之间切换。" },
+  { id: 1313140, m: { me: 78, jie: 74, yu: 80, zhou: 70, mu: 76 }, reason: "第二位玩家可以同屏加入地牢战斗。" },
+  { id: 311690, m: { me: 74, jie: 80, yu: 64, zhou: 78, mu: 66 }, reason: "第二位玩家可以同屏加入。" },
+];
+
+const PLACE = {
+  online: { label: "各自在家", chip: "各自在家在线", help: "每人一台电脑，在线联机。每人需要一份游戏，已经有的人不用买。" },
+  local: { label: "同一块屏幕前", chip: "同一块屏幕", help: "大家用一台电脑同屏玩，一台电脑一份游戏就够。" },
+  mixed: { label: "有人在一起", chip: "部分同屏 + 在线", help: "比如两个人在客厅同屏，其余人在线加入。需要游戏支持「分屏的同时在线联机」。" },
+};
+
+const EXAMPLES = {
+  solo: [
+    { text: "刚通关《哈迪斯》，还想要类似的" },
+    { text: "想要肉鸽 + 基地经营，别是换皮作" },
+    { text: "像《哈迪斯》那样的，¥60 以内，最好接近史低" },
+  ],
+  group: [
+    { text: "我们 5 个人各自在家，每人 ¥50 以内，想一起合作" },
+    { text: "4 个人在客厅同屏，轻松点的" },
+    { text: "5 个人在线开黑，有人怕恐怖，别推恐怖的" },
+  ],
+};
+
+const I = {
+  x: '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  arrow: '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.5 4L12.5 8l-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  ext: '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2.5h5v5M9.5 2.5l-7 7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+  check: '<svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 5.2l2 2L8 3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+};
+
+const state = {
+  mode: "solo",
+  scenario: "seed",
+  region: "CN",
+  connected: true,
+  text: EXAMPLES.solo[0].text,
+  conds: new Set(),
+  budget: null,
+  members: MEMBERS0.slice(),
+  place: "online",
+  dismissed: new Set(),
+  k: SHOW,
+  note: "",
+  loading: -1,
+  menu: false,
+  steamPop: false,
+  addingMember: false,
+};
+
+/* ---------- facts ---------- */
+function priceOf(id, region) { return G(id).price[region] || null; }
+function fmtNum(v) { return Number.isInteger(v) ? String(v) : String(Math.round(v * 100) / 100); }
+function money(v, region = state.region) {
+  if (v == null) return "价格未知";
+  if (v === 0) return "免费";
+  return CUR[region] + fmtNum(v);
+}
+function wan(n) { return n >= 10000 ? `${(n / 10000).toFixed(1).replace(/\.0$/, "")} 万` : n.toLocaleString("zh-CN"); }
+function owns(m, id, s) {
+  if (m.id === "me") return s.connected && id in MY_LIB;
+  return (m.own || []).includes(id);
+}
+function quality(id) {
+  const g = G(id);
+  const pos = g.reviews * g.pct / 100;
+  return (pos + ALPHA) / (g.reviews + ALPHA + BETA);
+}
+function priceScore(id, s) {
+  const p = priceOf(id, s.region);
+  if (!p || p.final == null || p.low == null) return 0.5;
+  if (p.final === 0) return 1;
+  const r = p.final / p.low;
+  if (r <= 1.05) return 1;
+  if (r >= 2) return 0;
+  return (2 - r) / 0.95;
+}
+function lowStatus(p) {
+  if (!p || p.final == null || p.final === 0) return null;
+  if (p.low == null) return { cls: "neutral", text: "史低未知" };
+  const r = p.final / p.low;
+  if (r <= 1.0001) return { cls: "good", text: "已是史低" };
+  if (r <= 1.05) return { cls: "good", text: "接近史低" };
+  return { cls: "neutral", text: `比史低高 ${Math.round((r - 1) * 100)}%` };
+}
+function capOf(g, local) {
+  const c = g.cap;
+  const igdb = local ? c.localCoop : c.onlineCoop;
+  if (igdb != null) return { n: igdb, src: "IGDB" };
+  if (c.desc != null) return { n: c.desc, src: "商店介绍" };
+  if (!local && c.mmo) return { n: 10, src: "大型多人标签" };
+  return null;
+}
+
+/* ---------- evaluation (pure, takes a state snapshot) ---------- */
+function cloneState(s) {
+  return { ...s, conds: new Set(s.conds), members: s.members.slice(), dismissed: new Set(s.dismissed) };
+}
+function rankList(items, s) {
+  const near = s.conds.has("nearLow"), prefOwned = s.conds.has("preferOwned");
+  const rest = items.map((x) => ({ ...x, q: quality(x.id), ps: priceScore(x.id, s) }));
+  const score = (x) => {
+    const parts = [[0.5, x.rel / 100], [0.3, x.q]];
+    if (near) parts.push([0.2, x.ps]);
+    const w = parts.reduce((a, [wt]) => a + wt, 0);
+    return parts.reduce((a, [wt, v]) => a + wt * v, 0) / w + (prefOwned && x.owned ? 0.2 : 0);
+  };
+  const out = [];
+  while (rest.length) {
+    const top = Math.max(...rest.map((x) => x.rel));
+    const win = rest.filter((x) => x.rel >= top - DELTA).sort((a, b) => score(b) - score(a));
+    out.push(win[0]);
+    rest.splice(rest.indexOf(win[0]), 1);
+  }
+  return out;
+}
+function evalSolo(s) {
+  const pool = s.scenario === "mech" ? MECH_POOL : SOLO_POOL;
+  const B = s.conds.has("budget") ? s.budget : null;
+  const ok = [], failed = [];
+  for (const e of pool) {
+    if (s.dismissed.has(e.id)) continue;
+    const g = G(e.id), p = priceOf(e.id, s.region);
+    const owned = s.connected && e.id in MY_LIB;
+    const rs = [];
+    if (s.conds.has("noHorror") && g.horror) rs.push({ k: "horror", t: "含恐怖元素" });
+    const cost = owned ? 0 : (p ? p.final : null);
+    if (B != null) {
+      if (cost == null) rs.push({ k: "price", t: "这个区取不到价格" });
+      else if (cost > B) rs.push({ k: "budget", t: `现价 ${money(cost, s.region)}，超出 ${money(B, s.region)}`, need: cost });
+    }
+    if (rs.length) failed.push({ e, rs });
+    else ok.push({ e, id: e.id, rel: e.rel * 100, owned });
+  }
+  return { ok: rankList(ok, s), pending: [], failed, poolSize: pool.length };
+}
+function evalGroup(s) {
+  const local = s.place === "local";
+  const pool = local ? GROUP_LOCAL : GROUP_ONLINE;
+  const n = s.members.length;
+  const B = s.conds.has("budget") ? s.budget : null;
+  const ok = [], pending = [], failed = [];
+  for (const e of pool) {
+    if (s.dismissed.has(e.id)) continue;
+    const g = G(e.id), p = priceOf(e.id, s.region);
+    const rs = [];
+    let unk = null, cap = null;
+    if (s.place === "mixed") {
+      if (!g.cap.mixed) rs.push({ k: "mode", t: "不支持一边同屏、一边在线的混合开局" });
+      else {
+        cap = capOf(g, false);
+        if (!cap) unk = "在线人数上限没有收录";
+        else if (n > cap.n) rs.push({ k: "cap", t: `在线合作最多 ${cap.n} 人，差 ${n - cap.n} 个位` });
+      }
+    } else {
+      const hasCat = local ? (g.cats.includes(39) || g.cats.includes(24)) : g.cats.includes(38);
+      if (!hasCat) rs.push({ k: "mode", t: local ? "没有同屏合作模式" : "没有在线合作模式" });
+      else {
+        cap = capOf(g, local);
+        if (!cap) {
+          if (n === 2) cap = { n: 2, src: "多人游戏至少支持 2 人" };
+          else unk = local ? "同屏人数上限没有收录" : "在线人数上限没有收录";
+        } else if (n > cap.n) {
+          if (cap.src === "IGDB") rs.push({ k: "cap", t: `${local ? "同屏" : "在线"}合作最多 ${cap.n} 人，差 ${n - cap.n} 个位` });
+          else unk = `${cap.src}写的是最多 ${cap.n} 人，比你们少`;
+        }
+      }
+    }
+    if (s.conds.has("noHorror") && g.horror) rs.push({ k: "horror", t: "含恐怖元素" });
+    const price = p ? p.final : null;
+    let pay;
+    if (local) {
+      const owner = s.members.find((m) => owns(m, e.id, s));
+      pay = [{ m: owner || s.members[0], own: !!owner, cost: owner ? 0 : price, single: true }];
+    } else {
+      pay = s.members.map((m) => ({ m, own: owns(m, e.id, s), cost: owns(m, e.id, s) ? 0 : price }));
+    }
+    const needBuy = pay.filter((x) => !x.own);
+    const total = needBuy.some((x) => x.cost == null) ? null : needBuy.reduce((a, x) => a + x.cost, 0);
+    if (B != null && needBuy.length) {
+      if (price == null) unk = unk || "这个区取不到价格";
+      else if (price > B) rs.push({ k: "budget", t: `${local ? "买一份要" : "每人要"} ${money(price, s.region)}，超出预算 ${money(B, s.region)}`, need: price });
+    }
+    const vals = s.members.filter((m) => e.m[m.id] != null).map((m) => e.m[m.id]);
+    const rel = vals.length ? 0.6 * avg(vals) + 0.4 * Math.min(...vals) : 50;
+    const item = { e, id: e.id, rel, cap, pay, total, owned: pay.some((x) => x.own), unk };
+    if (rs.length) failed.push({ e, rs });
+    else if (unk) pending.push(item);
+    else ok.push(item);
+  }
+  return { ok: rankList(ok, s), pending: pending.slice(0, 2), failed, poolSize: pool.length };
+}
+function evaluate(s) { return s.scenario === "group" ? evalGroup(s) : evalSolo(s); }
+
+function suggestions(s, res) {
+  const out = [];
+  const tryFix = (label, mod) => {
+    const t = cloneState(s);
+    mod(t);
+    const r = evaluate(t);
+    if (r.ok.length) out.push({ label, count: r.ok.length, mod });
+  };
+  const budgetOnly = res.failed.filter((f) => f.rs.every((r) => r.k === "budget"));
+  if (budgetOnly.length) {
+    const need = Math.min(...budgetOnly.map((f) => f.rs[0].need));
+    tryFix(`预算提到${s.scenario === "group" ? "每人 " : ""}${money(need, s.region)}`, (t) => { t.budget = need; });
+  }
+  if (s.scenario === "group") {
+    if (s.place !== "online") tryFix("改成大家各自在家、在线联机", (t) => { t.place = "online"; });
+    if (s.members.length > 2) {
+      const last = s.members[s.members.length - 1];
+      tryFix(`少 1 个人（${last.name}这次不参加）`, (t) => { t.members = t.members.slice(0, -1); });
+    }
+  }
+  if (s.conds.has("budget")) tryFix("先不设预算", (t) => { t.conds.delete("budget"); });
+  return out;
+}
+
+/* ---------- parsing free text (prototype stand-in for the LLM step) ---------- */
+const CN_NUM = { 两: 2, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8 };
+function applyText(text) {
+  const t = text.trim();
+  const notes = [];
+  const isGroup = /(\d+|[两二三四五六七八几])\s*个?\s*人|一起|朋友|联机|开黑|同屏|客厅/.test(t);
+  state.conds = new Set();
+  state.dismissed = new Set();
+  state.k = SHOW;
+  if (isGroup) {
+    if (state.mode !== "group") notes.push("听起来是几个人一起玩，已切到「和朋友一起」。");
+    state.mode = "group";
+    state.scenario = "group";
+    const mNum = t.match(/(\d+|[两二三四五六七八])\s*个?\s*人/);
+    let n = mNum ? (CN_NUM[mNum[1]] || parseInt(mNum[1], 10)) : 5;
+    n = Math.max(2, Math.min(8, n || 5));
+    const base = MEMBERS0.slice(0, Math.min(n, MEMBERS0.length));
+    for (let i = base.length; i < n; i++) base.push({ id: `g${i}`, name: `朋友${i + 1}`, hue: (i % 6) + 1 });
+    state.members = base;
+    state.place = /同屏|客厅|一台|沙发|电视/.test(t) ? "local" : "online";
+  } else {
+    state.mode = "solo";
+    const mech = /(肉鸽|rogue|类\s*rogue)/i.test(t) && /(基地|经营|建造|营地|殖民)/.test(t);
+    state.scenario = mech ? "mech" : "seed";
+    if (!mech && !/(哈迪斯|hades)/i.test(t)) notes.push("原型里只准备了《Hades》这一组示例数据，先用它演示。");
+  }
+  const mB = t.match(/[¥￥$]\s*(\d+)|(\d+)\s*(?:块|元|刀)/);
+  if (mB) {
+    state.conds.add("budget");
+    state.budget = parseInt(mB[1] || mB[2], 10);
+    if (/\$|刀/.test(mB[0]) !== (state.region === "US")) {
+      state.conds.delete("budget");
+      notes.push(`预算的币种和当前商店区（${state.region}）不一致，先没加预算。`);
+    }
+  }
+  if (/(不要|别|怕|不玩|不想).{0,6}恐怖/.test(t)) state.conds.add("noHorror");
+  if (/史低/.test(t)) state.conds.add("nearLow");
+  state.note = notes.join(" ");
+}
+
+/* ---------- rendering ---------- */
+const $ = (sel) => document.querySelector(sel);
+
+function renderSteam() {
+  const el = $("#steam");
+  let html;
+  if (state.connected) {
+    html = `<button class="steam-btn" data-act="steam" aria-expanded="${state.steamPop}"><span class="av sm" style="--h:var(--m1)">我</span><span>Steam<span class="lbl-long"> · 已连接</span></span></button>`;
+    if (state.steamPop) html += `<div class="pop" role="dialog" aria-label="Steam 账号">
+      <b>示例账号</b>
+      <p>从公开的游戏库读取了 ${LIB_COUNT} 款游戏。玩得最多的是 Terraria（140 小时）和 Hades（62 小时）。</p>
+      <p class="note">只读取公开的游戏库和游玩时长，不接触密码。</p>
+      <button class="link" data-act="steam-off" style="justify-self:start">断开</button>
+    </div>`;
+  } else {
+    html = `<button class="steam-btn off" data-act="steam" aria-expanded="${state.steamPop}">连接 Steam</button>`;
+    if (state.steamPop) html += `<form class="pop" data-form="steam" aria-label="连接 Steam">
+      <label for="steam-url"><b>粘贴 Steam 个人主页链接</b></label>
+      <input id="steam-url" placeholder="steamcommunity.com/id/…" style="border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px">
+      <p class="note">用来读取公开的游戏库：已有的游戏不再让你买，玩得多的游戏用来了解口味。库是私密的话，直接在问题里写你喜欢的游戏就行。</p>
+      <button class="send" type="submit" style="justify-self:start">连接</button>
+    </form>`;
+  }
+  el.innerHTML = html;
+}
+
+function renderAsk() {
+  const group = state.mode === "group";
+  $("#ask").innerHTML = `
+    <h1>${group ? "今晚一起玩什么？" : "今晚玩什么？"}</h1>
+    <p class="lede">${group
+      ? "说说有几个人、在哪玩、预算多少。只推荐大家都能开局的游戏，还会算好谁要买、谁不用买。"
+      : "说说你想要的感觉，或者刚玩完哪一款。推荐会讲清楚像在哪、差在哪，价格只摆事实。"}</p>
+    <div class="seg" role="group" aria-label="玩法">
+      <button data-mode="solo" aria-pressed="${!group}">我自己玩</button>
+      <button data-mode="group" aria-pressed="${group}">和朋友一起</button>
+    </div>
+    <form class="composer" data-form="ask">
+      <textarea id="q" rows="2" aria-label="你想玩什么" placeholder="${group ? "比如：我们 5 个人各自在家，每人 ¥50 以内" : "比如：刚通关《哈迪斯》，还想要类似的"}">${esc(state.text)}</textarea>
+      <button class="send" type="submit"><span class="lbl">推荐</span>${I.arrow}</button>
+    </form>
+    <div class="examples"><span>试试：</span>${EXAMPLES[state.mode].map((x, i) => `<button class="ex" data-ex="${i}">${esc(x.text)}</button>`).join("")}</div>`;
+}
+
+function condText(c) {
+  const group = state.scenario === "group";
+  if (c === "budget") return `${group ? "每人 " : ""}${money(state.budget)} 以内`;
+  if (c === "nearLow") return "尽量接近史低";
+  if (c === "noHorror") return "不要恐怖的";
+  if (c === "preferOwned") return group ? "优先库里有的" : "优先我已经有的";
+  return c;
+}
+function renderConds() {
+  const fixed = [];
+  if (state.scenario === "seed") fixed.push(state.connected ? "参考游戏：Hades（你玩了 62 小时）" : "参考游戏：Hades");
+  if (state.scenario === "mech") fixed.push("核心玩法：动作肉鸽 + 基地建设", "两种都要是核心玩法");
+  if (state.scenario === "group") fixed.push(`${state.members.length} 人 · ${PLACE[state.place].chip}`, "一起合作");
+  if (state.scenario !== "group" && state.connected) fixed.push("跳过玩过的");
+  const opts = ["budget", "nearLow", "noHorror", "preferOwned"];
+  const removable = opts.filter((c) => state.conds.has(c));
+  $("#conds").innerHTML = `
+    <div class="label-row"><span class="eyebrow">我理解的条件</span><span class="hint">点 × 去掉，或者加一条，结果马上更新</span></div>
+    <div class="chips">
+      ${fixed.map((t) => `<span class="chip fixed">${esc(t)}</span>`).join("")}
+      ${removable.map((c) => `<span class="chip">${esc(condText(c))}<button class="x" data-rm="${c}" aria-label="去掉条件：${esc(condText(c))}">${I.x}</button></span>`).join("")}
+      <span class="pop-wrap">
+        <button class="add" data-act="menu" aria-expanded="${state.menu}">+ 加条件</button>
+        ${state.menu ? `<div class="menu" role="menu">${opts.map((c) => {
+          const label = c === "budget" ? `${state.scenario === "group" ? "每人 " : ""}${money(BUDGET[state.scenario === "group" ? "group" : "solo"][state.region])} 以内` : condText(c);
+          return `<button role="menuitem" data-add="${c}" ${state.conds.has(c) ? "disabled" : ""}>${esc(label)}</button>`;
+        }).join("")}</div>` : ""}
+      </span>
+    </div>
+    ${state.note ? `<div class="notice">${esc(state.note)}</div>` : ""}`;
+}
+
+function memberStatus(m) {
+  if (m.id === "me") return state.connected ? `Steam · ${LIB_COUNT} 款` : "未连接 Steam";
+  if (m.steam) return `Steam · ${m.libCount} 款`;
+  return "访客";
+}
+function renderParty() {
+  const el = $("#party");
+  if (state.scenario !== "group") { el.innerHTML = ""; return; }
+  const n = state.members.length;
+  el.innerHTML = `<div class="party">
+    <div class="party-row">
+      <header><h2>一起玩的 ${n} 个人</h2><span class="hint">绑定 Steam 的人自动算已有的游戏，访客默认没有</span></header>
+      <div class="members">
+        ${state.members.map((m) => `<span class="member"><span class="av" style="--h:var(--m${m.hue})">${esc(m.name.slice(0, 1))}</span><span class="who">${esc(m.name)}<small>${esc(memberStatus(m))}</small></span>${m.id !== "me" ? `<button class="x" data-rm-member="${m.id}" aria-label="移除 ${esc(m.name)}">${I.x}</button>` : ""}</span>`).join("")}
+        ${state.addingMember
+          ? `<form class="add-member" data-form="member"><input id="new-member" aria-label="新成员的名字" placeholder="名字" maxlength="8" autocomplete="off"><button class="add" type="submit">加入</button></form>`
+          : (n < 8 ? `<button class="add" data-act="add-member">+ 加一个人</button>` : "")}
+      </div>
+    </div>
+    <div class="party-row">
+      <header><h2>在哪玩</h2></header>
+      <div class="seg" role="group" aria-label="在哪玩">
+        ${Object.entries(PLACE).map(([k, v]) => `<button data-place="${k}" aria-pressed="${state.place === k}">${v.label}</button>`).join("")}
+      </div>
+      <p class="place-help">${esc(PLACE[state.place].help)}</p>
+    </div>
+  </div>`;
+}
+
+function coverHtml(id, idx) {
+  const [c1, c2] = COVERS[id] || ["#3a4256", "#1a1e29"];
+  return `<div class="cover" style="--c1:${c1};--c2:${c2}" aria-hidden="true">${idx != null ? `<em>${idx + 1}</em>` : ""}<span>${esc(G(id).name)}</span></div>`;
+}
+function titleHtml(g, extra = "") {
+  const meta = [g.zh ? g.name : null, g.year, g.devs[0]].filter(Boolean).join(" · ");
+  return `<div><h3>${esc(g.zh || g.name)}</h3><div class="meta">${esc(meta)}${extra}</div></div>`;
+}
+function fitHtml(v, label = "契合度") {
+  const n = Math.round(v);
+  return `<div class="fit" title="综合玩法标签、同好数据和工作室算出的匹配程度，满分 100"><span class="num">${n}</span><span class="bar"><i style="width:${n}%"></i></span><span class="lbl">${label}</span></div>`;
+}
+function priceHtml(id) {
+  const p = priceOf(id, state.region);
+  if (!p || p.final == null) return `<div class="price"><span class="pill neutral">这个区取不到价格</span></div>`;
+  if (p.final === 0) return `<div class="price"><span class="now">免费</span></div>`;
+  const st = lowStatus(p);
+  return `<div class="price"><span class="now">${money(p.final)}</span>${p.disc ? `<span class="off">−${p.disc}%</span><span class="was">${money(p.original)}</span>` : ""}<span>史低 <span class="mono">${money(p.low)}</span>${p.lowDate ? ` · ${p.lowDate}` : ""}</span>${st ? `<span class="pill ${st.cls}">${st.text}</span>` : ""}</div>`;
+}
+function storeLink(id) {
+  return `<a class="link" href="https://store.steampowered.com/app/${id}/" target="_blank" rel="noopener">Steam 商店页 ${I.ext}</a>`;
+}
+function tagDiff(g, seed) {
+  const less = seed.core.filter((t) => !(t in g.tagW) && !STOP.has(t)).slice(0, 2);
+  const more = g.core.filter((t) => !(t in seed.tagW) && !STOP.has(t)).slice(0, 2);
+  const parts = [];
+  if (less.length) parts.push(`少了 ${less.join("、")}`);
+  if (more.length) parts.push(`多了 ${more.join("、")}`);
+  return parts.join("，") || "玩法标签几乎一致";
+}
+function mechTags(g) {
+  return ["rogue", "base"].map((k) => {
+    const hit = MECH[k].map((t) => [t, g.tagW[t]]).filter(([, w]) => w != null).sort((a, b) => b[1] - a[1])[0];
+    return hit ? `<span class="tag">${esc(hit[0])} ${Math.round(hit[1] * 100)}%</span>` : `<span class="tag dim">${k === "rogue" ? "肉鸽" : "基地经营"}：核心标签</span>`;
+  }).join("");
+}
+
+function soloCard(x, i) {
+  const g = G(x.id), seed = G(SEED);
+  const rows = [];
+  if (state.scenario === "mech") {
+    rows.push(["核心玩法", `${mechTags(g)}<span class="kind">标签票数相对值</span>`]);
+  } else {
+    const shared = g.core.filter((t) => seed.core.includes(t) && !STOP.has(t));
+    rows.push(["像在哪", shared.length ? shared.slice(0, 4).map((t) => `<span class="tag">${esc(t)}</span>`).join("") : `<span class="muted">玩法标签重合不多</span>`]);
+    rows.push(["差在哪", esc(tagDiff(g, seed))]);
+    if (g.colike) rows.push(["同好", `在 Kaggle 推荐数据里，同时推荐《Hades》和它的有 <span class="mono">${g.colike.co.toLocaleString("zh-CN")}</span> 人，在《Hades》的同好里排第 ${g.colike.rank}<span class="kind">事实</span>`]);
+    else if (g.igdbSim) rows.push(["同好", `${g.year} 年的新作没有同好统计，IGDB 把它列为《Hades》的相似游戏<span class="kind">事实</span>`]);
+    else if (g.year >= 2023) rows.push(["同好", `<span class="muted">${g.year} 年发行，同好数据不足</span>`]);
+    const sameDev = g.devs.filter((d) => seed.devs.includes(d));
+    const sameSeries = g.series.filter((s) => seed.series.includes(s));
+    if (sameDev.length || sameSeries.length) rows.push(["血统", [sameDev.length ? `同工作室 ${esc(sameDev[0])}` : "", sameSeries.length ? `同系列 ${esc(sameSeries[0])}` : ""].filter(Boolean).join(" · ") + `<span class="kind">事实</span>`]);
+  }
+  rows.push(["口碑", `<span class="mono">${g.pct}%</span> 好评 · ${wan(g.reviews)} 条评价<span class="kind">玩家评价</span>`]);
+  let lib = "";
+  if (state.connected) {
+    if (x.owned) lib = `<span class="pill good">${MY_LIB[x.id] > 0 ? `已拥有 · 玩了 ${MY_LIB[x.id]} 小时` : "已拥有 · 还没玩过"}</span>`;
+    else lib = `<span class="pill neutral">未拥有</span>`;
+  }
+  return `<article class="card">
+    ${coverHtml(x.id, i)}
+    <div class="card-main">
+      <div class="card-top">${titleHtml(g)}${fitHtml(x.rel)}</div>
+      <p class="reason">${esc(x.e.reason)}</p>
+      <dl class="facts">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+      <div class="card-foot">
+        ${priceHtml(x.id)}
+        <div class="actions">${lib}${storeLink(x.id)}<button class="link" data-dismiss="${x.id}">换掉这款</button></div>
+      </div>
+    </div>
+  </article>`;
+}
+
+function groupCard(x, i) {
+  const g = G(x.id);
+  const local = state.place === "local";
+  const n = state.members.length;
+  const scored = state.members.map((m) => ({ m, v: x.e.m[m.id] }));
+  const vals = scored.filter((s) => s.v != null).map((s) => s.v);
+  const minV = vals.length ? Math.min(...vals) : null;
+  const fits = scored.map(({ m, v }) => v == null
+    ? `<span class="mfit none" title="${esc(m.name)}没有偏好数据，不参与打分"><span class="av sm" style="--h:var(--m${m.hue})">${esc(m.name.slice(0, 1))}</span>—</span>`
+    : `<span class="mfit ${v === minV && vals.length > 1 ? "low" : ""}" title="${esc(m.name)}的契合度"><span class="av sm" style="--h:var(--m${m.hue})">${esc(m.name.slice(0, 1))}</span>${v}</span>`).join("");
+  const capText = x.cap ? `${local ? "同屏合作" : "在线合作"} · 最多 ${x.cap.n} 人` : (local ? "同屏合作" : "在线合作");
+  const owner = x.pay.find((p) => p.own);
+  const host = owner ? owner.m : state.members[0];
+  const steps = local
+    ? [`用${host.name}的电脑打开游戏`,"同屏多人通常每人需要一个手柄，支持情况以游戏说明为准", "分屏还是同屏、怎么分配角色，以游戏内设置为准"]
+    : [`${host.name}打开游戏并建房`, `用 Steam 好友邀请其他 ${n - 1} 人`, "房间设置和中途加入以游戏内说明为准"];
+  const payRows = local
+    ? (x.pay[0].own
+      ? `<div><span>一台电脑一份</span><span class="own">${esc(x.pay[0].m.name)}已有</span></div>`
+      : `<div><span>一台电脑一份，${esc(x.pay[0].m.name)}来买</span><span class="mono">${money(x.pay[0].cost)}</span></div>`)
+    : x.pay.map((p) => `<div><span>${esc(p.m.name)}</span>${p.own ? `<span class="own">已有</span>` : `<span class="mono">${money(p.cost)}</span>`}</div>`).join("");
+  return `<article class="card">
+    ${coverHtml(x.id, i)}
+    <div class="card-main">
+      <div class="card-top">${titleHtml(g)}${fitHtml(x.rel, "大家的契合度")}</div>
+      <div class="mode-row"><span class="pill accent">${esc(capText)}</span>${x.cap ? `<span class="hint">人数来源：${esc(x.cap.src)}</span>` : ""}</div>
+      <p class="reason">${esc(x.e.reason)}</p>
+      <dl class="facts">
+        <div><dt>每个人</dt><dd><div class="who-fit">${fits}</div></dd></div>
+        <div><dt>口碑</dt><dd><span class="mono">${g.pct}%</span> 好评 · ${wan(g.reviews)} 条评价<span class="kind">玩家评价</span></dd></div>
+      </dl>
+      <div class="plan">
+        <div><h4>怎么开局</h4><ol>${steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol></div>
+        <div><h4>谁买谁免</h4><div class="pay">${payRows}<div class="total"><span>团队新增</span><span class="mono">${x.total == null ? "价格未知" : money(x.total)}</span></div></div></div>
+      </div>
+      <p class="src">来源：模式 Steam 官方分类 · 人数 ${esc(x.cap ? x.cap.src : "—")} · 价格 Steam 商店 / IsThereAnyDeal · 取数 2026-10</p>
+      <div class="card-foot">
+        ${priceHtml(x.id)}
+        <div class="actions">${storeLink(x.id)}<button class="link" data-dismiss="${x.id}">换掉这款</button></div>
+      </div>
+    </div>
+  </article>`;
+}
+
+function pendingHtml(list) {
+  if (!list.length) return "";
+  const n = state.members.length;
+  return `<div class="sub-head"><h3>待确认</h3><span class="hint">缺一项事实，不放进推荐，买之前请自己确认</span></div>
+    ${list.map((x) => {
+      const g = G(x.id);
+      return `<div class="pend">
+        <h4>${esc(g.zh || g.name)} <span class="pill warn">${esc(x.unk)}</span></h4>
+        ${priceHtml(x.id)}
+        <p>Steam 标着支持${state.place === "local" ? "同屏" : "在线"}合作，但能不能 ${n} 个人一起玩，数据源里没有准确数字。去商店页或游戏说明确认一下。</p>
+      </div>`;
+    }).join("")}`;
+}
+function failedHtml(list) {
+  if (!list.length) return "";
+  return `<details class="failed"><summary>没通过的 ${list.length} 款，看看为什么</summary>
+    ${list.map((f) => {
+      const g = G(f.e.id);
+      return `<div class="fail-row"><span>${esc(g.zh || g.name)}</span><span class="why">${f.rs.map((r) => `<span class="pill ${r.k === "budget" ? "warn" : "bad"}">${esc(r.t)}</span>`).join("")}</span></div>`;
+    }).join("")}
+  </details>`;
+}
+
+const STEPS = ["理解你的要求", "检查能不能玩", "找候选游戏", "排序", "写推荐理由"];
+function renderResults() {
+  const el = $("#results");
+  if (state.loading >= 0) {
+    el.innerHTML = `<div class="panel" role="status"><h3>正在挑选</h3>${STEPS.map((s, i) => `<div class="step ${i < state.loading ? "done" : i === state.loading ? "now" : ""}"><span class="dot">${i < state.loading ? I.check : ""}</span>${s}</div>`).join("")}</div>`;
+    return;
+  }
+  const res = evaluate(state);
+  const group = state.scenario === "group";
+  const n = state.members.length;
+  let head;
+  if (group) head = state.place === "local" ? `适合 ${n} 个人同屏玩` : state.place === "mixed" ? `适合你们 ${n} 个人混合开局` : `适合你们 ${n} 个人一起玩`;
+  else head = state.scenario === "mech" ? "肉鸽和基地经营都是核心玩法的游戏" : "像《Hades》的下一款";
+  const shown = res.ok.slice(0, state.k);
+  const funnel = `<div class="funnel"><span>示例候选 <b>${res.poolSize}</b> 款</span><span aria-hidden="true">→</span><span>符合条件 <b>${res.ok.length}</b></span>${group ? `<span aria-hidden="true">·</span><span>待确认 <b>${res.pending.length}</b></span>` : ""}<span aria-hidden="true">→</span><span>推荐 <b>${shown.length}</b></span></div>`;
+  let body;
+  if (!res.ok.length) {
+    const fixes = suggestions(state, res);
+    state._fixes = fixes;
+    body = `<div class="panel">
+      <h3>按现在的条件，没有${group ? "能开局" : "合适"}的游戏</h3>
+      <p>${group ? "人数、开局方式和预算一起卡住了。" : "预算把候选都排除了。"}${fixes.length ? "改下面任意一条就有得选，内容雷区不会被放宽：" : "可以去掉一些条件再试。"}</p>
+      ${fixes.map((f, i) => `<button class="fix" data-fix="${i}"><span>${esc(f.label)}</span><b>${f.count} 款可以玩</b></button>`).join("")}
+    </div>`;
+  } else {
+    body = `<div class="cards">${shown.map((x, i) => group ? groupCard(x, i) : soloCard(x, i)).join("")}</div>
+      ${res.ok.length > shown.length ? `<button class="more" data-act="more">再看 ${Math.min(2, res.ok.length - shown.length)} 款</button>` : ""}`;
+  }
+  el.innerHTML = `<div class="res-head"><h2>${esc(head)}</h2>${funnel}</div>${body}${group ? pendingHtml(res.pending) : ""}${failedHtml(res.failed)}`;
+}
+
+function renderAll() { renderSteam(); renderConds(); renderParty(); renderResults(); }
+function refresh() {
+  state.menu = false;
+  renderConds();
+  renderParty();
+  const el = $("#results");
+  if (reduceMotion) { renderResults(); return; }
+  el.classList.add("refresh");
+  setTimeout(() => { renderResults(); el.classList.remove("refresh"); }, 160);
+}
+function run() {
+  state.menu = false;
+  renderAsk();
+  renderConds();
+  renderParty();
+  if (reduceMotion) { state.loading = -1; renderResults(); return; }
+  state.loading = 0;
+  renderResults();
+  const tick = () => {
+    state.loading += 1;
+    if (state.loading >= STEPS.length) { state.loading = -1; renderResults(); return; }
+    renderResults();
+    setTimeout(tick, 220);
+  };
+  setTimeout(tick, 220);
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", (ev) => {
+  const t = ev.target.closest("button, a");
+  if (!t) {
+    if (state.menu || state.steamPop) {
+      if (!ev.target.closest(".pop, .menu")) { state.menu = false; state.steamPop = false; renderConds(); renderSteam(); }
+    }
+    return;
+  }
+  const d = t.dataset;
+  if (d.mode) {
+    if (d.mode === state.mode) return;
+    state.text = EXAMPLES[d.mode][0].text;
+    applyText(state.text);
+    state.note = "";
+    run();
+    return;
+  }
+  if (d.ex != null) {
+    state.text = EXAMPLES[state.mode][+d.ex].text;
+    applyText(state.text);
+    run();
+    return;
+  }
+  if (d.rm) { state.conds.delete(d.rm); state.note = ""; refresh(); return; }
+  if (d.add) {
+    state.conds.add(d.add);
+    if (d.add === "budget") state.budget = BUDGET[state.scenario === "group" ? "group" : "solo"][state.region];
+    refresh();
+    return;
+  }
+  if (d.rmMember) { state.members = state.members.filter((m) => m.id !== d.rmMember); refresh(); return; }
+  if (d.place) { state.place = d.place; refresh(); return; }
+  if (d.dismiss) { state.dismissed.add(+d.dismiss); refresh(); return; }
+  if (d.fix != null) {
+    const f = state._fixes && state._fixes[+d.fix];
+    if (f) { f.mod(state); state.note = `已按建议调整：${f.label}`; refresh(); }
+    return;
+  }
+  switch (d.act) {
+    case "menu": state.menu = !state.menu; state.steamPop = false; renderConds(); renderSteam(); break;
+    case "more": state.k += 2; renderResults(); break;
+    case "add-member": state.addingMember = true; renderParty(); $("#new-member")?.focus(); break;
+    case "steam": state.steamPop = !state.steamPop; state.menu = false; renderSteam(); renderConds(); if (state.steamPop) $("#steam-url")?.focus(); break;
+    case "steam-off": state.connected = false; state.steamPop = false; renderAll(); break;
+  }
+});
+
+document.addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  const f = ev.target.dataset.form;
+  if (f === "ask") {
+    const v = $("#q").value.trim();
+    if (!v) { $("#q").focus(); return; }
+    state.text = v;
+    applyText(v);
+    run();
+  } else if (f === "member") {
+    const v = $("#new-member").value.trim();
+    state.addingMember = false;
+    if (v) {
+      const used = new Set(state.members.map((m) => m.hue));
+      const hue = [1, 2, 3, 4, 5, 6].find((h) => !used.has(h)) || 6;
+      state.members.push({ id: `g${Date.now()}`, name: v, hue });
+    }
+    refresh();
+  } else if (f === "steam") {
+    state.connected = true;
+    state.steamPop = false;
+    renderAll();
+  }
+});
+
+document.addEventListener("keydown", (ev) => {
+  if (ev.target.id === "q" && ev.key === "Enter" && !ev.shiftKey && !ev.isComposing) {
+    ev.preventDefault();
+    ev.target.form.requestSubmit();
+  }
+  if (ev.key === "Escape" && (state.menu || state.steamPop || state.addingMember)) {
+    state.menu = false; state.steamPop = false; state.addingMember = false;
+    renderAll();
+  }
+});
+
+$("#region").addEventListener("change", (ev) => {
+  state.region = ev.target.value;
+  if (state.conds.has("budget")) {
+    state.conds.delete("budget");
+    state.note = "预算按商店区的币种设置，切换商店区后已移除，需要的话重新加一条。";
+  } else state.note = "";
+  refresh();
+});
+
+applyText(state.text);
+state.note = "";
+renderAsk();
+renderAll();
+</script>
+</body>
+</html>

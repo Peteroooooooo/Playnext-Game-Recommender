@@ -1,0 +1,24 @@
+# Local PostgreSQL for the knowledge base. Credentials come from .env (PGDATABASE / PGUSER / PGPASSWORD / PGPORT).
+# Start: docker compose up -d    Stop: docker compose stop    Wipe all data: docker compose down -v
+services:
+  db:
+    image: postgres:16.15-alpine
+    container_name: playnext-db
+    environment:
+      POSTGRES_DB: ${PGDATABASE}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+    ports:
+      - "127.0.0.1:${PGPORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    name: playnext-pgdata
