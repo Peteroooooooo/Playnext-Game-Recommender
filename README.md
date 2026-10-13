@@ -5,7 +5,9 @@ Design document: [docs/Core_Technical_Skeleton.md](docs/Core_Technical_Skeleton.
 
 ## Setup
 
-- Python 3.12 with pandas, pyarrow, numpy, scipy.
+- Install [uv](https://docs.astral.sh/uv/), then run `uv sync` in the repo root. It creates `.venv` with
+  Python 3.12 and the exact versions in `uv.lock` (on Windows / Linux this includes CUDA torch, about 3 GB).
+  Run everything through `uv run`, e.g. `uv run python scripts/check_keys.py`.
 - Create `.env` in the repo root (never committed):
 
   ```
@@ -13,14 +15,23 @@ Design document: [docs/Core_Technical_Skeleton.md](docs/Core_Technical_Skeleton.
   TWITCH_CLIENT_ID=...
   TWITCH_CLIENT_SECRET=...
   ITAD_API_KEY=...
+  LLM_BASE_URL=...   # OpenAI-compatible endpoint, ending in /v1
+  LLM_API_KEY=...
+  LLM_MODEL=gemini-3.8-flash-anti
+  PGHOST=127.0.0.1
+  PGPORT=5432
+  PGDATABASE=playnext
+  PGUSER=playnext
+  PGPASSWORD=...     # any local password
   ```
 
   The Twitch access token for IGDB is fetched automatically and cached in `.cache/`.
-- `python scripts/check_keys.py` checks all three keys.
+- `uv run python scripts/check_keys.py` checks the Steam, IGDB and ITAD keys.
+- `docker compose up -d` starts the local PostgreSQL 16 (bound to 127.0.0.1, data in the `playnext-pgdata` volume).
 
 ## Data pipeline
 
-Run from the repo root, in order. Every step caches its raw pulls under `data/raw/`,
+Run from the repo root with `uv run python scripts/<script>`, in order. Every step caches its raw pulls under `data/raw/`,
 so re-running skips what is already there. `data/` and `.cache/` are git-ignored.
 
 | Step | Script | Output |
@@ -29,12 +40,20 @@ so re-running skips what is already there. `data/` and `.cache/` are git-ignored
 | 2 | `fetch_steam_items.py` | `data/raw/steam_items/` — tags, categories, reviews, CN/US prices, descriptions (EN/ZH), ratings |
 | 3 | `fetch_igdb.py` | `data/raw/igdb/` — player counts, series, companies, similar games, time to beat |
 | 4 | `fetch_itad.py` | `data/raw/itad/` — Steam-store historical lows for CN and US |
-| 5 | download Kaggle "Game Recommendations on Steam" to `data/raw/kaggle_recs/archive.zip` | — |
-| 6 | `build_colike_kaggle.py` | `data/derived/colike_kaggle.parquet`, `eval_kaggle_test.parquet` |
-| 7 | `fetch_appreviews.py trial` (optional, not used) | `data/raw/appreviews/` — recent positive reviews, reviewer IDs salted-hashed. Trial showed the co-like signal is too sparse; new games use IGDB similar games instead. Single connection only (parallel requests get HTTP 429). |
-| 8 | `build_processed.py` | `data/processed/*.parquet` — normalised tables |
+| 5 | `build_processed.py` | `data/processed/*.parquet` — normalised tables |
+| 6 | download Kaggle "steam-reviews-100m" (sergiodelcarpio, MIT) with `uvx --from kaggle==2.2.4 kaggle datasets download -d sergiodelcarpio/steam-reviews-100m` (11.9 GB zip; token in `~/.kaggle/access_token`) and extract it to `data/raw/kaggle_reviews100m/extracted/` | — |
+| 7 | `fetch_reviews_increment.py plan`, `run 160`, then always `repair` | `data/raw/steam_reviews_increment/reviews/` — reviews after the Kaggle scrape and games Kaggle lacks; needs a local rotating SOCKS5 proxy (`PLAYNEXT_PROXY`, default `socks5h://127.0.0.1:17892`) |
+| 8 | `fill_kaggle_gaps.py measure`, `nonsteam`, `steam` | `data/raw/steam_reviews_increment/kaggle_gaps/` — non-Steam-purchase reviews and the games Kaggle cut short |
+| 9 | `build_reviews_merged.py` (about 18 min) | `data/derived/reviews_merged/` — 161M reviews deduplicated by review id |
+| 10 | `build_review_tables.py` (about 2 min) | `data/derived/ease_reviews100m.npz`, `colike_reviews100m.parquet`, `playtime_reference_100m.parquet`, `eval_reviews100m_test.parquet` |
 
-Diagnostics: `kaggle_stats.py`, `kaggle_coverage.py`, `igdb_mp_coverage.py`, `desc_player_count.py`.
+Reviewer Steam IDs are keyed-hashed in memory as soon as they are read and never written. The full review pipeline is
+recorded in [docs/Review_Data_Pipeline.md](docs/Review_Data_Pipeline.md).
+
+Evaluation and simulation: `eval_ease.py [N] [M]`, `playtime_signal.py`, `simulate_inputs.py`, `demo_walkthrough.py`.
+Diagnostics: `igdb_mp_coverage.py`, `rate_limit_probe.py`, `diagnose_short_games.py`, `diagnose_paging.py`,
+`diagnose_empty_pages.py`.
 
 Data sources: Steam store and review endpoints, Steam Web API, IGDB (non-commercial use),
-IsThereAnyDeal, Kaggle dataset by Anton Kozyriev (CC0). Price data courtesy of IsThereAnyDeal.
+IsThereAnyDeal, Kaggle "steam-reviews-100m" by sergiodelcarpio (MIT; co-like, playtime reference and evaluation).
+Price data courtesy of IsThereAnyDeal.
