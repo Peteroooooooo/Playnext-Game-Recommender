@@ -6,10 +6,12 @@ Prints a coverage summary at the end.
 Usage: python scripts/build_processed.py
 """
 import json
+import re
 from datetime import datetime, timezone
 
 import pandas as pd
 
+from build_aliases import norm
 from check_keys import ROOT
 from desc_player_count import clean, extract_max_players
 
@@ -17,6 +19,14 @@ RAW = ROOT / "data" / "raw"
 OUT = ROOT / "data" / "processed"
 CORE_TAG_RATIO = 0.5
 PC_PLATFORM = 6
+STORE_TYPES = {1: "试玩版", 6: "软件", 14: "旧版跳转页 / 广告页"}  # Steam store item types; 0 = game
+NOT_STANDALONE = re.compile(r"(?i)dedicated server|test server|free trial")
+PROLOGUE = re.compile(r"(?i)[\s:：\-–]*\b(christmas\s+)?prologue\b(\s*\(\d{4}\))?")
+# Steam's schinese tag list returns the English name for these; 4X, 2D, 3D, 2.5D, TrackIR, LGBTQ+ stay as they are
+TAG_ZH_FILL = {"Dog": "狗", "Unforgiving": "严苛", "Rail Shooter": "轨道射击", "Kids": "儿童", "Assassin": "刺客",
+               "Blood": "血液", "Dwarf": "矮人", "Boss Rush": "头目连战", "Conversation": "对话", "Pool": "台球",
+               "Fox": "狐狸", "Combat Flight Simulator": "空战模拟", "Sexual Themes": "性主题", "Coding": "编程",
+               "Jet": "喷气机", "Elf": "精灵", "ATV": "全地形车", "Snooker": "斯诺克", "Clicker": "点击"}
 CAT_GROUPS = {"supported_player_categoryids": "player", "feature_categoryids": "feature",
               "controller_categoryids": "controller"}
 
@@ -37,19 +47,31 @@ def cents(x):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     cn, zh, us = load_pass("cn_en"), load_pass("cn_zh"), load_pass("us")
+    us_en, us_zh = load_pass("us_en"), load_pass("us_zh")
     tags_en = {t["tagid"]: t["name"] for t in json.loads((RAW / "steam_tags_english.json").read_text(encoding="utf-8"))}
     tags_zh = {t["tagid"]: t["name"] for t in json.loads((RAW / "steam_tags_schinese.json").read_text(encoding="utf-8"))}
+    tags_zh.update({k: TAG_ZH_FILL[v] for k, v in tags_en.items() if v in TAG_ZH_FILL and tags_zh.get(k) in (None, v)})
     mmo_tag = next(k for k, v in tags_en.items() if v.lower() == "massively multiplayer")
 
-    games, gtags, gcats, descs, prices = [], [], [], [], []
+    games, gtags, gcats, descs, prices, excluded = [], [], [], [], [], []
     for a, it in cn.items():
+        cn_blocked = bool(it.get("unvailable_for_country_restriction"))
+        z = zh.get(a, {})
+        if cn_blocked:  # not sold in CN: take store data from the US store instead
+            it, z = us_en.get(a, it), us_zh.get(a, {})
+        if it.get("type") != 0:
+            excluded.append({"appid": a, "name": it.get("name"), "type": it.get("type"),
+                             "reason": STORE_TYPES.get(it.get("type"), "两个区的商店都没有数据")})
+            continue
         bi = it.get("basic_info") or {}
         rv = (it.get("reviews") or {}).get("summary_filtered") or {}
         pf = it.get("platforms") or {}
         rating = it.get("game_rating") or {}
         ts = (it.get("release") or {}).get("steam_release_date")
+        name_zh = z.get("name")
         games.append({
-            "appid": a, "name": it.get("name"), "type": it.get("type"),
+            "appid": a, "name": it.get("name"), "name_zh": name_zh if name_zh and name_zh != it.get("name") else None,
+            "cn_blocked": cn_blocked, "store_region": "US" if cn_blocked else "CN",
             "release_year": datetime.fromtimestamp(ts, timezone.utc).year if ts else None,
             "review_count": rv.get("review_count"), "pct_positive": rv.get("percent_positive"),
             "is_free": bool(it.get("is_free")),
@@ -73,10 +95,9 @@ def main():
                 gcats.append({"appid": a, "category_id": c, "group": grp})
         descs.append({"appid": a, "lang": "en", "short": bi.get("short_description", ""),
                       "full": clean(it.get("full_description_bbcode", ""))})
-        z = zh.get(a, {})
         descs.append({"appid": a, "lang": "zh", "short": (z.get("basic_info") or {}).get("short_description", ""),
                       "full": clean(z.get("full_description_bbcode", ""))})
-        for region, src in (("CN", it), ("US", us.get(a, {}))):
+        for region, src in (("CN", cn[a]), ("US", us.get(a, {}))):
             bp = src.get("best_purchase_option") or {}
             prices.append({"appid": a, "region": region,
                            "final": cents(bp.get("final_price_in_cents")),
@@ -84,7 +105,24 @@ def main():
                            "discount_pct": bp.get("discount_pct", 0), "is_free": bool(it.get("is_free"))})
 
     games = pd.DataFrame(games)
+    # Steam files these as games, but they are a server tool, a test build, a trial, or a prologue whose full game
+    # is also in the library
+    full = set(games["name"].map(norm))
+    drop = {}
+    for a, n in zip(games["appid"], games["name"]):
+        if NOT_STANDALONE.search(n):
+            drop[a] = "服务器 / 测试服 / 试用版"
+        elif PROLOGUE.search(n) and norm(PROLOGUE.sub("", n)) in full:
+            drop[a] = "序章（完整版也在库里）"
+    excluded += [{"appid": a, "name": n, "type": 0, "reason": drop[a]} for a, n in zip(games["appid"], games["name"]) if a in drop]
+    games = games[~games["appid"].isin(drop)].reset_index(drop=True)
+    keep = set(games["appid"])
+    gtags, gcats = [r for r in gtags if r["appid"] in keep], [r for r in gcats if r["appid"] in keep]
+    descs, prices = [r for r in descs if r["appid"] in keep], [r for r in prices if r["appid"] in keep]
     gtags = pd.DataFrame(gtags)
+    excluded = pd.DataFrame(excluded)
+    excluded.to_parquet(OUT / "excluded_apps.parquet", index=False)
+    print(f"excluded {len(excluded)}: {excluded['reason'].value_counts().to_dict()}")
     pd.DataFrame([{"tagid": k, "name_en": v, "name_zh": tags_zh.get(k)} for k, v in tags_en.items()]).to_parquet(OUT / "tags.parquet", index=False)
     pd.DataFrame(gcats).to_parquet(OUT / "game_categories.parquet", index=False)
     pd.DataFrame(descs).to_parquet(OUT / "descriptions.parquet", index=False)
@@ -110,8 +148,10 @@ def main():
     # IGDB
     ext = json.loads((RAW / "igdb" / "external_games.json").read_text(encoding="utf-8"))
     app2g = {}
+    keep = set(games["appid"])
     for r in ext:
-        app2g.setdefault(int(r["uid"]), r["game"])
+        if int(r["uid"]) in keep:
+            app2g.setdefault(int(r["uid"]), r["game"])
     g2app = {}
     for app, g in app2g.items():
         g2app.setdefault(g, []).append(app)
