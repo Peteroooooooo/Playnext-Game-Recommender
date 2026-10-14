@@ -4,7 +4,7 @@ Example user (made up): a Steam library + one sentence. Shows every intermediate
 anchor weights (playtime percentile), each channel's raw similarity and the anchor it came from,
 min-max normalisation, the weighted fusion, then the Step 4 window + quality + MMR pick.
 Channel weights, the 50/50 split inside the description channel and the lineage rule are demo values,
-not tuned. The description channel uses Qwen3-Embedding-4B from .cache/models (vectors cached under .cache/).
+not tuned. The description channel uses the English vectors from build_desc_embeddings.py (Qwen3-Embedding-4B).
 Usage: uv run python scripts/demo_walkthrough.py
 """
 import sys
@@ -23,9 +23,9 @@ FEEL_WEIGHT = float(sys.argv[1]) if len(sys.argv) > 1 else 0.25
 DELTA, TOP_SHOW, PICK = 0.10, 10, 5
 ALPHA, BETA = 24.6, 5.4  # placeholder Beta prior from the design doc
 MODEL = ROOT / ".cache" / "models" / "Qwen3-Embedding-4B"
-EMB_CACHE = ROOT / ".cache" / "demo_desc_emb_en_512.npz"
 PROC = ROOT / "data" / "processed"
 DER = ROOT / "data" / "derived"
+DESC_EMB = DER / "desc_emb_qwen3_4b.npz"
 
 
 def anchor_weights(names):
@@ -55,18 +55,11 @@ def tag_matrix(appids):
     return M
 
 
-def desc_vectors(appids, texts):
-    if EMB_CACHE.exists():
-        z = np.load(EMB_CACHE)
-        if np.array_equal(z["appids"], appids):
-            return z["emb"]
-    import torch
-    from sentence_transformers import SentenceTransformer
-    m = SentenceTransformer(str(MODEL), model_kwargs={"torch_dtype": torch.float16}, tokenizer_kwargs={"padding_side": "left"})
-    m.max_seq_length = 512
-    emb = m.encode(texts, batch_size=16, normalize_embeddings=True, show_progress_bar=True).astype(np.float32)
-    np.savez(EMB_CACHE, appids=appids, emb=emb)
-    return emb
+def desc_vectors(appids):
+    """English vectors from build_desc_embeddings.py, in the order of appids."""
+    z = np.load(DESC_EMB)
+    row = {a: i for i, a in enumerate(z["appids"])}
+    return z["en"][[row[a] for a in appids]].astype(np.float32)
 
 
 def encode_query(text):
@@ -107,7 +100,7 @@ def main():
     T = tag_matrix(appids)
     tag_raw, tag_hit = weighted_max(T[ai] @ T[ci].T, wv)
 
-    E = desc_vectors(appids, [text[a] for a in appids])
+    E = desc_vectors(appids)
     q = encode_query(SENTENCE)
     d_anchor, d_hit = weighted_max(E[ai] @ E[ci].T, wv)
     d_pref = E[ci] @ q

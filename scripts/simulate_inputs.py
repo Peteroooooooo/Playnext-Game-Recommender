@@ -4,14 +4,14 @@ Each path runs Steps 1-4 of the design (understand -> hard filter -> score -> ra
 intermediate number into .cache/simulate_inputs.json, which docs/data_overview.html quotes.
 What is simulated rather than real:
   - the Steam library is made up (no real SteamID is queried); GetOwnedGames is mocked with the same JSON shape;
-  - prices come from the 2026-10 snapshot, not a live query; there is no seed alias table yet, so the LLM's
-    English title is matched against store names;
+  - prices come from the 2026-10 snapshot, not a live query; seed titles are resolved with the alias table
+    (build_aliases.py);
   - channel weights, delta and the Beta prior are demo values, not tuned.
 Library rule (design 4.1, 2026-10-14): only Steam's own record is used. Steam playtime > 0 = launched on Steam
 (excluded, anchor weight = playtime percentile); 0 = no Steam record (may be recommended, labelled as such);
 play elsewhere is only known when the user says so. Rating floor (design 5.5): Steam positive share < 70%
 or missing never reaches the top 5 unless too few games pass it.
-The description channel uses the English demo vectors cached by demo_walkthrough.py (run that first).
+The description channel uses the bilingual vectors from build_desc_embeddings.py (larger of the two languages).
 Review data comes from the merged review table (build_review_tables.py): the co-like channel is the EASE score
 summed over anchors (design 5.5), card statistics come from colike_reviews100m, and library anchor weights are
 percentiles in playtime_reference_100m.
@@ -25,12 +25,13 @@ import time
 import numpy as np
 import pandas as pd
 
+from build_aliases import Resolver, norm as norm_title
 from check_keys import ROOT, load_env
 
 PROC = ROOT / "data" / "processed"
 DER = ROOT / "data" / "derived"
 OUT = ROOT / ".cache" / "simulate_inputs.json"
-EMB_CACHE = ROOT / ".cache" / "demo_desc_emb_en_512.npz"
+DESC_EMB = DER / "desc_emb_qwen3_4b.npz"
 MODEL = ROOT / ".cache" / "models" / "Qwen3-Embedding-4B"
 
 WEIGHTS = {"tag": 0.30, "desc": 0.25, "colike": 0.30, "lineage": 0.15}
@@ -65,7 +66,7 @@ class KB:
         self.appids = g.index.to_numpy()
         self.pos = {a: i for i, a in enumerate(self.appids)}
         self.name = g["name"]
-        self.has_store = g["review_count"].notna()
+        self.aliases = Resolver()
         tags = pd.read_parquet(PROC / "tags.parquet").set_index("tagid")
         self.tag_en, self.tag_zh = tags["name_en"], tags["name_zh"]
         gt = pd.read_parquet(PROC / "game_tags.parquet")
@@ -107,14 +108,20 @@ class KB:
         return M
 
     def _desc(self):
-        z = np.load(EMB_CACHE)
-        E = np.zeros((len(self.appids), z["emb"].shape[1]), np.float32)
-        has = np.zeros(len(self.appids), bool)
-        for a, v in zip(z["appids"], z["emb"]):
-            if a in self.pos:
-                E[self.pos[a]] = v
-                has[self.pos[a]] = True
-        return E, has
+        z = np.load(DESC_EMB)
+        assert np.array_equal(z["appids"], self.appids), "rerun build_desc_embeddings.py after build_processed.py"
+        self.E_lang = {lang: (z[lang].astype(np.float32), z["has_" + lang]) for lang in ("en", "zh")}
+        return None, z["has_en"] | z["has_zh"]
+
+    def desc_sim(self, rows=None, query=None):
+        """Description similarity: the larger of the English and the Chinese version (design 5.5); -1 where missing.
+        rows: anchor row indices -> (len(rows), n); query: a query vector -> (n,)."""
+        best = None
+        for E, has in self.E_lang.values():
+            s = E @ query if query is not None else E[rows] @ E.T
+            s = np.where(has if query is not None else has[rows][:, None] & has[None, :], s, -1.0)
+            best = s if best is None else np.maximum(best, s)
+        return best
 
 
 def mm(x, mask):
@@ -200,9 +207,12 @@ def parse_with_llm(kb, sentence):
 
 
 def match_title(kb, title):
-    norm = lambda s: re.sub(r"[^0-9a-z]", "", s.lower())
-    n = norm(title)
-    names = kb.name.map(norm)
+    """Alias table first (store names in both languages + common Chinese short names), then a unique substring."""
+    a, _ = kb.aliases.resolve(title)
+    if a is not None:
+        return int(a)
+    n = norm_title(title)
+    names = kb.name.map(norm_title)
     exact = names[names == n]
     if len(exact) == 1:
         return int(exact.index[0])
@@ -226,7 +236,7 @@ def playtime_percentiles(kb, owned_hours):
 
 # ---------- Step 2: three-valued rules ----------
 
-def hard_filter(kb, exclude, need_language=None, avoid_tags=(), budget=None):
+def hard_filter(kb, exclude, need_language=None, avoid_tags=(), budget=None, owned=()):
     n = len(kb.appids)
     status = np.full(n, 2, np.int8)  # 0 FAIL, 1 UNKNOWN, 2 PASS; a game takes its worst rule
     rules = []
@@ -238,9 +248,12 @@ def hard_filter(kb, exclude, need_language=None, avoid_tags=(), budget=None):
 
     st = np.where(np.isin(kb.appids, list(exclude)), 0, 2).astype(np.int8)
     apply("去掉种子 / 已玩过的", st)
+    # Steam says these are not sold in the CN store; a member who already owns one is not affected
+    st = np.where(kb.games["cn_blocked"].to_numpy() & ~np.isin(kb.appids, list(owned)), 0, 2).astype(np.int8)
+    apply("CN 区有售", st)
     if need_language:
         langs = kb.games["language_codes"]
-        st = np.array([1 if not kb.has_store[a] else (2 if SCHINESE in list(langs[a]) else 0) for a in kb.appids], np.int8)
+        st = np.array([1 if len(langs[a]) == 0 else (2 if SCHINESE in list(langs[a]) else 0) for a in kb.appids], np.int8)
         apply("支持简体中文", st)
     if avoid_tags:
         bad = set(kb.tag_en[kb.tag_en.isin(avoid_tags)].index)
@@ -282,8 +295,8 @@ def score(kb, anchors, weights, cand_mask, pref_vec=None, feel=None):
 
     tag_raw, tag_hit = wmax(kb.T[ai] @ kb.T.T)
     a_desc = [i for i in ai if kb.E_has[i]]
-    d_anchor, d_hit = wmax(kb.E[ai] @ kb.E.T)
-    d_pref = kb.E @ pref_vec if pref_vec is not None else None
+    d_anchor, d_hit = wmax(kb.desc_sim(rows=ai)) if a_ids else wmax(None)
+    d_pref = kb.desc_sim(query=pref_vec) if pref_vec is not None else None
 
     # co-like channel: EASE, sum over anchors of weight x B[anchor, candidate]; co_hit = the anchor contributing most
     has_col = kb.ease_col >= 0
@@ -477,8 +490,16 @@ def run_path(kb, label, anchors, status, rules, price_intent, owned=(), pref_vec
         return out + (f"（同系列另有 {len(folded[i])} 款）" if folded.get(i) else "")
     owned_unplayed = set(unplayed)
     backups = [kb.name[kb.appids[i]] + note(i) for i in short if i not in chosen]
-    unk = [{"name": kb.name[kb.appids[i]], "why": "CN 商店无数据（语言 / 价格 / 标签未知）" if not kb.has_store[kb.appids[i]] else "部分字段缺失"}
-           for i in unknown]
+    def why(a):
+        miss = []
+        if len(kb.games["language_codes"][a]) == 0:
+            miss.append("支持语言未知")
+        if a not in kb.prices.index or (pd.isna(kb.prices.loc[a, "final"]) and not kb.prices.loc[a, "is_free"]):
+            miss.append("CN 现价未知")
+        if a not in kb.tagset:
+            miss.append("没有标签")
+        return "、".join(miss) or "部分字段缺失"
+    unk = [{"name": kb.name[kb.appids[i]], "why": why(kb.appids[i])} for i in unknown]
     picks_share = {"anchor": {}}
     for p in picks:
         picks_share["anchor"][p["best_anchor"]] = picks_share["anchor"].get(p["best_anchor"], 0) + 1
@@ -553,7 +574,7 @@ def main():
     played = set() if playtime_hidden else {a for a, h in in_core.items() if h > 0}
     unplayed = set(in_core) - played
     anchors = {a: pcts[a]["pct"] for a in played if pcts[a] and pcts[a]["pct"] > 0}
-    status, rules = hard_filter(kb, played)
+    status, rules = hard_filter(kb, played, owned=unplayed)
     lib_rows = [{"name": kb.name[a] if a in kb.pos else f"AppID {a}", "hours": round(h, 1), "in_core": a in kb.pos,
                  "median": (pcts.get(a) or {}).get("median"), "pct": (pcts.get(a) or {}).get("pct"),
                  "anchor_weight": anchors.get(a), "excluded": a in played} for a, h in hours.items()]
@@ -568,7 +589,7 @@ def main():
     seed_match = {t: match_title(kb, t) for t in spec["seeds"]}
     seeds = {a for a in seed_match.values() if a}
     budget = spec["budget"]["amount"] if spec.get("budget") else None
-    status, rules = hard_filter(kb, played | seeds, avoid_tags=spec.get("avoid_tags") or (), budget=budget)
+    status, rules = hard_filter(kb, played | seeds, avoid_tags=spec.get("avoid_tags") or (), budget=budget, owned=unplayed)
     common = {"input": COMBO_SENTENCE, **llm_cache["combo"],
               "seed_match": {t: (kb.name[a] if a else None) for t, a in seed_match.items()}}
     seed_w = {a: 1.0 for a in seeds}
