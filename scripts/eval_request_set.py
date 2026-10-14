@@ -253,7 +253,12 @@ def report():
                         count[k][col] += 1
     lines += ["## 违规按类型（一款游戏可能同时违反几条）", "", "| 类型 | 系统 | 直接问 LLM |", "|---|---|---|"]
     lines += [f"| {k} | {a} | {b} |" for k, (a, b) in count.items()]
-    lines.append("")
+    real = [0, 0]
+    for i in R:
+        for col, src in ((0, "system"), (1, "baseline")):
+            real[col] += sum(1 for v in i.get(f"{src}_violations", []) if any("机制组合" not in w for w in v["why"]))
+    lines += ["", f"只算用户自己说出的条件（去掉“机制组合”这条本系统自己的严格口径）：系统 {real[0]} 款，"
+                  f"直接问 LLM {real[1]} 款（共 {sum(len(i['baseline']) for i in R)} 款）。", ""]
     ok = [i for i in R if i.get("system")]
     t_und = [i["understand_seconds"] for i in R]
     t_rec = [i["timings"]["total"] for i in ok]
