@@ -18,6 +18,13 @@ def norm(s):
     return re.sub(r"[^0-9a-z㐀-鿿぀-ヿ]", "", s)
 
 
+def words_of(s):
+    """Lower-case words of a name, single-spaced ("Sid Meier's Civilization® VI" -> "sid meier s civilization vi")."""
+    s = unicodedata.normalize("NFKC", str(s)).lower()
+    s = re.sub(r"[®™©]", "", s)
+    return " ".join(re.findall(r"[0-9a-z]+", s))
+
+
 @dataclass
 class Match:
     text: str
@@ -34,6 +41,7 @@ class Resolver:
         self.by_alias = t.groupby("alias")["appid"].agg(lambda s: sorted(set(s), key=lambda a: -self.reviews.get(a, 0))).to_dict()
         self.names = games["name"].map(norm)
         self.names_zh = games["name_zh"].dropna().map(norm)
+        self.words = games["name"].map(words_of)
 
     def resolve(self, text) -> Match:
         n = norm(text)
@@ -42,9 +50,14 @@ class Resolver:
         cands = self.by_alias.get(n)
         if cands:
             return Match(text, int(cands[0]), [int(a) for a in cands[1:]], "alias")
-        if len(n) >= 3:  # a unique substring of one store name, e.g. "Witcher 3" for the remastered edition
-            hits = set(self.names[self.names.str.contains(n, regex=False)].index)
-            hits |= set(self.names_zh[self.names_zh.str.contains(n, regex=False)].index)
+        if len(n) >= 3:  # whole words of one store name, e.g. "Witcher 3" for the remastered edition
+            hits = set()
+            if re.search(r"[㐀-鿿぀-ヿ]", n):  # CJK has no word boundaries: plain substring
+                hits = set(self.names_zh[self.names_zh.str.contains(n, regex=False)].index)
+            words = words_of(text)
+            if words:
+                pat = r"(?:^| )" + re.escape(words) + r"(?: |$)"
+                hits |= set(self.words[self.words.str.contains(pat, regex=True)].index)
             if len(hits) == 1:
                 return Match(text, int(hits.pop()), [], "substring")
             if 1 < len(hits) <= 5:

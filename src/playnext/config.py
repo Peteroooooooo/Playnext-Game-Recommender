@@ -9,15 +9,23 @@ DESC_EMB = DER / "desc_emb_qwen3_4b.npz"
 EMB_MODEL = CACHE / "models" / "Qwen3-Embedding-4B"
 QUERY_PROMPT = "Instruct: Given what a player says they want, retrieve games whose store description matches it\nQuery: "
 
-# Step 3 fusion: convex weights of the min-max normalised channels (design 5.5)
-WEIGHTS = {"tag": 0.30, "desc": 0.25, "colike": 0.30, "lineage": 0.15}
-TAG_AGG = "max"          # multi-anchor aggregation of the tag channel: "max" or "sum"
-DESC_AGG = "max"
+# Step 3 fusion: convex weights of the min-max normalised anchor channels (design 5.5). Tuned 2026-10-14 by
+# scripts/eval_fusion.py: co-like alone is best offline; 0.05 + 0.05 of tag / description costs <= 0.005 Recall@20
+# and keeps a content signal for ties and for games without co-like data. Lineage as a score lowers recall at every
+# weight tried, so it only feeds cards, unless the user asks for the same studio (SAME_STUDIO_W).
+WEIGHTS = {"tag": 0.05, "desc": 0.05, "colike": 0.90, "lineage": 0.0}
+SAME_STUDIO_W = 0.15
+TAG_AGG = "sum"          # multi-anchor aggregation: "sum" beat "max" for both tag and description offline
+DESC_AGG = "sum"
 LINEAGE_PARTS = ("dev", "ser", "sim")   # same developer, same series, IGDB similar
 MAX_LIBRARY_ANCHORS = 50  # strongest library anchors by playtime percentile
 FEEL_W = 0.25            # feel channel share when feel_tags are given
-PREF_W = 0.5             # inside the description channel: preference sentence vs anchors, when both exist
+PREF_W = 0.25            # preference sentence vs game descriptions: own share, like the feel channel
 SEED_POOL, LIB_BONUS = 50, 0.2   # design 4.1: with explicit seeds the library re-ranks only the seed's top 50
+RERANK = True            # LLM semantic rerank when the request has preference words (design 5.5)
+RERANK_N, RERANK_EXTRA = 80, 10  # top-N by fused score + best N by the sentence / feel channels alone; 80 covers
+                                  # 62 of the 153 community / poster-named games in the request set, 40 only 43
+RERANK_W = 0.6           # w_r: share of the rerank score after fusion
 
 # Step 4 ranking (design 5.5)
 DELTA = 0.10

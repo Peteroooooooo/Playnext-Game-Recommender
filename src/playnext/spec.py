@@ -77,6 +77,7 @@ class SessionSpec(BaseModel):
     sites: Optional[list[Site]] = None
     setup_hint: Optional[SetupType] = None  # what the user said ("remote play"), used when sites are not given
     accept_unknown: bool = False
+    excluded: list[int] = []              # "玩过了 / 不感兴趣" clicked on a card in this session
     unresolved: list[str] = []            # names that matched no core game (shown to the user, never guessed)
     ambiguous: dict[str, list[int]] = {}  # name -> other games the same name may mean
 
