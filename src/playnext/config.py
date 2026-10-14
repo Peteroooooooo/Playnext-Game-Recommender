@@ -1,0 +1,42 @@
+"""All tunable parameters in one place (design 10.4). Values marked "tuned" come from scripts/eval_fusion.py."""
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+PROC = ROOT / "data" / "processed"
+DER = ROOT / "data" / "derived"
+CACHE = ROOT / ".cache"
+DESC_EMB = DER / "desc_emb_qwen3_4b.npz"
+EMB_MODEL = CACHE / "models" / "Qwen3-Embedding-4B"
+QUERY_PROMPT = "Instruct: Given what a player says they want, retrieve games whose store description matches it\nQuery: "
+
+# Step 3 fusion: convex weights of the min-max normalised channels (design 5.5)
+WEIGHTS = {"tag": 0.30, "desc": 0.25, "colike": 0.30, "lineage": 0.15}
+TAG_AGG = "max"          # multi-anchor aggregation of the tag channel: "max" or "sum"
+DESC_AGG = "max"
+LINEAGE_PARTS = ("dev", "ser", "sim")   # same developer, same series, IGDB similar
+MAX_LIBRARY_ANCHORS = 50  # strongest library anchors by playtime percentile
+FEEL_W = 0.25            # feel channel share when feel_tags are given
+PREF_W = 0.5             # inside the description channel: preference sentence vs anchors, when both exist
+SEED_POOL, LIB_BONUS = 50, 0.2   # design 4.1: with explicit seeds the library re-ranks only the seed's top 50
+
+# Step 4 ranking (design 5.5)
+DELTA = 0.10
+SHORTLIST = 20
+PICK = 5
+UNKNOWN_SHOW = 2
+RATING_FLOOR = 70
+ALPHA, BETA = 24.6, 5.4  # Beta prior of the smoothed rating; refit by fit_beta_prior()
+BASE_W = {"relevance": 0.5, "quality": 0.3, "price": 0.2}
+MMR_LAMBDA = 0.65
+NEAR_LOW = 1.05          # current price <= record low x 1.05 counts as "at the record low"
+PREFER_OWNED_W = 0.2     # window term for library_policy = prefer_owned
+SHORT_W = 0.2            # window term for "short game" (IGDB time to beat)
+
+# Scenario 2 group aggregation (design 5.5)
+GROUP_MEAN_W, GROUP_MIN_W = 0.6, 0.4
+NASH_EPS = 0.01
+GROUP_METHOD = "mean_min"  # "mean_min" | "nash" | "lexmin"
+SHARED_W = 0.5
+
+# Library rule (design 4.1)
+CORE_TAG_SHARE = 0.5
