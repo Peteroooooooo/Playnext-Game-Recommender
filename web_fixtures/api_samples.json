@@ -1,0 +1,1909 @@
+{
+ "search_hades": [
+  {
+   "appid": 1145360,
+   "name": "Hades",
+   "name_en": "Hades",
+   "year": 2020,
+   "header": "https://cdn.akamai.steamstatic.com/steam/apps/1145360/capsule_184x69.jpg"
+  }
+ ],
+ "tags_common": [
+  {
+   "tagid": 1654,
+   "name": "放松",
+   "name_en": "Relaxing"
+  },
+  {
+   "tagid": 597,
+   "name": "休闲",
+   "name_en": "Casual"
+  },
+  {
+   "tagid": 97376,
+   "name": "温馨惬意",
+   "name_en": "Cozy"
+  },
+  {
+   "tagid": 552282,
+   "name": "治愈系",
+   "name_en": "Wholesome"
+  },
+  {
+   "tagid": 4726,
+   "name": "可爱",
+   "name_en": "Cute"
+  },
+  {
+   "tagid": 1742,
+   "name": "剧情丰富",
+   "name_en": "Story Rich"
+  },
+  {
+   "tagid": 4166,
+   "name": "氛围",
+   "name_en": "Atmospheric"
+  },
+  {
+   "tagid": 4026,
+   "name": "低容错",
+   "name_en": "Difficult"
+  },
+  {
+   "tagid": 29482,
+   "name": "类魂系列",
+   "name_en": "Souls-like"
+  },
+  {
+   "tagid": 1733,
+   "name": "严苛",
+   "name_en": "Unforgiving"
+  },
+  {
+   "tagid": 1734,
+   "name": "快节奏",
+   "name_en": "Fast-Paced"
+  },
+  {
+   "tagid": 9,
+   "name": "策略",
+   "name_en": "Strategy"
+  },
+  {
+   "tagid": 1664,
+   "name": "解谜",
+   "name_en": "Puzzle"
+  },
+  {
+   "tagid": 3834,
+   "name": "探索",
+   "name_en": "Exploration"
+  },
+  {
+   "tagid": 4136,
+   "name": "欢乐",
+   "name_en": "Funny"
+  },
+  {
+   "tagid": 4342,
+   "name": "黑暗",
+   "name_en": "Dark"
+  },
+  {
+   "tagid": 1667,
+   "name": "恐怖",
+   "name_en": "Horror"
+  },
+  {
+   "tagid": 4345,
+   "name": "鲜血",
+   "name_en": "Gore"
+  },
+  {
+   "tagid": 12095,
+   "name": "色情内容",
+   "name_en": "Sexual Content"
+  },
+  {
+   "tagid": 3964,
+   "name": "像素图形",
+   "name_en": "Pixel Graphics"
+  },
+  {
+   "tagid": 1677,
+   "name": "回合制",
+   "name_en": "Turn-Based"
+  },
+  {
+   "tagid": 1695,
+   "name": "开放世界",
+   "name_en": "Open World"
+  },
+  {
+   "tagid": 4234,
+   "name": "短篇",
+   "name_en": "Short"
+  },
+  {
+   "tagid": 3878,
+   "name": "竞技",
+   "name_en": "Competitive"
+  }
+ ],
+ "tags_all_first5": [
+  {
+   "tagid": 9,
+   "name": "策略",
+   "name_en": "Strategy"
+  },
+  {
+   "tagid": 19,
+   "name": "动作",
+   "name_en": "Action"
+  },
+  {
+   "tagid": 21,
+   "name": "冒险",
+   "name_en": "Adventure"
+  },
+  {
+   "tagid": 84,
+   "name": "设计与插画",
+   "name_en": "Design & Illustration"
+  },
+  {
+   "tagid": 87,
+   "name": "实用工具",
+   "name_en": "Utilities"
+  }
+ ],
+ "recommend_single": {
+  "understood": {
+   "seeds": [
+    "Hades"
+   ],
+   "preference_text": null,
+   "feel_want": [],
+   "feel_avoid": [
+    "剧情丰富"
+   ],
+   "mechanics": [],
+   "budget": {
+    "amount": 100.0,
+    "scope": "per_person"
+   },
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "party_size": 1,
+   "interaction": "any",
+   "setups": [],
+   "unresolved": [],
+   "ambiguous": {},
+   "members": [
+    {
+     "name": "我",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    }
+   ]
+  },
+  "picks": [
+   {
+    "appid": 367520,
+    "name": "Hollow Knight",
+    "name_en": "Hollow Knight",
+    "year": 2017,
+    "developer": "Team Cherry",
+    "store_url": "https://store.steampowered.com/app/367520/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg",
+    "relevance": 1.0,
+    "diff": {
+     "more": [
+      "类银河战士恶魔城",
+      "平台游戏",
+      "类魂系列"
+     ],
+     "less": [
+      "动作类 Rogue",
+      "轻度 Rogue",
+      "砍杀"
+     ],
+     "anchor": "Hades"
+    },
+    "colike": {
+     "anchor": "Hades",
+     "co_count": 28046,
+     "rank": 4,
+     "text": "28,046 名玩家同时推荐了《Hades》和本作（在《Hades》的同好邻居中排第 4）"
+    },
+    "like": {
+     "anchor": "Hades",
+     "shared_core_tags": [
+      "好评原声音轨",
+      "独立",
+      "单人",
+      "剧情丰富"
+     ],
+     "feel_hits": [],
+     "feel_bad": [
+      "剧情丰富"
+     ]
+    },
+    "rating": {
+     "pct_positive": 96,
+     "reviews": 505295,
+     "smoothed": 0.96,
+     "text": "Steam 好评率 96%（505,295 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 58.0,
+     "low": 19.2,
+     "low_time": "2022-05-02",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥58 ／ 史低 ¥19.2（2022-05） ／ 距史低 +202%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "library": "未拥有",
+    "time_to_beat": "通关约 36 小时（IGDB）",
+    "rank_step": {
+     "window": 5,
+     "redundancy": 0.0,
+     "base": 0.985
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 646570,
+    "name": "Slay the Spire",
+    "name_en": "Slay the Spire",
+    "year": 2019,
+    "developer": "Mega Crit Games",
+    "store_url": "https://store.steampowered.com/app/646570/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/646570/header.jpg",
+    "relevance": 0.953,
+    "diff": {
+     "more": [
+      "牌组构建式类 Rogue",
+      "卡牌游戏",
+      "卡牌战斗"
+     ],
+     "less": [
+      "动作类 Rogue",
+      "砍杀",
+      "神话"
+     ],
+     "anchor": "Hades"
+    },
+    "colike": {
+     "anchor": "Hades",
+     "co_count": 17807,
+     "rank": 2,
+     "text": "17,807 名玩家同时推荐了《Hades》和本作（在《Hades》的同好邻居中排第 2）"
+    },
+    "like": {
+     "anchor": "Hades",
+     "shared_core_tags": [
+      "类 Rogue"
+     ],
+     "feel_hits": [],
+     "feel_bad": []
+    },
+    "rating": {
+     "pct_positive": 97,
+     "reviews": 192403,
+     "smoothed": 0.97,
+     "text": "Steam 好评率 97%（192,403 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 88.0,
+     "low": 8.8,
+     "low_time": "2025-12-18",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥88 ／ 史低 ¥8.8（2025-12） ／ 距史低 +900%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "library": "未拥有",
+    "time_to_beat": "通关约 49 小时（IGDB）",
+    "rank_step": {
+     "window": 4,
+     "redundancy": 0.02,
+     "base": 0.959
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 1794680,
+    "name": "Vampire Survivors - 吸血鬼幸存者",
+    "name_en": "Vampire Survivors",
+    "year": 2022,
+    "developer": "Poncle",
+    "store_url": "https://store.steampowered.com/app/1794680/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/1794680/header.jpg",
+    "relevance": 0.95,
+    "diff": {
+     "more": [
+      "弹幕射击",
+      "像素图形",
+      "吸血鬼"
+     ],
+     "less": [
+      "砍杀",
+      "神话",
+      "好评原声音轨"
+     ],
+     "anchor": "Hades"
+    },
+    "colike": {
+     "anchor": "Hades",
+     "co_count": 19316,
+     "rank": 5,
+     "text": "19,316 名玩家同时推荐了《Hades》和本作（在《Hades》的同好邻居中排第 5）"
+    },
+    "like": {
+     "anchor": "Hades",
+     "shared_core_tags": [
+      "动作类 Rogue",
+      "轻度 Rogue",
+      "独立"
+     ],
+     "feel_hits": [],
+     "feel_bad": []
+    },
+    "rating": {
+     "pct_positive": 98,
+     "reviews": 252133,
+     "smoothed": 0.98,
+     "text": "Steam 好评率 98%（252,133 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 25.0,
+     "low": 13.5,
+     "low_time": "2021-12-17",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥25 ／ 史低 ¥13.5（2021-12） ／ 距史低 +85%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "library": "未拥有",
+    "time_to_beat": "通关约 28 小时（IGDB）",
+    "rank_step": {
+     "window": 3,
+     "redundancy": 0.09,
+     "base": 0.961
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 413150,
+    "name": "Stardew Valley",
+    "name_en": "Stardew Valley",
+    "year": 2016,
+    "developer": "ConcernedApe",
+    "store_url": "https://store.steampowered.com/app/413150/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg",
+    "relevance": 0.905,
+    "diff": {
+     "more": [
+      "农场模拟",
+      "像素图形",
+      "多人"
+     ],
+     "less": [
+      "动作类 Rogue",
+      "轻度 Rogue",
+      "砍杀"
+     ],
+     "anchor": "Hades"
+    },
+    "colike": {
+     "anchor": "Hades",
+     "co_count": 26235,
+     "rank": 18,
+     "text": "26,235 名玩家同时推荐了《Hades》和本作（在《Hades》的同好邻居中排第 18）"
+    },
+    "like": {
+     "anchor": "Hades",
+     "shared_core_tags": [
+      "独立"
+     ],
+     "feel_hits": [],
+     "feel_bad": []
+    },
+    "rating": {
+     "pct_positive": 98,
+     "reviews": 898066,
+     "smoothed": 0.98,
+     "text": "Steam 好评率 98%（898,066 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 48.0,
+     "low": 14.99,
+     "low_time": "2023-03-29",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥48 ／ 史低 ¥14.99（2023-03） ／ 距史低 +220%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "library": "未拥有",
+    "time_to_beat": "通关约 90 小时（IGDB）",
+    "rank_step": {
+     "window": 2,
+     "redundancy": 0.08,
+     "base": 0.933
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 588650,
+    "name": "Dead Cells",
+    "name_en": "Dead Cells",
+    "year": 2018,
+    "developer": "Motion Twin",
+    "store_url": "https://store.steampowered.com/app/588650/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/588650/header.jpg",
+    "relevance": 0.988,
+    "diff": {
+     "more": [
+      "冒险",
+      "类银河战士恶魔城",
+      "像素图形"
+     ],
+     "less": [
+      "神话",
+      "剧情丰富",
+      "迷宫探索"
+     ],
+     "anchor": "Hades"
+    },
+    "colike": {
+     "anchor": "Hades",
+     "co_count": 16072,
+     "rank": 3,
+     "text": "16,072 名玩家同时推荐了《Hades》和本作（在《Hades》的同好邻居中排第 3）"
+    },
+    "like": {
+     "anchor": "Hades",
+     "shared_core_tags": [
+      "类 Rogue",
+      "动作类 Rogue",
+      "轻度 Rogue",
+      "砍杀"
+     ],
+     "feel_hits": [],
+     "feel_bad": []
+    },
+    "rating": {
+     "pct_positive": 97,
+     "reviews": 156801,
+     "smoothed": 0.97,
+     "text": "Steam 好评率 97%（156,801 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 80.0,
+     "low": 32.0,
+     "low_time": "2025-07-17",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥80 ／ 史低 ¥32（2025-07） ／ 距史低 +150%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "library": "未拥有",
+    "time_to_beat": "通关约 22 小时（IGDB）",
+    "rank_step": {
+     "window": 1,
+     "redundancy": 0.58,
+     "base": 0.981
+    },
+    "reason_source": "template"
+   }
+  ],
+  "backups": [
+   {
+    "appid": 632360,
+    "name": "雨中冒险 2",
+    "relevance": 0.874,
+    "price": {
+     "region": "CN",
+     "final": 26.4,
+     "low": 26.4,
+     "low_time": "2024-06-20",
+     "discount_pct": 67,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥26.4（-67%） ／ 史低 ¥26.4（2024-06） ／ 已在史低",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 93,
+    "same_series": 2
+   },
+   {
+    "appid": 250900,
+    "name": "The Binding of Isaac: Rebirth",
+    "relevance": 0.722,
+    "price": {
+     "region": "CN",
+     "final": 48.0,
+     "low": 4.8,
+     "low_time": "2026-06-25",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥48 ／ 史低 ¥4.8（2026-06） ／ 距史低 +900%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 96,
+    "same_series": 1
+   },
+   {
+    "appid": 2379780,
+    "name": "Balatro",
+    "relevance": 0.702,
+    "price": {
+     "region": "CN",
+     "final": 54.0,
+     "low": 43.2,
+     "low_time": "2026-02-12",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥54 ／ 史低 ¥43.2（2026-02） ／ 距史低 +25%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 97
+   },
+   {
+    "appid": 262060,
+    "name": "暗黑地牢 Darkest Dungeon",
+    "relevance": 0.609,
+    "price": {
+     "region": "CN",
+     "final": 13.2,
+     "low": 7.04,
+     "low_time": "2026-01-29",
+     "discount_pct": 85,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥13.2（-85%） ／ 史低 ¥7.04（2026-01） ／ 距史低 +88%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 91
+   },
+   {
+    "appid": 1217060,
+    "name": "枪火重生",
+    "relevance": 0.553,
+    "price": {
+     "region": "CN",
+     "final": 68.0,
+     "low": 33.0,
+     "low_time": "2020-11-25",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥68 ／ 史低 ¥33（2020-11） ／ 距史低 +106%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 93
+   },
+   {
+    "appid": 892970,
+    "name": "Valheim: 英灵神殿",
+    "relevance": 0.548,
+    "price": {
+     "region": "CN",
+     "final": 89.0,
+     "low": 35.0,
+     "low_time": "2024-03-07",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥89 ／ 史低 ¥35（2024-03） ／ 距史低 +154%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 93
+   },
+   {
+    "appid": 1942280,
+    "name": "土豆兄弟(Brotato)",
+    "relevance": 0.545,
+    "price": {
+     "region": "CN",
+     "final": 22.0,
+     "low": 13.2,
+     "low_time": "2024-10-25",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥22 ／ 史低 ¥13.2（2024-10） ／ 距史低 +67%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 95
+   },
+   {
+    "appid": 311690,
+    "name": "挺进地牢",
+    "relevance": 0.544,
+    "price": {
+     "region": "CN",
+     "final": 58.0,
+     "low": 5.8,
+     "low_time": "2025-03-13",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥58 ／ 史低 ¥5.8（2025-03） ／ 距史低 +900%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 95
+   },
+   {
+    "appid": 960090,
+    "name": "Bloons TD 6",
+    "relevance": 0.535,
+    "price": {
+     "region": "CN",
+     "final": 47.0,
+     "low": 3.0,
+     "low_time": "2019-11-26",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥47 ／ 史低 ¥3（2019-11） ／ 距史低 +1467%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 97
+   },
+   {
+    "appid": 105600,
+    "name": "Terraria",
+    "relevance": 0.525,
+    "price": {
+     "region": "CN",
+     "final": 21.0,
+     "low": 18.0,
+     "low_time": "2016-06-23",
+     "discount_pct": 50,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥21（-50%） ／ 史低 ¥18（2016-06） ／ 距史低 +17%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 97
+   },
+   {
+    "appid": 268910,
+    "name": "Cuphead",
+    "relevance": 0.525,
+    "price": {
+     "region": "CN",
+     "final": 68.0,
+     "low": 40.8,
+     "low_time": "2026-06-05",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥68 ／ 史低 ¥40.8（2026-06） ／ 距史低 +67%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 96
+   },
+   {
+    "appid": 730,
+    "name": "Counter-Strike 2",
+    "relevance": 0.51,
+    "price": {
+     "text": "免费",
+     "free": true,
+     "region": "CN",
+     "source": "snapshot",
+     "as_of": "2026-10-14"
+    },
+    "pct_positive": 85
+   },
+   {
+    "appid": 774361,
+    "name": "Blasphemous",
+    "relevance": 0.506,
+    "price": {
+     "region": "CN",
+     "final": 36.75,
+     "low": 9.8,
+     "low_time": "2025-06-19",
+     "discount_pct": 75,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥36.75（-75%） ／ 史低 ¥9.8（2025-06） ／ 距史低 +275%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 90
+   },
+   {
+    "appid": 1172470,
+    "name": "Apex Legends™",
+    "relevance": 0.498,
+    "price": {
+     "text": "免费",
+     "free": true,
+     "region": "CN",
+     "source": "snapshot",
+     "as_of": "2026-10-14"
+    },
+    "pct_positive": 67,
+    "label": "口碑褒贬不一：67% 好评"
+   },
+   {
+    "appid": 230410,
+    "name": "Warframe 星际战甲",
+    "relevance": 0.49,
+    "price": {
+     "text": "免费",
+     "free": true,
+     "region": "CN",
+     "source": "snapshot",
+     "as_of": "2026-10-14"
+    },
+    "pct_positive": 87
+   }
+  ],
+  "unknown": [
+   {
+    "appid": 1097150,
+    "name": "糖豆人",
+    "why": [
+     "预算 ≤ ¥100（每日快照）"
+    ]
+   }
+  ],
+  "rules": [
+   {
+    "rule": "去掉种子 / 已玩过的",
+    "pass": 7303,
+    "fail": 1,
+    "unknown": 0,
+    "relaxable": false
+   },
+   {
+    "rule": "CN 区有售",
+    "pass": 7085,
+    "fail": 219,
+    "unknown": 0,
+    "relaxable": false
+   },
+   {
+    "rule": "预算 ≤ ¥100（每日快照）",
+    "pass": 5593,
+    "fail": 1075,
+    "unknown": 636,
+    "relaxable": true
+   }
+  ],
+  "relax": [],
+  "timings": {
+   "hard_filter": 0.008,
+   "scoring": 0.578,
+   "ranking_and_live_prices": 0.002,
+   "cards": 0.252,
+   "total": 0.84
+  },
+  "notes": [],
+  "need_input": null,
+  "session_id": "3XQPMMVOvPKndUzv",
+  "libraries": {}
+ },
+ "recommend_group": {
+  "understood": {
+   "seeds": [
+    "双人成行"
+   ],
+   "preference_text": null,
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "budget": {
+    "amount": 60.0,
+    "scope": "per_person"
+   },
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "party_size": 4,
+   "interaction": "coop",
+   "setups": [
+    "online"
+   ],
+   "unresolved": [],
+   "ambiguous": {},
+   "members": [
+    {
+     "name": "我",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "小张",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "小李",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "小王",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    }
+   ]
+  },
+  "picks": [
+   {
+    "appid": 413150,
+    "name": "Stardew Valley",
+    "name_en": "Stardew Valley",
+    "year": 2016,
+    "developer": "ConcernedApe",
+    "store_url": "https://store.steampowered.com/app/413150/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg",
+    "relevance": 0.924,
+    "diff": {
+     "more": [
+      "农场模拟",
+      "像素图形",
+      "生活模拟"
+     ],
+     "less": [
+      "合作",
+      "分屏",
+      "本地合作"
+     ],
+     "anchor": "双人成行"
+    },
+    "colike": {
+     "anchor": "双人成行",
+     "co_count": 13649,
+     "rank": 19,
+     "text": "13,649 名玩家同时推荐了《双人成行》和本作（在《双人成行》的同好邻居中排第 19）"
+    },
+    "like": {
+     "anchor": "双人成行",
+     "shared_core_tags": [
+      "多人"
+     ]
+    },
+    "rating": {
+     "pct_positive": 98,
+     "reviews": 898066,
+     "smoothed": 0.98,
+     "text": "Steam 好评率 98%（898,066 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 48.0,
+     "low": 14.99,
+     "low_time": "2023-03-29",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥48 ／ 史低 ¥14.99（2023-03） ／ 距史低 +220%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "time_to_beat": "通关约 90 小时（IGDB）",
+    "setup": {
+     "kind": "online",
+     "kind_zh": "在线组队",
+     "players": 4,
+     "max_players": 4,
+     "max_source": "IGDB",
+     "steps": [
+      "房主开启游戏并建房",
+      "通过 Steam 好友邀请其余成员",
+      "房间与入局细节以游戏说明为准"
+     ],
+     "controller": "完全支持控制器",
+     "purchase": "需购买：我 ¥48、小张 ¥48、小李 ¥48、小王 ¥48（CN 区合计 ¥192）",
+     "mode_text": "在线组队 · 最多 4 人（IGDB）",
+     "note": "私人房间、入局方式、手柄分配等细节以游戏说明为准"
+    },
+    "rank_step": {
+     "window": 1,
+     "redundancy": 0.0,
+     "base": 0.945
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 322330,
+    "name": "饥荒联机版",
+    "name_en": "Don't Starve Together",
+    "year": 2016,
+    "developer": "Klei Entertainment",
+    "store_url": "https://store.steampowered.com/app/322330/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/322330/header.jpg",
+    "relevance": 0.601,
+    "diff": {
+     "more": [
+      "生存",
+      "开放世界生存制作"
+     ],
+     "less": [
+      "合作",
+      "分屏",
+      "本地合作"
+     ],
+     "anchor": "双人成行"
+    },
+    "colike": {
+     "anchor": "双人成行",
+     "co_count": 7267,
+     "rank": 62,
+     "text": "7,267 名玩家同时推荐了《双人成行》和本作（在《双人成行》的同好邻居中排第 62）"
+    },
+    "like": {
+     "anchor": "双人成行",
+     "shared_core_tags": []
+    },
+    "rating": {
+     "pct_positive": 94,
+     "reviews": 377064,
+     "smoothed": 0.94,
+     "text": "Steam 好评率 94%（377,064 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 24.0,
+     "low": 4.8,
+     "low_time": "2026-06-11",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥24 ／ 史低 ¥4.8（2026-06） ／ 距史低 +400%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "time_to_beat": "通关约 100 小时（IGDB）",
+    "setup": {
+     "kind": "online",
+     "kind_zh": "在线组队",
+     "players": 4,
+     "max_players": 4,
+     "max_source": "IGDB",
+     "steps": [
+      "房主开启游戏并建房",
+      "通过 Steam 好友邀请其余成员",
+      "房间与入局细节以游戏说明为准"
+     ],
+     "controller": "完全支持控制器",
+     "purchase": "需购买：我 ¥24、小张 ¥24、小李 ¥24、小王 ¥24（CN 区合计 ¥96）",
+     "mode_text": "在线组队 · 最多 4 人（IGDB）",
+     "note": "私人房间、入局方式、手柄分配等细节以游戏说明为准"
+    },
+    "rank_step": {
+     "window": 2,
+     "redundancy": 0.03,
+     "base": 0.728
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 2567870,
+    "name": "Chained Together",
+    "name_en": "Chained Together",
+    "year": 2024,
+    "developer": "Anegar Games",
+    "store_url": "https://store.steampowered.com/app/2567870/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/2567870/header.jpg",
+    "relevance": 0.517,
+    "diff": {
+     "more": [
+      "休闲",
+      "欢乐",
+      "模拟"
+     ],
+     "less": [
+      "分屏",
+      "本地合作",
+      "解谜"
+     ],
+     "anchor": "双人成行"
+    },
+    "colike": {
+     "anchor": "双人成行",
+     "co_count": 2599,
+     "rank": 47,
+     "text": "2,599 名玩家同时推荐了《双人成行》和本作（在《双人成行》的同好邻居中排第 47）"
+    },
+    "like": {
+     "anchor": "双人成行",
+     "shared_core_tags": [
+      "合作",
+      "多人"
+     ]
+    },
+    "rating": {
+     "pct_positive": 89,
+     "reviews": 55043,
+     "smoothed": 0.89,
+     "text": "Steam 好评率 89%（55,043 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 17.6,
+     "low": 17.6,
+     "low_time": "2025-09-08",
+     "discount_pct": 20,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥17.6（-20%） ／ 史低 ¥17.6（2025-09） ／ 已在史低",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "setup": {
+     "kind": "online",
+     "kind_zh": "在线组队",
+     "players": 4,
+     "max_players": 4,
+     "max_source": "商店介绍",
+     "steps": [
+      "房主开启游戏并建房",
+      "通过 Steam 好友邀请其余成员",
+      "房间与入局细节以游戏说明为准"
+     ],
+     "controller": "部分支持控制器",
+     "purchase": "需购买：我 ¥17.6、小张 ¥17.6、小李 ¥17.6、小王 ¥17.6（CN 区合计 ¥70.4）",
+     "mode_text": "在线组队 · 最多 4 人（商店介绍）",
+     "note": "私人房间、入局方式、手柄分配等细节以游戏说明为准"
+    },
+    "rank_step": {
+     "window": 3,
+     "redundancy": 0.04,
+     "base": 0.657
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 550,
+    "name": "Left 4 Dead 2",
+    "name_en": "Left 4 Dead 2",
+    "year": 2009,
+    "developer": "Turtle Rock Studios",
+    "store_url": "https://store.steampowered.com/app/550/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/550/header.jpg",
+    "relevance": 0.499,
+    "diff": {
+     "more": [
+      "僵尸",
+      "第一人称射击"
+     ],
+     "less": [
+      "分屏",
+      "本地合作",
+      "合作"
+     ],
+     "anchor": "双人成行"
+    },
+    "colike": {
+     "anchor": "双人成行",
+     "co_count": 10241,
+     "rank": 63,
+     "text": "10,241 名玩家同时推荐了《双人成行》和本作（在《双人成行》的同好邻居中排第 63）"
+    },
+    "like": {
+     "anchor": "双人成行",
+     "shared_core_tags": [
+      "合作"
+     ]
+    },
+    "rating": {
+     "pct_positive": 97,
+     "reviews": 820397,
+     "smoothed": 0.97,
+     "text": "Steam 好评率 97%（820,397 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 35.0,
+     "low": 4.2,
+     "low_time": "2022-11-22",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥35 ／ 史低 ¥4.2（2022-11） ／ 距史低 +733%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "time_to_beat": "通关约 29 小时（IGDB）",
+    "setup": {
+     "kind": "online",
+     "kind_zh": "在线组队",
+     "players": 4,
+     "max_players": 4,
+     "max_source": "IGDB",
+     "steps": [
+      "房主开启游戏并建房",
+      "通过 Steam 好友邀请其余成员",
+      "房间与入局细节以游戏说明为准"
+     ],
+     "controller": "完全支持控制器",
+     "purchase": "需购买：我 ¥35、小张 ¥35、小李 ¥35、小王 ¥35（CN 区合计 ¥140）",
+     "mode_text": "在线组队 · 最多 4 人（IGDB）",
+     "note": "私人房间、入局方式、手柄分配等细节以游戏说明为准"
+    },
+    "rank_step": {
+     "window": 2,
+     "redundancy": 0.14,
+     "base": 0.675
+    },
+    "reason_source": "template"
+   },
+   {
+    "appid": 3241660,
+    "name": "R.E.P.O.",
+    "name_en": "R.E.P.O.",
+    "year": 2025,
+    "developer": "semiwork",
+    "store_url": "https://store.steampowered.com/app/3241660/",
+    "header": "https://cdn.akamai.steamstatic.com/steam/apps/3241660/header.jpg",
+    "relevance": 0.487,
+    "diff": {
+     "more": [
+      "恐怖",
+      "喜剧",
+      "物理"
+     ],
+     "less": [
+      "分屏",
+      "本地合作",
+      "解谜"
+     ],
+     "anchor": "双人成行"
+    },
+    "colike": {
+     "anchor": "双人成行",
+     "co_count": 4856,
+     "rank": 155,
+     "text": "4,856 名玩家同时推荐了《双人成行》和本作（在《双人成行》的同好邻居中排第 155）"
+    },
+    "like": {
+     "anchor": "双人成行",
+     "shared_core_tags": [
+      "多人",
+      "合作"
+     ]
+    },
+    "rating": {
+     "pct_positive": 96,
+     "reviews": 344179,
+     "smoothed": 0.96,
+     "text": "Steam 好评率 96%（344,179 篇评测）",
+     "below_floor": false
+    },
+    "price": {
+     "region": "CN",
+     "final": 35.0,
+     "low": 22.75,
+     "low_time": "2026-06-25",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥35 ／ 史低 ¥22.75（2026-06） ／ 距史低 +54%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "setup": {
+     "kind": "online",
+     "kind_zh": "在线组队",
+     "players": 4,
+     "max_players": 6,
+     "max_source": "IGDB",
+     "steps": [
+      "房主开启游戏并建房",
+      "通过 Steam 好友邀请其余成员",
+      "房间与入局细节以游戏说明为准"
+     ],
+     "controller": null,
+     "purchase": "需购买：我 ¥35、小张 ¥35、小李 ¥35、小王 ¥35（CN 区合计 ¥140）",
+     "mode_text": "在线组队 · 最多 6 人（IGDB）",
+     "note": "私人房间、入局方式、手柄分配等细节以游戏说明为准"
+    },
+    "rank_step": {
+     "window": 2,
+     "redundancy": 0.31,
+     "base": 0.665
+    },
+    "reason_source": "template"
+   }
+  ],
+  "backups": [
+   {
+    "appid": 1943950,
+    "name": "Escape the Backrooms",
+    "relevance": 0.391,
+    "price": {
+     "region": "CN",
+     "final": 37.0,
+     "low": 25.9,
+     "low_time": "2022-11-24",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥37 ／ 史低 ¥25.9（2022-11） ／ 距史低 +43%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 90,
+    "setup": "online"
+   },
+   {
+    "appid": 1509960,
+    "name": "PICO PARK",
+    "relevance": 0.384,
+    "price": {
+     "region": "CN",
+     "final": 22.0,
+     "low": 4.99,
+     "low_time": "2022-09-07",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥22 ／ 史低 ¥4.99（2022-09） ／ 距史低 +341%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 91,
+    "same_series": 1,
+    "setup": "online"
+   },
+   {
+    "appid": 1483870,
+    "name": "Draw & Guess - 你画我猜",
+    "relevance": 0.38,
+    "price": {
+     "region": "CN",
+     "final": 25.0,
+     "low": 5.0,
+     "low_time": "2021-02-11",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥25 ／ 史低 ¥5（2021-02） ／ 距史低 +400%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 83,
+    "setup": "online"
+   },
+   {
+    "appid": 632360,
+    "name": "雨中冒险 2",
+    "relevance": 0.338,
+    "price": {
+     "region": "CN",
+     "final": 26.4,
+     "low": 26.4,
+     "low_time": "2024-06-20",
+     "discount_pct": 67,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥26.4（-67%） ／ 史低 ¥26.4（2024-06） ／ 已在史低",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 93,
+    "same_series": 1,
+    "setup": "online"
+   },
+   {
+    "appid": 3097560,
+    "name": "Liar's Bar",
+    "relevance": 0.326,
+    "price": {
+     "region": "CN",
+     "final": 29.0,
+     "low": 14.5,
+     "low_time": "2025-06-27",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥29 ／ 史低 ¥14.5（2025-06） ／ 距史低 +100%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 89,
+    "setup": "online"
+   },
+   {
+    "appid": 1243830,
+    "name": "胡闹厨房 全都好吃",
+    "relevance": 0.325,
+    "price": {
+     "region": "CN",
+     "final": 51.0,
+     "low": 42.5,
+     "low_time": "2025-12-18",
+     "discount_pct": 70,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥51（-70%） ／ 史低 ¥42.5（2025-12） ／ 距史低 +20%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 73,
+    "setup": "online"
+   },
+   {
+    "appid": 386940,
+    "name": "超级鸡马",
+    "relevance": 0.323,
+    "price": {
+     "region": "CN",
+     "final": 55.0,
+     "low": 19.25,
+     "low_time": "2024-05-13",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥55 ／ 史低 ¥19.25（2024-05） ／ 距史低 +186%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 95,
+    "setup": "online"
+   },
+   {
+    "appid": 2709570,
+    "name": "Supermarket Together",
+    "relevance": 0.323,
+    "price": {
+     "text": "免费",
+     "free": true,
+     "region": "CN",
+     "source": "snapshot",
+     "as_of": "2026-10-14"
+    },
+    "pct_positive": 94,
+    "setup": "online"
+   },
+   {
+    "appid": 1274570,
+    "name": "DEVOUR",
+    "relevance": 0.315,
+    "price": {
+     "region": "CN",
+     "final": 42.0,
+     "low": 17.0,
+     "low_time": "2021-04-22",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥42 ／ 史低 ¥17（2021-04） ／ 距史低 +147%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 90,
+    "setup": "online"
+   },
+   {
+    "appid": 1966720,
+    "name": "Lethal Company",
+    "relevance": 0.299,
+    "price": {
+     "region": "CN",
+     "final": 42.0,
+     "low": 27.3,
+     "low_time": "2025-01-13",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥42 ／ 史低 ¥27.3（2025-01） ／ 距史低 +54%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 97,
+    "setup": "online"
+   },
+   {
+    "appid": 204360,
+    "name": "Castle Crashers®",
+    "relevance": 0.298,
+    "price": {
+     "region": "CN",
+     "final": 48.0,
+     "low": 4.8,
+     "low_time": "2024-06-27",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥48 ／ 史低 ¥4.8（2024-06） ／ 距史低 +900%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 96,
+    "setup": "online"
+   },
+   {
+    "appid": 1987080,
+    "name": "Inside the Backrooms",
+    "relevance": 0.297,
+    "price": {
+     "region": "CN",
+     "final": 39.0,
+     "low": 19.8,
+     "low_time": "2022-06-20",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥39 ／ 史低 ¥19.8（2022-06） ／ 距史低 +97%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 80,
+    "setup": "online"
+   },
+   {
+    "appid": 1621690,
+    "name": "护核纪元",
+    "relevance": 0.296,
+    "price": {
+     "region": "CN",
+     "final": 45.6,
+     "low": 34.4,
+     "low_time": "2022-11-10",
+     "discount_pct": 40,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥45.6（-40%） ／ 史低 ¥34.4（2022-11） ／ 距史低 +33%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 92,
+    "setup": "online"
+   },
+   {
+    "appid": 274190,
+    "name": "Broforce",
+    "relevance": 0.296,
+    "price": {
+     "region": "CN",
+     "final": 58.0,
+     "low": 9.0,
+     "low_time": "2021-08-16",
+     "discount_pct": 0,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥58 ／ 史低 ¥9（2021-08） ／ 距史低 +544%",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 96,
+    "setup": "online"
+   },
+   {
+    "appid": 1599600,
+    "name": "速速上菜！",
+    "relevance": 0.295,
+    "price": {
+     "region": "CN",
+     "final": 6.8,
+     "low": 6.8,
+     "low_time": "2026-10-01",
+     "discount_pct": 90,
+     "source": "snapshot",
+     "as_of": "2026-10-14",
+     "text": "现价 ¥6.8（-90%） ／ 史低 ¥6.8（2026-10） ／ 已在史低",
+     "note": "价格取于 2026-10-14（每日快照）"
+    },
+    "pct_positive": 94,
+    "setup": "online"
+   }
+  ],
+  "unknown": [
+   {
+    "appid": 730,
+    "name": "Counter-Strike 2",
+    "why": [
+     "在线组队：IGDB 有在线人数，但 Steam 没有在线分类（两源冲突）"
+    ]
+   },
+   {
+    "appid": 477160,
+    "name": "人类一败涂地 / Human Fall Flat",
+    "why": [
+     "在线组队：IGDB 有在线人数，但 Steam 没有在线分类（两源冲突）"
+    ]
+   }
+  ],
+  "rules": [
+   {
+    "rule": "去掉种子游戏",
+    "pass": 7303,
+    "fail": 1,
+    "unknown": 0,
+    "relaxable": false
+   },
+   {
+    "rule": "4 人 · 在线组队 · 预算 ¥60",
+    "pass": 374,
+    "fail": 6538,
+    "unknown": 392,
+    "relaxable": true
+   }
+  ],
+  "relax": [],
+  "timings": {
+   "hard_filter": 0.047,
+   "scoring": 0.005,
+   "ranking_and_live_prices": 0.001,
+   "cards": 0.171,
+   "total": 0.224
+  },
+  "notes": [],
+  "need_input": null,
+  "session_id": "cq5pzu2RVmejRv_5",
+  "libraries": {}
+ },
+ "recommend_empty_with_relax": {
+  "understood": {
+   "seeds": [
+    "双人成行"
+   ],
+   "preference_text": null,
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "budget": {
+    "amount": 1.0,
+    "scope": "per_person"
+   },
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "party_size": 20,
+   "interaction": "coop",
+   "setups": [
+    "local"
+   ],
+   "unresolved": [],
+   "ambiguous": {},
+   "members": [
+    {
+     "name": "P0",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P1",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P2",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P3",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P4",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P5",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P6",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P7",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P8",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P9",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P10",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P11",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P12",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P13",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P14",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P15",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P16",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P17",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P18",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    },
+    {
+     "name": "P19",
+     "region": "CN",
+     "seeds": [],
+     "played_elsewhere": [],
+     "avoid": [],
+     "language": null,
+     "platform": null,
+     "library": null
+    }
+   ]
+  },
+  "picks": [],
+  "backups": [],
+  "unknown": [
+   {
+    "appid": 730,
+    "name": "Counter-Strike 2",
+    "why": [
+     "本地同屏：IGDB 有同屏人数，但 Steam 没有同屏分类（两源冲突）"
+    ]
+   },
+   {
+    "appid": 791470,
+    "name": "DYO",
+    "why": [
+     "本地同屏：IGDB 未收录同屏人数上限"
+    ]
+   }
+  ],
+  "rules": [
+   {
+    "rule": "去掉种子游戏",
+    "pass": 7303,
+    "fail": 1,
+    "unknown": 0,
+    "relaxable": false
+   },
+   {
+    "rule": "20 人 · 本地同屏 · 预算 ¥1",
+    "pass": 0,
+    "fail": 7203,
+    "unknown": 101,
+    "relaxable": true
+   }
+  ],
+  "relax": [
+   {
+    "changes": [
+     {
+      "key": "unknown",
+      "text": "接受“待确认”的游戏（有字段缺失）"
+     }
+    ],
+    "count": 101,
+    "cost": 1,
+    "examples": [
+     "Counter-Strike 2",
+     "DYO",
+     "Beavers Be Dammed"
+    ]
+   },
+   {
+    "changes": [
+     {
+      "key": "budget",
+      "text": "不设预算"
+     }
+    ],
+    "count": 8,
+    "cost": 2,
+    "examples": [
+     "方舟: 生存飞升",
+     "STAR WARS™: Battlefront Classic Collection",
+     "Murder Miners"
+    ]
+   },
+   {
+    "changes": [
+     {
+      "key": "setup",
+      "text": "改成各自在家在线联机"
+     }
+    ],
+    "count": 14,
+    "cost": 3,
+    "examples": [
+     "DDNet",
+     "Crab Game",
+     "超级动物大逃杀"
+    ]
+   },
+   {
+    "changes": [
+     {
+      "key": "people",
+      "text": "少 1 人（19 人）"
+     }
+    ],
+    "count": 14,
+    "cost": 4,
+    "examples": [
+     "DDNet",
+     "Crab Game",
+     "超级动物大逃杀"
+    ]
+   }
+  ],
+  "timings": {
+   "hard_filter": 0.046,
+   "scoring": 0.004,
+   "ranking_and_live_prices": 0.0,
+   "cards": 0.0,
+   "total": 0.437
+  },
+  "notes": [],
+  "need_input": null,
+  "session_id": "FUXFRx_OiggcEyVh",
+  "libraries": {}
+ }
+}
