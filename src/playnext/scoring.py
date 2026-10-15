@@ -20,6 +20,7 @@ class Taste:
     feel_want: list = field(default_factory=list)
     feel_avoid: list = field(default_factory=list)
     library: dict = field(default_factory=dict)      # library anchors used only as a bonus inside the seed pool
+    same_studio: bool = False
 
     @property
     def empty(self):
@@ -94,23 +95,24 @@ def channel_scores(kb: KB, taste: Taste, pool: np.ndarray, pref_vec=None) -> Sco
         raw["lineage"] = np.isin(kb.appids, list(linked)).astype(np.float32)
         has["lineage"] = np.ones(n, bool)
         ev.update(same_dev=same_dev, same_ser=same_ser, igdb_sim=sim)
+        raw["desc"], has["desc"] = d, kb.E_has
     else:
-        d = None
-        for c in ("tag", "colike", "lineage"):
+        for c in ("tag", "desc", "colike", "lineage"):
             raw[c], has[c] = zeros, none
-    if pref_vec is not None:
-        dp = kb.desc_sim(query=pref_vec)
-        ev["d_pref"] = dp
-        desc = dp if d is None else (1 - C.PREF_W) * minmax(d, pool & kb.E_has) + C.PREF_W * minmax(dp, pool & kb.E_has)
-    else:
-        desc = d if d is not None else zeros
-    raw["desc"] = desc
-    has["desc"] = kb.E_has if (d is not None or pref_vec is not None) else none
     norm = {c: (raw[c] if c == "lineage" else minmax(raw[c], pool & has[c])) for c in raw}
-    W = C.WEIGHTS
+    W = dict(C.WEIGHTS)
+    if taste.same_studio:
+        W["lineage"] = C.SAME_STUDIO_W
     wsum = sum(W[c] * has[c] for c in W)
     content = has["tag"] | has["desc"] | has["colike"]  # lineage alone (a 0/1 feature) must not carry a game
     fused = np.where(content, sum(W[c] * norm[c] * has[c] for c in W) / np.maximum(wsum, 1e-9), 0).astype(np.float32)
+    if pref_vec is not None:  # the preference sentence against every description (design 5.5 description channel)
+        dp = kb.desc_sim(query=pref_vec)
+        ev["d_pref"] = dp
+        pn = minmax(dp, pool & kb.E_has)
+        norm["pref"], has["pref"] = pn, kb.E_has
+        fused = np.where(content, (1 - C.PREF_W) * fused + C.PREF_W * pn, pn * kb.E_has).astype(np.float32)
+        content = content | kb.E_has
     if taste.feel_want or taste.feel_avoid:
         f = feel_raw(kb, taste.feel_want, taste.feel_avoid)
         fn = minmax(f, pool & kb.T_has)
@@ -160,6 +162,7 @@ def relevance(kb: KB, spec: SessionSpec, pool: np.ndarray, encoder=None):
     if spec.party_size == 1:
         m = spec.members[0]
         taste = member_taste(kb, m, spec.seeds, spec.preference_text, spec.feel_want, spec.feel_avoid)
+        taste.same_studio = spec.same_studio
         if taste.empty:
             return None, {}
         s = personal(kb, taste, pool, encoder)
@@ -174,7 +177,7 @@ def relevance(kb: KB, spec: SessionSpec, pool: np.ndarray, encoder=None):
     shared = None
     if spec.has_shared:
         t = Taste(anchors={a: 1.0 for a in spec.seeds if a in kb.pos}, preference_text=spec.preference_text,
-                  feel_want=spec.feel_want, feel_avoid=spec.feel_avoid)
+                  feel_want=spec.feel_want, feel_avoid=spec.feel_avoid, same_studio=spec.same_studio)
         s = personal(kb, t, pool, encoder)
         details["shared"] = (t, s)
         shared = minmax(s.score, pool)

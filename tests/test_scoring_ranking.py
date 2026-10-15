@@ -89,4 +89,4 @@ def test_pipeline_group_and_empty(kb):
                                     interaction="coop", sites=[Site(members=list(range(20)))], budget=Budget(amount=1)))
     assert not res.picks and res.relax
     res = rec.recommend(SessionSpec())
-    assert res.need_input
+    assert res.picks and any("口味" in n for n in res.notes)  # cold start: rating prior plus a hint
