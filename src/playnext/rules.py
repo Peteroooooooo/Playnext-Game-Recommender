@@ -260,7 +260,7 @@ def hard_filter(kb: KB, spec: SessionSpec) -> FilterResult:
     rules = []
     n = kb.n
     single = spec.party_size == 1
-    excl = set(spec.seeds)
+    excl = set(spec.seeds) | set(spec.excluded)
     for m in spec.members:
         excl |= set(m.seeds)
     if single:

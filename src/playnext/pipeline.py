@@ -7,10 +7,12 @@ import numpy as np
 
 from . import config as C
 from .cards import build_card, price_facts, write_reasons
-from .kb import KB
+from .aliases import Resolver
+from .kb import KB, minmax
 from .pricing import Prices
 from .ranking import rank
 from .relax import analyse
+from .rerank import candidates, rerank
 from .rules import PASS, UNKNOWN, hard_filter
 from .scoring import relevance
 from .spec import SessionSpec
@@ -37,13 +39,15 @@ class Result:
 
 
 class Recommender:
-    def __init__(self, kb: KB | None = None, llm=None, encoder=None, live_prices=True, reasons=True):
+    def __init__(self, kb: KB | None = None, llm=None, encoder=None, live_prices=True, reasons=True, rerank=True):
         self.kb = kb or KB()
         self.llm = llm
         self.encoder = encoder
         self.prices = Prices(self.kb, live=live_prices)
         self.understander = Understander(self.kb, llm) if llm else None
+        self.resolver = self.understander.resolver if self.understander else Resolver(self.kb.games)
         self.reasons = reasons
+        self.rerank = rerank
 
     # ---------- Step 1 / Step 6 ----------
     def understand(self, text, base: SessionSpec | None = None, parsed: ParsedRequest | None = None):
@@ -75,10 +79,25 @@ class Recommender:
         t1 = time.time()
         rel, details = relevance(kb, spec, pool, self.encoder)
         t["scoring"] = round(time.time() - t1, 3)
+        words = _preference_words(spec)
+        if rel is not None and words and self.llm is not None and C.RERANK and self.rerank:
+            t1 = time.time()
+            try:
+                cand = candidates(kb, rel, fr.status == PASS, details)
+                rel, _ = rerank(kb, self.llm, words, rel, cand)
+            except Exception:
+                notes.append("语义精排暂不可用，结果只按标签、介绍与同好打分")
+            t["rerank"] = round(time.time() - t1, 3)
         understood = describe(kb, spec)
         if rel is None:
-            return Result(spec, understood, [], [], [], fr.summary(), timings=t, notes=notes,
-                          need_input="还不知道你的口味：说一两款喜欢的游戏、想要的感觉，或者连上 Steam 库")
+            if not (fr.status == PASS).any():
+                return Result(spec, understood, [], [], [], fr.summary(), analyse(kb, spec, fr), timings=t, notes=notes)
+            # no taste at all (design 5.5 'cold start'): the conditions alone still deserve an answer, so rank the
+            # passing games by smoothed rating x log(reviews) and ask for a seed on the page
+            prior = kb.quality * np.log1p(kb.review_count)
+            rel = minmax(prior.astype(np.float32), pool)
+            details = {}
+            notes.append("还不知道你们的口味，先按口碑和评测数排了一版；说一两款喜欢的游戏或想要的感觉，会更准")
         for m in spec.members:
             if m.library and not m.library.is_public:
                 notes.append(f"{m.name}的 Steam 游戏详情不公开，读不到库；可以在 Steam 隐私设置里把“游戏详情”改为公开，或直接点选喜欢的游戏")
@@ -94,8 +113,7 @@ class Recommender:
         t3 = time.time()
         picks = [build_card(kb, spec, i, rel, ranked, details, fr, self.prices, ranked.steps[k])
                  for k, i in enumerate(ranked.picks)]
-        if self.reasons:
-            write_reasons(picks, self.llm, spec.request_text)
+        write_reasons(picks, self.llm if self.reasons else None, spec.request_text)  # template first, LLM if enabled
         t["cards"] = round(time.time() - t3, 3)
         backups = []
         region = spec.members[0].region
@@ -137,6 +155,15 @@ class Recommender:
         res = self.recommend(spec)
         res.timings["understand"] = round(time.time() - t0 - res.timings.get("total", 0), 3)
         return p, res
+
+
+def _preference_words(spec: SessionSpec):
+    """The text the rerank compares against: the request itself when it says what the player wants (design 5.5:
+    only with preference words; seeds or a library alone are not reranked)."""
+    has_words = spec.preference_text or spec.feel_want or spec.feel_avoid or any(m.preference_text for m in spec.members)
+    if not has_words:
+        return None
+    return spec.request_text or spec.preference_text
 
 
 def _pct(kb, a):
