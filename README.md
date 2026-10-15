@@ -52,7 +52,37 @@ so re-running skips what is already there. `data/` and `.cache/` are git-ignored
 Reviewer Steam IDs are keyed-hashed in memory as soon as they are read and never written. The full review pipeline is
 recorded in [docs/Review_Data_Pipeline.md](docs/Review_Data_Pipeline.md).
 
-Evaluation and simulation: `eval_ease.py [N] [M]`, `playtime_signal.py`, `simulate_inputs.py`, `demo_walkthrough.py`.
+## The recommender (`src/playnext/`)
+
+| Module | Design step |
+|---|---|
+| `understand.py`, `llm.py`, `aliases.py` | Step 1: request → SessionSpec (LLM + Pydantic), alias table; Step 6 follow-up patches |
+| `spec.py` | SessionSpec, members, sites (who sits at which machine) |
+| `library.py` | Paths A / B: Steam OpenID login or profile link → GetOwnedGames (SteamID never stored) |
+| `rules.py` | Step 2: three-valued rules, multiplayer modes and player limits, who-buys plans, budget, region |
+| `scoring.py`, `encoder.py` | Step 3: co-like (EASE), tag, description, feel and preference-sentence channels; group aggregation |
+| `ranking.py`, `pricing.py` | Step 4: series folding, live price re-check, rating floor, relevance window, MMR |
+| `cards.py` | Step 5: evidence cards, setup cards, LLM reasons with fact check and template fallback |
+| `relax.py` | conflict analyser (subset-sum over failed relaxable rules) |
+| `pipeline.py`, `api.py` | the trunk; FastAPI backend (also serves the built web app) |
+| `db.py` | PostgreSQL knowledge base and recursive-CTE lineage paths |
+| `config.py` | every weight and threshold |
+
+Run it:
+
+```
+docker compose up -d                                   # optional: PostgreSQL, then scripts/load_postgres.py
+npm --prefix web install && npm --prefix web run build # web app (see web/README.md)
+uv run uvicorn --app-dir src playnext.api:app --host 127.0.0.1 --port 8000
+```
+
+Open http://127.0.0.1:8000. The API has no authentication; keep it on 127.0.0.1. Command-line checks:
+`scripts/try_request.py "<request>" ["<follow-up>"]` (full path with LLM and live prices), `scripts/smoke_pipeline.py`
+(no LLM). Tests: `uv run pytest` (the PostgreSQL tests skip when the database is not loaded).
+
+Offline evaluation: `eval_fusion.py` (channel weights), `eval_ranking_groups.py` (ranking rules, library bonus,
+synthetic groups), `eval_request_set.py` (32 real forum requests vs asking the LLM directly; results in `eval/`).
+Earlier evaluation and simulation: `eval_ease.py [N] [M]`, `playtime_signal.py`, `simulate_inputs.py`, `demo_walkthrough.py`.
 Diagnostics: `igdb_mp_coverage.py`, `rate_limit_probe.py`, `diagnose_short_games.py`, `diagnose_paging.py`,
 `diagnose_empty_pages.py`, `probe_owned_games.py` (one Steam profile, counts only), `probe_owned_sample.py`
 (GetOwnedGames privacy states on sampled reviewers, counts only).
