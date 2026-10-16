@@ -186,6 +186,39 @@ a.tile:hover, a.tile:focus-visible { border-color: var(--on); }
 .mmr-demo .g.lose { opacity: .65; text-decoration: line-through; }
 .mmr-demo .g span:last-child { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
 
+/* worked example */
+.ex-step { scroll-margin-top: 16px; margin-top: 18px; }
+.ex-step > .hd { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; }
+.ex-step > .hd .k { flex: none; min-width: 30px; height: 30px; padding: 0 7px; border-radius: 9px; background: var(--on); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 13.5px; }
+.ex-step > .hd h3 { margin: 0; font-size: 17.5px; }
+.ex-io { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 10px; }
+.ex-io div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 13.5px; color: var(--ink-2); }
+.ex-io b { display: block; font-size: 12px; color: var(--ink-3); font-weight: 650; }
+.ex-text { font-size: 14.5px; color: var(--ink-2); margin: 8px 0 0; }
+.ex-text b { color: var(--ink); }
+.q-box { margin: 10px 0 0; padding: 11px 14px; border-radius: 11px; background: var(--fb-soft); font-size: 14px; color: var(--ink); }
+.q-box b { color: var(--fb); }
+table.mx { min-width: 640px; font-size: 13px; }
+table.mx th, table.mx td { padding: 7px 10px; }
+table.mx td.n, table.mx th.n { text-align: right; font-family: var(--mono); font-size: 12.5px; white-space: nowrap; }
+table.mx td.n small { display: block; color: var(--ink-3); font-size: 11.5px; }
+table.mx td.hl { background: var(--on-soft); color: var(--ink); font-weight: 650; }
+table.mx td.hl small { color: var(--on); }
+table.mx tr.sum td { background: var(--surface-2); font-weight: 650; color: var(--ink); }
+table.mx tr.norm td { background: var(--off-soft); font-weight: 700; color: var(--ink); }
+table.mx tr.pick-row td:first-child { box-shadow: inset 3px 0 0 var(--on); font-weight: 650; color: var(--ink); }
+.round-card table.mx tr.pick-row td:first-child::after, table.mx tr.pick-row td.n:first-child::after { content: none; }
+.round-card table.mx tr.pick-row td { background: var(--on-soft); }
+table.mx tr.pick-row td:first-child::after { content: "推荐"; margin-left: 6px; font-size: 11px; font-weight: 650; color: var(--on); background: var(--on-soft); border-radius: 4px; padding: 0 5px; }
+table.mx tr.drop-row td { color: var(--ink-3); }
+table.mx .w { color: var(--ink-3); font-family: var(--mono); font-size: 12px; }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.three .box ol { margin: 4px 0 0; padding-left: 20px; }
+.rounds { display: grid; gap: 10px; margin-top: 10px; }
+.round-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.round-card h4 { margin: 0 0 6px; font-size: 14px; }
+.round-card h4 span { font-weight: 400; color: var(--ink-3); font-size: 12.5px; margin-left: 6px; }
+
 /* evidence */
 .ev { display: grid; gap: 14px; }
 .evc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
@@ -262,7 +295,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
 <header class="topbar">
   <div class="in">
     <nav aria-label="页面目录（窄屏）">
-      <a href="#idea">核心思路</a><a href="#map">全局图</a><a href="#online">一次推荐</a><a href="#score">打分细节</a>
+      <a href="#idea">核心思路</a><a href="#map">全局图</a><a href="#online">一次推荐</a><a href="#walk">例子算到底</a><a href="#score">公式速查</a>
       <a href="#rank">排序与 MMR</a><a href="#proof">证明有效</a><a href="#offline">离线数据</a><a href="#feedback">反馈</a>
       <a href="#runtime">运行架构</a><a href="#knobs">可调之处</a>
     </nav>
@@ -288,7 +321,21 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
             <li><a href="#s4">4 排序</a></li>
             <li><a href="#s5">5 写推荐理由</a></li>
           </ol></li>
-        <li><a href="#score">四 · 打分细节</a>
+        <li><a href="#walk">四 · 一个例子算到底</a>
+          <ol>
+            <li><a href="#ex-in">① 输入：一个游戏库</a></li>
+            <li><a href="#ex-filter">② 筛出候选池</a></li>
+            <li><a href="#ex-anchor">③ 库 → 锚点和分量</a></li>
+            <li><a href="#ex-grid">④ 怎么“比”：一张大表</a></li>
+            <li><a href="#ex-tag">⑤ 标签分</a></li>
+            <li><a href="#ex-desc">⑥ 介绍分</a></li>
+            <li><a href="#ex-colike">⑦ 同好分</a></li>
+            <li><a href="#ex-norm">⑧ 统一尺度</a></li>
+            <li><a href="#ex-fuse">⑨ 合成喜好分</a></li>
+            <li><a href="#ex-short">⑩ 入围与折叠</a></li>
+            <li><a href="#ex-mmr">⑪ MMR 选 5 款</a></li>
+          </ol></li>
+        <li><a href="#score">五 · 公式速查</a>
           <ol>
             <li><a href="#sc-anchor">口味锚点与分量</a></li>
             <li><a href="#sc-colike">同好</a></li>
@@ -301,18 +348,18 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
             <li><a href="#sc-rerank">LLM 精排</a></li>
             <li><a href="#sc-group">多人合成</a></li>
           </ol></li>
-        <li><a href="#rank">五 · 排序与 MMR</a>
+        <li><a href="#rank">六 · 排序与 MMR</a>
           <ol>
             <li><a href="#rk-short">入围名单</a></li>
             <li><a href="#rk-base">窗口分</a></li>
             <li><a href="#rk-mmr">MMR 怎么选</a></li>
           </ol></li>
-        <li><a href="#proof">六 · 怎么证明有效</a></li>
-        <li><a href="#offline">七 · 离线数据</a></li>
-        <li><a href="#feedback">八 · 反馈</a></li>
-        <li><a href="#runtime">九 · 运行架构</a></li>
-        <li><a href="#knobs">十 · 可调之处</a></li>
-        <li><a href="#principles">十一 · 设计原则</a></li>
+        <li><a href="#proof">七 · 怎么证明有效</a></li>
+        <li><a href="#offline">八 · 离线数据</a></li>
+        <li><a href="#feedback">九 · 反馈</a></li>
+        <li><a href="#runtime">十 · 运行架构</a></li>
+        <li><a href="#knobs">十一 · 可调之处</a></li>
+        <li><a href="#principles">十二 · 设计原则</a></li>
       </ol>
     </nav>
     <button class="theme" type="button" data-theme-toggle aria-label="切换深色或浅色">深色</button>
@@ -321,11 +368,11 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
 <main>
   <div class="hero">
     <h1>Playnext 流水线：架构与算法逻辑</h1>
-    <p>先看“核心思路”：系统靠什么猜中你的口味；再看“一次推荐”怎么一步步走；想知道分数具体怎么算，看“打分细节”和“排序与 MMR”。具体数值不在这页，在 <code>src/playnext/config.py</code> 里（每项都标了配置名）。</p>
+    <p>先看“核心思路”：系统靠什么猜中你的口味；再看“一次推荐”怎么一步步走；想看分数具体怎么算，看“一个例子算到底”：同一个游戏库从输入一直算到最终 5 款，每个数字都是真实系统算出来的。各项占比的取值在 <code>src/playnext/config.py</code> 里（每项都标了配置名）。</p>
     <nav class="qa" aria-label="按问题找">
       <a href="#idea"><b>系统怎么知道我喜欢什么？</b>从时长读口味，用千万玩家找隐性关联</a>
-      <a href="#score"><b>每一路分数怎么算？</b>同好、标签、介绍、感觉……输入、算法、输出</a>
-      <a href="#rk-mmr"><b>MMR 改的是顺序还是内容？</b>两者都改，但只在窗口内换</a>
+      <a href="#walk"><b>我的库到底怎么被算成推荐？</b>一个真实例子，每一步的数字都能加回去</a>
+      <a href="#ex-mmr"><b>MMR 改的是顺序还是内容？</b>两者都改：例子里巫师3 被换成了泰拉瑞亚</a>
       <a href="#proof"><b>怎么证明它有效？</b>已经做了什么、还缺什么</a>
     </nav>
   </div>
@@ -489,6 +536,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           </div>
         </div>
         <p class="why">标签和介绍只看“长得像不像”，同好看“真实玩家会不会一起喜欢”。离线验证里同好猜得最准，所以占主导；LLM 精排补上原话里的细微要求。</p>
+        <a class="more" href="#walk">用一个真实的库，从头算到尾 →</a>
       </article>
       <div class="connector" role="presentation"></div>
 
@@ -517,12 +565,277 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <!-- 4 SCORING DETAIL -->
+  <!-- 4 WORKED EXAMPLE -->
+  <section id="walk" aria-labelledby="wk-t">
+    <div class="sec-head">
+      <div class="eyebrow">四 · 一个例子算到底</div>
+      <h2 id="wk-t">同一个游戏库，从输入一直算到最终 5 款</h2>
+      <p>就用“核心思路”里那个库。只给了库、没说话，所以这次没有原话、感觉和 LLM 精排，只走“锚点 → 标签 / 介绍 / 同好 → 合成 → 排序”。表里每个数字都是真实系统算出来的（<code>scripts/explain_library_example.py</code>，结果在 <code>.cache/explain_library_example.json</code>），可以自己加一遍验证。</p>
+    </div>
+
+    <!-- ① -->
+    <div class="ex-step" id="ex-in">
+      <div class="hd"><span class="k">①</span><h3>输入：一个 Steam 游戏库</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>7 款游戏和各自的游玩时长（Steam 登录后读到的）</div>
+        <div><b>输出</b>交给第 ② 步的“已拥有 + 时长”名单</div>
+      </div>
+      <div class="table-wrap"><table class="mx">
+        <thead><tr><th>游戏</th><th class="n">你玩了</th><th>在不在核心库</th></tr></thead>
+        <tbody>
+          <tr><td>文明6</td><td class="n">300 小时</td><td>在</td></tr>
+          <tr><td>Hades</td><td class="n">80 小时</td><td>在</td></tr>
+          <tr><td>星露谷物语</td><td class="n">60 小时</td><td>在</td></tr>
+          <tr><td>双人成行</td><td class="n">13 小时</td><td>在</td></tr>
+          <tr><td>Dead Cells</td><td class="n">0.7 小时</td><td>在</td></tr>
+          <tr><td>杀戮尖塔</td><td class="n">0 小时</td><td>在（买了没玩）</td></tr>
+          <tr class="drop-row"><td>另一款小游戏</td><td class="n">5 小时</td><td>不在（评测太少），只记作“已拥有”，不参与计算</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- ② -->
+    <div class="ex-step" id="ex-filter">
+      <div class="hd"><span class="k">②</span><h3>按硬条件筛出候选池</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>核心库 7,304 款；你的库</div>
+        <div><b>输出</b><b style="display:inline;color:var(--ink);font-size:13.5px">候选池 7,080 款</b>：后面所有打分都只在这 7,080 款里做</div>
+      </div>
+      <div class="table-wrap"><table class="mx">
+        <thead><tr><th>规则</th><th class="n">去掉</th><th>去掉了谁</th></tr></thead>
+        <tbody>
+          <tr><td>一个人玩时，Steam 上玩过的不再推荐</td><td class="n">5 款</td><td>文明6、Hades、星露谷物语、双人成行、Dead Cells。<b>杀戮尖塔 0 小时，不算玩过，留在候选池里</b></td></tr>
+          <tr><td>国区买得到</td><td class="n">219 款</td><td>国区不卖的游戏</td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">这次没有说人数、预算、雷区，所以只有这两条规则起作用。</p>
+    </div>
+
+    <!-- ③ -->
+    <div class="ex-step" id="ex-anchor">
+      <div class="hd"><span class="k">③</span><h3>把库变成“口味锚点”和分量</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>你的时长；每款游戏所有玩家的时长分布（离线算好的时长参照）</div>
+        <div><b>输出</b>5 个锚点，每个带一个 0~1 的分量 w</div>
+      </div>
+      <div class="table-wrap"><table class="mx">
+        <thead><tr><th>游戏</th><th class="n">你玩了</th><th class="n">这款玩家的中位数</th><th class="n">分量 w（时长分位）</th><th>怎么读</th></tr></thead>
+        <tbody>
+          <tr><td>文明6</td><td class="n">300</td><td class="n">157</td><td class="n hl">0.669</td><td>比 66.9% 的文明6玩家玩得久</td></tr>
+          <tr><td>Hades</td><td class="n">80</td><td class="n">54</td><td class="n hl">0.658</td><td>比 65.8% 的 Hades 玩家玩得久</td></tr>
+          <tr><td>星露谷物语</td><td class="n">60</td><td class="n">130</td><td class="n hl">0.253</td><td>60 小时听着多，但不到一半玩家的水平</td></tr>
+          <tr><td>双人成行</td><td class="n">13</td><td class="n">19</td><td class="n hl">0.207</td><td>流程短，13 小时也只是偏少</td></tr>
+          <tr><td>Dead Cells</td><td class="n">0.7</td><td class="n">50</td><td class="n hl">0.003</td><td>几乎没玩，分量接近 0</td></tr>
+          <tr class="drop-row"><td>杀戮尖塔</td><td class="n">0</td><td class="n">104</td><td class="n">—</td><td>0 小时不当锚点</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- ④ -->
+    <div class="ex-step" id="ex-grid">
+      <div class="hd"><span class="k">④</span><h3>怎么“比”：锚点 × 候选的一张大表</h3></div>
+      <div class="q-box"><b>是不是拿一款游戏去遍历、找最像的那一款？</b>差不多，但有两点不同：<br>
+        1. 不是在你的库里互相比，而是拿你库里的<b>每一个锚点</b>，去和<b>候选池里的每一款</b>（7,080 款）比。<br>
+        2. 一款候选的分，不是只看和它最像的那一个锚点，而是<b>每个锚点的相似度 × 这个锚点的分量，全部加起来</b>。离线比较过，“加起来”比“取最大”猜得准。</div>
+      <div class="formula" style="margin-top:10px">候选 g 的某一路分 = <span class="v">w<sub>文明6</sub></span> × 相似度(文明6, g) + <span class="v">w<sub>Hades</sub></span> × 相似度(Hades, g) + <span class="v">w<sub>星露谷</sub></span> × 相似度(星露谷, g) + …
+        <small>也就是一张 5 行（锚点）× 7,080 列（候选）的表，每格是“相似度 × 分量”，每一列加起来就是这款候选的分。标签、介绍、同好三路都这样算，区别只是“相似度”怎么定义。下面挑 8 款候选展示：最终推荐的 5 款，加上 3 款“某一路很高、最后却没推荐”的。</small></div>
+    </div>
+
+    <!-- ⑤ -->
+    <div class="ex-step" id="ex-tag">
+      <div class="hd"><span class="k">⑤</span><h3>标签分</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>锚点和分量；每款游戏的标签向量（离线算好）</div>
+        <div><b>输出</b>7,080 款候选每款一个标签分</div>
+      </div>
+      <p class="ex-text"><b>相似度 = 两款游戏标签向量的余弦</b>（0 = 完全不像，1 = 一模一样）。标签向量里每个标签的值 = 这个标签的票数 ÷ 这款最高票标签的票数 × 冷门程度（IDF），再缩放到长度 1。比如 Hades 排前面的是“动作类 Rogue、神话、轻度 Rogue、砍杀”，Hades II 几乎一样，所以两者余弦 0.899；《人类》和文明6都以“4X、回合战略、大战略、历史”为主，余弦 0.939。</p>
+      <div class="table-wrap" style="margin-top:10px"><table class="mx">
+        <thead><tr><th>候选</th><th class="n">文明6<br><span class="w">w 0.669</span></th><th class="n">Hades<br><span class="w">w 0.658</span></th><th class="n">星露谷<br><span class="w">w 0.253</span></th><th class="n">双人成行<br><span class="w">w 0.207</span></th><th class="n">Dead Cells<br><span class="w">w 0.003</span></th><th class="n">加起来</th></tr></thead>
+        <tbody>
+          <tr class="pick-row"><td>Hades II</td><td class="n">0.001<small>→0.001</small></td><td class="n hl">0.899<small>→0.591</small></td><td class="n">0.019<small>→0.005</small></td><td class="n">0.023<small>→0.005</small></td><td class="n">0.461<small>→0.001</small></td><td class="n">0.603</td></tr>
+          <tr class="pick-row"><td>博德之门3</td><td class="n">0.047<small>→0.031</small></td><td class="n">0.040<small>→0.027</small></td><td class="n">0.035<small>→0.009</small></td><td class="n hl">0.143<small>→0.030</small></td><td class="n">0.050<small>→0.000</small></td><td class="n">0.096</td></tr>
+          <tr class="pick-row"><td>空洞骑士</td><td class="n">0.011<small>→0.008</small></td><td class="n hl">0.095<small>→0.063</small></td><td class="n">0.043<small>→0.011</small></td><td class="n">0.057<small>→0.012</small></td><td class="n">0.582<small>→0.002</small></td><td class="n">0.095</td></tr>
+          <tr class="pick-row"><td>文明5</td><td class="n hl">0.805<small>→0.539</small></td><td class="n">0.026<small>→0.017</small></td><td class="n">0.016<small>→0.004</small></td><td class="n">0.032<small>→0.007</small></td><td class="n">0.030<small>→0.000</small></td><td class="n">0.566</td></tr>
+          <tr class="pick-row"><td>泰拉瑞亚</td><td class="n">0.055<small>→0.037</small></td><td class="n">0.043<small>→0.028</small></td><td class="n hl">0.246<small>→0.062</small></td><td class="n">0.119<small>→0.025</small></td><td class="n">0.152<small>→0.000</small></td><td class="n">0.152</td></tr>
+          <tr><td>人类（Humankind）</td><td class="n hl">0.939<small>→0.628</small></td><td class="n">0.005<small>→0.003</small></td><td class="n">0.030<small>→0.008</small></td><td class="n">0.015<small>→0.003</small></td><td class="n">0.001<small>→0.000</small></td><td class="n">0.642</td></tr>
+          <tr><td>文明4</td><td class="n hl">0.853<small>→0.571</small></td><td class="n">0.025<small>→0.017</small></td><td class="n">0.016<small>→0.004</small></td><td class="n">0.016<small>→0.003</small></td><td class="n">0.028<small>→0.000</small></td><td class="n">0.595</td></tr>
+          <tr><td>王国重生</td><td class="n hl">0.248<small>→0.166</small></td><td class="n">0.000<small>→0.000</small></td><td class="n">0.046<small>→0.012</small></td><td class="n">0.053<small>→0.011</small></td><td class="n">0.044<small>→0.000</small></td><td class="n">0.189</td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">每格大字是相似度，小字是“× 分量”之后的值，一行的小字加起来就是“加起来”那一列。紫底是这一行贡献最大的锚点。注意 <b>Dead Cells 和空洞骑士的相似度高达 0.582，但 Dead Cells 的分量只有 0.003，几乎没贡献</b>：你没怎么玩的游戏不代表你的口味。<br>只看标签，第一名是《人类》（0.642），几乎全靠文明6撑起来。</p>
+    </div>
+
+    <!-- ⑥ -->
+    <div class="ex-step" id="ex-desc">
+      <div class="hd"><span class="k">⑥</span><h3>介绍分</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>锚点和分量；每款游戏商店介绍的向量（中英文各一个，离线算好）</div>
+        <div><b>输出</b>每款候选一个介绍分</div>
+      </div>
+      <p class="ex-text"><b>相似度 = 两段介绍向量的余弦</b>，中文版和英文版各算一次，取较大的那个。算法和标签一样，只是“相似度”换了来源。</p>
+      <div class="table-wrap" style="margin-top:10px"><table class="mx">
+        <thead><tr><th>候选</th><th class="n">文明6<br><span class="w">w 0.669</span></th><th class="n">Hades<br><span class="w">w 0.658</span></th><th class="n">星露谷<br><span class="w">w 0.253</span></th><th class="n">双人成行<br><span class="w">w 0.207</span></th><th class="n">Dead Cells<br><span class="w">w 0.003</span></th><th class="n">加起来</th></tr></thead>
+        <tbody>
+          <tr class="pick-row"><td>Hades II</td><td class="n">0.384<small>→0.257</small></td><td class="n hl">0.814<small>→0.536</small></td><td class="n">0.391<small>→0.099</small></td><td class="n">0.444<small>→0.092</small></td><td class="n">0.504<small>→0.002</small></td><td class="n">0.985</td></tr>
+          <tr class="pick-row"><td>博德之门3</td><td class="n">0.426<small>→0.285</small></td><td class="n hl">0.515<small>→0.339</small></td><td class="n">0.420<small>→0.106</small></td><td class="n">0.441<small>→0.091</small></td><td class="n">0.493<small>→0.001</small></td><td class="n">0.823</td></tr>
+          <tr class="pick-row"><td>空洞骑士</td><td class="n">0.381<small>→0.255</small></td><td class="n hl">0.559<small>→0.368</small></td><td class="n">0.448<small>→0.113</small></td><td class="n">0.470<small>→0.097</small></td><td class="n">0.538<small>→0.002</small></td><td class="n">0.835</td></tr>
+          <tr class="pick-row"><td>文明5</td><td class="n hl">0.707<small>→0.473</small></td><td class="n">0.407<small>→0.268</small></td><td class="n">0.445<small>→0.113</small></td><td class="n">0.362<small>→0.075</small></td><td class="n">0.389<small>→0.001</small></td><td class="n">0.929</td></tr>
+          <tr class="pick-row"><td>泰拉瑞亚</td><td class="n">0.444<small>→0.297</small></td><td class="n hl">0.524<small>→0.345</small></td><td class="n">0.483<small>→0.122</small></td><td class="n">0.448<small>→0.093</small></td><td class="n">0.499<small>→0.001</small></td><td class="n">0.859</td></tr>
+          <tr><td>人类（Humankind）</td><td class="n hl">0.649<small>→0.434</small></td><td class="n">0.456<small>→0.300</small></td><td class="n">0.453<small>→0.115</small></td><td class="n">0.408<small>→0.084</small></td><td class="n">0.401<small>→0.001</small></td><td class="n">0.934</td></tr>
+          <tr><td>文明4</td><td class="n hl">0.600<small>→0.402</small></td><td class="n">0.411<small>→0.271</small></td><td class="n">0.383<small>→0.097</small></td><td class="n">0.392<small>→0.081</small></td><td class="n">0.373<small>→0.001</small></td><td class="n">0.851</td></tr>
+          <tr><td>王国重生</td><td class="n hl">0.629<small>→0.421</small></td><td class="n">0.463<small>→0.305</small></td><td class="n">0.472<small>→0.119</small></td><td class="n">0.457<small>→0.095</small></td><td class="n">0.488<small>→0.001</small></td><td class="n">0.941</td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">和标签不同，介绍相似度<b>几乎从不接近 0</b>：游戏介绍都在讲“探索、战斗、建造”，任意两款都有 0.4 左右的底子，所以 8 款候选的介绍分都挤在 0.82~0.99 之间，区分能力弱。这也是介绍这一路占比很小的原因。</p>
+    </div>
+
+    <!-- ⑦ -->
+    <div class="ex-step" id="ex-colike">
+      <div class="hd"><span class="k">⑦</span><h3>同好分（主力）</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>锚点和分量；离线用几千万条好评算好的同好矩阵 B</div>
+        <div><b>输出</b>每款候选一个同好分</div>
+      </div>
+      <p class="ex-text"><b>“相似度”= B[锚点, 候选]</b>：在其他所有游戏都考虑进去之后，“好评锚点的人还会好评这款”的独立程度（EASE 算法，见<a href="#sc-colike">公式速查</a>）。它只看人，不看标签和介绍。数值很小，下表统一<b>乘了 1000</b>方便读。</p>
+      <div class="table-wrap" style="margin-top:10px"><table class="mx">
+        <thead><tr><th>候选</th><th class="n">文明6<br><span class="w">w 0.669</span></th><th class="n">Hades<br><span class="w">w 0.658</span></th><th class="n">星露谷<br><span class="w">w 0.253</span></th><th class="n">双人成行<br><span class="w">w 0.207</span></th><th class="n">Dead Cells<br><span class="w">w 0.003</span></th><th class="n">加起来</th></tr></thead>
+        <tbody>
+          <tr class="pick-row"><td>Hades II</td><td class="n">1<small>→1</small></td><td class="n hl">73<small>→48</small></td><td class="n">1<small>→0</small></td><td class="n">1<small>→0</small></td><td class="n">9<small>→0</small></td><td class="n">49</td></tr>
+          <tr class="pick-row"><td>博德之门3</td><td class="n hl">21<small>→14</small></td><td class="n hl">22<small>→14</small></td><td class="n">15<small>→4</small></td><td class="n">5<small>→1</small></td><td class="n">0<small>→0</small></td><td class="n">33</td></tr>
+          <tr class="pick-row"><td>空洞骑士</td><td class="n">2<small>→2</small></td><td class="n hl">36<small>→24</small></td><td class="n">16<small>→4</small></td><td class="n">6<small>→1</small></td><td class="n">60<small>→0</small></td><td class="n">30</td></tr>
+          <tr class="pick-row"><td>文明5</td><td class="n hl">34<small>→23</small></td><td class="n">2<small>→1</small></td><td class="n">3<small>→1</small></td><td class="n">0<small>→0</small></td><td class="n">−1<small>→0</small></td><td class="n">25</td></tr>
+          <tr class="pick-row"><td>泰拉瑞亚</td><td class="n">11<small>→7</small></td><td class="n">7<small>→5</small></td><td class="n hl">52<small>→13</small></td><td class="n">0<small>→0</small></td><td class="n">51<small>→0</small></td><td class="n">25</td></tr>
+          <tr><td>人类（Humankind）</td><td class="n hl">7<small>→5</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">5</td></tr>
+          <tr><td>文明4</td><td class="n">1<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0</td></tr>
+          <tr><td>王国重生</td><td class="n">1<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0<small>→0</small></td><td class="n">0</td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">这一路和前两路很不一样：<br>
+        · <b>博德之门3</b>标签分只有 0.096，但同好里文明6和 Hades 两边各投了一票，加起来排第 2，这就是“隐性关联”。<br>
+        · <b>《人类》</b>标签和介绍都和文明6非常像，但喜欢文明6的人并不怎么喜欢它（好评率只有 68%），同好分只有 5。<br>
+        · <b>文明4</b>和文明6的标签余弦有 0.853，同好却几乎是 0：从好评数据看，喜欢文明6的人并不会因此特别去好评文明4（它的评测也只有约 2,800 条）。同系列里真正被同好推上来的是文明5。</p>
+      <div class="three">
+        <div class="box"><h4>只看标签的前 5</h4><ol><li>人类</li><li>Hades II</li><li>文明4</li><li>文明3</li><li>文明5</li></ol></div>
+        <div class="box"><h4>只看介绍的前 5</h4><ol><li>Hades II</li><li>王国重生</li><li>人类</li><li>刺客信条：英灵殿</li><li>文明5</li></ol></div>
+        <div class="box"><h4>只看同好的前 5</h4><ol><li>Hades II</li><li>博德之门3</li><li>空洞骑士</li><li>巫师3</li><li>杀戮尖塔</li></ol></div>
+      </div>
+    </div>
+
+    <!-- ⑧ -->
+    <div class="ex-step" id="ex-norm">
+      <div class="hd"><span class="k">⑧</span><h3>统一尺度：把三路分数拉到 0~1</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>三路的“加起来”分（尺度完全不同：同好是千分之几，介绍是零点几）</div>
+        <div><b>输出</b>三路各自的 0~1 分，可以相加</div>
+      </div>
+      <div class="formula">归一分 = (这款的分 − 候选池里最低的分) ÷ (候选池里最高的分 − 最低的分)</div>
+      <div class="table-wrap" style="margin-top:10px"><table class="mx">
+        <thead><tr><th>这一路</th><th class="n">池内最低</th><th class="n">池内最高（谁）</th><th class="n">例：博德之门3</th></tr></thead>
+        <tbody>
+          <tr><td>标签</td><td class="n">0.000</td><td class="n">0.642（人类）</td><td class="n">0.096 → <b>0.150</b></td></tr>
+          <tr><td>介绍</td><td class="n">0.333</td><td class="n">0.985（Hades II）</td><td class="n">0.823 → <b>0.751</b></td></tr>
+          <tr><td>同好（×1000）</td><td class="n">−6</td><td class="n">49（Hades II）</td><td class="n">33 → <b>0.709</b></td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">所以同好分为 0 的游戏归一后不是 0，而是约 0.11（因为池里有负数）。</p>
+    </div>
+
+    <!-- ⑨ -->
+    <div class="ex-step" id="ex-fuse">
+      <div class="hd"><span class="k">⑨</span><h3>合成喜好分</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>三路归一分；各路占比（这次：标签 0.05、介绍 0.05、同好 0.90，血统 0）</div>
+        <div><b>输出</b>每款候选一个 0~1 的喜好分</div>
+      </div>
+      <div class="formula">合成分 = 0.05 × 标签归一 + 0.05 × 介绍归一 + 0.90 × 同好归一<small>然后在候选池里再归一一次，最高的变成 1，就是<b>喜好分</b>。</small></div>
+      <div class="table-wrap" style="margin-top:10px"><table class="mx">
+        <thead><tr><th>候选</th><th class="n">标签归一</th><th class="n">介绍归一</th><th class="n">同好归一</th><th class="n">合成分</th><th class="n">喜好分</th><th class="n">7,080 款里排第几</th></tr></thead>
+        <tbody>
+          <tr class="pick-row"><td>Hades II</td><td class="n">0.940</td><td class="n">1.000</td><td class="n">1.000</td><td class="n">0.997</td><td class="n hl">1.000</td><td class="n">1</td></tr>
+          <tr class="pick-row"><td>博德之门3</td><td class="n">0.150</td><td class="n">0.751</td><td class="n">0.709</td><td class="n">0.683</td><td class="n hl">0.673</td><td class="n">2</td></tr>
+          <tr class="pick-row"><td>空洞骑士</td><td class="n">0.147</td><td class="n">0.771</td><td class="n">0.661</td><td class="n">0.641</td><td class="n hl">0.629</td><td class="n">3</td></tr>
+          <tr class="pick-row"><td>文明5</td><td class="n">0.882</td><td class="n">0.914</td><td class="n">0.557</td><td class="n">0.591</td><td class="n hl">0.577</td><td class="n">4</td></tr>
+          <tr class="pick-row"><td>泰拉瑞亚</td><td class="n">0.237</td><td class="n">0.806</td><td class="n">0.567</td><td class="n">0.562</td><td class="n hl">0.547</td><td class="n">7</td></tr>
+          <tr><td>人类（Humankind）</td><td class="n">1.000</td><td class="n">0.922</td><td class="n">0.203</td><td class="n">0.279</td><td class="n">0.252</td><td class="n">38</td></tr>
+          <tr><td>文明4</td><td class="n">0.927</td><td class="n">0.795</td><td class="n">0.119</td><td class="n">0.193</td><td class="n">0.162</td><td class="n">128</td></tr>
+          <tr><td>王国重生</td><td class="n">0.295</td><td class="n">0.932</td><td class="n">0.116</td><td class="n">0.166</td><td class="n">0.134</td><td class="n">333</td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">例：博德之门3 = 0.05 × 0.150 + 0.05 × 0.751 + 0.90 × 0.709 = 0.683。同好占 0.90，所以最终名次基本跟着同好走：《人类》标签第一，最终只排第 38。</p>
+    </div>
+
+    <!-- ⑩ -->
+    <div class="ex-step" id="ex-short">
+      <div class="hd"><span class="k">⑩</span><h3>入围与同系列折叠</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>喜好分从高到低的名单</div>
+        <div><b>输出</b>入围的 20 款（第 ⑪ 步从这里挑，没挑上的就是备选）</div>
+      </div>
+      <p class="ex-text">从高往下数，同一系列只留分最高的一款：<b>文明5</b>留下，文明7、文明：太空、文明4 折叠在它下面（结果页显示“同系列另有 3 款”）；饥荒、以撒、神界：原罪也各折叠了一款旧版。这次没有预算，实时价格复核没有移出任何游戏。入围的前 10 款：</p>
+      <div class="table-wrap" style="margin-top:10px"><table class="mx">
+        <thead><tr><th class="n">喜好分排名</th><th>游戏</th><th class="n">喜好分</th><th>最后</th></tr></thead>
+        <tbody>
+          <tr class="pick-row"><td class="n">1</td><td>Hades II</td><td class="n">1.000</td><td>精选</td></tr>
+          <tr class="pick-row"><td class="n">2</td><td>博德之门3</td><td class="n">0.673</td><td>精选</td></tr>
+          <tr class="pick-row"><td class="n">3</td><td>空洞骑士</td><td class="n">0.629</td><td>精选</td></tr>
+          <tr class="pick-row"><td class="n">4</td><td>文明5</td><td class="n">0.577</td><td>精选</td></tr>
+          <tr><td class="n">5</td><td>巫师3：狂猎</td><td class="n">0.558</td><td><b>被 MMR 换掉</b>，进备选</td></tr>
+          <tr><td class="n">6</td><td>杀戮尖塔</td><td class="n">0.547</td><td>备选（标注“已在你的库里”）</td></tr>
+          <tr class="pick-row"><td class="n">7</td><td>泰拉瑞亚</td><td class="n">0.547</td><td>精选</td></tr>
+          <tr><td class="n">8</td><td>黑神话：悟空</td><td class="n">0.502</td><td>备选</td></tr>
+          <tr><td class="n">9</td><td>艾尔登法环</td><td class="n">0.496</td><td>备选</td></tr>
+          <tr><td class="n">10</td><td>吸血鬼幸存者</td><td class="n">0.459</td><td>备选</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- ⑪ -->
+    <div class="ex-step" id="ex-mmr">
+      <div class="hd"><span class="k">⑪</span><h3>MMR 一轮选一款，选 5 轮</h3></div>
+      <div class="ex-io">
+        <div><b>输入</b>入围名单；每款的喜好分、口碑、标签向量</div>
+        <div><b>输出</b>最终 5 款和顺序</div>
+      </div>
+      <div class="formula">窗口：喜好分 ≥ 当前最高 − 0.1 的才参加这一轮<br>
+        窗口分 = (0.5 × 喜好分 + 0.3 × 口碑) ÷ 0.8<span style="color:var(--ink-3)">（这次没说价格偏好，价格项不算）</span><br>
+        MMR = 0.65 × 窗口分 − 0.35 × 重复度<small>重复度 = 和已选的游戏之间最高的标签余弦。MMR 最高的那款选中。</small></div>
+      <div class="rounds">
+        <div class="round-card"><h4>第 1 轮<span>最高喜好分 1.000，窗口 ≥ 0.900</span></h4>
+          <div class="table-wrap"><table class="mx"><thead><tr><th>窗口里的游戏</th><th class="n">喜好分</th><th class="n">窗口分</th><th class="n">重复度</th><th class="n">MMR</th><th></th></tr></thead><tbody>
+            <tr class="pick-row"><td>Hades II</td><td class="n">1.000</td><td class="n">0.981</td><td class="n">0</td><td class="n">0.638</td><td>选中（窗口里只有它）</td></tr>
+          </tbody></table></div></div>
+        <div class="round-card"><h4>第 2 轮<span>剩下的最高 0.673，窗口 ≥ 0.573</span></h4>
+          <div class="table-wrap"><table class="mx"><thead><tr><th>窗口里的游戏</th><th class="n">喜好分</th><th class="n">窗口分</th><th class="n">重复度（和谁）</th><th class="n">MMR</th><th></th></tr></thead><tbody>
+            <tr class="pick-row"><td>博德之门3</td><td class="n">0.673</td><td class="n">0.781</td><td class="n">0.055（Hades II）</td><td class="n">0.488</td><td>选中</td></tr>
+            <tr><td>文明5</td><td class="n">0.577</td><td class="n">0.717</td><td class="n">0.000</td><td class="n">0.466</td><td></td></tr>
+            <tr><td>空洞骑士</td><td class="n">0.629</td><td class="n">0.753</td><td class="n">0.157（Hades II）</td><td class="n">0.434</td><td>和 Hades II 有点像，被扣分</td></tr>
+          </tbody></table></div></div>
+        <div class="round-card"><h4>第 3 轮<span>剩下的最高 0.629，窗口 ≥ 0.529</span></h4>
+          <div class="table-wrap"><table class="mx"><thead><tr><th>窗口里的游戏</th><th class="n">喜好分</th><th class="n">窗口分</th><th class="n">重复度（和谁）</th><th class="n">MMR</th><th></th></tr></thead><tbody>
+            <tr class="pick-row"><td>文明5</td><td class="n">0.577</td><td class="n">0.717</td><td class="n">0.029（博德之门3）</td><td class="n">0.456</td><td>选中</td></tr>
+            <tr><td>泰拉瑞亚</td><td class="n">0.547</td><td class="n">0.705</td><td class="n">0.048（博德之门3）</td><td class="n">0.442</td><td></td></tr>
+            <tr><td>空洞骑士</td><td class="n">0.629</td><td class="n">0.753</td><td class="n">0.157（Hades II）</td><td class="n">0.434</td><td></td></tr>
+            <tr><td>杀戮尖塔</td><td class="n">0.547</td><td class="n">0.706</td><td class="n">0.168（Hades II）</td><td class="n">0.400</td><td></td></tr>
+            <tr class="drop-row"><td>巫师3：狂猎</td><td class="n">0.558</td><td class="n">0.708</td><td class="n">0.351（博德之门3）</td><td class="n">0.338</td><td>和博德之门3 很像（都是大型角色扮演），扣分最多</td></tr>
+          </tbody></table></div></div>
+        <div class="round-card"><h4>第 4、5 轮<span>窗口不变（≥ 0.529）</span></h4>
+          <p class="ex-text" style="margin:0">第 4 轮泰拉瑞亚 0.442 &gt; 空洞骑士 0.434 &gt; 杀戮尖塔 0.400 &gt; 巫师3 0.338，选<b>泰拉瑞亚</b>；第 5 轮选<b>空洞骑士</b>。</p></div>
+      </div>
+      <div class="callout answer" style="margin-top:12px">
+        <h4>这个例子里 MMR 改了什么</h4>
+        <p>只按喜好分取前 5：Hades II、博德之门3、空洞骑士、文明5、<b>巫师3</b>。</p>
+        <p>经过 MMR：Hades II、博德之门3、文明5、<b>泰拉瑞亚</b>、空洞骑士。</p>
+        <p><b>内容变了</b>：巫师3 和已选的博德之门3 太像，被换成了泰拉瑞亚；<b>顺序也变了</b>：空洞骑士喜好分排第 3，但和 Hades II 有点像，被排到第 5。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 SCORING DETAIL -->
   <section id="score" aria-labelledby="sc-t">
     <div class="sec-head">
-      <div class="eyebrow">四 · 打分细节</div>
-      <h2 id="sc-t">每一路分数怎么算</h2>
-      <p>下面的符号：<b>g</b> 是要打分的候选游戏，<b>a</b> 是一个口味锚点，<b>w<sub>a</sub></b> 是这个锚点的分量。所有计算都只在第 2 步留下的<b>候选池</b>里做。代码在 <code>scoring.py</code>，占比等数值在 <code>config.py</code>。</p>
+      <div class="eyebrow">五 · 公式速查</div>
+      <h2 id="sc-t">每一路分数怎么算（通用写法）</h2>
+      <p>上面的例子只用到了库；这里列全所有通道，包括原话、感觉、精排和多人。下面的符号：<b>g</b> 是要打分的候选游戏，<b>a</b> 是一个口味锚点，<b>w<sub>a</sub></b> 是这个锚点的分量。所有计算都只在第 2 步留下的<b>候选池</b>里做。代码在 <code>scoring.py</code>，占比等数值在 <code>config.py</code>。</p>
     </div>
 
     <div class="grid2">
@@ -657,10 +970,10 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     </article>
   </section>
 
-  <!-- 5 RANKING DETAIL -->
+  <!-- 6 RANKING DETAIL -->
   <section id="rank" aria-labelledby="rk-t">
     <div class="sec-head">
-      <div class="eyebrow">五 · 排序与 MMR</div>
+      <div class="eyebrow">六 · 排序与 MMR</div>
       <h2 id="rk-t">从喜好分到最终 5 款</h2>
       <p>代码在 <code>ranking.py</code> 的 <code>rank</code>。</p>
     </div>
@@ -724,7 +1037,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
   <!-- 6 PROOF -->
   <section id="proof" aria-labelledby="pf-t">
     <div class="sec-head">
-      <div class="eyebrow">六 · 怎么证明有效</div>
+      <div class="eyebrow">七 · 怎么证明有效</div>
       <h2 id="pf-t">已经证明了什么，还缺什么</h2>
       <p>“有效”要说清楚和谁比、哪方面更好。下面按证据从硬到软排。</p>
     </div>
@@ -802,7 +1115,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
   <!-- 7 OFFLINE -->
   <section id="offline" aria-labelledby="of-t">
     <div class="sec-head">
-      <div class="eyebrow">七 · 离线数据</div>
+      <div class="eyebrow">八 · 离线数据</div>
       <h2 id="of-t">提前准备好的东西</h2>
       <p>在线推荐时不抓数据、不训练，只读这些现成的表和矩阵，所以打分本身很快，耗时主要在 LLM。</p>
     </div>
@@ -862,7 +1175,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
   <!-- 8 FEEDBACK -->
   <section id="feedback" aria-labelledby="fb-t">
     <div class="sec-head">
-      <div class="eyebrow">八 · 反馈</div>
+      <div class="eyebrow">九 · 反馈</div>
       <h2 id="fb-t">用户的反应怎么回到流水线</h2>
       <p>只做“给用户要的”：反馈用来更准地满足用户说过的偏好，不做“换换口味”“给你惊喜”。</p>
     </div>
@@ -885,7 +1198,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
   <!-- 9 RUNTIME -->
   <section id="runtime" aria-labelledby="rt-t">
     <div class="sec-head">
-      <div class="eyebrow">九 · 运行架构</div>
+      <div class="eyebrow">十 · 运行架构</div>
       <h2 id="rt-t">各部分跑在哪里</h2>
       <p>模型要显卡，所以应用跑在本机；对外只经过另一台服务器上的反向代理。</p>
     </div>
@@ -907,7 +1220,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
   <!-- 10 KNOBS -->
   <section id="knobs" aria-labelledby="kn-t">
     <div class="sec-head">
-      <div class="eyebrow">十 · 想调整时看这里</div>
+      <div class="eyebrow">十一 · 想调整时看这里</div>
       <h2 id="kn-t">每一步能调什么，改完用什么验证</h2>
       <p>数值都在 <code>src/playnext/config.py</code>；改结构动对应模块。改完先跑对应的评估，再看 32 条请求有没有变差。</p>
     </div>
@@ -930,7 +1243,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
 
   <section id="principles" aria-labelledby="pr-t">
     <div class="sec-head">
-      <div class="eyebrow">十一 · 设计原则</div>
+      <div class="eyebrow">十二 · 设计原则</div>
       <h2 id="pr-t">调整框架时不要打破的几条</h2>
     </div>
     <div class="principles">
