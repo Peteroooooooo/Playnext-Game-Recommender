@@ -219,6 +219,11 @@ table.mx .w { color: var(--ink-3); font-family: var(--mono); font-size: 12px; }
 .round-card h4 { margin: 0 0 6px; font-size: 14px; }
 .round-card h4 span { font-weight: 400; color: var(--ink-3); font-size: 12.5px; margin-left: 6px; }
 
+table.mx.cheat td { vertical-align: top; line-height: 1.65; }
+table.mx.cheat td.s { white-space: nowrap; }
+table.mx.cheat .muted { color: var(--ink-3); font-size: 12.5px; }
+.tagx { font-size: 11px; font-weight: 650; color: var(--off); background: var(--off-soft); border-radius: 4px; padding: 0 5px; margin-left: 4px; }
+
 /* evidence */
 .ev { display: grid; gap: 14px; }
 .evc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
@@ -337,22 +342,16 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           </ol></li>
         <li><a href="#score">五 · 公式速查</a>
           <ol>
-            <li><a href="#sc-anchor">口味锚点与分量</a></li>
-            <li><a href="#sc-colike">同好</a></li>
-            <li><a href="#sc-tag">标签</a></li>
-            <li><a href="#sc-desc">介绍</a></li>
-            <li><a href="#sc-pref">偏好原话</a></li>
-            <li><a href="#sc-feel">感觉</a></li>
-            <li><a href="#sc-lineage">血统</a></li>
-            <li><a href="#sc-fuse">合成个人分</a></li>
-            <li><a href="#sc-rerank">LLM 精排</a></li>
-            <li><a href="#sc-group">多人合成</a></li>
+            <li><a href="#sc-anchor">① 各路分数</a></li>
+            <li><a href="#sc-fuse">② 合成一个人的分</a></li>
+            <li><a href="#sc-rerank">③ LLM 精排</a></li>
+            <li><a href="#sc-group">④ 多人合成</a></li>
           </ol></li>
         <li><a href="#rank">六 · 排序与 MMR</a>
           <ol>
-            <li><a href="#rk-short">入围名单</a></li>
+            <li><a href="#rk-short">入围</a></li>
             <li><a href="#rk-base">窗口分</a></li>
-            <li><a href="#rk-mmr">MMR 怎么选</a></li>
+            <li><a href="#rk-mmr">MMR</a></li>
           </ol></li>
         <li><a href="#proof">七 · 怎么证明有效</a></li>
         <li><a href="#offline">八 · 离线数据</a></li>
@@ -382,27 +381,27 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     <div class="sec-head">
       <div class="eyebrow">一 · 核心思路</div>
       <h2 id="idea-t">从你玩过什么，推出你会喜欢什么</h2>
-      <p>你喜欢的几款游戏之间，一定有某种共性，哪怕标签上看不出来、类型也不同。系统不去猜这个共性是什么，而是直接看几千万真实玩家的记录：<b>喜欢你那几款的人，后来还喜欢什么</b>。</p>
+      <p>你喜欢的几款游戏之间总有共性，哪怕标签和类型都不同。系统不去猜这个共性，而是直接查几千万玩家的记录：<b>喜欢你那几款的人，还喜欢什么</b>。</p>
     </div>
     <div class="idea">
       <div class="it c-off">
         <span class="n">1</span>
         <h3>读出你喜欢什么</h3>
-        <p>不看绝对小时数，而是和<b>同一款游戏的其他玩家</b>比：你玩得比大多数人都久，说明真喜欢；比一般人少，说明只是一般。比得越靠前，这款游戏代表你口味的分量越重。</p>
+        <p>不看小时数，而是和<b>同一款游戏的其他玩家</b>比：比大多数人玩得久，就是真喜欢，这款在你口味里的分量就重。</p>
         <span class="how">时长分位</span>
       </div>
       <div class="ar" aria-hidden="true">→</div>
       <div class="it c-off">
         <span class="n">2</span>
         <h3>找隐性关联</h3>
-        <p>从几千万条好评里学出“喜欢 A 的人还会喜欢 B 多少”。只看人，不看标签和类型，所以能找到“类型完全不同但同一批人都爱”的游戏。你喜欢的每一款都“投票”，分量重的票多。</p>
+        <p>从几千万条好评里学出“喜欢 A 的人还会喜欢 B 多少”。只看人、不看标签，所以能找到类型不同、但同一批人都爱的游戏。</p>
         <span class="how">同好（EASE 物品协同）</span>
       </div>
       <div class="ar" aria-hidden="true">→</div>
       <div class="it c-on">
         <span class="n">3</span>
         <h3>按这次的要求筛和排</h3>
-        <p>口味只是一半。人数、开局方式、预算、雷区先筛掉不合格的；这次说的话（“想轻松点”）再让 LLM 精排；最后在喜好相近的游戏之间看口碑、价格和多样性。</p>
+        <p>先按人数、预算、雷区筛掉不合格的；说了“想轻松点”这类话，再让 LLM 精排；最后在喜好相近的游戏之间看口碑、价格和多样性。</p>
         <span class="how">硬条件 + 语义精排 + 排序</span>
       </div>
     </div>
@@ -413,7 +412,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <p class="sub">条形 = 系统读出的“喜欢程度”（比同款其他玩家玩得多的程度）</p>
         <div class="lib-row"><div class="g"><b>文明6</b><span>比约三分之二的文明6玩家玩得久</span></div><div class="h">300 小时</div><div class="meter"><i style="width:67%"></i></div><div class="verdict">很喜欢，分量最重</div></div>
         <div class="lib-row"><div class="g"><b>Hades</b><span>比约三分之二的 Hades 玩家玩得久</span></div><div class="h">80 小时</div><div class="meter"><i style="width:66%"></i></div><div class="verdict">很喜欢</div></div>
-        <div class="lib-row"><div class="g"><b>星露谷物语</b><span>看着很多，但这款大家普遍玩很久，只超过约四分之一的人</span></div><div class="h">60 小时</div><div class="meter"><i style="width:25%"></i></div><div class="verdict">一般喜欢：<b>只看小时数会把它误判成“很喜欢”</b></div></div>
+        <div class="lib-row"><div class="g"><b>星露谷物语</b><span>这款大家普遍玩很久，60 小时只超过约四分之一的人</span></div><div class="h">60 小时</div><div class="meter"><i style="width:25%"></i></div><div class="verdict">一般喜欢（只看小时数会误判成很喜欢）</div></div>
         <div class="lib-row"><div class="g"><b>双人成行</b><span>流程本来就短，只超过约五分之一的人</span></div><div class="h">13 小时</div><div class="meter"><i style="width:21%"></i></div><div class="verdict">一般喜欢</div></div>
         <div class="lib-row"><div class="g"><b>Dead Cells</b><span>几乎没玩</span></div><div class="h">0.7 小时</div><div class="meter"><i style="width:1%"></i></div><div class="verdict">基本不算口味</div></div>
         <div class="lib-row"><div class="g"><b>杀戮尖塔</b><span>买了没玩</span></div><div class="h">0 小时</div><div class="meter"><i style="width:0%"></i></div><div class="verdict">只记作“已拥有”</div></div>
@@ -422,20 +421,20 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <h4>系统推荐的 5 款，以及为什么</h4>
         <p class="sub">来自正式系统的模拟运行（<code>scripts/simulate_inputs.py</code>）</p>
         <div class="pick"><span class="k">1</span><div><b>Hades II</b><p><span class="chip co">Hades 的同好里排第 1</span><span class="chip tg">共享标签：动作、类 Rogue</span><span class="chip tg">IGDB 相似游戏</span></p></div></div>
-        <div class="pick"><span class="k">2</span><div><b>博德之门3</b><p><span class="chip co">近 3 万人同时好评了它和 Hades</span><span class="chip no">和 Hades 只有“剧情丰富”一个共同的核心标签</span></p><p>玩法完全不同（回合制角色扮演 vs 动作肉鸽），靠标签和类型推不出来，靠“同一批人都喜欢”推出来了。这就是<b>隐性关联</b>。</p></div></div>
+        <div class="pick"><span class="k">2</span><div><b>博德之门3</b><p><span class="chip co">近 3 万人同时好评了它和 Hades</span><span class="chip no">和 Hades 只有“剧情丰富”一个共同的核心标签</span></p><p>玩法完全不同，靠标签推不出来，靠“同一批人都喜欢”推出来了。这就是<b>隐性关联</b>。</p></div></div>
         <div class="pick"><span class="k">3</span><div><b>文明5</b><p><span class="chip co">文明6 的同好里排第 1</span><span class="chip tg">共享标签：回合战略</span><span class="chip tg">同开发商</span></p></div></div>
         <div class="pick"><span class="k">4</span><div><b>泰拉瑞亚</b><p><span class="chip co">星露谷的同好里排第 1</span><span class="chip tg">共享标签：沙盒、制作</span></p></div></div>
         <div class="pick"><span class="k">5</span><div><b>空洞骑士</b><p><span class="chip co">Hades 的同好里排第 4</span><span class="chip tg">共享标签：独立、剧情丰富</span></p></div></div>
       </div>
     </div>
-    <div class="callout"><b>验证同样的逻辑：</b>把一个玩家后来喜欢上的游戏藏起来，只给系统他之前的记录，看能不能猜中。猜中得比“只推热门”和“按标签找相似”都多，就说明这种隐性关联是真的。结果见 <a href="#proof">“怎么证明有效”</a>。</div>
+    <div class="callout"><b>怎么知道这招管用：</b>把玩家后来喜欢上的游戏藏起来，只给系统他之前的记录，看能不能猜中。它猜中得比“只推热门”和“按标签找相似”都多。见 <a href="#proof">“怎么证明有效”</a>。</div>
   </section>
 
   <!-- 2 MAP -->
   <section id="map" aria-labelledby="map-t">
     <div class="sec-head">
       <div class="eyebrow">二 · 全局图</div>
-      <h2 id="map-t">离线先把“谁和谁口味相近”“每款游戏的事实”算好，在线只查表、打分、排序</h2>
+      <h2 id="map-t">离线把数据算好，在线只查表、打分、排序</h2>
       <p>点任一节点跳到对应说明。</p>
     </div>
     <div class="panel map">
@@ -466,7 +465,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <a class="node" href="#feedback">事实报错 → 下次数据刷新</a>
         </div>
       </div>
-      <p class="map-note">权力边界：模型（LLM、向量、精排）只负责“理解”和“软偏好打分”；人数、模式、预算、价格和排序规则全部由程序按数据判断。</p>
+      <p class="map-note">分工：模型只负责“听懂”和“判断口味”；人数、预算、价格这些事实和排序规则，全部由程序按数据判断。</p>
     </div>
   </section>
 
@@ -474,8 +473,8 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
   <section id="online" aria-labelledby="on-t">
     <div class="sec-head">
       <div class="eyebrow">三 · 一次推荐</div>
-      <h2 id="on-t">所有请求走同一条主干，请求里写了什么决定开哪些模块</h2>
-      <p>单人和多人、一句话和问卷，进的是同一条流水线；多人时每个成员各算一份分数，最后再合成。主干在 <code>pipeline.py</code> 的 <code>Recommender.recommend</code>。</p>
+      <h2 id="on-t">所有请求走同一条流水线</h2>
+      <p>单人、多人、一句话、问卷都走这条线，请求里有什么就开哪些模块；多人时每人各算一份分，最后合成。主干在 <code>pipeline.py</code>。</p>
     </div>
     <div class="flow">
       <article class="card c-on" id="s0">
@@ -491,7 +490,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <ul class="algs"><li>LLM 结构化抽取</li><li>格式校验 + 失败重试</li><li>游戏名别名匹配</li></ul>
         <dl class="io">
           <dt>输入</dt><dd>原话、问卷、库</dd>
-          <dt>处理</dt><dd>抽出人数和开局方式、预算（带币种）、说过玩过 / 不要的游戏、雷区、想要和不想要的“感觉”（只能从 Steam 标签里选）、偏好原话。提到的游戏名用别名表认，核心库外的查全量索引。问卷不经过 LLM，直接转换</dd>
+          <dt>处理</dt><dd>抽出人数、开局方式、预算、玩过 / 不要的游戏、雷区、想要的“感觉”（从 Steam 标签里选）和偏好原话；游戏名用别名表认。问卷不经过 LLM。</dd>
           <dt>输出</dt><dd><b>需求单（SessionSpec）</b>：后面每一步都读它</dd>
         </dl>
         <p class="why">这一步错了会传到后面每一步，所以用强模型、严校验；LLM 不可用时只能用问卷。</p>
@@ -516,13 +515,13 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
 
       <article class="card c-on" id="s3">
         <div class="card-head"><span class="num">3</span><div><h3>按口味打分</h3><p class="mod">scoring.py · rerank.py · encoder.py</p></div></div>
-        <p class="lead">“核心思路”在这里实现：先定下代表你口味的游戏（锚点），再从几个角度给候选池里每款游戏打分，最后合成一个 0~1 的<b>喜好分</b>。</p>
+        <p class="lead">先定下代表你口味的游戏（锚点），再从几个角度给每款候选打分，合成一个 0~1 的<b>喜好分</b>。</p>
         <dl class="io">
           <dt>输入</dt><dd>候选池、需求单（种子、原话、感觉）、各成员的库和以前的“喜欢”</dd>
-          <dt>输出</dt><dd>每款候选的<b>喜好分</b>（多人时每人一份再合成），以及每一路是哪个锚点贡献最大（给卡片当证据）</dd>
+          <dt>输出</dt><dd>每款候选的<b>喜好分</b>，以及打分依据（给卡片当证据）</dd>
         </dl>
         <div class="inner">
-          <p class="inner-t">每一路怎么算（点开看细节）</p>
+          <p class="inner-t">每一路（点击看公式）</p>
           <div class="tiles">
             <a class="tile" href="#sc-anchor"><b>口味锚点</b>谁代表你，分量多少<span class="t">时长分位</span></a>
             <a class="tile main" href="#sc-colike"><b>同好（主力）</b>喜欢锚点的人还喜欢什么<span class="t">EASE</span></a>
@@ -548,7 +547,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <dt>处理</dt><dd>同系列折叠 → 取入围名单、复核实时价 → 每轮在“喜好相近的窗口”里用 MMR 选一款，选 5 轮</dd>
           <dt>输出</dt><dd>精选 3~5 款 + 备选（入围但没选上的）+ 待确认</dd>
         </dl>
-        <a class="more" href="#rank">看排序和 MMR 的细节 →</a>
+        <a class="more" href="#rank">看排序公式 →</a>
       </article>
       <div class="connector" role="presentation"></div>
 
@@ -558,7 +557,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <ul class="algs"><li>证据汇集</li><li>图谱递归路径</li><li>事实一致性校验</li></ul>
         <dl class="io">
           <dt>输入</dt><dd>精选游戏、打分时记下的证据、事实库、价格</dd>
-          <dt>处理</dt><dd>每张卡收集：同好人数、共享标签、从你的游戏到它的关系链（同开发商 / 同系列 / 相似，PostgreSQL 实时查）、现价和史低、人数和开局方案，都带来源。程序检查理由里的数字和游戏名都在证据里，不符就重写一次，仍不符用模板</dd>
+          <dt>处理</dt><dd>每张卡收集同好人数、共享标签、关系链（同开发商 / 同系列）、现价和史低、开局方案，都带来源。理由里的数字和游戏名必须能在证据里找到，否则重写一次，再不行用模板</dd>
           <dt>输出</dt><dd>推荐卡（多人卡附开局方案和每人要不要买）</dd>
         </dl>
       </article>
@@ -570,7 +569,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     <div class="sec-head">
       <div class="eyebrow">四 · 一个例子算到底</div>
       <h2 id="wk-t">同一个游戏库，从输入一直算到最终 5 款</h2>
-      <p>就用“核心思路”里那个库。只给了库、没说话，所以这次没有原话、感觉和 LLM 精排，只走“锚点 → 标签 / 介绍 / 同好 → 合成 → 排序”。表里每个数字都是真实系统算出来的（<code>scripts/explain_library_example.py</code>，结果在 <code>.cache/explain_library_example.json</code>），可以自己加一遍验证。</p>
+      <p>还是“核心思路”里那个库。这次只给了库、没说话，所以不涉及原话、感觉和 LLM 精排。数字都由真实系统算出（<code>scripts/explain_library_example.py</code>）。</p>
     </div>
 
     <!-- ① -->
@@ -578,7 +577,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
       <div class="hd"><span class="k">①</span><h3>输入：一个 Steam 游戏库</h3></div>
       <div class="ex-io">
         <div><b>输入</b>7 款游戏和各自的游玩时长（Steam 登录后读到的）</div>
-        <div><b>输出</b>交给第 ② 步的“已拥有 + 时长”名单</div>
+        <div><b>输出</b>已拥有的游戏和时长</div>
       </div>
       <div class="table-wrap"><table class="mx">
         <thead><tr><th>游戏</th><th class="n">你玩了</th><th>在不在核心库</th></tr></thead>
@@ -589,7 +588,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <tr><td>双人成行</td><td class="n">13 小时</td><td>在</td></tr>
           <tr><td>Dead Cells</td><td class="n">0.7 小时</td><td>在</td></tr>
           <tr><td>杀戮尖塔</td><td class="n">0 小时</td><td>在（买了没玩）</td></tr>
-          <tr class="drop-row"><td>另一款小游戏</td><td class="n">5 小时</td><td>不在（评测太少），只记作“已拥有”，不参与计算</td></tr>
+          <tr class="drop-row"><td>另一款小游戏</td><td class="n">5 小时</td><td>不在（评测太少），不参与计算</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -599,7 +598,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
       <div class="hd"><span class="k">②</span><h3>按硬条件筛出候选池</h3></div>
       <div class="ex-io">
         <div><b>输入</b>核心库 7,304 款；你的库</div>
-        <div><b>输出</b><b style="display:inline;color:var(--ink);font-size:13.5px">候选池 7,080 款</b>：后面所有打分都只在这 7,080 款里做</div>
+        <div><b>输出</b>候选池 7,080 款，后面只在这里面打分</div>
       </div>
       <div class="table-wrap"><table class="mx">
         <thead><tr><th>规则</th><th class="n">去掉</th><th>去掉了谁</th></tr></thead>
@@ -608,14 +607,14 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <tr><td>国区买得到</td><td class="n">219 款</td><td>国区不卖的游戏</td></tr>
         </tbody>
       </table></div>
-      <p class="ex-text">这次没有说人数、预算、雷区，所以只有这两条规则起作用。</p>
+      <p class="ex-text">这次没说人数、预算、雷区，只有这两条起作用。</p>
     </div>
 
     <!-- ③ -->
     <div class="ex-step" id="ex-anchor">
       <div class="hd"><span class="k">③</span><h3>把库变成“口味锚点”和分量</h3></div>
       <div class="ex-io">
-        <div><b>输入</b>你的时长；每款游戏所有玩家的时长分布（离线算好的时长参照）</div>
+        <div><b>输入</b>你的时长；每款游戏所有玩家的时长分布（离线算好）</div>
         <div><b>输出</b>5 个锚点，每个带一个 0~1 的分量 w</div>
       </div>
       <div class="table-wrap"><table class="mx">
@@ -623,8 +622,8 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <tbody>
           <tr><td>文明6</td><td class="n">300</td><td class="n">157</td><td class="n hl">0.669</td><td>比 66.9% 的文明6玩家玩得久</td></tr>
           <tr><td>Hades</td><td class="n">80</td><td class="n">54</td><td class="n hl">0.658</td><td>比 65.8% 的 Hades 玩家玩得久</td></tr>
-          <tr><td>星露谷物语</td><td class="n">60</td><td class="n">130</td><td class="n hl">0.253</td><td>60 小时听着多，但不到一半玩家的水平</td></tr>
-          <tr><td>双人成行</td><td class="n">13</td><td class="n">19</td><td class="n hl">0.207</td><td>流程短，13 小时也只是偏少</td></tr>
+          <tr><td>星露谷物语</td><td class="n">60</td><td class="n">130</td><td class="n hl">0.253</td><td>听着多，但只超过四分之一的玩家</td></tr>
+          <tr><td>双人成行</td><td class="n">13</td><td class="n">19</td><td class="n hl">0.207</td><td>流程短，13 小时仍偏少</td></tr>
           <tr><td>Dead Cells</td><td class="n">0.7</td><td class="n">50</td><td class="n hl">0.003</td><td>几乎没玩，分量接近 0</td></tr>
           <tr class="drop-row"><td>杀戮尖塔</td><td class="n">0</td><td class="n">104</td><td class="n">—</td><td>0 小时不当锚点</td></tr>
         </tbody>
@@ -634,13 +633,13 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     <!-- ④ -->
     <div class="ex-step" id="ex-grid">
       <div class="hd"><span class="k">④</span><h3>怎么“比”：先看一个缩小版</h3></div>
-      <p class="ex-text">先把例子缩小：你的库里只有 <b>2 款</b>（文明6，分量 0.669；Hades，分量 0.658），系统里只有 <b>3 款</b>候选（文明5、Hades II、博德之门3）。用标签分举例，一共 4 步。</p>
+      <p class="ex-text">先缩小：库里只有 <b>2 款</b>（文明6 分量 0.669，Hades 分量 0.658），候选只有 <b>3 款</b>。以标签分为例：</p>
 
       <ol class="ord" style="--c:var(--on);--cs:var(--on-soft)">
         <li><div><b>画一张表</b>：每一行是一款候选，每一列是你库里的一款游戏。</div></li>
-        <li><div><b>每格填相似度</b>：这一行的候选和这一列你的游戏有多像（0 = 完全不像，1 = 一模一样）。3 行 × 2 列，一共比 6 次。</div></li>
-        <li><div><b>每格乘上这一列的分量</b>：你越喜欢的游戏，它那一列说话越算数。</div></li>
-        <li><div><b>每一行加起来</b>，就是这款候选的标签分。按这个分从高到低排。</div></li>
+        <li><div><b>每格填相似度</b>：两款游戏有多像，0~1。</div></li>
+        <li><div><b>每格乘上这一列的分量</b>：越喜欢的游戏，说话越算数。</div></li>
+        <li><div><b>每一行加起来</b>，就是这款候选的标签分，再按分排序。</div></li>
       </ol>
 
       <div class="table-wrap" style="margin-top:12px"><table class="mx" style="min-width:560px">
@@ -651,13 +650,11 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <tr><td>博德之门3</td><td class="n">0.047 × 0.669 ≈ 0.031</td><td class="n">0.040 × 0.658 ≈ 0.027</td><td class="n"><b>0.058</b></td><td class="n">3</td></tr>
         </tbody>
       </table></div>
-      <p class="ex-text">读法：Hades II 的分几乎全来自“像 Hades”那一格，文明5 几乎全来自“像文明6”那一格，博德之门3 两边都不像，所以垫底。</p>
+      <p class="ex-text">Hades II 的分几乎全来自“像 Hades”，文明5 来自“像文明6”，博德之门3 两边都不像。</p>
 
-      <div class="q-box"><b>你的理解对不对？</b>基本对：“拿你库里的游戏，去和系统里的所有游戏两两算相似度，排成一张表（矩阵），然后把分高的挑出来”，就是这个意思。只差一个细节：<br>
-        <b>不是对你库里每款游戏分别挑出最像的</b>，而是先把每一行（每款候选）的各格按分量<b>加成一个总分</b>，再把所有候选按总分排。所以同时有点像文明6、又有点像 Hades 的游戏，两边的分会叠加；你没怎么玩的游戏（分量小），那一列几乎不影响结果。</div>
+      <div class="q-box"><b>要点：</b>不是给你库里每款游戏各挑一个最像的，而是给每款候选算一个<b>总分</b>（各格按分量加起来），再统一排序。所以两边都有点像的游戏分数会叠加；没怎么玩的游戏分量小，几乎不影响。</div>
 
-      <div class="formula" style="margin-top:12px">真实情况只是表更大：<b>7,080 行</b>（候选池里的每一款）× <b>5 列</b>（你库里有分量的 5 款），每一路都是一张这样的表。
-        <small>标签、介绍、同好三路，表的形状和算法完全一样，<b>只是格子里的“相似度”从哪来不同</b>：标签看玩家贴的标签像不像，介绍看商店介绍像不像，同好看“喜欢这款的人是不是也喜欢那款”。下面 ⑤⑥⑦ 三张表，就是这张大表里挑出 8 行给你看：最终推荐的 5 款，加上 3 款“某一路很高、最后却没推荐”的。</small></div>
+      <div class="formula" style="margin-top:12px">真实情况只是表更大：<b>7,080 行 × 5 列</b>。标签、介绍、同好三路都是这样一张表，只是格子里的相似度不同。<small>下面 ⑤⑥⑦ 各挑 8 行展示：推荐的 5 款，加 3 款某一路很高但没推荐的。</small></div>
     </div>
 
     <!-- ⑤ -->
@@ -667,10 +664,10 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <div><b>输入</b>锚点和分量；每款游戏的标签向量（离线算好）</div>
         <div><b>输出</b>7,080 款候选每款一个标签分</div>
       </div>
-      <p class="ex-text">这一路格子里的“相似度”= <b>两款游戏的标签有多像</b>。怎么算出这个数：</p>
+      <p class="ex-text">这一路的相似度怎么来：</p>
       <ol class="ord" style="--c:var(--off);--cs:var(--off-soft)">
-        <li><div><b>每款游戏一份“标签成绩单”</b>：每个标签一个值 = 这个标签的票数 ÷ 这款游戏最高票标签的票数，再乘上“冷门程度”（贴这个标签的游戏越少，越能说明问题，值越大），最后整体缩放一下，让每份成绩单的总量一样大。这份成绩单就是“标签向量”。</div></li>
-        <li><div><b>两款游戏比一比</b>：把两份成绩单里<b>同一个标签</b>的值相乘，再把所有标签的乘积加起来。两款游戏共同的标签越多、这些标签在两边都越重，结果越接近 1；一个共同标签都没有就是 0。数学上这叫“余弦相似度”。</div></li>
+        <li><div><b>每款游戏一份标签成绩单</b>：每个标签的值看两点，票数多少，以及这个标签冷不冷门（越冷门越说明问题）。</div></li>
+        <li><div><b>两款比一比</b>：同一个标签的值相乘，再全部加起来（余弦相似度）。共同标签越多越重，越接近 1；没有共同标签就是 0。</div></li>
       </ol>
       <div class="table-wrap" style="margin-top:10px"><table class="mx" style="min-width:560px">
         <thead><tr><th>示意（数字简化）</th><th class="n">回合战略</th><th class="n">4X</th><th class="n">历史</th><th class="n">动作</th><th class="n">和 A 的相似度</th></tr></thead>
@@ -681,7 +678,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <tr><td>D（像 Hades）</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">1.00</td><td class="n">没有共同标签 = <b>0</b></td></tr>
         </tbody>
       </table></div>
-      <p class="ex-text">真实数据里每款游戏有二十个左右的标签，算法一样。比如 Hades 排前面的标签是“动作类 Rogue、神话、轻度 Rogue、砍杀”，Hades II 几乎一样，两者相似度 0.899；《人类》和文明6都以“4X、回合战略、大战略、历史”为主，相似度 0.939。把这些相似度填进 ④ 那张表，就是下面这张：</p>
+      <p class="ex-text">真实游戏一般有 20 个标签，算法一样：Hades 和 Hades II 相似度 0.899，文明6 和《人类》0.939。填进 ④ 那张表：</p>
       <div class="table-wrap" style="margin-top:10px"><table class="mx">
         <thead><tr><th>候选</th><th class="n">文明6<br><span class="w">w 0.669</span></th><th class="n">Hades<br><span class="w">w 0.658</span></th><th class="n">星露谷<br><span class="w">w 0.253</span></th><th class="n">双人成行<br><span class="w">w 0.207</span></th><th class="n">Dead Cells<br><span class="w">w 0.003</span></th><th class="n">加起来</th></tr></thead>
         <tbody>
@@ -695,7 +692,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <tr><td>王国重生</td><td class="n hl">0.248<small>→0.166</small></td><td class="n">0.000<small>→0.000</small></td><td class="n">0.046<small>→0.012</small></td><td class="n">0.053<small>→0.011</small></td><td class="n">0.044<small>→0.000</small></td><td class="n">0.189</td></tr>
         </tbody>
       </table></div>
-      <p class="ex-text">每格大字是相似度，小字是“× 分量”之后的值，一行的小字加起来就是“加起来”那一列。紫底是这一行贡献最大的锚点。注意 <b>Dead Cells 和空洞骑士的相似度高达 0.582，但 Dead Cells 的分量只有 0.003，几乎没贡献</b>：你没怎么玩的游戏不代表你的口味。<br>只看标签，第一名是《人类》（0.642），几乎全靠文明6撑起来。</p>
+      <p class="ex-text">大字是相似度，小字是乘上分量后的值，小字加起来就是最后一列；紫底是贡献最大的一格。Dead Cells 和空洞骑士很像（0.582），但 Dead Cells 分量只有 0.003，几乎不算。只看标签，第一名是《人类》。</p>
     </div>
 
     <!-- ⑥ -->
@@ -705,7 +702,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <div><b>输入</b>锚点和分量；每款游戏商店介绍的向量（中英文各一个，离线算好）</div>
         <div><b>输出</b>每款候选一个介绍分</div>
       </div>
-      <p class="ex-text"><b>相似度 = 两段介绍向量的余弦</b>，中文版和英文版各算一次，取较大的那个。算法和标签一样，只是“相似度”换了来源。</p>
+      <p class="ex-text">相似度 = 两段商店介绍的<b>向量余弦</b>（中英文各算一次，取大的），其余和标签一样。</p>
       <div class="table-wrap" style="margin-top:10px"><table class="mx">
         <thead><tr><th>候选</th><th class="n">文明6<br><span class="w">w 0.669</span></th><th class="n">Hades<br><span class="w">w 0.658</span></th><th class="n">星露谷<br><span class="w">w 0.253</span></th><th class="n">双人成行<br><span class="w">w 0.207</span></th><th class="n">Dead Cells<br><span class="w">w 0.003</span></th><th class="n">加起来</th></tr></thead>
         <tbody>
@@ -719,7 +716,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <tr><td>王国重生</td><td class="n hl">0.629<small>→0.421</small></td><td class="n">0.463<small>→0.305</small></td><td class="n">0.472<small>→0.119</small></td><td class="n">0.457<small>→0.095</small></td><td class="n">0.488<small>→0.001</small></td><td class="n">0.941</td></tr>
         </tbody>
       </table></div>
-      <p class="ex-text">和标签不同，介绍相似度<b>几乎从不接近 0</b>：游戏介绍都在讲“探索、战斗、建造”，任意两款都有 0.4 左右的底子，所以 8 款候选的介绍分都挤在 0.82~0.99 之间，区分能力弱。这也是介绍这一路占比很小的原因。</p>
+      <p class="ex-text">介绍相似度很少低于 0.4：游戏介绍都在讲探索、战斗、建造，谁和谁都有点像。所以这一路区分度弱，占比也小。</p>
     </div>
 
     <!-- ⑦ -->
@@ -729,7 +726,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <div><b>输入</b>锚点和分量；离线用几千万条好评算好的同好矩阵 B</div>
         <div><b>输出</b>每款候选一个同好分</div>
       </div>
-      <p class="ex-text"><b>“相似度”= B[锚点, 候选]</b>：在其他所有游戏都考虑进去之后，“好评锚点的人还会好评这款”的独立程度（EASE 算法，见<a href="#sc-colike">公式速查</a>）。它只看人，不看标签和介绍。数值很小，下表统一<b>乘了 1000</b>方便读。</p>
+      <p class="ex-text">相似度 = 同好矩阵 B 里的值：喜欢锚点的人，有多大程度也喜欢这款（EASE，见<a href="#sc-colike">公式速查</a>）。只看人，不看标签。数值很小，表里<b>乘了 1000</b>。</p>
       <div class="table-wrap" style="margin-top:10px"><table class="mx">
         <thead><tr><th>候选</th><th class="n">文明6<br><span class="w">w 0.669</span></th><th class="n">Hades<br><span class="w">w 0.658</span></th><th class="n">星露谷<br><span class="w">w 0.253</span></th><th class="n">双人成行<br><span class="w">w 0.207</span></th><th class="n">Dead Cells<br><span class="w">w 0.003</span></th><th class="n">加起来</th></tr></thead>
         <tbody>
@@ -744,9 +741,9 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         </tbody>
       </table></div>
       <p class="ex-text">这一路和前两路很不一样：<br>
-        · <b>博德之门3</b>标签分只有 0.096，但同好里文明6和 Hades 两边各投了一票，加起来排第 2，这就是“隐性关联”。<br>
-        · <b>《人类》</b>标签和介绍都和文明6非常像，但喜欢文明6的人并不怎么喜欢它（好评率只有 68%），同好分只有 5。<br>
-        · <b>文明4</b>和文明6的标签余弦有 0.853，同好却几乎是 0：从好评数据看，喜欢文明6的人并不会因此特别去好评文明4（它的评测也只有约 2,800 条）。同系列里真正被同好推上来的是文明5。</p>
+        · <b>博德之门3</b>：标签分只有 0.096，但文明6和 Hades 两边都投了票，排第 2。这就是隐性关联。<br>
+        · <b>《人类》</b>：标签、介绍都很像文明6，但喜欢文明6的人不怎么喜欢它（好评率 68%），同好分只有 5。<br>
+        · <b>文明4</b>：标签很像文明6（0.853），同好却几乎为 0。同系列里同好真正推上来的是文明5。</p>
       <div class="three">
         <div class="box"><h4>只看标签的前 5</h4><ol><li>人类</li><li>Hades II</li><li>文明4</li><li>文明3</li><li>文明5</li></ol></div>
         <div class="box"><h4>只看介绍的前 5</h4><ol><li>Hades II</li><li>王国重生</li><li>人类</li><li>刺客信条：英灵殿</li><li>文明5</li></ol></div>
@@ -770,7 +767,6 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <tr><td>同好（×1000）</td><td class="n">−6</td><td class="n">49（Hades II）</td><td class="n">33 → <b>0.709</b></td></tr>
         </tbody>
       </table></div>
-      <p class="ex-text">所以同好分为 0 的游戏归一后不是 0，而是约 0.11（因为池里有负数）。</p>
     </div>
 
     <!-- ⑨ -->
@@ -804,7 +800,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <div><b>输入</b>喜好分从高到低的名单</div>
         <div><b>输出</b>入围的 20 款（第 ⑪ 步从这里挑，没挑上的就是备选）</div>
       </div>
-      <p class="ex-text">从高往下数，同一系列只留分最高的一款：<b>文明5</b>留下，文明7、文明：太空、文明4 折叠在它下面（结果页显示“同系列另有 3 款”）；饥荒、以撒、神界：原罪也各折叠了一款旧版。这次没有预算，实时价格复核没有移出任何游戏。入围的前 10 款：</p>
+      <p class="ex-text">同一系列只留分最高的一款：<b>文明5</b> 留下，文明7、文明：太空、文明4 收在它下面。这次没有预算，实时价格没移出任何游戏。入围前 10 款：</p>
       <div class="table-wrap" style="margin-top:10px"><table class="mx">
         <thead><tr><th class="n">喜好分排名</th><th>游戏</th><th class="n">喜好分</th><th>最后</th></tr></thead>
         <tbody>
@@ -867,140 +863,43 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
   <section id="score" aria-labelledby="sc-t">
     <div class="sec-head">
       <div class="eyebrow">五 · 公式速查</div>
-      <h2 id="sc-t">每一路分数怎么算（通用写法）</h2>
-      <p>上面的例子只用到了库；这里列全所有通道，包括原话、感觉、精排和多人。下面的符号：<b>g</b> 是要打分的候选游戏，<b>a</b> 是一个口味锚点，<b>w<sub>a</sub></b> 是这个锚点的分量。所有计算都只在第 2 步留下的<b>候选池</b>里做。代码在 <code>scoring.py</code>，占比等数值在 <code>config.py</code>。</p>
+      <h2 id="sc-t">所有分数，一张表看完</h2>
+      <p>包括例子里没用到的原话、感觉、精排和多人。w 是锚点的分量；数字是当前取值，都在 <code>config.py</code> 里改。</p>
     </div>
 
-    <div class="grid2">
-      <article class="card c-off" id="sc-anchor">
-        <div class="card-head"><span class="num">锚</span><div><h3>口味锚点与分量</h3><p class="mod">scoring.library_anchors · member_taste</p></div></div>
-        <p class="lead">先定“谁代表你的口味”，以及每款代表多少。</p>
-        <dl class="io">
-          <dt>输入</dt><dd>你说的种子、Steam 库（游戏 + 时长）、以前点过的“喜欢”</dd>
-          <dt>怎么算</dt><dd>
-            <b>种子</b>：分量都是 1。<br>
-            <b>库里的游戏</b>：分量 = <b>时长分位</b> = 这款游戏的玩家里，玩得比你少的人占多大比例（0~1）。没有参照数据的游戏，改用它在你自己库里的时长排位。时长为 0 的不算。<br>
-            <b>以前喜欢的</b>：分量随时间减半衰减（半衰期 <code>LIKED_HALF_LIFE_DAYS</code>）。<br>
-            最多只取分量最重的若干款（<code>MAX_LIBRARY_ANCHORS</code>）。</dd>
-          <dt>输出</dt><dd>锚点名单 {a: w<sub>a</sub>}</dd>
-        </dl>
-        <div class="formula" style="--c:var(--off)"><b>有种子时</b>：种子当锚点，库只在种子打分的前若干名里加一点分（<code>SEED_POOL</code>、<code>LIB_BONUS</code>），库不能把种子以外的游戏拉进来。<br><b>没有种子时</b>：库就是锚点。</div>
-      </article>
+    <h3 class="sub-h">① 各路分数</h3>
+    <div class="table-wrap"><table class="mx cheat">
+      <thead><tr><th>名称</th><th>算的是什么</th><th>怎么算</th><th>什么时候有</th></tr></thead>
+      <tbody>
+        <tr id="sc-anchor"><td class="s">锚点分量 w</td><td>谁代表你的口味、占多重</td><td>种子 = 1<br>库里的游戏 = 时长分位（比多少同款玩家玩得久）<br>以前点过“喜欢”的 = 随时间慢慢变轻</td><td>总是</td></tr>
+        <tr id="sc-colike"><td class="s">同好 <span class="tagx">主力</span></td><td>喜欢锚点的人，还喜欢这款吗</td><td>Σ w × B[锚点, 这款]<br><span class="muted">B 是离线用 EASE 从几千万条好评算出的，已经扣掉“两款都热门、碰巧一起出现”的部分</span></td><td>有锚点</td></tr>
+        <tr id="sc-tag"><td class="s">标签</td><td>玩家贴的标签像不像</td><td>Σ w × 标签余弦（见例子 ⑤）</td><td>有锚点</td></tr>
+        <tr id="sc-desc"><td class="s">介绍</td><td>商店介绍像不像</td><td>Σ w × 介绍余弦</td><td>有锚点</td></tr>
+        <tr id="sc-pref"><td class="s">偏好原话</td><td>你说的话和介绍像不像</td><td>原话向量 · 介绍向量（余弦）</td><td>说了原话</td></tr>
+        <tr id="sc-feel"><td class="s">感觉</td><td>想要的加分，不想要的减分</td><td>想要标签的平均权重 − 不想要标签的平均权重</td><td>给了感觉</td></tr>
+        <tr id="sc-lineage"><td class="s">血统</td><td>同开发商 / 同系列</td><td>是 = 1，否 = 0；平时不计分，只当卡片证据</td><td>说了“要同工作室的”</td></tr>
+      </tbody>
+    </table></div>
+    <p class="ex-text">有种子又有库时，种子当锚点，库只给种子打分的前 50 名加一点分。</p>
 
-      <article class="card c-off" id="sc-colike">
-        <div class="card-head"><span class="num">同</span><div><h3>同好（主力通道）</h3><p class="mod">kb.ease_rows · build_review_tables.py</p></div></div>
-        <p class="lead">“喜欢锚点的人，还会喜欢 g 多少”，把每个锚点的票按分量加起来。</p>
-        <dl class="io">
-          <dt>输入</dt><dd>锚点 {a: w<sub>a</sub>}；离线算好的同好矩阵 B</dd>
-          <dt>怎么算</dt><dd>查表求和：</dd>
-        </dl>
-        <div class="formula" style="--c:var(--off)">同好分(g) = Σ<sub>a</sub> <span class="v">w<sub>a</sub></span> × <span class="v">B[a, g]</span>
-          <small><b>B 怎么来（离线，EASE）</b>：把“哪些玩家好评了哪些游戏”排成一张玩家 × 游戏的大表，求一组系数，让“用其他所有游戏的好评”尽量还原“每款游戏的好评”，同时规定一款游戏不许用自己预测自己，并加正则防止过拟合。得到的系数 B[a, g] 就是“a 对 g 的独立贡献”。<br><b>和简单数“共同好评人数”的区别</b>：它同时考虑所有游戏，“两款都很热门所以碰巧一起出现”的部分会被其他热门游戏分走，留下的才是真关联。</small></div>
-        <dl class="io"><dt>输出</dt><dd>每款候选的同好分；以及贡献最大的锚点（卡片上写“和《X》同好多少人”）</dd></dl>
-      </article>
-
-      <article class="card c-off" id="sc-tag">
-        <div class="card-head"><span class="num">标</span><div><h3>标签</h3><p class="mod">kb._tag_matrix · scoring.channel_scores</p></div></div>
-        <p class="lead">玩家贴的标签像不像，冷门标签说明力更强。</p>
-        <dl class="io">
-          <dt>输入</dt><dd>每款游戏的玩家标签和票数</dd>
-          <dt>怎么算</dt><dd>先给每款游戏做一个<b>标签向量</b>：每个标签的值 = 该标签票数 ÷ 这款游戏最高票标签的票数 × IDF（有这个标签的游戏越少，IDF 越大），再缩放到长度 1。两款游戏的标签相似度就是两个向量的余弦。</dd>
-        </dl>
-        <div class="formula" style="--c:var(--off)">标签分(g) = Σ<sub>a</sub> <span class="v">w<sub>a</sub></span> × <span class="v">cos(标签向量<sub>a</sub>, 标签向量<sub>g</sub>)</span>
-          <small>多个锚点用“加权求和”而不是“取最大”，离线比较时求和更准（<code>TAG_AGG</code>）。</small></div>
-        <dl class="io"><dt>输出</dt><dd>每款候选的标签分；贡献最大的锚点和共享的核心标签（卡片证据）</dd></dl>
-      </article>
-
-      <article class="card c-off" id="sc-desc">
-        <div class="card-head"><span class="num">介</span><div><h3>介绍</h3><p class="mod">kb.desc_sim · encoder.py</p></div></div>
-        <p class="lead">商店介绍讲的东西像不像，补上标签漏掉的题材和氛围。</p>
-        <dl class="io">
-          <dt>输入</dt><dd>离线编码好的中英文介绍向量</dd>
-          <dt>怎么算</dt><dd>两款游戏的介绍相似度 = 英文版余弦和中文版余弦里较大的那个；缺介绍的游戏不参与这一路。</dd>
-        </dl>
-        <div class="formula" style="--c:var(--off)">介绍分(g) = Σ<sub>a</sub> <span class="v">w<sub>a</sub></span> × <span class="v">介绍相似度(a, g)</span>
-          <small>同样是加权求和（<code>DESC_AGG</code>）。</small></div>
-        <dl class="io"><dt>输出</dt><dd>每款候选的介绍分</dd></dl>
-      </article>
-
-      <article class="card c-on" id="sc-pref">
-        <div class="card-head"><span class="num">话</span><div><h3>偏好原话</h3><p class="mod">encoder.py · scoring.channel_scores</p></div></div>
-        <p class="lead">你这次说的一句话（“想要轻松、能慢慢经营的”），直接和每款游戏的介绍比。</p>
-        <dl class="io">
-          <dt>输入</dt><dd>需求单里的偏好原话</dd>
-          <dt>怎么算</dt><dd>请求时用同一个向量模型把这句话编码（带一句“按玩家想要的去找游戏介绍”的指令），和每款游戏的介绍向量算余弦。</dd>
-          <dt>输出</dt><dd>每款候选的原话分（只在说了原话时才有）</dd>
-        </dl>
-      </article>
-
-      <article class="card c-on" id="sc-feel">
-        <div class="card-head"><span class="num">感</span><div><h3>感觉</h3><p class="mod">scoring.feel_raw</p></div></div>
-        <p class="lead">LLM 从 Steam 标签清单里挑出你想要和不想要的“感觉”标签，按这些标签加减分。</p>
-        <dl class="io">
-          <dt>输入</dt><dd>想要的标签（如“放松”“休闲”），不想要的标签（如“高难度”）</dd>
-          <dt>怎么算</dt><dd>某标签在 g 上的权重 = 该标签票数 ÷ g 最高票标签的票数；g 没有这个标签就是 0。</dd>
-        </dl>
-        <div class="formula">感觉分(g) = 想要的标签在 g 上的<span class="v">平均权重</span> − 不想要的标签在 g 上的<span class="v">平均权重</span>
-          <small>只加减分，不排除。“不要恐怖”这类雷区在第 2 步按核心标签硬筛，不在这里。</small></div>
-        <dl class="io"><dt>输出</dt><dd>每款候选的感觉分（只在给了感觉时才有）</dd></dl>
-      </article>
-
-      <article class="card c-off" id="sc-lineage">
-        <div class="card-head"><span class="num">血</span><div><h3>血统 <span class="off-note">默认不计分</span></h3><p class="mod">kb.lineage · db.PathFinder</p></div></div>
-        <p class="lead">是否和某个锚点同开发商、同系列，或被 IGDB 列为相似游戏。</p>
-        <dl class="io">
-          <dt>怎么算</dt><dd>是 = 1，否 = 0。</dd>
-          <dt>用在哪</dt><dd>平时占比为 0，不影响排序，只当卡片上的证据（关系链）。只有你明说“要同工作室的”时才计分（<code>SAME_STUDIO_W</code>）。只有血统分、其他几路都没有数据的游戏，不会被它单独推上来。</dd>
-        </dl>
-      </article>
+    <h3 class="sub-h" id="sc-fuse">② 合成一个人的分</h3>
+    <div class="chainbox">
+      <div class="p"><span class="k">1</span><b>各路归一到 0~1</b>（池内最低 = 0，最高 = 1）</div>
+      <div class="p"><span class="k">2</span><b>0.90 同好 + 0.05 标签 + 0.05 介绍</b></div>
+      <div class="p"><span class="k">3 有原话时</span><b>0.75 × 上一步 + 0.25 × 原话分</b></div>
+      <div class="p"><span class="k">4 有感觉时</span><b>0.75 × 上一步 + 0.25 × 感觉分</b></div>
+      <div class="p"><span class="k">5</span><b>再归一</b> = 个人分</div>
     </div>
 
-    <h3 class="sub-h" id="sc-fuse">合成个人分</h3>
-    <article class="card c-on">
-      <div class="card-head"><span class="num">合</span><div><h3>从几路分数到一个人的喜好分</h3><p class="mod">scoring.channel_scores · personal · kb.minmax</p></div></div>
-      <dl class="io">
-        <dt>输入</dt><dd>上面各路的原始分</dd>
-        <dt>输出</dt><dd>这个人（或“共同要求”）对每款候选的个人分，0~1</dd>
-      </dl>
-      <ol class="ord" style="--c:var(--on);--cs:var(--on-soft)">
-        <li><div><b>统一尺度</b>：每一路在本次候选池里做 min-max 归一，最低的变 0、最高的变 1。只在“有这一路数据”的游戏里归一。
-          <div class="formula">归一分<sub>路</sub>(g) = (原始分 − 池内最低) ÷ (池内最高 − 池内最低)</div></div></li>
-        <li><div><b>内容分</b>：同好、标签、介绍（和血统）按占比加权平均。某款游戏缺某一路数据时，那一路不当 0 分，而是把它的占比让给其他路。
-          <div class="formula">内容分(g) = Σ<sub>路</sub> 占比<sub>路</sub> × 归一分<sub>路</sub>(g) ÷ Σ<sub>g 有数据的路</sub> 占比<sub>路</sub><small>占比在 <code>WEIGHTS</code>，同好占绝大部分。</small></div></div></li>
-        <li><div><b>混入原话</b>（说了原话时）：
-          <div class="formula">分 = (1 − <span class="v">原话占比</span>) × 内容分 + <span class="v">原话占比</span> × 原话归一分<small><code>PREF_W</code></small></div></div></li>
-        <li><div><b>混入感觉</b>（给了感觉时），同样的方式再混一次：
-          <div class="formula">分 = (1 − <span class="v">感觉占比</span>) × 上一步的分 + <span class="v">感觉占比</span> × 感觉归一分<small><code>FEEL_W</code></small></div></div></li>
-        <li><div><b>库加分</b>（有种子又有库时）：只给种子分前若干名加一点库的分，见“口味锚点”。</div></li>
-        <li><div><b>再归一一次</b>，得到这个人的个人分，0~1。</div></li>
-      </ol>
-    </article>
+    <h3 class="sub-h" id="sc-rerank">③ LLM 精排（有原话或感觉时）</h3>
+    <div class="formula">前约 80 款交给 LLM，按你的原话打 0~10 分，然后：<br>
+      新分 = <span class="v">0.1</span> × 个人分 + <span class="v">0.9</span> × LLM 分（归一后）
+      <small>没进精排的只剩 0.1 × 个人分，不会反超。LLM 只判断口味，人数、价格它不管。</small></div>
 
-    <h3 class="sub-h" id="sc-rerank">LLM 精排</h3>
-    <article class="card c-on">
-      <div class="card-head"><span class="num">精</span><div><h3>按原话再打一次分</h3><p class="mod">rerank.candidates · llm_scores · fuse</p></div></div>
-      <p class="lead">只在说了原话或给了感觉时启用。标签和向量抓不住“能边聊天边玩”“别太肝”这类细微要求，交给 LLM 判断。</p>
-      <dl class="io">
-        <dt>输入</dt><dd>原话（附上提到的游戏的英文名）；候选 = 个人分前若干款（<code>RERANK_N</code>），加上只按原话、只按感觉各自最高的几款（<code>RERANK_EXTRA</code>）</dd>
-        <dt>怎么算</dt><dd>一次调用，把原话和每款候选的名字、主要标签、简介发给 LLM，让它只按口味、感觉、玩法、题材打 0~10 分（人数、价格、平台不归它管）。多人时每个说了话的人和“共同要求”各一列。</dd>
-      </dl>
-      <div class="formula">精排后的分(g) = (1 − <span class="v">w<sub>r</sub></span>) × 个人分(g) + <span class="v">w<sub>r</sub></span> × 归一(LLM 分(g))
-        <small>没进精排的游戏只剩 (1 − w<sub>r</sub>) × 个人分，所以不会越过进了精排的。w<sub>r</sub> 是 <code>RERANK_W</code>，在 32 条真实请求的前一半上选定。LLM 调用失败就跳过精排，结果页注明。</small></div>
-      <dl class="io"><dt>输出</dt><dd>替换后的个人分</dd></dl>
-    </article>
-
-    <h3 class="sub-h" id="sc-group">多人合成</h3>
-    <article class="card c-on">
-      <div class="card-head"><span class="num">群</span><div><h3>从每人的分到一个喜好分</h3><p class="mod">scoring.group_aggregate · combine</p></div></div>
-      <dl class="io">
-        <dt>输入</dt><dd>每位有口味信息的成员的个人分（已归一，彼此可比）；“共同要求”的分（大家一起说的话、共同种子）</dd>
-        <dt>怎么算</dt><dd>单人：个人分就是喜好分。多人：</dd>
-      </dl>
-      <div class="formula">群体分(g) = <span class="v">a</span> × 各成员分的平均 + (1 − <span class="v">a</span>) × 各成员分的最低<br>
-        喜好分(g) = (1 − <span class="v">s</span>) × 群体分 + <span class="v">s</span> × 共同要求分<span style="color:var(--ink-3)">（有共同要求时）</span>
-        <small>“最低”那一项照顾最不满意的人。a 在 <code>GROUP_MEAN_W</code>，s 在 <code>SHARED_W</code>；也可以换成分数相乘（Nash）或“先比最低再比平均”（<code>GROUP_METHOD</code>）。最后在池内再归一一次。</small></div>
-      <dl class="io"><dt>输出</dt><dd><b>喜好分</b>（0~1），交给第 4 步</dd></dl>
-    </article>
+    <h3 class="sub-h" id="sc-group">④ 多人合成</h3>
+    <div class="formula">群体分 = <span class="v">0.6</span> × 各人分数的平均 + <span class="v">0.4</span> × 各人分数的最低<br>
+      有大家共同的要求时：喜好分 = <span class="v">0.5</span> × 群体分 + <span class="v">0.5</span> × 共同要求分
+      <small>“最低”那一项照顾最不满意的人。单人时，个人分就是喜好分。</small></div>
   </section>
 
   <!-- 6 RANKING DETAIL -->
@@ -1008,63 +907,22 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     <div class="sec-head">
       <div class="eyebrow">六 · 排序与 MMR</div>
       <h2 id="rk-t">从喜好分到最终 5 款</h2>
-      <p>代码在 <code>ranking.py</code> 的 <code>rank</code>。</p>
     </div>
 
     <div class="callout answer" id="rk-answer">
-      <h4>MMR 改的是顺序还是内容？两者都改。</h4>
-      <p>MMR 不是把排好的 5 款重新排一下，而是<b>一款一款地挑</b>：每轮在“喜好分相近的窗口”里，挑“自身分高、又和已选的不太像”的那款。所以一款游戏如果和已经选上的太像，就会被窗口里另一款不一样的顶掉，<b>它落到备选列表里，不进前 5</b>。最终的顺序就是挑选的先后顺序。</p>
-      <p>但它只能在窗口里换：喜好分比当前最高的低太多的游戏，再不重复也选不上。所以 MMR 不会为了多样性推一款你不太会喜欢的游戏。离线比较里，加窗口和 MMR 后命中率和直接取前 5 差不多，但口碑和多样性更好。</p>
+      <h4>MMR 改顺序，也改内容</h4>
+      <p>它一轮挑一款，挑“分高、又和已选的不像”的。太像的会被换掉、落到备选。但只在喜好分相近的游戏里换，不会为了多样性推你不喜欢的。真实例子见 <a href="#ex-mmr">⑪</a>：巫师3 被换成了泰拉瑞亚。</p>
     </div>
 
-    <h3 class="sub-h" id="rk-short">入围名单</h3>
-    <article class="card c-on">
-      <dl class="io" style="margin-top:0">
-        <dt>输入</dt><dd>喜好分、候选池里“通过”的游戏</dd>
-        <dt>怎么算</dt><dd>按喜好分从高到低；同一系列只留分最高的一款，其余挂在它下面（结果页可展开）；取前若干款查实时价，超预算或不再打折的移出并说明，直到凑够入围名单（<code>SHORTLIST</code>）。</dd>
-        <dt>输出</dt><dd>入围名单。没被选进前 5 的入围游戏就是“备选”</dd>
-      </dl>
-    </article>
-
-    <h3 class="sub-h" id="rk-base">窗口分：喜好之外还看什么</h3>
-    <article class="card c-on">
-      <dl class="io" style="margin-top:0">
-        <dt>输入</dt><dd>喜好分、口碑、价格、是否已拥有、通关时长</dd>
-        <dt>怎么算</dt><dd>几项按占比加权平均，只算这次用得上的项：</dd>
-      </dl>
-      <div class="formula">窗口分(g) = 加权平均( 喜好分, 口碑, [价格偏好], [已拥有], [短游戏] )
-        <small>
-          <b>口碑</b> = (好评数 + α) ÷ (评测数 + α + β)：评测少的游戏往全库平均拉（α、β 用全库数据拟合）。<br>
-          <b>价格偏好</b>（说了“便宜点”或“等史低”才有）：便宜点 = 越便宜越高，免费为 1；等史低 = 现价越接近史低越高。<br>
-          <b>已拥有</b>（说了“优先我有的”才有）：有 = 1。<b>短游戏</b>（说了时长上限才有）：通关时长在上限内 = 1，超出越多越低。<br>
-          占比在 <code>BASE_W</code>、<code>PREFER_OWNED_W</code>、<code>SHORT_W</code>。</small></div>
-    </article>
-
-    <h3 class="sub-h" id="rk-mmr">MMR 怎么一款一款地选</h3>
-    <article class="card c-on">
-      <ol class="ord" style="--c:var(--on);--cs:var(--on-soft)">
-        <li><div><b>定窗口</b>：在还没选的入围游戏里（好评率过底线的优先，<code>RATING_FLOOR</code>），找出当前最高的喜好分；喜好分不低于“最高 − δ”的游戏组成这一轮的窗口（δ 是 <code>DELTA</code>）。</div></li>
-        <li><div><b>算 MMR 分</b>：窗口里每款游戏：
-          <div class="formula">MMR(g) = <span class="v">λ</span> × 窗口分(g) − (1 − <span class="v">λ</span>) × 重复度(g)<small>重复度 = g 和已选游戏之间最高的标签余弦相似度（第一轮为 0）。λ 是 <code>MMR_LAMBDA</code>，越小越看重多样性。</small></div></div></li>
-        <li><div><b>选一款</b>：MMR 分最高的那款进精选（平分时喜好分高的优先）。</div></li>
-        <li><div><b>重复</b>，直到选够精选数量（<code>PICK</code>）。</div></li>
-      </ol>
-      <div class="mmr-demo" aria-label="MMR 示意">
-        <div class="round"><h5>第 1 轮：还没选，重复度都是 0</h5>
-          <div class="g win"><span>肉鸽 A</span><span>窗口分最高 → 选中</span></div>
-          <div class="g"><span>肉鸽 B</span><span>窗口分次高</span></div>
-          <div class="g"><span>经营 C</span><span>窗口分略低</span></div></div>
-        <div class="round"><h5>第 2 轮：B 和 A 很像，被扣分</h5>
-          <div class="g lose"><span>肉鸽 B</span><span>和 A 很像，重复度高</span></div>
-          <div class="g win"><span>经营 C</span><span>不像 A → 选中</span></div>
-          <div class="g"><span>…</span><span></span></div></div>
-        <div class="round"><h5>结果</h5>
-          <div class="g"><span>精选：A、C、…</span><span></span></div>
-          <div class="g"><span>B 落到备选</span><span>内容变了</span></div>
-          <div class="g"><span>喜好分差太多的游戏</span><span>不在窗口，不会被选</span></div></div>
-      </div>
-      <p class="why">只按喜好分取前 5，很容易出现“5 款都是同一种肉鸽”；窗口保证不牺牲喜好，MMR 在窗口里把重复的换成不同的。</p>
-    </article>
+    <div class="table-wrap" style="margin-top:14px"><table class="mx cheat">
+      <thead><tr><th>步骤</th><th>做什么</th><th>怎么算</th></tr></thead>
+      <tbody>
+        <tr id="rk-short"><td class="s">入围</td><td>按喜好分取前 20 款</td><td>同系列只留分最高的一款；查实时价，超预算的移出</td></tr>
+        <tr id="rk-base"><td class="s">窗口分</td><td>喜好之外，再看口碑和价格</td><td>加权平均：0.5 喜好分 + 0.3 口碑 + 0.2 价格（说了价格偏好才有；“优先已拥有”“短游戏”同理）<br>口碑 = (好评数 + α) ÷ (评测数 + α + β)，评测少的往平均拉</td></tr>
+        <tr><td class="s">窗口</td><td>只让喜好分相近的竞争</td><td>喜好分 ≥ 剩下的最高分 − 0.1</td></tr>
+        <tr id="rk-mmr"><td class="s">MMR</td><td>在窗口里挑一款</td><td>0.65 × 窗口分 − 0.35 × 重复度（和已选游戏最像的那个的标签余弦）<br>最高的选中，重复 5 轮</td></tr>
+      </tbody>
+    </table></div>
   </section>
 
   <!-- 6 PROOF -->
