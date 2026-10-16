@@ -1,0 +1,1307 @@
+{
+ "r01": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Stardew Valley",
+   "GTA V",
+   "Red Dead Redemption 2",
+   "Skyrim",
+   "Fallout 4",
+   "The Witcher 3",
+   "Kingdom Come: Deliverance"
+  ],
+  "excluded": [],
+  "avoid_hard": [
+   "platformer",
+   "linear",
+   "strict time/energy management"
+  ],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Stardew Valley": 413150,
+   "GTA V": 271590,
+   "Red Dead Redemption 2": 1174180,
+   "Skyrim": 489830,
+   "Fallout 4": 377160,
+   "The Witcher 3": 292030,
+   "Kingdom Come: Deliverance": 379430
+  },
+  "evidence": {
+   "party_size": "something small, chill, that matches my preferences and that I can jump in and out of",
+   "already_played": "I usually only play open-world games and RPGs like GTA, RDR, Elder Scrolls, Fallout, Witcher, KCD ... I really thought Stardew Valley was going to be it",
+   "avoid_hard": "I don’t enjoy platformers, or linear games ... without really strict time-based gameplay with energy meters"
+  }
+ },
+ "r02": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Hollow Knight",
+   "Animal Well",
+   "Zelda: Breath of the Wild",
+   "Minecraft",
+   "Fortnite",
+   "Cuphead",
+   "Super Mario Maker",
+   "GTA V",
+   "Mario Kart DS",
+   "Elden Ring",
+   "Genshin Impact",
+   "Terraria",
+   "Immortals Fenyx Rising",
+   "Tchia",
+   "Lego Bricktales",
+   "Just Cause 3",
+   "Cyberpunk 2077",
+   "Neon White"
+  ],
+  "excluded": [
+   "Terraria",
+   "Immortals Fenyx Rising",
+   "Tchia",
+   "Lego Bricktales",
+   "Just Cause 3",
+   "Cyberpunk 2077",
+   "Neon White",
+   "Elden Ring",
+   "Genshin Impact"
+  ],
+  "avoid_hard": [
+   "soulslike",
+   "brutal 3D combat",
+   "menu-heavy RPG",
+   "inventory management",
+   "heavy text/dialogue",
+   "gacha"
+  ],
+  "avoid_soft": [
+   "visual bloat",
+   "hand-holding"
+  ],
+  "platform": "windows",
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Hollow Knight": 367520,
+   "Animal Well": 813230,
+   "Zelda: Breath of the Wild": null,
+   "Minecraft": null,
+   "Fortnite": null,
+   "Cuphead": 268910,
+   "Super Mario Maker": null,
+   "GTA V": 271590,
+   "Mario Kart DS": null,
+   "Elden Ring": 1245620,
+   "Genshin Impact": null,
+   "Terraria": 105600,
+   "Immortals Fenyx Rising": 2221920,
+   "Tchia": null,
+   "Lego Bricktales": 1898290,
+   "Just Cause 3": 225540,
+   "Cyberpunk 2077": 1091500,
+   "Neon White": 1533420
+  },
+  "evidence": {
+   "party_size": "Looking for PC game recs: Loved Hollow Knight & Animal Well",
+   "platform": "Looking for PC game recs",
+   "already_played": "Other Favorites: Zelda: BotW, Minecraft, Fortnite, Cuphead, Super Mario Maker, GTA, and Mario Kart DS",
+   "excluded": "Already Tried & Dislike (Do NOT recommend): Terraria, ... Neon White / Hate Elden Ring / Hate Genshin Impact",
+   "avoid_hard": "I don't want brutal 3D combat or frustrating soulslike camera angles ... I cannot stand massive inventory management, heavy text/dialogue, or gacha mechanics",
+   "avoid_soft": "zero visual bloat, minimal menus, and quick action ... without hand-holding"
+  }
+ },
+ "r03": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Satisfactory"
+  ],
+  "excluded": [],
+  "avoid_hard": [
+   "punishing (forced restart / unrecoverable mistakes)"
+  ],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Satisfactory": 526870
+  },
+  "evidence": {
+   "party_size": "I've just put in over 200 hours into satisfactory",
+   "already_played": "I've just put in over 200 hours into satisfactory",
+   "avoid_hard": "games that aren't so punishing? ... I really don't like the idea of ... having to start all over again"
+  }
+ },
+ "r04": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": {
+   "amount": 14,
+   "currency": "USD",
+   "scope": "per_person"
+  },
+  "already_played": [],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "visual novel"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {},
+  "evidence": {
+   "party_size": "trying to finish off some steam funds i got from a commission",
+   "budget": "story rich game on steam for less than 14 dollars",
+   "avoid_soft": "preferably not a vn"
+  }
+ },
+ "r05": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": true,
+  "budget": null,
+  "already_played": [
+   "Elden Ring",
+   "The Witcher 3",
+   "Hades II",
+   "Balatro",
+   "Resident Evil 4 (Remake)",
+   "Hades",
+   "Baldur's Gate 3",
+   "Skyrim"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "too challenging/frustrating",
+   "stressful",
+   "turn-based combat",
+   "inventory management"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Elden Ring": 1245620,
+   "The Witcher 3": 292030,
+   "Hades II": 1145350,
+   "Balatro": 2379780,
+   "Resident Evil 4 (Remake)": 2050650,
+   "Hades": 1145360,
+   "Baldur's Gate 3": 1086940,
+   "Skyrim": 489830
+  },
+  "evidence": {
+   "party_size": "I'm looking for a singleplayer game on steam",
+   "single_player_required": "I'm looking for a singleplayer game on steam",
+   "already_played": "The games I've played the most are Elden Ring, Witcher 3, Hades 2, Balatro, Resident Evil 4 Remake and Hades ... I dropped Baldur's Gate 3 ... I couldn't get into Skyrim either",
+   "avoid_soft": "I don't like games that are too challenging or frustrating ... I dropped Baldur's Gate 3 ... because of the turn based combat and inventory management ... doesn't feel stressful"
+  }
+ },
+ "r06": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "What Remains of Edith Finch",
+   "Firewatch"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "What Remains of Edith Finch": 501300,
+   "Firewatch": 383870
+  },
+  "evidence": {
+   "party_size": "Could you please recommend one for me?",
+   "already_played": "I played both of these games last year"
+  }
+ },
+ "r07": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Rust",
+   "Stardew Valley",
+   "Schedule I",
+   "Escape from Tarkov",
+   "Animal Crossing"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Rust": 252490,
+   "Stardew Valley": 413150,
+   "Schedule I": 3164500,
+   "Escape from Tarkov": null,
+   "Animal Crossing": null
+  },
+  "evidence": {
+   "party_size": "New dad looking for a game to sink time into when I actually have time",
+   "already_played": "about 1,500 hours in Rust, 400 in Stardew Valley, and already hit 70 hours in Schedule 1. I also bounce between EFT and Animal Crossing"
+  }
+ },
+ "r08": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Path of Exile",
+   "Diablo",
+   "Warframe",
+   "Stardew Valley",
+   "Valheim"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "sci-fi high-tech setting"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Path of Exile": 238960,
+   "Diablo": 2344520,
+   "Warframe": 230410,
+   "Stardew Valley": 413150,
+   "Valheim": 892970
+  },
+  "evidence": {
+   "party_size": "It could be online or singleplay no matter",
+   "already_played": "Tried: PoE and Diablo ... Warframe ... Stardew Valley ... I played it already a few times ... Valhiem",
+   "avoid_soft": "got a headache from this graphics and sci-fi high tech world"
+  }
+ },
+ "r09": {
+  "party_size": 2,
+  "setup": "local",
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "It Takes Two",
+   "Split Fiction",
+   "A Way Out",
+   "River Tails",
+   "Resident Evil 5",
+   "Resident Evil Revelations 2",
+   "Stardew Valley",
+   "PlateUp!",
+   "Sackboy: A Big Adventure",
+   "Overcooked! 2",
+   "Castle Crashers"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "action"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "It Takes Two": 1426210,
+   "Split Fiction": 2001120,
+   "A Way Out": 1222700,
+   "River Tails": null,
+   "Resident Evil 5": 21690,
+   "Resident Evil Revelations 2": 287290,
+   "Stardew Valley": 413150,
+   "PlateUp!": 1599600,
+   "Sackboy: A Big Adventure": 1599660,
+   "Overcooked! 2": 728880,
+   "Castle Crashers": 204360
+  },
+  "evidence": {
+   "party_size": "me and my wife",
+   "setup": "split-screen couch coop games for couples",
+   "interaction": "split-screen couch coop",
+   "already_played": "me and my wife have already played: It Takes Two Split Fiction A way out River Tails ... Castle Crashers (currently playing)",
+   "avoid_soft": "She isn't into \"action\" games so much ... but we are open to try"
+  }
+ },
+ "r10": {
+  "party_size": 4,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Overcooked! 2",
+   "Ship of Fools",
+   "Left 4 Dead 2",
+   "Payday 2"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "needs a separate copy per player",
+   "expensive"
+  ],
+  "platform": "windows",
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Overcooked! 2": 728880,
+   "Ship of Fools": 1286580,
+   "Left 4 Dead 2": 550,
+   "Payday 2": 218620
+  },
+  "evidence": {
+   "party_size": "games for 3 or more players ... Wish Ship of Fools had 4 player",
+   "platform": "Looking for games for 3 or more players PC",
+   "already_played": "We loved Overcooked 2. Wish Ship of Fools had 4 player. L4D2 and Payday 2",
+   "avoid_soft": "Bonus if we don't need to buy more than 1 copy to play together or if it is cheap"
+  }
+ },
+ "r11": {
+  "party_size": 2,
+  "setup": "remote_or_online",
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Stardew Valley",
+   "PEAK"
+  ],
+  "excluded": [],
+  "avoid_hard": [
+   "hard or unavoidable combat"
+  ],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "cozy",
+   "not a one-trick pony: lots to do, an engaging story, or a good gameplay loop"
+  ],
+  "resolved": {
+   "Stardew Valley": 413150,
+   "PEAK": null
+  },
+  "evidence": {
+   "party_size": "Good co-op games to play with my GF?",
+   "setup": "we aren't living together, not even the same city so it would have to be a co-op online games",
+   "interaction": "it would have to be a co-op online games",
+   "already_played": "We played a lot of Stardew Valley and Peak",
+   "avoid_hard": "No combat, or if there is, it has to be easy or avoidable combat",
+   "other_hard": "Requirements: - Cozy ... - No one trick pony, like only fishing, only building houses"
+  }
+ },
+ "r12": {
+  "party_size": 3,
+  "setup": "online",
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [],
+  "excluded": [
+   "LEGO Voyagers"
+  ],
+  "avoid_hard": [
+   "violence"
+  ],
+  "avoid_soft": [
+   "needs a paid copy per player"
+  ],
+  "platform": "windows",
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "safe for a young child"
+  ],
+  "resolved": {
+   "LEGO Voyagers": null
+  },
+  "evidence": {
+   "party_size": "more than two people ... pay $20 bucks three times for the each player",
+   "setup": "come over to my house and do like cool gaming sessions on multiple computers",
+   "interaction": "PC co-op games for more than two players",
+   "platform": "any good PC based multiplayer games",
+   "excluded": "That LEGO VOYAGERS game would be really good but it's dedicated two player only",
+   "avoid_hard": "everything we play that's multiplayer for more than two people, is so violent",
+   "avoid_soft": "it would be nice to avoid ones where you have to pay $20 bucks three times",
+   "other_hard": "safe for younger gamers ... My friends son is getting old enough to be into video games"
+  }
+ },
+ "r13": {
+  "party_size": 4,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [],
+  "excluded": [
+   "Minecraft",
+   "Valorant",
+   "League of Legends"
+  ],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "horror"
+  ],
+  "platform": "windows",
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "cheap (no amount given)"
+  ],
+  "resolved": {
+   "Minecraft": null,
+   "Valorant": null,
+   "League of Legends": null
+  },
+  "evidence": {
+   "party_size": "Cheap games for 4 players",
+   "platform": "I'm looking for a PC game",
+   "excluded": "(Not Minecraft, valorant, lol, etc)",
+   "avoid_soft": "If is it possible not horror",
+   "other_hard": "Cheap games for 4 players"
+  }
+ },
+ "r14": {
+  "party_size": 5,
+  "setup": "online",
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "PEAK",
+   "Left 4 Dead 2",
+   "Human Fall Flat",
+   "RV There Yet?",
+   "Don't Starve Together",
+   "It Takes Two",
+   "Split Fiction",
+   "PICO PARK",
+   "PICO PARK 2"
+  ],
+  "excluded": [
+   "R.E.P.O.",
+   "Lethal Company"
+  ],
+  "avoid_hard": [
+   "horror"
+  ],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": "integrated graphics (ThinkPad laptops, i7 10th gen)",
+  "other_hard": [
+   "supports 5 players (natively or via a working mod)",
+   "runs on integrated graphics"
+  ],
+  "resolved": {
+   "PEAK": null,
+   "Left 4 Dead 2": 550,
+   "Human Fall Flat": 477160,
+   "RV There Yet?": null,
+   "Don't Starve Together": 322330,
+   "It Takes Two": 1426210,
+   "Split Fiction": 2001120,
+   "PICO PARK": 1509960,
+   "PICO PARK 2": 2644470,
+   "R.E.P.O.": 3241660,
+   "Lethal Company": 1966720
+  },
+  "evidence": {
+   "party_size": "My friend group is 5 people",
+   "setup": "won't melt our laptops? ... A couple of us are on ThinkPads",
+   "interaction": "5-player co-op game like PEAK",
+   "already_played": "What we've tried and didn't click with: L4D2 ... What we've played: Don't Starve Together It Takes Two / Split Fiction PICO PARK 1 & 2",
+   "excluded": "So stuff like R.E.P.O or Lethal Company is out",
+   "avoid_hard": "No horror",
+   "hardware": "Can run on integrated graphics. A couple of us are on ThinkPads with i7-10th gen",
+   "other_hard": "We need 5 players, either native support or a mod that actually works"
+  }
+ },
+ "r15": {
+  "party_size": null,
+  "setup": "online",
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": {
+   "amount": 20,
+   "currency": "EUR",
+   "scope": "per_person"
+  },
+  "already_played": [
+   "Webfishing",
+   "Roblox",
+   "Terraria",
+   "Minecraft",
+   "Lethal Company",
+   "R.E.P.O.",
+   "The Binding of Isaac",
+   "Deep Rock Galactic"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "demanding hardware"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": "one friend's laptop overheats easily",
+  "other_hard": [],
+  "resolved": {
+   "Webfishing": 3146520,
+   "Roblox": null,
+   "Terraria": 105600,
+   "Minecraft": null,
+   "Lethal Company": 1966720,
+   "R.E.P.O.": 3241660,
+   "The Binding of Isaac": 250900,
+   "Deep Rock Galactic": 548430
+  },
+  "evidence": {
+   "setup": "My PC could handle pretty much anything however one of my friends has a laptop",
+   "interaction": "Co-Op games recommendation to play with 2 or more people",
+   "budget": "My budget personally is up to 20 euros, preferably less",
+   "already_played": "So far we've played webfishing, roblox, terraria, Minecraft, lethal company and r.e.p.o. ... I did enjoy Isaac ... i found deeprock galactic fun",
+   "avoid_soft": "one of my friends has a laptop that easily overheats so that might be a little bit of an issue",
+   "hardware": "one of my friends has a laptop that easily overheats"
+  }
+ },
+ "r16": {
+  "party_size": 4,
+  "setup": "online",
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Phasmophobia",
+   "Lethal Company",
+   "RV There Yet?",
+   "Dark Hours",
+   "Mimesis",
+   "The Headliners",
+   "R.E.P.O."
+  ],
+  "excluded": [],
+  "avoid_hard": [
+   "friendslop"
+  ],
+  "avoid_soft": [],
+  "platform": "windows",
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "save-able long-term, goal-oriented progression",
+   "group of 4-8 (ideally supports up to 8)"
+  ],
+  "resolved": {
+   "Phasmophobia": 739630,
+   "Lethal Company": 1966720,
+   "RV There Yet?": null,
+   "Dark Hours": 2208570,
+   "Mimesis": null,
+   "The Headliners": 3059070,
+   "R.E.P.O.": 3241660
+  },
+  "evidence": {
+   "party_size": "Casual 4-8 player non-friend-slop games",
+   "setup": "Now that the guys' girlfriends all have PCs",
+   "platform": "the guys' girlfriends all have PCs",
+   "already_played": "Phasmophobia, Lethal Company, RV There Yet, Dark Hours, Mimesis, The Headliners, REPO ... All great games, all fun for an hour or two",
+   "avoid_hard": "non-friend-slop games ... all are 'friend slop' games that fizzle out rather quickly",
+   "other_hard": "The fellas want save-able progression, more long-term, goal-oriented games"
+  }
+ },
+ "r17": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": "RTX 3050 laptop",
+  "other_hard": [
+   "low hardware requirements (no heavy AAA)",
+   "can be closed / switched away from quickly (playing at work)"
+  ],
+  "resolved": {},
+  "evidence": {
+   "party_size": "小弟最近有一段清閒的時光 上班可以偷玩一些小遊戲",
+   "hardware": "我只有一台3050的筆電",
+   "other_hard": "不能負擔太沈重的3A大作 ... 有事情的時候要關掉 也不能被同事發現 ... 可以快速切換畫面的遊戲"
+  }
+ },
+ "r18": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": true,
+  "budget": null,
+  "already_played": [
+   "The Forest",
+   "Sons of the Forest",
+   "Green Hell",
+   "Palworld",
+   "Stardew Valley",
+   "Dragon Quest Builders 2"
+  ],
+  "excluded": [],
+  "avoid_hard": [
+   "zombie",
+   "sci-fi/space"
+  ],
+  "avoid_soft": [
+   "heavy farming",
+   "too cute style",
+   "fast-paced",
+   "horror"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "no forced login to official servers in single-player",
+   "has combat and progression (explore, fight, loot)"
+  ],
+  "resolved": {
+   "The Forest": 242760,
+   "Sons of the Forest": 1326470,
+   "Green Hell": 815370,
+   "Palworld": 1623730,
+   "Stardew Valley": 413150,
+   "Dragon Quest Builders 2": 1072420
+  },
+  "evidence": {
+   "party_size": "能單人玩的愉快為主(沒朋友一起玩><)",
+   "single_player_required": "能單人玩的愉快為主(沒朋友一起玩><)",
+   "already_played": "陰森1、2 (都很喜歡 ... Green Hell (喜歡 ... 帕魯 (2年前玩很喜歡 ... 星露谷 (太農 ... 創世小玩家2 (滿喜歡",
+   "avoid_hard": "不喜歡活屍題材，也不喜歡太科幻的題材(例如宇宙探索那種)",
+   "avoid_soft": "可接受小農，但不要太農 ... 不要太可愛的風格 ... 節奏不要太緊湊 ... 單人玩後面有點太恐怖了",
+   "other_hard": "希望單人模式進遊戲時不會強迫要登入官方伺服器那種 ... 有戰鬥升級元素，自己家園蓋好後，可以去探險打怪打寶"
+  }
+ },
+ "r19": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Nioh 2",
+   "Clair Obscur: Expedition 33",
+   "They Are Billions",
+   "Total War: THREE KINGDOMS",
+   "Total War: WARHAMMER III",
+   "Stellaris"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "tense/stressful (wants a relaxing palate cleanser after a soulslike)"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Nioh 2": 1325200,
+   "Clair Obscur: Expedition 33": 1903340,
+   "They Are Billions": 644930,
+   "Total War: THREE KINGDOMS": 779340,
+   "Total War: WARHAMMER III": 1142710,
+   "Stellaris": 281990
+  },
+  "evidence": {
+   "party_size": "我玩的遊戲很雜可以盡情推薦XD",
+   "already_played": "電腦版再買一次仁王二從頭回味 ... 剛破完33 ... 喜歡全戰三國跟戰鎚, 群星 ... 之前很喜歡They are billions",
+   "avoid_soft": "結果玩得超緊繃 ... 通常都玩那些遊戲轉換心情 (紓壓爽GAME?)"
+  }
+ },
+ "r20": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Demacia Rising",
+   "Civilization V",
+   "Civilization VI",
+   "XCOM: Enemy Unknown",
+   "XCOM 2"
+  ],
+  "excluded": [
+   "Age of Empires",
+   "StarCraft"
+  ],
+  "avoid_hard": [
+   "RTS",
+   "Japanese-style turn-based (JRPG)",
+   "XCOM-style squad tactics"
+  ],
+  "avoid_soft": [
+   "complex systems",
+   "heavy roguelike"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "turn-based / not real-time",
+   "low effort to play"
+  ],
+  "resolved": {
+   "Demacia Rising": null,
+   "Civilization V": 8930,
+   "Civilization VI": 289070,
+   "XCOM: Enemy Unknown": 200510,
+   "XCOM 2": 268500,
+   "Age of Empires": 813780,
+   "StarCraft": null
+  },
+  "evidence": {
+   "party_size": "最近LOL內建那個Demacia Rising還不錯",
+   "already_played": "LOL內建那個Demacia Rising ... 之前玩過5/6都真的覺得系統太複雜了 ... 目前玩過XCOM系列",
+   "excluded": "不要世紀帝國/星海這類要燒腦跟手速",
+   "avoid_hard": "不要世紀帝國/星海這類 ... 目前玩過XCOM系列，這個就真的好玩，但不想玩這種性質 ... 不喜歡日系回合制遊戲",
+   "avoid_soft": "好玩不會太複雜 ... 也不想要Roguelike成分太重的遊戲",
+   "other_hard": "想找非即時不需要花太多精力玩的策略遊戲"
+  }
+ },
+ "r21": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Dave the Diver",
+   "Sakuna: Of Rice and Ruin",
+   "Stardew Valley"
+  ],
+  "excluded": [
+   "The Forest",
+   "7 Days to Die",
+   "Don't Starve"
+  ],
+  "avoid_hard": [
+   "first-person",
+   "survival pressure",
+   "monsters raiding your base"
+  ],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Dave the Diver": 1868140,
+   "Sakuna: Of Rice and Ruin": 1356670,
+   "Stardew Valley": 413150,
+   "The Forest": 242760,
+   "7 Days to Die": 251570,
+   "Don't Starve": 219740
+  },
+  "evidence": {
+   "party_size": "想問STEAM還有類似的遊戲嗎?",
+   "already_played": "這兩款我都超喜歡 都玩了兩輪 ... 星露谷玩不太下去",
+   "excluded": "The Forest 跟 7 Days to Die 跟Don't Starve 這種有壓力或第一人稱的也不喜歡",
+   "avoid_hard": "沒有生存壓力 ... 不會有怪物來襲擊你家 ... 不是第一人稱畫面 (這個最重要)"
+  }
+ },
+ "r22": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": true,
+  "budget": null,
+  "already_played": [
+   "Balatro",
+   "unidentified block/board-rotating roguelike (kill computer viruses)"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "too easy",
+   "too hard / mentally demanding"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "not real-time; can stop anytime without penalty"
+  ],
+  "resolved": {
+   "Balatro": 2379780,
+   "unidentified block/board-rotating roguelike (kill computer viruses)": null
+  },
+  "evidence": {
+   "party_size": "有沒有類似的單機遊戲",
+   "single_player_required": "有沒有類似的單機遊戲",
+   "already_played": "所有牌組金籌碼+20關挑戰破完 ... 之前有玩一個旋轉方塊與棋盤 消除方塊以殺死電腦病毒的肉鴿遊戲",
+   "avoid_soft": "不要太簡單以至於無聊 也不要太難以至於佔用看劇的大腦CPU",
+   "other_hard": "無即時性，想停就停不會影響遊戲"
+  }
+ },
+ "r23": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "SimCity 4",
+   "SimCity (2013)",
+   "Diplomacy is Not an Option",
+   "Ratopia",
+   "Farthest Frontier",
+   "Going Medieval",
+   "Kingdoms and Castles",
+   "Project Zomboid",
+   "Settlement Survival",
+   "Frostpunk"
+  ],
+  "excluded": [
+   "RimWorld",
+   "Against the Storm"
+  ],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "non-human/fantasy races",
+   "aliens/space"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "SimCity 4": 24780,
+   "SimCity (2013)": null,
+   "Diplomacy is Not an Option": 1272320,
+   "Ratopia": 2244130,
+   "Farthest Frontier": 1044720,
+   "Going Medieval": 1029780,
+   "Kingdoms and Castles": 569480,
+   "Project Zomboid": 108600,
+   "Settlement Survival": 1509510,
+   "Frostpunk": 323190,
+   "RimWorld": 294100,
+   "Against the Storm": 1336490
+  },
+  "evidence": {
+   "party_size": "我先說我的種田遊戲",
+   "already_played": "我先說我的種田遊戲 simcity4 simcity5 duplomacy is not an option 鼠托邦 ... frostpunk 1",
+   "excluded": "至於rim world很多人推薦但是我就不太喜歡 風暴之城原本想買 可是不太喜歡那些異種族跟美術",
+   "avoid_soft": "好像異族外星宇宙類不太會讓我覺得有興趣"
+  }
+ },
+ "r24": {
+  "party_size": 1,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": true,
+  "budget": null,
+  "already_played": [
+   "Undertale",
+   "Stardew Valley",
+   "Detroit: Become Human",
+   "Little Nightmares"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "steep learning curve",
+   "brain-burning",
+   "mechanically demanding",
+   "ugly graphics",
+   "absurd story",
+   "boring",
+   "chore-like"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Undertale": 391540,
+   "Stardew Valley": 413150,
+   "Detroit: Become Human": 1222140,
+   "Little Nightmares": 424840
+  },
+  "evidence": {
+   "party_size": "还有需要两个人以及以上的不玩",
+   "single_player_required": "还有需要两个人以及以上的不玩",
+   "already_played": "传说之下星露谷底特律小小梦魇什么的已经玩过啦",
+   "avoid_soft": "门槛太高的不想玩，太烧脑的不想玩，太吃操作的不想玩，画面太难看的不想玩，剧情太逆天的不想玩 ... 不要让我感到在上班打卡啊"
+  }
+ },
+ "r25": {
+  "party_size": null,
+  "setup": null,
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Zelda: Breath of the Wild",
+   "Zelda: Tears of the Kingdom",
+   "Zelda: Echoes of Wisdom",
+   "Dave the Diver",
+   "Cult of the Lamb",
+   "Don't Starve Together",
+   "Escape from Duckov"
+  ],
+  "excluded": [
+   "Palworld",
+   "It Takes Two",
+   "Stardew Valley",
+   "Terraria"
+  ],
+  "avoid_hard": [
+   "co-op-only games that cannot be played solo (It Takes Two-style)",
+   "automation/factory",
+   "realistic",
+   "gore"
+  ],
+  "avoid_soft": [
+   "hard combat",
+   "pixel art (Stardew/Terraria-style)"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "multiplayer co-op that is also fun solo"
+  ],
+  "resolved": {
+   "Zelda: Breath of the Wild": null,
+   "Zelda: Tears of the Kingdom": null,
+   "Zelda: Echoes of Wisdom": null,
+   "Dave the Diver": 1868140,
+   "Cult of the Lamb": 1313140,
+   "Don't Starve Together": 322330,
+   "Escape from Duckov": null,
+   "Palworld": 1623730,
+   "It Takes Two": 1426210,
+   "Stardew Valley": 413150,
+   "Terraria": 105600
+  },
+  "evidence": {
+   "interaction": "希望大家推薦能夠多人合作 但單人也能有樂趣的遊戲",
+   "already_played": "他玩過覺得喜歡的： 薩爾達荒野之息、王國之淚、智慧再現、 潛水夫戴夫、羔羊傳說、don't starve等 才剛開始玩鴨科夫",
+   "excluded": "帕魯本來是備選，但女友不想玩有版權疑慮的遊戲 ... 不要雙人同行這類型的遊戲 ... 他不喜歡星露谷或terraia的像素風格",
+   "avoid_hard": "不要雙人同行這類型的遊戲 不喜歡自動化工廠類型、也不喜歡寫實或太血腥",
+   "avoid_soft": "戰鬥難度希望不要太高 ... 他不喜歡星露谷或terraia的像素風格 core keeper則在接受範圍",
+   "other_hard": "能夠多人合作 但單人也能有樂趣的遊戲"
+  }
+ },
+ "r26": {
+  "party_size": 4,
+  "setup": "online",
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Warcraft III (TD custom maps)",
+   "Battlefield (old, version unknown)",
+   "Counter-Strike 1.6",
+   "Age of Empires",
+   "Empire Earth",
+   "StarCraft II",
+   "Red Alert (original)"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "co-op against AI (PvE)"
+  ],
+  "resolved": {
+   "Warcraft III (TD custom maps)": null,
+   "Battlefield (old, version unknown)": null,
+   "Counter-Strike 1.6": 10,
+   "Age of Empires": 813780,
+   "Empire Earth": null,
+   "StarCraft II": null,
+   "Red Alert (original)": 1213210
+  },
+  "evidence": {
+   "party_size": "成員就是四個脫離遊戲很久的爸爸",
+   "setup": "適合網咖的四人合作遊戲 ... 打區網",
+   "interaction": "主題都是合作對抗電腦的",
+   "already_played": "魔獸 td 舊的戰地風雲 ... CS 1.6 + bot 有些 rts 像是世紀帝國、世紀爭霸、星海 2、原版紅色警戒",
+   "other_hard": "主題都是合作對抗電腦的"
+  }
+ },
+ "r27": {
+  "party_size": 2,
+  "setup": null,
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Mario Party",
+   "Rabbids: Party of Legends"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "suitable for a first-grader (about 6-7) playing with adults"
+  ],
+  "resolved": {
+   "Mario Party": null,
+   "Rabbids: Party of Legends": null
+  },
+  "evidence": {
+   "party_size": "女兒現在小學一年級 很喜歡和大人一起玩",
+   "already_played": "Switch上的 瑪利歐派對 瘋狂兔子傳奇派對",
+   "other_hard": "steam上有推薦給這個年齡層 和大人一起玩的遊戲嗎?"
+  }
+ },
+ "r28": {
+  "party_size": 2,
+  "setup": null,
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Princess Maker",
+   "Planet Zoo",
+   "Frostpunk",
+   "Dave the Diver",
+   "Overcooked",
+   "The Sims"
+  ],
+  "excluded": [
+   "Don't Starve Together"
+  ],
+  "avoid_hard": [
+   "pure survival sandbox"
+  ],
+  "avoid_soft": [
+   "3D (mild motion sickness)"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "multiplayer",
+   "main storyline or goal guidance with step-by-step progression",
+   "casual, low difficulty; combat (if any) not execution-heavy"
+  ],
+  "resolved": {
+   "Princess Maker": 523000,
+   "Planet Zoo": 703080,
+   "Frostpunk": 323190,
+   "Dave the Diver": 1868140,
+   "Overcooked": 448510,
+   "The Sims": 1222670,
+   "Don't Starve Together": 322330
+  },
+  "evidence": {
+   "party_size": "雙人生活模擬或經營類遊戲推薦",
+   "interaction": "補充一些生活類或是稱作經營類的遊戲同樂",
+   "already_played": "玩過之後有上述喜愛要素的遊戲： 美少女夢工廠、動物園之星、Frostpunk、潛水員戴夫、overcooked、模擬市民",
+   "excluded": "純生存類像don't starve together這種的就不在候選名單內",
+   "avoid_hard": "純生存類像don't starve together這種的就不在候選名單內",
+   "avoid_soft": "有輕微3D暈，2D比較偏好一點，3D也不排斥",
+   "other_hard": "必要項目： 1.可以多人同樂 ... 2.希望有主線或一定的方向引導循序漸進 ... 3.主要是休閒，難度希望不要太高，如果有戰鬥要素的話不太吃操作"
+  }
+ },
+ "r29": {
+  "party_size": 3,
+  "setup": null,
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Minecraft",
+   "Core Keeper",
+   "The Planet Crafter",
+   "Terraria"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [
+   "too hard / frequent deaths",
+   "heavy survival emphasis",
+   "zombie"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "exploration: discover new areas, scenery and resources",
+   "resource gathering as the core loop (ore/plants/animals)",
+   "multiplayer (2-3 players)"
+  ],
+  "resolved": {
+   "Minecraft": null,
+   "Core Keeper": 1621690,
+   "The Planet Crafter": 1284190,
+   "Terraria": 105600
+  },
+  "evidence": {
+   "party_size": "人數不用多2~3人也可",
+   "interaction": "求推薦多人探索/挖礦遊戲",
+   "already_played": "Minecraft 很經典 ... 每次玩一個月就膩了 ... Core Keeper ... 玩了上百小時 ... Planet Crafter ... Terraria 這款，這款也已經玩到爆了",
+   "avoid_soft": "希望不要太難，不想玩一直死亡，過度強調生存感的遊戲 6.有沒有戰鬥都可以，但希望不要殭屍",
+   "other_hard": "必要條件 1.能探索找到新地區，感受到全新的風景，也獲得新的資源 ... 2.不一定只限挖礦，主軸是找資源 ... 3.能的遊戲，人數不用多2~3人也可"
+  }
+ },
+ "r30": {
+  "party_size": 2,
+  "setup": "remote_or_online",
+  "interaction": "coop",
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [],
+  "excluded": [],
+  "avoid_hard": [
+   "real-time reaction-heavy co-op"
+  ],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "slow-paced, tolerant of high ping (Taiwan-US)"
+  ],
+  "resolved": {},
+  "evidence": {
+   "party_size": "最近友人將要回美國休憩數個月 中途我們偶爾會線上連線一起玩",
+   "setup": "求推薦台美連線的合作遊戲 ... 我們偶爾會線上連線一起玩",
+   "interaction": "提供一些慢節奏的合作遊戲",
+   "avoid_hard": "考慮到ping問題，如果是講求即時反應合作的遊戲應該會很難不遇到瓶頸",
+   "other_hard": "提供一些慢節奏的合作遊戲選擇如Satisfactory"
+  }
+ },
+ "r31": {
+  "party_size": 2,
+  "setup": "remote_or_online",
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Age of Empires II",
+   "League of Legends",
+   "Helldivers 2"
+  ],
+  "excluded": [
+   "Party Animals",
+   "Ultimate Chicken Horse",
+   "Overcooked",
+   "Overcooked! 2"
+  ],
+  "avoid_hard": [
+   "cute party/group games",
+   "sports",
+   "racing"
+  ],
+  "avoid_soft": [
+   "brain-burning strategy",
+   "pure gunplay shooters (PUBG/Apex/CS-like)"
+  ],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [],
+  "resolved": {
+   "Age of Empires II": 813780,
+   "League of Legends": null,
+   "Helldivers 2": 553850,
+   "Party Animals": 1260320,
+   "Ultimate Chicken Horse": 386940,
+   "Overcooked": 448510,
+   "Overcooked! 2": 728880
+  },
+  "evidence": {
+   "party_size": "雙人連線遊戲求推薦 我跟朋友",
+   "setup": "我跟朋友每隔幾天有空就會遠端打個幾小時",
+   "already_played": "目前很滿意，持續會玩的 1.世紀帝國2 2.LOL ... 3.Helldiver2",
+   "excluded": "不要可愛團康元素的 (例如猛獸派對、超級雞馬、Overcooked)",
+   "avoid_hard": "1.不要可愛團康元素的 ... 2.不要運動類遊戲 3.不要賽車類遊戲",
+   "avoid_soft": "可以有一點策略性，但不要太燒腦的佳 ... 像PBUG、 APEX和CS這種太純槍戰的就沒有很喜歡"
+  }
+ },
+ "r32": {
+  "party_size": 3,
+  "setup": "local",
+  "interaction": null,
+  "single_player_required": false,
+  "budget": null,
+  "already_played": [
+   "Party Animals"
+  ],
+  "excluded": [],
+  "avoid_hard": [],
+  "avoid_soft": [],
+  "platform": null,
+  "language": null,
+  "hardware": null,
+  "other_hard": [
+   "local multiplayer for 3 (two gamepads + keyboard/mouse)"
+  ],
+  "resolved": {
+   "Party Animals": 1260320
+  },
+  "evidence": {
+   "party_size": "跟兩個侄子同樂 本機玩使用兩隻手把+我自己鍵鼠",
+   "setup": "求本機多人由玩遊戲 ... 本機玩使用兩隻手把+我自己鍵鼠",
+   "already_played": "這次春特買了猛獸派對跟兩個侄子同樂",
+   "other_hard": "本機玩使用兩隻手把+我自己鍵鼠 ... 推薦我一些本機多人遊玩的遊戲"
+  }
+ }
+}
