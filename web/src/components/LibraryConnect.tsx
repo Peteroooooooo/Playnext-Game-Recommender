@@ -32,6 +32,11 @@ export function LibrarySummaryView({ summary, who }: { summary: LibrarySummary; 
         读到 <b className="mono">{summary.owned}</b> 款游戏，其中 <b className="mono">{summary.in_core}</b> 款在推荐库里，玩过{" "}
         <b className="mono">{summary.played}</b> 款。
       </p>
+      {summary.outside_top && summary.outside_top.length > 0 && (
+        <p className="hint">
+          不在推荐库里、玩得最多的：{summary.outside_top.join("、")}（评测太少或已下架，只标“已拥有”，不当口味参考）
+        </p>
+      )}
       {summary.top.length > 0 && (
         <p className="muted">
           玩得最多：
