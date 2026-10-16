@@ -19,6 +19,16 @@ class Encoder:
         from sentence_transformers import SentenceTransformer
         kw = {"torch_dtype": torch.float16} if torch.cuda.is_available() else {}
         self.model = SentenceTransformer(self.path, model_kwargs=kw, tokenizer_kwargs={"padding_side": "left"})
+        self.model.max_seq_length = 1024   # as scripts/build_desc_embeddings.py
+
+    def doc(self, text):
+        """A game description as a document vector (no query instruction), comparable with the offline vectors."""
+        if not text:
+            return None
+        with self.lock:
+            if self.model is None:
+                self._load()
+            return self.model.encode([text], normalize_embeddings=True)[0].astype(np.float32)
 
     def __call__(self, text):
         if not text:

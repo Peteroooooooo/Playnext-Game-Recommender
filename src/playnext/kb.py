@@ -51,6 +51,7 @@ class KB:
         self.price_d = {r: d.to_dict("index") for r, d in self.prices.items()}
         self.is_free = g["is_free"].to_dict()
         self.cn_blocked = g["cn_blocked"].to_dict()
+        self.tag_cat = load_tag_categories(self.tag_en.index)
         ttb = pd.read_parquet(C.PROC / "time_to_beat.parquet").set_index("appid")
         self.time_to_beat = ttb
         rc = g["review_count"].fillna(0).to_numpy(np.float64)
@@ -64,6 +65,7 @@ class KB:
     def _tag_matrix(self, gt):
         df = gt.groupby("tagid")["appid"].nunique()
         idf = np.log(gt["appid"].nunique() / df)
+        self.tag_idf = idf
         self.tag_cols = np.array(sorted(df.index))
         M = np.zeros((self.n, len(self.tag_cols)), np.float32)
         M[gt["appid"].map(self.pos).to_numpy(), np.searchsorted(self.tag_cols, gt["tagid"].to_numpy())] = \
@@ -91,6 +93,17 @@ class KB:
     def E_has(self):
         (_, a), (_, b) = self.E_lang.values()
         return a | b
+
+    def tag_vector(self, tags: dict):
+        """{tagid: votes} of any game -> a row in the same space as self.T (votes / top votes x IDF, unit length)."""
+        v = np.zeros(len(self.tag_cols), np.float32)
+        top = max(tags.values(), default=0)
+        for t, votes in tags.items():
+            k = np.searchsorted(self.tag_cols, t)
+            if top and k < len(self.tag_cols) and self.tag_cols[k] == t:
+                v[k] = votes / top * self.tag_idf[t]
+        n = np.linalg.norm(v)
+        return v / n if n else None
 
     def desc_sim(self, rows=None, query=None):
         """Description similarity = larger of the English and Chinese versions (design 5.5); -1 where missing.
@@ -190,6 +203,59 @@ class KB:
     def price(self, appid, region):
         """Snapshot row as a dict (final, original, discount_pct, is_free, currency, steam_low, steam_low_time)."""
         return self.price_d.get(region, {}).get(appid)
+
+
+TAG_CATEGORIES = ("gameplay", "theme", "mood", "other")
+
+
+def load_tag_categories(tagids, path=None):
+    """tagid -> gameplay | theme | mood | other (design 6.3), from scripts/build_tag_categories.py.
+    A missing file, a tag the file lacks, or an unexpected value all read as "other"."""
+    path = C.PROC / "tag_categories.parquet" if path is None else path
+    cat = {}
+    if path.exists():
+        df = pd.read_parquet(path)
+        cat = {int(t): c for t, c in zip(df["tagid"], df["category"]) if c in TAG_CATEGORIES}
+    return {int(t): cat.get(int(t), "other") for t in tagids}
+
+
+def fit_beta_prior(pos, total):
+    """Empirical-Bayes Beta prior (alpha, beta) of the smoothed rating (design 5.5), by the method of moments on
+    the per-game positive shares, with the binomial noise of finite review counts taken out of their variance.
+
+    Model: game i has a true positive rate t_i ~ Beta(alpha, beta), and its pos_i positive reviews out of total_i
+    are Binomial(total_i, t_i). With p_i = pos_i / total_i, mu = alpha / (alpha + beta), rho = 1 / (alpha + beta + 1):
+        E[p_i] = mu,    Var(p_i) = mu (1 - mu) [rho + (1 - rho) / total_i].
+    Averaged over games with equal weight, the sample variance S2 of the p_i estimates mu (1 - mu) [rho + (1 - rho) h]
+    with h = mean(1 / total_i), which gives
+        rho = (S2 / (mu (1 - mu)) - h) / (1 - h),    alpha + beta = 1 / rho - 1.
+
+    Why this estimator:
+    - Equal weight per game: the prior is the population of games a score is shrunk towards, not of reviews;
+      weighting by review count would let a few 10M-review games set the mean. Kleinman's efficient weights
+      total_i / (1 + (total_i - 1) rho) are near-constant once total_i * rho >> 1 (core library: median 3,162
+      reviews) and gave the same strength on it (8.129 vs 8.125).
+    - Noise correction: the raw variance of p_i also holds the binomial noise mu (1 - mu) / total_i; left in, it
+      inflates the between-game spread and makes the prior too weak. Tiny on the core library (h = 0.0006), large
+      when many games have few reviews.
+    - Closed form with no optimiser, the moment estimate design 5.6 names. The beta-binomial MLE on the core library
+      lands close (strength 9.4 vs 8.1, mean 0.822 vs 0.824), so the choice of estimator matters little here.
+    Games with total = 0 carry no information and are skipped. Raises ValueError when the shares show no spread
+    beyond binomial noise (the prior would be infinitely strong). Returns (alpha, beta).
+    """
+    pos, total = np.asarray(pos, np.float64), np.asarray(total, np.float64)
+    m = total > 0
+    if m.sum() < 2:
+        raise ValueError("need at least two games with reviews")
+    p, n = pos[m] / total[m], total[m]
+    mu = p.mean()
+    s2 = p.var(ddof=1)
+    h = (1 / n).mean()
+    rho = (s2 / (mu * (1 - mu)) - h) / (1 - h) if 0 < mu < 1 else 0.0
+    if not 0 < rho < 1:
+        raise ValueError(f"no between-game spread beyond binomial noise (rho = {rho:.4g})")
+    strength = 1 / rho - 1
+    return float(mu * strength), float((1 - mu) * strength)
 
 
 def minmax(x, mask):

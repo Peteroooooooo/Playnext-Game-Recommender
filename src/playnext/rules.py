@@ -8,15 +8,22 @@ import numpy as np
 import pandas as pd
 
 from .kb import KB
-from .spec import Member, SessionSpec
+from .spec import REGION_CURRENCY, Member, SessionSpec
 
 FAIL, UNKNOWN, PASS = 0, 1, 2
 LANG = {"english": 0, "schinese": 6, "tchinese": 7, "japanese": 10, "korean": 4}
 # Steam store player categories (ids as returned by GetItems)
 CAT_ONLINE_COOP, CAT_ONLINE_PVP, CAT_LOCAL_COOP, CAT_LOCAL_PVP, CAT_SHARED, CAT_REMOTE = 38, 36, 39, 37, 24, 44
+CAT_SINGLE = 2
 GORE_DESCRIPTOR, SEXUAL_DESCRIPTORS = {2}, {1, 3, 4}
 GORE_WORDS, SEXUAL_WORDS = ("blood", "gore"), ("sex", "nudity")
 MMO_PASS_MAX = 10
+
+
+def money(v, region):
+    if v is None:
+        return None
+    return f"¥{v:g}" if region == "CN" else f"${v:g}"
 
 
 @dataclass
@@ -99,7 +106,8 @@ def member_rules(kb: KB, spec: SessionSpec, m: Member, who: str) -> list:
                 st[i] = FAIL
                 reason[int(a)] = "雷区：" + "、".join(hits)
         names = [kb.tag_zh[t] for t in bad_tags] + [{"gore": "暴力血腥", "sexual": "性内容"}[c] for c in m.avoid_content]
-        rules.append(Rule(f"avoid:{who}", (f"{who}的雷区：" if who else "雷区：") + " / ".join(names), st, reason=reason))
+        rules.append(Rule(f"avoid:{who}", (f"{who.rstrip('：')}的雷区：" if who else "雷区：") + " / ".join(names), st,
+                          reason=reason))
     if m.age_limit is not None:
         age = g["required_age"].to_numpy(np.float64)
         rating = pd.to_numeric(g["rating"], errors="coerce").to_numpy(np.float64)
@@ -126,39 +134,62 @@ def _mode_status(kb: KB, appid, kind, interaction, n, per_site):
     if kind == "remote" and CAT_REMOTE not in cats:
         return FAIL, "没有 Steam 远程同乐分类", None
     if not has_cat:
-        if kind in ("local", "remote") and CAT_SHARED in cats:  # generic "Shared/Split Screen"
+        # generic "Shared/Split Screen" stands for a local mode only when the game names no specific one: with only
+        # "local PvP" it is that PvP mode, not co-op (Pummel Party)
+        if kind in ("local", "remote") and CAT_SHARED in cats and not (cats & {CAT_LOCAL_COOP, CAT_LOCAL_PVP}):
             has_cat = [f for _, f in want]
         elif any(get(f) for _, f in want):
             return UNKNOWN, f"IGDB 有{label}人数，但 Steam 没有{label}分类（两源冲突）", None
         else:
             return FAIL, f"没有{label}{'合作' if interaction == 'coop' else '对抗' if interaction == 'versus' else '多人'}模式（Steam 分类）", None
-    need = n if kind != "hybrid" else n
+    need = n
     counts = [get(f) for f in has_cat if get(f)]
+    # IGDB counts from a non-PC record (console or unlabelled; no PC record exists) agree with PC 96% of the time and
+    # are too low in 3%, mostly for big online games (scripts/build_processed.py, 2026-10-16), so they may PASS a
+    # request but never FAIL it: above the count the fill rules below decide, else UNKNOWN
+    other = p is not None and p.get("count_platform") == "other"
+    src = "IGDB（非 PC 版记录）" if other else "IGDB"
     if counts:
         mx = max(counts)
         if kind == "hybrid":
             flag = None if p is None else p["splitscreenonline"]
             if not (CAT_LOCAL_COOP in cats or CAT_LOCAL_PVP in cats or CAT_SHARED in cats):
-                return FAIL, "没有同屏模式，无法部分人同屏", (mx, "IGDB")
+                return FAIL, "没有同屏模式，无法部分人同屏", (mx, src)
             off = [get(f) for f in ("offlinecoopmax", "offlinemax") if get(f)]
             if need > mx:
-                return FAIL, f"在线最多 {mx} 人，差 {need - mx} 个位", (mx, "IGDB")
+                if other:
+                    return UNKNOWN, f"IGDB 只有非 PC 版记录：在线最多 {mx} 人", (mx, src)
+                return FAIL, f"在线最多 {mx} 人，差 {need - mx} 个位", (mx, src)
             if off and max(per_site) > max(off):
-                return FAIL, f"同屏最多 {max(off)} 人", (mx, "IGDB")
+                if other:
+                    return UNKNOWN, f"IGDB 只有非 PC 版记录：同屏最多 {max(off)} 人", (mx, src)
+                return FAIL, f"同屏最多 {max(off)} 人", (mx, src)
             if flag is not True:
-                return UNKNOWN, "IGDB 没有标注“同屏 + 在线”混合开局", (mx, "IGDB")
-            return PASS, None, (mx, "IGDB")
+                return UNKNOWN, "IGDB 没有标注“同屏 + 在线”混合开局", (mx, src)
+            return PASS, None, (mx, src)
         if need <= mx:
-            return PASS, None, (mx, "IGDB")
-        return FAIL, f"{label}最多 {mx} 人，差 {need - mx} 个位", (mx, "IGDB")
-    # category present, IGDB count missing: design 10.2 fill rules
+            return PASS, None, (mx, src)
+        if not other:
+            return FAIL, f"{label}最多 {mx} 人，差 {need - mx} 个位", (mx, src)
+        fill = _fill_rules(p, kind, need, label, cats)
+        if fill[0] == PASS:
+            return fill
+        return UNKNOWN, f"IGDB 只有非 PC 版记录：{label}最多 {mx} 人", (mx, src)
+    return _fill_rules(p, kind, need, label, cats)
+
+
+def _fill_rules(p, kind, need, label, cats=frozenset()):
+    """Category present, no usable PC count: design 10.2 fill rules."""
     if need == 2:
         return PASS, None, (None, "2 人请求：有多人分类即可")
     d = None if p is None or pd.isna(p["desc_max_players"]) else int(p["desc_max_players"])
     if d:
-        if need <= d:
+        # the description does not say which mode its number is for; for a local / remote setup it may be the
+        # online count (Stardew Valley: "up to 8 players" online, 4 on one screen), so it only PASSes when the game
+        # has no online mode the number could belong to
+        if need <= d and (kind in ("online", "hybrid") or not (cats & {CAT_ONLINE_COOP, CAT_ONLINE_PVP})):
             return PASS, None, (d, "商店介绍")
-        return UNKNOWN, f"商店介绍写最多 {d} 人，IGDB 未收录人数", (d, "商店介绍")
+        return UNKNOWN, f"商店介绍写最多 {d} 人（未说明是哪种模式），IGDB 未收录{label}人数", (d, "商店介绍")
     if kind in ("online", "hybrid") and p is not None and bool(p["mmo_tag"]) and need <= MMO_PASS_MAX:
         return PASS, None, (None, "大型多人标签")
     return UNKNOWN, f"IGDB 未收录{label}人数上限", None
@@ -175,19 +206,20 @@ def _plan(kb: KB, spec: SessionSpec, appid, kind, sites):
     elif kind == "remote":
         owners = [i for i, m in enumerate(members) if m.owns(appid)]
         if owners:
-            return {"rule": "host_only", "buyers": [], "host": owners[0], "new_copies": 0, "cost": {}, "per_member": {}}
-        # nobody owns it: the cheapest member buys and hosts
+            return {"rule": "host_only", "buyers": [], "host": owners[0], "new_copies": 0, "cost": {}, "per_member": {},
+                    "alternatives": []}
+        # nobody owns it: one member buys and hosts
         prices = {i: _price_cost(kb, appid, m.region) for i, m in enumerate(members)}
         known = {i: p for i, p in prices.items() if p is not None and not _blocked(kb, appid, members[i].region)}
         if not known:
             return None
-        host = min(known, key=known.get)
+        host, alts = _cheapest(known, members)
         return {"rule": "host_only", "buyers": [host], "host": host, "new_copies": 1,
-                "cost": {members[host].region: known[host]}, "per_member": {host: known[host]}}
+                "cost": {members[host].region: known[host]}, "per_member": {host: known[host]}, "alternatives": alts}
     else:
         groups = [s.members for s in sites]
         rule = "per_machine"
-    buyers, per_member = [], {}
+    buyers, per_member, alternatives = [], {}, []
     for grp in groups:
         if any(members[i].owns(appid) for i in grp):
             continue
@@ -195,13 +227,48 @@ def _plan(kb: KB, spec: SessionSpec, appid, kind, sites):
         cands = {i: p for i, p in cands.items() if p is not None}
         if not cands:
             return None
-        b = min(cands, key=cands.get)
+        b, alts = _cheapest(cands, members)
         buyers.append(b)
         per_member[b] = cands[b]
+        alternatives += alts
     cost = {}
     for b, v in per_member.items():
         cost[members[b].region] = cost.get(members[b].region, 0) + v
-    return {"rule": rule, "buyers": buyers, "new_copies": len(buyers), "cost": cost, "per_member": per_member}
+    return {"rule": rule, "buyers": buyers, "new_copies": len(buyers), "cost": cost, "per_member": per_member,
+            "alternatives": alternatives}
+
+
+def _cheapest(cands: dict, members):
+    """Who buys: the cheapest candidate when all share one store region. Prices in different currencies are not
+    compared (design 5.5 '多区组队'): the earliest-listed member's region is the default and the cheapest buyer of
+    each other region is returned as an alternative (member index, price) for the user to choose."""
+    regions = {members[i].region for i in cands}
+    if len(regions) == 1:
+        return min(cands, key=cands.get), []
+    pref = members[min(cands)].region
+    same = {i: p for i, p in cands.items() if members[i].region == pref}
+    alts = []
+    for r in sorted(regions - {pref}):
+        other = {i: p for i, p in cands.items() if members[i].region == r}
+        j = min(other, key=other.get)
+        alts.append((j, other[j]))
+    return min(same, key=same.get), alts
+
+
+def over_budget(spec: SessionSpec, plan) -> float | None:
+    """Amount that breaks the budget (in the budget's currency), or None. Per person: each buyer whose store
+    currency matches the budget. Team total: only when every cost is in the budget's currency (design 4.6)."""
+    b = spec.budget
+    if b is None or not plan:
+        return None
+    if b.scope == "per_person":
+        over = [v for m, v in plan["per_member"].items() if b.applies_to(spec.members[m].region) and v > b.amount]
+        return max(over) if over else None
+    regions = set(plan["cost"])
+    if not regions or len(regions) > 1 or not b.applies_to(next(iter(regions))):
+        return None
+    total = sum(plan["cost"].values())
+    return total if total > b.amount else None
 
 
 def _blocked(kb, appid, region):
@@ -242,14 +309,11 @@ def group_setup(kb: KB, spec: SessionSpec, kind) -> Setup:
             status[i], reason[a] = min(st, st2), why2 if st2 < st or st == PASS else why
             continue
         plans[a] = plan
-        if budget is not None:
-            if budget.scope == "per_person":
-                over = [v for v in plan["per_member"].values() if v > budget.amount]
-            else:
-                over = [sum(plan["cost"].values())] if sum(plan["cost"].values()) > budget.amount else []
-            if over:
-                status[i], reason[a] = FAIL, f"超出预算（需 ¥{max(over):g}，每日快照）"
-                continue
+        over = over_budget(spec, plan) if budget is not None else None
+        if over is not None:
+            region = next((r for r, c in REGION_CURRENCY.items() if c == budget.currency), spec.members[0].region)
+            status[i], reason[a] = FAIL, f"超出预算（需 {money(over, region)}，每日快照）"
+            continue
         status[i] = st
         if st == UNKNOWN:
             reason[a] = why
@@ -260,17 +324,25 @@ def hard_filter(kb: KB, spec: SessionSpec) -> FilterResult:
     rules = []
     n = kb.n
     single = spec.party_size == 1
-    excl = set(spec.seeds) | set(spec.excluded)
+    # what was said ("we already played X", "玩过了", "不喜欢") counts for groups too; Steam playtime only excludes for
+    # one player, since a group often wants a game some members already know
+    why = {}
+    for a in spec.excluded:
+        why[int(a)] = "这次点过“玩过了 / 不感兴趣”"
     for m in spec.members:
-        excl |= set(m.seeds)
-    if single:
-        m = spec.members[0]
-        excl |= set(m.played_elsewhere)
-        if m.library:
-            excl |= m.library.played
-    st = np.where(np.isin(kb.appids, list(excl)), FAIL, PASS).astype(np.int8)
-    rules.append(Rule("exclude", "去掉种子 / 已玩过的" if single else "去掉种子游戏", st,
-                      reason={int(a): "种子或已玩过" for a in excl}))
+        for a in m.disliked:
+            why[int(a)] = f"{'' if single else m.name}标记过不喜欢"
+        if single and m.library:
+            for a in m.library.played:
+                why[int(a)] = "Steam 上有游玩记录"
+        for a in m.played_elsewhere:
+            why[int(a)] = "说过已经玩过" if single else f"{m.name}说过已经玩过"
+        for a in m.seeds:
+            why[int(a)] = "种子游戏"
+    for a in spec.seeds:
+        why[int(a)] = "种子游戏"
+    st = np.where(np.isin(kb.appids, list(why)), FAIL, PASS).astype(np.int8)
+    rules.append(Rule("exclude", "去掉种子 / 已玩过的", st, reason=why))
     if spec.library_policy == "exclude_owned":
         owned = {a for m in spec.members for a in (m.library.owned if m.library else {})} | \
                 {a for m in spec.members for a in m.owned_extra}
@@ -286,17 +358,26 @@ def hard_filter(kb: KB, spec: SessionSpec) -> FilterResult:
     setups, best = {}, {}
     if single:
         m = spec.members[0]
+        if spec.single_player:
+            # only when the player says they will play alone ("单机", "singleplayer", "没朋友一起玩"): one person asking
+            # is not the same as playing alone, and 12.8% of what held-out reviewers liked next is multiplayer-only
+            # (CS2, Apex...), so this is not applied to every one-person request (Steam "Single-player" category)
+            cats = [kb.categories.get(int(a), set()) for a in kb.appids]
+            st = np.array([UNKNOWN if not c else (PASS if CAT_SINGLE in c else FAIL) for c in cats], np.int8)
+            rules.append(Rule("solo", "能一个人玩（Steam 单人分类）", st,
+                              reason={int(a): "没有单人模式（Steam 分类）" for a, s in zip(kb.appids, st) if s == FAIL}))
         blocked = kb.games["cn_blocked"].to_numpy() & (m.region == "CN")
         owned = np.array([m.owns(int(a)) for a in kb.appids])
         st = np.where(blocked & ~owned, FAIL, PASS).astype(np.int8)
         rules.append(Rule("region", f"{m.region} 区有售", st,
                           reason={int(a): "CN 区不卖（Steam 地区限制）" for a in kb.appids[blocked & ~owned]}))
-        if spec.budget is not None:
+        if spec.budget is not None and spec.budget.applies_to(m.region):
             cost = np.array([0.0 if o else (_price_cost(kb, int(a), m.region) if _price_cost(kb, int(a), m.region) is not None else np.nan)
                              for a, o in zip(kb.appids, owned)])
             st = np.where(np.isnan(cost), UNKNOWN, np.where(cost <= spec.budget.amount, PASS, FAIL)).astype(np.int8)
-            rules.append(Rule("budget", f"预算 ≤ ¥{spec.budget.amount:g}（每日快照）", st, relaxable=True,
-                              reason={int(a): f"现价 ¥{c:g} 超出预算" for a, c in zip(kb.appids, cost) if c > spec.budget.amount}))
+            rules.append(Rule("budget", f"预算 ≤ {money(spec.budget.amount, m.region)}（每日快照）", st, relaxable=True,
+                              reason={int(a): f"现价 {money(c, m.region)} 超出预算" for a, c in zip(kb.appids, cost)
+                                      if c > spec.budget.amount}))
         if spec.only_discounted:
             disc = np.array([(kb.price(int(a), m.region) is not None and kb.price(int(a), m.region)["discount_pct"] > 0)
                              for a in kb.appids])
@@ -315,8 +396,12 @@ def hard_filter(kb: KB, spec: SessionSpec) -> FilterResult:
                 best[a] = min(ok, key=lambda k: sum(setups[k].plan.get(a, {}).get("cost", {}).values()) if a in setups[k].plan else 1e9)
             if comb[i] < PASS:
                 reason[a] = "；".join(f"{labels[k]}：{s.reason.get(a)}" for k, s in setups.items() if s.reason.get(a))
+        b = spec.budget
+        b_region = (next((r for r, c in REGION_CURRENCY.items() if c == b.currency), spec.members[0].region)
+                    if b else None)
         rules.append(Rule("setup", f"{spec.party_size} 人 · " + " / ".join(labels[k] for k in setups) +
-                          (f" · 预算 ¥{spec.budget.amount:g}" if spec.budget else ""), comb.astype(np.int8),
+                          (f" · {'每人' if b.scope == 'per_person' else '团队'}预算 {money(b.amount, b_region)}" if b else ""),
+                          comb.astype(np.int8),
                           relaxable=True, reason=reason))
     status = np.min([r.status for r in rules], axis=0).astype(np.int8)
     if spec.accept_unknown:

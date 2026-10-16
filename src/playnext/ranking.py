@@ -6,7 +6,7 @@ import numpy as np
 from . import config as C
 from .kb import KB
 from .pricing import Prices, price_pref
-from .rules import PASS, UNKNOWN, FilterResult
+from .rules import PASS, UNKNOWN, FilterResult, money, over_budget
 from .spec import SessionSpec
 
 
@@ -51,23 +51,27 @@ def _live_ok(kb: KB, spec: SessionSpec, fr: FilterResult, prices: Prices, i):
             return None
         if spec.only_discounted and not p["discount_pct"]:
             return "实时价格：已不在打折"
-        if spec.budget and p["final"] is not None and p["final"] > spec.budget.amount:
-            return f"实时价格 ¥{p['final']:g} 超出预算"
+        if (spec.budget and spec.budget.applies_to(m.region) and p["final"] is not None
+                and p["final"] > spec.budget.amount):
+            return f"实时价格 {money(p['final'], m.region)} 超出预算"
         return None
     kind = fr.best_setup.get(a)
     plan = fr.setups[kind].plan.get(a) if kind else None
     if not plan or spec.budget is None:
         return None
-    costs = {}
+    per_member, cost = {}, {}
     for b in plan["buyers"]:
-        p = prices.get(a, spec.members[b].region)
+        r = spec.members[b].region
+        p = prices.get(a, r)
         if p and p["final"] is not None:
-            costs[b] = p["final"]
-    if spec.budget.scope == "per_person" and any(v > spec.budget.amount for v in costs.values()):
-        return f"实时价格超出每人预算 ¥{spec.budget.amount:g}"
-    if spec.budget.scope == "team_total" and sum(costs.values()) > spec.budget.amount:
-        return f"实时价格合计超出团队预算 ¥{spec.budget.amount:g}"
-    return None
+            per_member[b] = p["final"]
+            cost[r] = cost.get(r, 0) + p["final"]
+    over = over_budget(spec, {"per_member": per_member, "cost": cost})
+    if over is None:
+        return None
+    region = next((m.region for m in spec.members if spec.budget.applies_to(m.region)), spec.members[0].region)
+    scope = "每人预算" if spec.budget.scope == "per_person" else "团队预算"
+    return f"实时价格 {money(over, region)} 超出{scope} {money(spec.budget.amount, region)}"
 
 
 def window_score(kb: KB, spec: SessionSpec, prices: Prices, i, rel):
@@ -78,8 +82,9 @@ def window_score(kb: KB, spec: SessionSpec, prices: Prices, i, rel):
         p = prices.get(a, region)
         if spec.price_intent == "near_record_low":
             pp = price_pref(p)
-        else:  # cheap: cheaper is better, free = 1, >= 200 = 0
-            pp = None if p is None else (1.0 if p["is_free"] else (None if p["final"] is None else max(0.0, 1 - p["final"] / 200)))
+        else:  # cheap: cheaper is better, free = 1, at or above the region's cap (config.CHEAP_ZERO) = 0
+            cap = C.CHEAP_ZERO.get(region, C.CHEAP_ZERO["CN"])
+            pp = None if p is None else (1.0 if p["is_free"] else (None if p["final"] is None else max(0.0, 1 - p["final"] / cap)))
         if pp is not None:
             terms.append((C.BASE_W["price"], pp))
     if spec.library_policy == "prefer_owned":

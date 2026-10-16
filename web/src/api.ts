@@ -9,7 +9,10 @@ export type Interaction = "coop" | "versus" | "any";
 export type PriceIntent = "none" | "cheap" | "near_record_low";
 export type LibraryPolicy = "none" | "prefer_owned" | "exclude_owned";
 export type BudgetScope = "per_person" | "team_total";
-export type CardActionKind = "played" | "owned" | "not_interested";
+/** played / owned / not_interested change this session; liked / disliked are taste feedback kept for later sessions. */
+export type CardActionKind = "played" | "owned" | "not_interested" | "liked" | "disliked";
+export type FeedbackKind = Extract<CardActionKind, "liked" | "disliked">;
+export type ReportField = "players" | "modes" | "price" | "tags" | "other";
 
 // ---------- reference data ----------
 
@@ -18,6 +21,9 @@ export interface Health {
   games: number;
   llm: boolean;
   encoder: boolean;
+  /** Date of the price snapshot the backend serves (YYYY-MM-DD, may carry a time part). */
+  price_snapshot?: string | null;
+  pg?: boolean;
 }
 
 export interface GameHit {
@@ -47,6 +53,8 @@ export interface LibrarySummary {
   in_core: number;
   played: number;
   playtime_hidden: boolean;
+  /** Most-played owned games outside the core library, named from the light index. */
+  outside_top?: string[];
   top: { name: string; hours: number }[];
 }
 
@@ -70,6 +78,8 @@ export interface MemberForm {
   platform: Platform | null;
   owned_extra: number[];
   site: number | null;
+  /** Free-text taste for this member ("想玩什么"), max 200 chars; omitted when empty. */
+  preference_text?: string;
 }
 
 export interface RecommendForm {
@@ -83,6 +93,8 @@ export interface RecommendForm {
   interaction: Interaction;
   setup: SetupKind | null;
   library_policy: LibraryPolicy;
+  /** Solo only: the player will play alone, so the game needs a single-player mode. */
+  single_player?: boolean;
 }
 
 export interface RecommendBody {
@@ -101,6 +113,8 @@ export interface PriceFacts {
   low?: number | null;
   low_time?: string | null;
   discount_pct?: number;
+  /** Current price within 5% of the record low. */
+  near_low?: boolean;
   source?: string;
   as_of?: string;
   note?: string;
@@ -144,9 +158,16 @@ export interface Setup {
   steps: string[];
   controller: string | null;
   purchase?: string;
+  /** Other ways to buy, e.g. "也可以由小李当主机：$9.99". */
+  alternatives?: string[];
   mode_text: string;
   friends_pass?: string;
   note: string;
+}
+
+export interface LineagePath {
+  text: string;
+  source: string;
 }
 
 export interface RankStep {
@@ -172,8 +193,12 @@ export interface Card {
   library?: string;
   library_hint?: string;
   time_to_beat?: string;
+  /** Set when a requested mechanic is only a secondary tag of this game (filled in after the strict matches). */
+  mechanics_note?: string;
   same_series_folded?: string[];
   lineage?: string[];
+  /** Anchor → … → this game, e.g. "Hades —开发→ Supergiant Games —开发→ Transistor". */
+  lineage_path?: LineagePath;
   setup?: Setup | null;
   rank_step?: RankStep;
   unknown?: string[];
@@ -190,6 +215,8 @@ export interface Backup {
   label?: string;
   owned?: string;
   same_series?: number;
+  /** Names behind same_series; may be shorter than the count. */
+  series_names?: string[];
   setup?: SetupKind;
 }
 
@@ -197,6 +224,20 @@ export interface UnknownItem {
   appid: number;
   name: string;
   why: string[];
+}
+
+/** A game that would have ranked high but broke a hard condition. */
+export interface FailedItem {
+  appid: number;
+  name: string;
+  why: string[];
+  relevance: number;
+}
+
+export interface CardFeedback {
+  /** true: kept for the member's Steam account; false: only for this session (guest). */
+  saved: boolean;
+  message: string;
 }
 
 export interface RuleRow {
@@ -261,6 +302,9 @@ export interface RecommendResult {
   notes: string[];
   need_input: string | null;
   libraries: Record<string, LibrarySummary>;
+  failed?: FailedItem[];
+  /** Only on /api/card answers to liked / disliked. */
+  feedback?: CardFeedback;
 }
 
 export interface ReasonEntry {
@@ -269,6 +313,13 @@ export interface ReasonEntry {
 }
 
 export type ReasonsResponse = Record<string, ReasonEntry>;
+
+export interface ReportBody {
+  session_id?: string;
+  appid: number;
+  field: ReportField;
+  text: string;
+}
 
 // ---------- transport ----------
 
@@ -358,6 +409,9 @@ export const api = {
     request<RecommendResult>("/api/card", { json: { session_id: sessionId, appid, action, member } }),
 
   reasons: (sessionId: string) => request<ReasonsResponse>("/api/reasons", { json: { session_id: sessionId } }),
+
+  /** "事实有误？": stored for the next data refresh, does not change the current result. */
+  report: (body: ReportBody) => request<{ ok: boolean }>("/api/report", { json: body }),
 };
 
 export function errorMessage(e: unknown): string {

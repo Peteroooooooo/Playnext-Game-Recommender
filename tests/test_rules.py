@@ -24,9 +24,13 @@ def test_setup_types_follow_sites():
 def test_player_count_from_igdb(kb):
     online = lambda n: [Site(members=[i]) for i in range(n)]
     fr = hard_filter(kb, group(5, interaction="coop", sites=online(5)))
-    assert status(kb, fr, IT_TAKES_TWO) == FAIL           # online co-op max 2
-    assert "差 3 个位" in fr.setups["online"].reason[IT_TAKES_TWO]
-    assert status(kb, fr, DEEP_ROCK) == FAIL              # max 4
+    # IGDB has only a non-PC record for It Takes Two (max 2): such counts can PASS a request but not FAIL it
+    assert kb.pc[IT_TAKES_TWO]["count_platform"] == "other"
+    assert status(kb, fr, IT_TAKES_TWO) == UNKNOWN
+    assert "非 PC 版记录" in fr.setups["online"].reason[IT_TAKES_TWO]
+    assert kb.pc[DEEP_ROCK]["count_platform"] == "pc"
+    assert status(kb, fr, DEEP_ROCK) == FAIL              # PC record: max 4
+    assert "差 1 个位" in fr.setups["online"].reason[DEEP_ROCK]
     assert status(kb, fr, AMONG_US) == PASS               # max 15
     fr = hard_filter(kb, group(2, interaction="coop", sites=online(2)))
     assert status(kb, fr, IT_TAKES_TWO) == PASS
@@ -47,10 +51,12 @@ def test_local_and_remote(kb):
 
 
 def test_description_count_only_passes(kb):
-    # Stardew: local category, IGDB has no local count, the store description says up to 8
+    # Stardew: local category, IGDB has no local count, the store description says up to 8. That number is its
+    # online count (split screen is 4), and the game also has online co-op, so for a local setup it is not proof
     fr = hard_filter(kb, group(4, interaction="coop", sites=[Site(members=[0, 1, 2, 3])]))
-    assert status(kb, fr, STARDEW) == PASS
+    assert status(kb, fr, STARDEW) == UNKNOWN
     assert fr.setups["local"].max_players[STARDEW][1] == "商店介绍"
+    assert "未说明是哪种模式" in fr.setups["local"].reason[STARDEW]
 
 
 def test_entitlements(kb):

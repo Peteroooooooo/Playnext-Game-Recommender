@@ -4,9 +4,17 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field, model_validator
 
 
+REGION_CURRENCY = {"CN": "CNY", "US": "USD"}   # store regions with price snapshots (design 3, first batch)
+
+
 class Budget(BaseModel):
     amount: float = Field(ge=0)
     scope: Literal["per_person", "team_total"] = "per_person"
+    currency: Optional[str] = None        # ISO code; None = the currency of the member's own store region
+
+    def applies_to(self, region: str) -> bool:
+        """Prices are only compared within one currency; no exchange rates (design 4.6)."""
+        return self.currency is None or REGION_CURRENCY.get(region) == self.currency
 
 
 class Library(BaseModel):
@@ -39,6 +47,9 @@ class Member(BaseModel):
     platform: Optional[Literal["windows", "mac", "linux", "deck"]] = None
     age_limit: Optional[int] = None
     played_elsewhere: list[int] = []
+    # slow loop (design 5.3 Step 6): feedback saved for a bound account in earlier sessions
+    liked: dict[int, float] = {}          # appid -> decayed weight, used like a library anchor
+    disliked: list[int] = []              # excluded like played games
 
     def owns(self, appid: int) -> bool:
         return appid in self.owned_extra or (self.library is not None and appid in self.library.owned)
@@ -46,7 +57,7 @@ class Member(BaseModel):
     @property
     def has_taste(self) -> bool:
         lib = self.library is not None and bool(self.library.played)
-        return bool(self.seeds or self.preference_text or self.feel_want or self.feel_avoid or lib)
+        return bool(self.seeds or self.preference_text or self.feel_want or self.feel_avoid or lib or self.liked)
 
 
 class Site(BaseModel):
@@ -70,6 +81,7 @@ class SessionSpec(BaseModel):
     same_studio: bool = False             # soft preference
     max_hours: Optional[float] = None     # soft: "short game" (IGDB time to beat)
     interaction: Literal["coop", "versus", "any"] = "any"
+    single_player: bool = False           # the one player said they will play alone: needs a single-player mode
     budget: Optional[Budget] = None
     price_intent: Literal["none", "cheap", "near_record_low"] = "none"
     only_discounted: bool = False
@@ -80,6 +92,8 @@ class SessionSpec(BaseModel):
     excluded: list[int] = []              # "玩过了 / 不感兴趣" clicked on a card in this session
     unresolved: list[str] = []            # names that matched no core game (shown to the user, never guessed)
     ambiguous: dict[str, list[int]] = {}  # name -> other games the same name may mean
+    budget_unsupported: Optional[Budget] = None  # a budget in a currency without a price snapshot: not applied, said so
+    outside_seeds: list[int] = []         # named Steam games outside the core library: content-only anchors (outside.py)
 
     @model_validator(mode="after")
     def _check(self):
@@ -114,4 +128,5 @@ class SessionSpec(BaseModel):
 
     @property
     def has_shared(self) -> bool:
-        return bool(self.seeds or self.preference_text or self.feel_want or self.feel_avoid or self.mechanics)
+        return bool(self.seeds or self.preference_text or self.feel_want or self.feel_avoid or self.mechanics
+                    or self.outside_seeds)

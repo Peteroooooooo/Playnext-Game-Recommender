@@ -115,10 +115,18 @@ export function Questionnaire({ prefs, onChange, tags, region, open, onToggle, o
           )}
           <div className="grid-2">
             <fieldset className="field plain">
-              <legend className="field-label">语言</legend>
+              <legend className="field-label">其他要求</legend>
               <label className="check">
                 <input type="checkbox" checked={prefs.chinese} onChange={(e) => set("chinese", e.target.checked)} />
                 必须支持简体中文
+              </label>
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={!!prefs.singlePlayer}
+                  onChange={(e) => set("singlePlayer", e.target.checked)}
+                />
+                一个人玩（要有单人模式）
               </label>
             </fieldset>
             <PlatformSelect value={prefs.platform} onChange={(v) => set("platform", v)} />

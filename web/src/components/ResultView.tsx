@@ -1,8 +1,9 @@
 import { forwardRef, useState } from "react";
-import type { Backup, CardActionKind, RecommendResult, ReasonsResponse } from "../api";
-import { SETUP_ZH } from "../types";
+import type { CardActionKind, FailedItem, RecommendResult, ReasonsResponse } from "../api";
+import type { CardNote } from "../types";
+import { BackupList } from "./BackupList";
 import { UnderstoodChips } from "./Chips";
-import { GameCard, type ReasonView } from "./GameCard";
+import { GameCard, noteLabel, type ReasonView } from "./GameCard";
 import { ArrowIcon } from "./Icons";
 
 export type ReasonsState = "idle" | "loading" | "done" | "error";
@@ -13,6 +14,7 @@ interface Props {
   reasonsState: ReasonsState;
   busy: boolean;
   onAction: (appid: number, action: CardActionKind, member?: number) => void;
+  cardNote: CardNote | null;
   followText: string;
   onFollowText: (t: string) => void;
   onFollowSubmit: () => void;
@@ -20,12 +22,24 @@ interface Props {
   llm: boolean | null;
 }
 
-const BACKUPS_SHOWN = 6;
-
 export const ResultView = forwardRef<HTMLTextAreaElement, Props>(function ResultView(props, followRef) {
-  const { result: r, reasons, reasonsState, busy, onAction, followText, onFollowText, onFollowSubmit, followBusy, llm } = props;
-  const [allBackups, setAllBackups] = useState(false);
+  const {
+    result: r,
+    reasons,
+    reasonsState,
+    busy,
+    onAction,
+    cardNote,
+    followText,
+    onFollowText,
+    onFollowSubmit,
+    followBusy,
+    llm,
+  } = props;
   const [relaxPicked, setRelaxPicked] = useState<string | null>(null);
+  const failed = r.failed ?? [];
+  // A 不喜欢 can drop the card from the picks; then its notice goes above the cards.
+  const strayNote = cardNote && !r.picks.some((c) => c.appid === cardNote.appid) ? cardNote : null;
   const group = r.understood.party_size > 1;
   const memberNames = r.understood.members.map((m) => m.name);
   const total = r.rules.length ? r.rules[0].pass + r.rules[0].fail + r.rules[0].unknown : null;
@@ -42,8 +56,6 @@ export const ResultView = forwardRef<HTMLTextAreaElement, Props>(function Result
     if (got) return { text: got.reason || own || null, source: got.source, pending: false };
     return { text: own ?? null, source: own ? "template" : null, pending: reasonsState === "loading" };
   }
-
-  const backups = allBackups ? r.backups : r.backups.slice(0, BACKUPS_SHOWN);
 
   return (
     <div className={`results${busy ? " refresh" : ""}`} aria-busy={busy}>
@@ -121,6 +133,13 @@ export const ResultView = forwardRef<HTMLTextAreaElement, Props>(function Result
         </div>
       )}
 
+      {strayNote && (
+        <p className={`notice${strayNote.saved ? " info" : ""}`} role="status">
+          <b>{noteLabel(strayNote, group, memberNames, true)}</b>
+          <span>{strayNote.text}</span>
+        </p>
+      )}
+
       {r.picks.length > 0 && (
         <div className="cards">
           {r.picks.map((c, i) => (
@@ -133,6 +152,8 @@ export const ResultView = forwardRef<HTMLTextAreaElement, Props>(function Result
               reason={reasonFor(c.appid, c.reason)}
               busy={busy}
               onAction={onAction}
+              sessionId={r.session_id}
+              note={cardNote?.appid === c.appid ? cardNote : null}
             />
           ))}
         </div>
@@ -181,24 +202,7 @@ export const ResultView = forwardRef<HTMLTextAreaElement, Props>(function Result
         </div>
       )}
 
-      {r.backups.length > 0 && (
-        <section className="sub" aria-labelledby="backups-title">
-          <div className="sub-head">
-            <h3 id="backups-title">备选</h3>
-            <span className="hint">也符合条件，排在后面</span>
-          </div>
-          <ul className="backup-list">
-            {backups.map((b) => (
-              <BackupRow b={b} key={b.appid} />
-            ))}
-          </ul>
-          {r.backups.length > BACKUPS_SHOWN && (
-            <button type="button" className="more" onClick={() => setAllBackups((v) => !v)} aria-expanded={allBackups}>
-              {allBackups ? "收起" : `再看 ${r.backups.length - BACKUPS_SHOWN} 款`}
-            </button>
-          )}
-        </section>
-      )}
+      {r.backups.length > 0 && <BackupList backups={r.backups} />}
 
       {r.unknown.length > 0 && (
         <section className="sub" aria-labelledby="unknown-title">
@@ -225,6 +229,8 @@ export const ResultView = forwardRef<HTMLTextAreaElement, Props>(function Result
           ))}
         </section>
       )}
+
+      {failed.length > 0 && <FailedList items={failed} />}
 
       <section className="sub follow" aria-labelledby="follow-title">
         <div className="sub-head">
@@ -270,29 +276,29 @@ export const ResultView = forwardRef<HTMLTextAreaElement, Props>(function Result
   );
 });
 
-function BackupRow({ b }: { b: Backup }) {
-  const labels: { text: string; cls: string }[] = [];
-  if (b.label) labels.push({ text: b.label, cls: "warn" });
-  if (b.owned) labels.push({ text: b.owned, cls: "good" });
-  if (b.same_series) labels.push({ text: `同系列另有 ${b.same_series} 款`, cls: "neutral" });
-  if (b.setup) labels.push({ text: SETUP_ZH[b.setup], cls: "accent" });
+/** Games that would have ranked high but broke a hard condition (prototype: failedHtml). */
+function FailedList({ items }: { items: FailedItem[] }) {
   return (
-    <li className="backup">
-      <div className="backup-main">
-        <a href={`https://store.steampowered.com/app/${b.appid}/`} target="_blank" rel="noopener noreferrer">
-          {b.name}
-          <span className="sr-only">（Steam 商店页，新窗口打开）</span>
-        </a>
-        <span className="labels">
-          {b.pct_positive != null && !b.label && <span className="pill neutral">好评 {b.pct_positive}%</span>}
-          {labels.map((l) => (
-            <span className={`pill ${l.cls}`} key={l.text}>
-              {l.text}
+    <details className="failed">
+      <summary>没通过的 {items.length} 款，看看为什么</summary>
+      <ul className="fail-list">
+        {items.map((f) => (
+          <li className="fail-row" key={f.appid}>
+            <a href={`https://store.steampowered.com/app/${f.appid}/`} target="_blank" rel="noopener noreferrer">
+              {f.name}
+              <span className="sr-only">（Steam 商店页，新窗口打开）</span>
+            </a>
+            <span className="why">
+              {f.why.map((w) => (
+                // Budget / price misses are softer than player-count or mode misses, as in the prototype.
+                <span className={`pill ${/预算|价格/.test(w) ? "warn" : "bad"}`} key={w}>
+                  {w}
+                </span>
+              ))}
             </span>
-          ))}
-        </span>
-      </div>
-      <span className="backup-price mono">{b.price.text}</span>
-    </li>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }

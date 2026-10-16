@@ -1,0 +1,322 @@
+{
+ "r05": {
+  "titles": [
+   "Factorio",
+   "Risk of Rain 2",
+   "Dead Cells",
+   "Monster Hunter: World",
+   "Vampire Survivors"
+  ],
+  "seconds": 14.9
+ },
+ "r06": {
+  "titles": [
+   "Before Your Eyes",
+   "The Vanishing of Ethan Carter",
+   "Gone Home",
+   "Everybody's Gone to the Rapture",
+   "Outer Wilds"
+  ],
+  "seconds": 15.9
+ },
+ "r04": {
+  "titles": [
+   "Undertale",
+   "Psychonauts",
+   "A Short Hike",
+   "OneShot",
+   "West of Loathing"
+  ],
+  "seconds": 16.7
+ },
+ "r03": {
+  "titles": [
+   "Dyson Sphere Program",
+   "The Planet Crafter",
+   "shapez 2",
+   "FOUNDRY",
+   "ASTRONEER"
+  ],
+  "seconds": 17.0
+ },
+ "r02": {
+  "titles": [
+   "Ori and the Will of the Wisps",
+   "TUNIC",
+   "Hyper Light Drifter",
+   "Environmental Station Alpha",
+   "Outer Wilds"
+  ],
+  "seconds": 21.7
+ },
+ "r08": {
+  "titles": [
+   "My Time at Sandrock",
+   "Graveyard Keeper",
+   "Medieval Dynasty",
+   "Rune Factory 4 Special",
+   "Core Keeper"
+  ],
+  "seconds": 12.4
+ },
+ "r07": {
+  "titles": [
+   "RimWorld",
+   "Subnautica",
+   "ZERO Sievert",
+   "Medieval Dynasty",
+   "Factorio"
+  ],
+  "seconds": 17.8
+ },
+ "r01": {
+  "titles": [
+   "Forager",
+   "No Place Like Home",
+   "Core Keeper",
+   "Garden Paws",
+   "Slime Rancher"
+  ],
+  "seconds": 33.7
+ },
+ "r09": {
+  "titles": [
+   "Unravel Two",
+   "Haven",
+   "Brothers: A Tale of Two Sons Remake",
+   "Baldur's Gate 3",
+   "Spiritfarer: Farewell Edition"
+  ],
+  "seconds": 19.0
+ },
+ "r10": {
+  "titles": [
+   "PlateUp!",
+   "Lovers in a Dangerous Spacetime",
+   "Warhammer: Vermintide 2",
+   "Deep Rock Galactic",
+   "Unrailed!"
+  ],
+  "seconds": 19.9
+ },
+ "r11": {
+  "titles": [
+   "Roots of Pacha",
+   "It Takes Two",
+   "ASTRONEER",
+   "Raft",
+   "Portal 2"
+  ],
+  "seconds": 20.1
+ },
+ "r12": {
+  "titles": [
+   "PICO PARK",
+   "Lovers in a Dangerous Spacetime",
+   "Unrailed!",
+   "Ultimate Chicken Horse",
+   "Boomerang Fu"
+  ],
+  "seconds": 14.9
+ },
+ "r13": {
+  "titles": [
+   "Stick Fight: The Game",
+   "Terraria",
+   "Castle Crashers",
+   "Broforce",
+   "Golf With Your Friends"
+  ],
+  "seconds": 16.2
+ },
+ "r16": {
+  "titles": [
+   "Stardew Valley",
+   "Raft",
+   "Core Keeper",
+   "Enshrouded",
+   "Palworld"
+  ],
+  "seconds": 15.1
+ },
+ "r15": {
+  "titles": [
+   "Left 4 Dead 2",
+   "Risk of Rain Returns",
+   "Heroes of Hammerwatch",
+   "Streets of Rogue",
+   "Broforce"
+  ],
+  "seconds": 17.0
+ },
+ "r17": {
+  "titles": [
+   "VA-11 Hall-A: Cyberpunk Bartender Action",
+   "OPUS: Echo of Starsong - Full Bloom Edition",
+   "Oxenfree",
+   "I Was a Teenage Exocolonist",
+   "Slay the Princess"
+  ],
+  "seconds": 15.9
+ },
+ "r18": {
+  "titles": [
+   "Soulmask",
+   "Bellwright",
+   "Conan Exiles",
+   "Medieval Dynasty",
+   "ASKA"
+  ],
+  "seconds": 15.9
+ },
+ "r14": {
+  "titles": [
+   "Terraria",
+   "Core Keeper",
+   "Necesse",
+   "Stardew Valley",
+   "Teenage Mutant Ninja Turtles: Shredder's Revenge"
+  ],
+  "seconds": 28.5
+ },
+ "r19": {
+  "titles": [
+   "Diplomacy is Not an Option",
+   "Romancing SaGa 2: Revenge of the Seven",
+   "FINAL FANTASY XII THE ZODIAC AGE",
+   "Age of Wonders 4",
+   "Vampire Survivors"
+  ],
+  "seconds": 16.1
+ },
+ "r21": {
+  "titles": [
+   "Cuisineer",
+   "Dungeon Munchies",
+   "Battle Chef Brigade Deluxe",
+   "Moonlighter",
+   "Rune Factory 4 Special"
+  ],
+  "seconds": 15.0
+ },
+ "r22": {
+  "titles": [
+   "Luck be a Landlord",
+   "Slice & Dice",
+   "Peglin",
+   "Monster Train",
+   "Backpack Hero"
+  ],
+  "seconds": 12.1
+ },
+ "r23": {
+  "titles": [
+   "Manor Lords",
+   "Banished",
+   "Foundation",
+   "Endzone - A World Apart",
+   "Dawn of Man"
+  ],
+  "seconds": 12.6
+ },
+ "r20": {
+  "titles": [
+   "The Battle of Polytopia",
+   "Ozymandias: Bronze Age Empire Sim",
+   "Slipways",
+   "Terraforming Mars",
+   "Terra Nil"
+  ],
+  "seconds": 21.9
+ },
+ "r24": {
+  "titles": [
+   "Dave the Diver",
+   "Dredge",
+   "Inscryption",
+   "Subnautica",
+   "Ghost Trick: Phantom Detective"
+  ],
+  "seconds": 14.1
+ },
+ "r26": {
+  "titles": [
+   "Left 4 Dead 2",
+   "Legion TD 2 - Multiplayer Tower Defense",
+   "Sanctum 2",
+   "Deep Rock Galactic",
+   "HELLDIVERS™ 2"
+  ],
+  "seconds": 16.7
+ },
+ "r27": {
+  "titles": [
+   "Party Animals",
+   "Cake Bash",
+   "Boomerang Fu",
+   "Heave Ho",
+   "Moving Out"
+  ],
+  "seconds": 14.5
+ },
+ "r29": {
+  "titles": [
+   "Astroneer",
+   "No Man's Sky",
+   "Grounded",
+   "Raft",
+   "Satisfactory"
+  ],
+  "seconds": 12.0
+ },
+ "r30": {
+  "titles": [
+   "Factorio",
+   "Baldur's Gate 3",
+   "Astroneer",
+   "Sid Meier’s Civilization VI",
+   "Stardew Valley"
+  ],
+  "seconds": 10.8
+ },
+ "r25": {
+  "titles": [
+   "Core Keeper",
+   "Raft",
+   "Grounded",
+   "Nobody Saves the World",
+   "My Time at Sandrock"
+  ],
+  "seconds": 23.3
+ },
+ "r28": {
+  "titles": [
+   "Roots of Pacha",
+   "Fae Farm",
+   "Spiritfarer: Farewell Edition",
+   "Parkitect",
+   "Sun Haven"
+  ],
+  "seconds": 16.6
+ },
+ "r32": {
+  "titles": [
+   "Boomerang Fu",
+   "Overcooked! 2",
+   "Ultimate Chicken Horse",
+   "Rubber Bandits",
+   "Pummel Party"
+  ],
+  "seconds": 8.7
+ },
+ "r31": {
+  "titles": [
+   "Deep Rock Galactic",
+   "Legion TD 2 - Multiplayer Tower Defense",
+   "Northgard",
+   "Risk of Rain 2",
+   "Warhammer: Vermintide 2"
+  ],
+  "seconds": 13.5
+ }
+}

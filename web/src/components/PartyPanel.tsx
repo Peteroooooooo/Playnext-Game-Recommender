@@ -2,6 +2,7 @@ import type { BudgetScope, Interaction, LibrarySummary, Region, TagsResponse } f
 import {
   HORROR_TAG,
   MAX_MEMBERS,
+  MAX_PREFERENCE_TEXT,
   MAX_SEEDS,
   type Libs,
   type Party,
@@ -67,7 +68,7 @@ export function PartyPanel(props: Props) {
     >
       {textInUse && (
         <p className="notice info">
-          上面写了文字时，人数、开局方式、预算和合作 / 对战以文字为准；这里的名字、商店区、Steam 库、喜欢的游戏、雷区和“已拥有”会合并进去。
+          上面写了文字时，人数、开局方式、预算和合作 / 对战以文字为准；这里的名字、商店区、Steam 库、喜欢的游戏、“想玩什么”、雷区和“已拥有”会合并进去。
         </p>
       )}
 
@@ -138,6 +139,17 @@ export function PartyPanel(props: Props) {
                     </button>
                   )}
                 </div>
+                <label className="sr-only" htmlFor={`${m.key}-pref`}>
+                  {m.name || `第 ${i + 1} 位成员`}想玩什么（可不填）
+                </label>
+                <input
+                  id={`${m.key}-pref`}
+                  className="input member-pref"
+                  value={m.preferenceText ?? ""}
+                  maxLength={MAX_PREFERENCE_TEXT}
+                  placeholder="想玩什么（可不填）"
+                  onChange={(e) => setMember(i, { preferenceText: e.target.value })}
+                />
                 <details className="member-more">
                   <summary>
                     喜欢的游戏、雷区、已拥有、Steam 库

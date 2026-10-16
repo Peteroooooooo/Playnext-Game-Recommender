@@ -2,6 +2,7 @@
 import type {
   AvoidContent,
   BudgetScope,
+  FeedbackKind,
   Interaction,
   LibraryPolicy,
   LibrarySummary,
@@ -10,6 +11,7 @@ import type {
   PriceIntent,
   RecommendForm,
   Region,
+  ReportField,
   SetupKind,
   Tag,
 } from "./api";
@@ -35,6 +37,8 @@ export interface Prefs {
   noHorror: boolean;
   avoidContent: AvoidContent[];
   chinese: boolean;
+  /** Missing in drafts saved before the field existed. */
+  singlePlayer?: boolean;
   platform: Platform | null;
   budget: string;
   priceIntent: PriceIntent;
@@ -53,7 +57,11 @@ export interface PartyMember {
   ownedExtra: GameRef[];
   /** Machine / screen number, only used when place === "hybrid". */
   site: number;
+  /** "想玩什么" free text; missing in drafts saved before the field existed. */
+  preferenceText?: string;
 }
+
+export const MAX_PREFERENCE_TEXT = 200;
 
 /** "auto" lets the backend pick the best setup. */
 export type Place = "auto" | SetupKind;
@@ -78,6 +86,16 @@ export interface LibState {
 }
 
 export type Libs = Record<number, LibState>;
+
+/** The answer to the last 喜欢 / 不喜欢 click, shown on that card (or above the cards if it dropped out). */
+export interface CardNote {
+  appid: number;
+  name: string;
+  action: FeedbackKind;
+  member: number;
+  saved: boolean;
+  text: string;
+}
 
 export function emptyPrefs(): Prefs {
   return {
@@ -109,6 +127,7 @@ export function newMember(name: string, region: Region, site = 1): PartyMember {
     platform: null,
     ownedExtra: [],
     site,
+    preferenceText: "",
   };
 }
 
@@ -164,23 +183,28 @@ export function singleForm(region: Region, p: Prefs): RecommendForm {
     interaction: "any",
     setup: null,
     library_policy: p.libraryPolicy,
+    single_player: !!p.singlePlayer,
   };
 }
 
 export function groupForm(party: Party): RecommendForm {
-  const members: MemberForm[] = party.members.map((m, i) => ({
-    name: m.name.trim() || (i === 0 ? "我" : `朋友 ${i + 1}`),
-    region: m.region,
-    seeds: m.seeds.map((g) => g.appid),
-    feel_want: [],
-    feel_avoid: [],
-    avoid_tags: avoidIds(m.avoidTags, m.noHorror),
-    avoid_content: m.avoidContent,
-    language: party.chinese ? "schinese" : null,
-    platform: m.platform,
-    owned_extra: m.ownedExtra.map((g) => g.appid),
-    site: party.place === "local" ? 1 : party.place === "hybrid" ? m.site : null,
-  }));
+  const members: MemberForm[] = party.members.map((m, i) => {
+    const pref = (m.preferenceText ?? "").trim().slice(0, MAX_PREFERENCE_TEXT);
+    return {
+      name: m.name.trim() || (i === 0 ? "我" : `朋友 ${i + 1}`),
+      region: m.region,
+      seeds: m.seeds.map((g) => g.appid),
+      feel_want: [],
+      feel_avoid: [],
+      avoid_tags: avoidIds(m.avoidTags, m.noHorror),
+      avoid_content: m.avoidContent,
+      language: party.chinese ? "schinese" : null,
+      platform: m.platform,
+      owned_extra: m.ownedExtra.map((g) => g.appid),
+      site: party.place === "local" ? 1 : party.place === "hybrid" ? m.site : null,
+      ...(pref ? { preference_text: pref } : {}),
+    };
+  });
   return {
     members,
     seeds: party.seeds.map((g) => g.appid),
@@ -231,6 +255,14 @@ export const INTERACTION_ZH: Record<Interaction, string> = {
   coop: "一起合作",
   versus: "互相对战",
   any: "合作对战都行",
+};
+
+export const REPORT_FIELD_ZH: Record<ReportField, string> = {
+  players: "人数上限",
+  modes: "联机模式",
+  price: "价格",
+  tags: "标签与玩法",
+  other: "其他",
 };
 
 export function money(v: number, region: Region): string {

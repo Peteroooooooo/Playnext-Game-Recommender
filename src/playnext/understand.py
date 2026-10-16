@@ -8,10 +8,11 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
+from . import appindex
 from .aliases import Resolver
 from .kb import KB
 from .llm import chat_json
-from .spec import Budget, Member, SessionSpec, Site
+from .spec import REGION_CURRENCY, Budget, Member, SessionSpec, Site
 
 
 class PersonIn(BaseModel):
@@ -28,7 +29,12 @@ class PersonIn(BaseModel):
 class BudgetIn(BaseModel):
     amount: float = Field(ge=0)
     scope: Literal["per_person", "team_total"] = "per_person"
-    currency: Literal["CNY", "USD"] = "CNY"
+    currency: str = Field(default="CNY", pattern=r"^[A-Za-z]{3}$")
+
+    @field_validator("currency")
+    @classmethod
+    def _upper(cls, v):
+        return v.upper()
 
 
 class PartyIn(BaseModel):
@@ -41,6 +47,7 @@ class PartyIn(BaseModel):
 class ParsedRequest(BaseModel):
     seeds: list[str] = []
     played: list[str] = []
+    excluded: list[str] = []
     preference_text: Optional[str] = None
     feel_want: list[str] = []
     feel_avoid: list[str] = []
@@ -56,6 +63,7 @@ class ParsedRequest(BaseModel):
     age_limit: Optional[int] = None
     max_hours: Optional[float] = None
     same_studio: bool = False
+    single_player: bool = False
     party: PartyIn = PartyIn()
     people: list[PersonIn] = []
 
@@ -67,19 +75,22 @@ class ParsedRequest(BaseModel):
 
 SYSTEM = """You turn a Steam PC player's game request into JSON. Fill ONLY what the user actually said; leave everything else empty, null or default. Never invent games or constraints.
 Fields:
-- seeds: games named as the taste reference for THIS request ("like Hades", "我喜欢文明6"), as the user wrote them or the official English Steam title.
-- played: games the user says they already played or finished (on any platform). A game they liked goes in both seeds and played.
+- Game names (in seeds, played, excluded, people.likes / owns): write the official English Steam store title when you know it ("文明帝國5" -> "Sid Meier's Civilization V", "小丑牌" -> "Balatro", "RE4 remake" -> "Resident Evil 4"); otherwise exactly as the user wrote it. One entry per game.
+- seeds: games named as the taste reference for THIS request ("like Hades", "我喜欢文明6").
+- played: games the user or their group says they already played, finished, own or are tired of (on any platform), including "we've played X, Y". A game they liked goes in both seeds and played.
+- excluded: games the user explicitly does not want recommended for another reason ("not Minecraft", "不要推荐 X", "X is out").
 - preference_text: only the words describing the experience wanted, copied verbatim (drop game names, budget, price, people count, filler such as "similar"). null if none.
 - feel_want / feel_avoid: up to 4 Steam tag names each for the feel, pace or difficulty wanted / not wanted ("别太难" -> feel_avoid Difficult, Souls-like, Unforgiving; "轻松" -> feel_want Relaxing, Casual, Cozy).
 - mechanics: only when the user asks for a combination of gameplay types that must BOTH be central ("肉鸽 + 基地经营" -> Roguelike, Base Building).
 - avoid_tags: content refused outright (horror, gore-themed tags, ...); hard exclusion. avoid_content: "gore" and/or "sexual" when refused.
-- budget {amount, scope per_person|team_total, currency CNY|USD}: only if stated. "60块" = 60 CNY; "$20" = USD.
+- budget {amount, scope per_person|team_total, currency}: only an explicit price cap. currency is the ISO code of what they wrote: "60块 / 元 / RMB" = CNY, "$20 / dollars" = USD, "20 euros / €20" = EUR, "NT$300 / 台幣" = TWD, "£" = GBP, and so on. "My budget personally" = per_person.
 - price_intent: near_record_low for "打折 / on sale / 史低 / discount", cheap for "便宜 / cheap"; only_discounted true only for "只看打折的 / must be on sale".
 - library_policy: prefer_owned for "库里已有的优先 / from my library", exclude_owned for "不要我已经有的".
 - language: required language only if stated ("要有中文" -> schinese). platform: mac / linux / deck only if stated.
 - age_limit: number if they say the game must suit an age. max_hours: for "短一点 / 一个周末能通关" give hours (e.g. 10).
 - same_studio: true if they ask for the same developer.
-- party: size = number of players including the user, if stated; interaction coop|versus|any; setup online (each at home), local (same screen / couch), remote (Remote Play Together), hybrid (some together, some online); groups = people per location for hybrid, e.g. "2 人客厅 + 3 人在线" -> [2, 1, 1, 1].
+- single_player: true only when a solo player says they will play alone or want a single-player game ("单机", "singleplayer", "能单人玩", "没朋友一起玩", "offline"). Not for a request that simply comes from one person.
+- party: size = number of people who will play together including the user, when the request is about playing together ("me and my wife" = 2, a parent playing with their child = 2, "4 of us" = 4, "4-8 players" = the smallest number that must work, 4; "2 or more people" = 2); leave null for a solo request; interaction coop|versus|any; setup online (each at home), local (same screen / couch), remote (Remote Play Together), hybrid (some together, some online); groups = people per location for hybrid, e.g. "2 人客厅 + 3 人在线" -> [2, 1, 1, 1].
 - people: other players mentioned with their own taste or ownership ("小张喜欢射击", "我朋友有 Deep Rock") -> name, likes, owns, preference_text, feel_want, feel_avoid, avoid_tags ("小张晕 3D" -> feel_avoid First-Person / avoid_tags as fitting).
 Tag names must be English names from this list (English=Chinese): {tags}
 Return only the JSON object."""
@@ -103,6 +114,7 @@ class Understander:
     def __init__(self, kb: KB, llm):
         self.kb, self.llm = kb, llm
         self.resolver = Resolver(kb.games)
+        self.outside_names = {}   # appid -> store name of seeds found outside the core library
         self.tag_by_name = {n.lower(): int(t) for t, n in kb.tag_en.items()}
         self.tag_by_name.update({str(n).lower(): int(t) for t, n in kb.tag_zh.items() if isinstance(n, str)})
         self.system = SYSTEM.replace("{tags}", "; ".join(f"{kb.tag_en[t]}={kb.tag_zh[t]}" for t in kb.tag_en.index))
@@ -129,9 +141,15 @@ class Understander:
         return [self.tag_by_name[n.lower()] for n in names if n.lower() in self.tag_by_name]
 
     def games(self, names, spec_unresolved, spec_ambiguous):
+        from .outside import lookup
         out = []
         for n in names:
             m = self.resolver.resolve(n)
+            if m.how == "substring" and lookup(n, self.kb):
+                # a Steam game outside the core library has exactly this name ("PEAK"); a core game that merely
+                # contains it as a word ("Off-Peak") is not what was meant
+                spec_unresolved.append(n)
+                continue
             if m.appid is None:
                 if m.how == "ambiguous":
                     spec_ambiguous[n] = m.candidates
@@ -146,15 +164,30 @@ class Understander:
     def to_spec(self, p: ParsedRequest, text="", base: SessionSpec | None = None) -> SessionSpec:
         unresolved, ambiguous = [], {}
         seeds = self.games(p.seeds, unresolved, ambiguous)
+        # seed names outside the core library that the light index knows: content-only anchors (outside.py)
+        from .outside import lookup
+        outside, outside_names = [], {}
+        for n in list(unresolved):
+            hit = lookup(n, self.kb)
+            if hit:
+                outside.append(hit[0])
+                outside_names[hit[0]] = hit[1]
+                unresolved.remove(n)
+        self.outside_names.update(outside_names)
         played = self.games(p.played, unresolved, ambiguous)
+        excluded = self.games(p.excluded, [], {})
         size = max(p.party.size or 1, 1 + len(p.people), len(base.members) if base else 1)
         old = base.members if base else []
         members = []
-        region = "US" if p.budget and p.budget.currency == "USD" else (old[0].region if old else "CN")
+        # a stated currency names the store region; without a price snapshot for it the budget is not applied
+        cur_region = next((r for r, c in REGION_CURRENCY.items() if p.budget and c == p.budget.currency), None)
+        same_region = len({m.region for m in old}) <= 1
         for i in range(size):
             prev = old[i] if i < len(old) else None
-            m = Member(name=prev.name if prev else ("我" if i == 0 else f"成员{i + 1}"), region=prev.region if prev else region,
-                       library=prev.library if prev else None, owned_extra=list(prev.owned_extra) if prev else [])
+            region = cur_region if cur_region and same_region else (prev.region if prev else (old[0].region if old else "CN"))
+            m = Member(name=prev.name if prev else ("我" if i == 0 else f"成员{i + 1}"), region=region,
+                       library=prev.library if prev else None, owned_extra=list(prev.owned_extra) if prev else [],
+                       liked=dict(prev.liked) if prev else {}, disliked=list(prev.disliked) if prev else [])
             members.append(m)
         me = members[0]
         me.played_elsewhere = played
@@ -181,13 +214,19 @@ class Understander:
                 k += g
         elif size > 1 and p.party.setup == "local":
             sites = [Site(members=list(range(size)))]
-        budget = Budget(amount=p.budget.amount, scope=p.budget.scope) if p.budget else None
+        budget = unsupported = None
+        if p.budget:
+            b = Budget(amount=p.budget.amount, scope=p.budget.scope, currency=p.budget.currency)
+            budget, unsupported = (b, None) if cur_region else (None, b)
         spec = SessionSpec(
             request_text=text, members=members, seeds=seeds, preference_text=p.preference_text,
             feel_want=self.tags(p.feel_want), feel_avoid=self.tags(p.feel_avoid), mechanics=self.tags(p.mechanics),
             same_studio=p.same_studio, max_hours=p.max_hours, interaction=p.party.interaction, budget=budget,
+            single_player=p.single_player and size == 1,
             price_intent=p.price_intent, only_discounted=p.only_discounted, library_policy=p.library_policy,
-            sites=sites, setup_hint=p.party.setup if size > 1 else None, unresolved=unresolved, ambiguous=ambiguous)
+            sites=sites, setup_hint=p.party.setup if size > 1 else None, unresolved=unresolved, ambiguous=ambiguous,
+            excluded=list(dict.fromkeys((base.excluded if base else []) + excluded)), budget_unsupported=unsupported,
+            outside_seeds=list(dict.fromkeys(outside + (base.outside_seeds if base and not p.seeds else []))))
         return spec
 
 
@@ -197,10 +236,14 @@ def describe(kb: KB, spec: SessionSpec) -> dict:
     tz = lambda ts: [kb.tag_zh[t] for t in ts]
     out = {"seeds": [name(a) for a in spec.seeds], "preference_text": spec.preference_text,
            "feel_want": tz(spec.feel_want), "feel_avoid": tz(spec.feel_avoid), "mechanics": tz(spec.mechanics),
-           "budget": spec.budget.model_dump() if spec.budget else None, "price_intent": spec.price_intent,
+           "budget": spec.budget.model_dump() if spec.budget else None,
+           "budget_unsupported": spec.budget_unsupported.model_dump() if spec.budget_unsupported else None,
+           "excluded": [name(a) for a in spec.excluded], "price_intent": spec.price_intent,
            "only_discounted": spec.only_discounted, "library_policy": spec.library_policy,
-           "party_size": spec.party_size, "interaction": spec.interaction, "setups": spec.setup_types,
+           "party_size": spec.party_size, "single_player": spec.single_player, "interaction": spec.interaction,
+           "setups": spec.setup_types,
            "unresolved": spec.unresolved,
+           "outside_seeds": [appindex.name_of(a) or str(a) for a in spec.outside_seeds],
            "ambiguous": {k: [name(a) for a in v] for k, v in spec.ambiguous.items()},
            "members": []}
     for m in spec.members:
