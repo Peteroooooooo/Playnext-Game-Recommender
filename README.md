@@ -43,6 +43,9 @@ so re-running skips what is already there. `data/` and `.cache/` are git-ignored
 | 5 | `build_processed.py` | `data/processed/*.parquet` — normalised tables for the 7,304 core games; removed entries (software, redirects, demos, servers, prologues) in `excluded_apps.parquet` |
 | 5a | `build_desc_embeddings.py` (about 20 min on a 16 GB GPU, cached per game) | `data/derived/desc_emb_qwen3_4b.npz` — EN and ZH description vectors (Qwen3-Embedding-4B in `.cache/models/`) |
 | 5b | `build_aliases.py`, then `build_aliases.py test` | `data/processed/aliases.parquet` — store names plus common Chinese names from the LLM (replies cached in `.cache/alias_llm/`) |
+| 5c | `build_tag_categories.py` | `data/processed/tag_categories.parquet` — the 446 tags as gameplay / theme / mood / other (LLM once, manual overrides in the script) |
+| 5d | `build_app_index.py` | `data/processed/app_index.parquet` — AppID and name of every game on the Steam store (IStoreService/GetAppList) |
+| daily | `refresh_prices.py [--dry-run]` (the API also runs it in the background when the snapshot is a day old) | `data/processed/prices.parquet` — CN / US prices and record lows, dated in the file's metadata; the old file is backed up; `build_processed.py` keeps a refreshed snapshot unless given `--rebuild-prices` |
 | 6 | download Kaggle "steam-reviews-100m" (sergiodelcarpio, MIT) with `uvx --from kaggle==2.2.4 kaggle datasets download -d sergiodelcarpio/steam-reviews-100m` (11.9 GB zip; token in `~/.kaggle/access_token`) and extract it to `data/raw/kaggle_reviews100m/extracted/` | — |
 | 7 | `fetch_reviews_increment.py plan`, `run 160`, then always `repair` | `data/raw/steam_reviews_increment/reviews/` — reviews after the Kaggle scrape and games Kaggle lacks; needs a local rotating SOCKS5 proxy (`PLAYNEXT_PROXY`, default `socks5h://127.0.0.1:17892`) |
 | 8 | `fill_kaggle_gaps.py measure`, `nonsteam`, `steam` | `data/raw/steam_reviews_increment/kaggle_gaps/` — non-Steam-purchase reviews and the games Kaggle cut short |
@@ -63,9 +66,12 @@ recorded in [docs/Review_Data_Pipeline.md](docs/Review_Data_Pipeline.md).
 | `scoring.py`, `encoder.py` | Step 3: co-like (EASE), tag, description, feel and preference-sentence channels; group aggregation |
 | `ranking.py`, `pricing.py` | Step 4: series folding, live price re-check, rating floor, relevance window, MMR |
 | `cards.py` | Step 5: evidence cards, setup cards, LLM reasons with fact check and template fallback |
+| `rerank.py`, `local_rerank.py` | semantic rerank: one batched LLM call per request, a column per target (player, member, shared request); Qwen3-Reranker for comparison |
 | `relax.py` | conflict analyser (subset-sum over failed relaxable rules) |
-| `pipeline.py`, `api.py` | the trunk; FastAPI backend (also serves the built web app) |
-| `db.py` | PostgreSQL knowledge base and recursive-CTE lineage paths |
+| `pipeline.py`, `api.py` | the trunk (including the "没通过的" list of near misses); FastAPI backend (also serves the built web app) |
+| `db.py` | PostgreSQL knowledge base; recursive-CTE lineage paths, queried for the cards at request time |
+| `profiles.py` | slow loop: card feedback per bound account (keyed hash only) and fact-error reports, in PostgreSQL |
+| `refresh.py`, `appindex.py` | daily price snapshot refresh; light index of all Steam games |
 | `config.py` | every weight and threshold |
 
 Run it:
@@ -76,13 +82,18 @@ npm --prefix web install && npm --prefix web run build # web app (see web/README
 uv run uvicorn --app-dir src playnext.api:app --host 127.0.0.1 --port 8000
 ```
 
-Open http://127.0.0.1:8000. The API has no authentication; keep it on 127.0.0.1. Command-line checks:
+Open http://127.0.0.1:8000. The API has no authentication; keep it on 127.0.0.1. Card feedback of bound accounts is
+kept in PostgreSQL under a keyed hash; the key is generated once in `.cache/profile_secret` (git-ignored; deleting it
+unlinks all saved feedback). Set `PLAYNEXT_NO_REFRESH=1` to skip the background price refresh. Command-line checks:
 `scripts/try_request.py "<request>" ["<follow-up>"]` (full path with LLM and live prices), `scripts/smoke_pipeline.py`
 (no LLM). Tests: `uv run pytest` (the PostgreSQL tests skip when the database is not loaded).
 
 Offline evaluation: `eval_fusion.py` (channel weights), `eval_ranking_groups.py` (ranking rules, library bonus,
-synthetic groups), `eval_request_set.py` (32 real forum requests vs asking the LLM directly; results in `eval/`).
-Earlier evaluation and simulation: `eval_ease.py [N] [M]`, `playtime_signal.py`, `simulate_inputs.py`, `demo_walkthrough.py`.
+synthetic groups), `eval_extra.py` (mechanics combinations, price preference, rating smoothing, scoring latency),
+`eval_request_set.py run|local|sweep|judge|report` (32 real forum requests vs asking the LLM directly, checked against
+hand-written conditions in `eval/request_set_gold.json`; reranker and w_r comparison on a dev / test split; results in
+`eval/`). `simulate_inputs.py` runs the four input paths through the current system for `docs/data_overview.html`.
+Earlier evaluation: `eval_ease.py [N] [M]`, `playtime_signal.py`, `demo_walkthrough.py`.
 Diagnostics: `igdb_mp_coverage.py`, `rate_limit_probe.py`, `diagnose_short_games.py`, `diagnose_paging.py`,
 `diagnose_empty_pages.py`, `probe_owned_games.py` (one Steam profile, counts only), `probe_owned_sample.py`
 (GetOwnedGames privacy states on sampled reviewers, counts only).
