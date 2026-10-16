@@ -14,6 +14,9 @@ import pandas as pd
 
 from check_keys import ROOT
 
+sys.path.insert(0, str(ROOT / "src"))
+from playnext import config as C  # noqa: E402
+
 LIBRARY = {289070: 300, 413150: 60, 1145360: 80, 1426210: 13}  # appid -> hours: Civ VI, Stardew, Hades, It Takes Two
 SENTENCE = "最近有点累，想玩点轻松的"
 WEIGHTS = {"tag": 0.30, "desc": 0.25, "colike": 0.30, "lineage": 0.15}
@@ -21,7 +24,7 @@ FEEL = {"want": ["Relaxing", "Casual", "Cozy", "Wholesome"],  # what Step 1's LL
         "avoid": ["Difficult", "Souls-like", "Horror", "Psychological Horror"]}
 FEEL_WEIGHT = float(sys.argv[1]) if len(sys.argv) > 1 else 0.25
 DELTA, TOP_SHOW, PICK = 0.10, 10, 5
-ALPHA, BETA = 24.6, 5.4  # placeholder Beta prior from the design doc
+ALPHA, BETA = C.ALPHA, C.BETA  # smoothed-rating Beta prior fitted on the core library (playnext.config)
 MODEL = ROOT / ".cache" / "models" / "Qwen3-Embedding-4B"
 PROC = ROOT / "data" / "processed"
 DER = ROOT / "data" / "derived"

@@ -541,7 +541,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
           <li><span>CN 区和 US 区的现价、是否免费；正在打折的还有原价和折扣 <span class="eg">《Hades》CN 区 ¥92；10-16 快照里 786 款免费；10-10 首次取数时 CN 区 608 款在打折，10-16 刷新时约 1,100 款，约 920 款现价有变化</span></span></li>
           <li><span>价格每天刷新一次（CN、US 两区，一次约 8 分钟）；<a class="term" href="#t-short">入围</a>的 20 款在用户提问时再实时查 <span class="eg">实时查不到时用当天快照，卡片写明「价格取于某日（每日快照）」</span></span></li>
           <li><span>中文、英文介绍全文</span></li>
-          <li><span>平台（Windows / Mac / Linux）、Steam Deck 兼容等级、支持的语言 <span class="eg">支持简体中文的只有 4,112 款（55%）</span></span></li>
+          <li><span>平台（Windows / Mac / Linux）、Steam Deck 兼容等级、支持的语言 <span class="eg">支持简体中文的只有 4,118 款（56%）</span></span></li>
           <li><span>年龄分级和内容提示 <span class="eg">如「血腥」「暴力」，用来排除用户的雷区</span></span></li>
           <li><span>发行年份 <span class="eg">只在卡片上显示（如「2018」），不参与筛选和打分</span></span></li>
         </ul>
@@ -613,7 +613,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
           <li><span class="muted">评测者的 Steam ID 读进来就换成加盐编号，我们生成的文件里不留真实 ID。</span></li>
         </ul>
         <div class="cover">
-          <span><b>覆盖：</b>评测总表 1.61 亿条，覆盖 7,412 款核心库游戏，评测时间 2010-10 到 2026-10-13；和 Steam 自己报的条数核对过。</span>
+          <span><b>覆盖：</b>评测总表 1.61 亿条，覆盖 7,304 款核心库游戏里的 7,303 款（剩下的《Oblivion 年度版》在 Steam 上没有评测），评测时间 2010-10 到 2026-10-13；和 Steam 自己报的条数核对过。</span>
           <span>「有足够的同好数据」（至少 20 款同好游戏）：7,304 款里 7,303 款，2023 到 2026 年发售的全部达到（旧数据上 2024 年只有 53%、2025 年 35%）。没有同好数据的游戏，这一路的权重按比例分给标签和介绍；IGDB 相似游戏不再顶替打分，只写进卡片。</span>
           <span>考试成绩（前 20 款里猜中玩家后来推荐的比例）：同好 EASE 22.2%，只推热门 14.9%；去掉最热门 100 款后 17.2% 对 5.7%。按「比别人玩得多的程度」挑本人好评的游戏，猜对 63.8%，只看小时数 59.4%。</span>
         </div>
@@ -747,7 +747,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
           <h3>找合口味的</h3>
           <p class="say">在剩下的游戏里，从三个角度给每款打「像不像」的分：喜欢它的玩家还喜欢什么（占大头）、标签、介绍。用户说了偏好原话或感觉时，再各加一路。合成一个<a class="term" href="#t-fit">契合度</a>。是不是同一个工作室或系列，只写进卡片当证据，不打分（用户明说「同工作室也行」时才算分）。算法见下一节。</p>
           <p class="eg">像《Hades》吗？主要看喜欢它的玩家还喜欢什么，标签和介绍只占一点</p>
-          <p class="say"><b>再用 LLM 复核一遍（<a class="term" href="#t-rerank">精排</a>）：</b>用户说了想要什么时，把契合度前 80 款，加上只按原话、只按感觉各自最高的 10 款，连同这句话一起交给 LLM，一次调用给每款打 0~10 分。最后的分 = 0.4 × 原来的分 + 0.6 × LLM 的分。只给种子或游戏库、没说话时不精排。</p>
+          <p class="say"><b>再用 LLM 复核一遍（<a class="term" href="#t-rerank">精排</a>）：</b>用户说了想要什么时，把契合度前 80 款，加上只按原话、只按感觉各自最高的 10 款，连同这句话一起交给 LLM，一次调用给每款打 0~10 分。最后的分 = 0.1 × 原来的分 + 0.9 × LLM 的分（LLM 的分先拉到 0~1）。只给种子或游戏库、没说话时不精排。</p>
           <div class="uses"><span>用到</span><span class="src s4"><b>4</b>同好关系</span><span class="src s1"><b>1</b>标签、介绍</span><span class="src s5"><b>5</b>玩得最多的游戏</span><span class="src tool"><b>AI</b>向量模型、LLM（精排）</span></div>
           <p class="multi">多人时每个成员各算一遍契合度，精排也按人分开打（有自己原话的成员各一列，共同要求一列，还是一次调用）。之后合成群体分：0.6 × 全员平均 + 0.4 × 最低那个人的分，照顾最不满意的人。</p>
         </div>
@@ -831,7 +831,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         <div class="chips"><span class="src s1"><b>1</b>game_tags</span><span class="src tool"><b>AI</b>LLM</span></div>
       </article>
       <article>
-        <h3>LLM 复核（<a class="term" href="#t-rerank">精排</a>，占 0.6）</h3>
+        <h3>LLM 复核（<a class="term" href="#t-rerank">精排</a>，占 0.9）</h3>
         <p>前面几路把一句话压成一串数字，会丢掉「别太难」里的「别」。精排让 LLM 同时读这句话和至多 100 款候选的名字、主要标签、介绍开头，逐款打 0~10 分。它只判断合不合口味；人数、价格这些事实仍由规则判断。</p>
         <div class="chips"><span class="src s1"><b>1</b>标签、介绍</span><span class="src tool"><b>AI</b>LLM</span></div>
       </article>
@@ -850,8 +850,8 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
               （没有锚点时，就只用这两路）
 
 精排（说了想要什么时）：
-        最后的分 = 0.4 × 契合度 + 0.6 × LLM 的 0~10 分（也先拉到 0~1）
-        没进精排的游戏只剩 0.4 × 契合度，所以不会越过精排过的游戏
+        最后的分 = 0.1 × 契合度 + 0.9 × LLM 的 0~10 分（也先拉到 0~1）
+        没进精排的游戏只剩 0.1 × 契合度，所以不会越过精排过的游戏
 
 第 4 步：同系列只留一款，取前 20 款入围，实时查价格
         → 只在「和当前最高分差距 ≤ 0.1」的几款里挑（喜好优先，便宜不能让不合口味的越级）
@@ -869,7 +869,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         <p>只用同好：库画像 21.6%，一个种子 18.1%，两个种子 20.5%。原设计权重：11.2%、8.2%、9.8%，差不多只有一半。标签、介绍单独用只有 3%~5%，加进来只会降分；工作室和系列当打分项，给 0.05 就开始降分。按名次合并（RRF）只有约 10%，也不用。</p>
         <p>标签和介绍各留 0.05，是为了分数接近时有内容信号，没有同好数据的游戏也能排上，代价不到 0.5 个百分点。</p>
         <p>这个检验有偏向：「答案」是玩家后来又好评了什么，天然偏向同好，测不出「这次想要的感觉」。所以偏好原话、感觉、精排的作用要靠真实请求来检验。</p>
-        <p>口碑的旧占位值是 24.6 和 30（均值相同，但「虚拟评价」有 30 条，约为数据支持的 3.7 倍）。换成拟合值后，按口碑排的前 100 名不变，变化集中在评测很少的游戏上。</p>
+        <p>口碑的旧占位值是 α / β = 24.6 / 5.4（先验强度 30：均值相同，但「虚拟评价」有 30 条，约为数据支持的 3.7 倍）。换成拟合值后，按口碑排的前 100 名不变，变化集中在评测很少的游戏上。</p>
       </div>
     </details>
   </section>
@@ -984,7 +984,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
       <p>数据缺了不会瞎补，系统会标成「待确认」或者换一个来源顶上。橙色边框是 2026-10-16 核对时新加的。</p>
     </div>
     <div class="gaps">
-      <div class="gap"><span class="what">IGDB 只给约四成游戏标了系列</span><span class="effect">同系列折叠只对标了系列的 2,996 款有效。没标的，如《文明3 完整版》，会和《文明5》《文明6》同时出现，模拟里它进了 D 的前 5。</span></div>
+      <div class="gap"><span class="what">IGDB 只给约四成游戏标了系列</span><span class="effect">同系列折叠只对标了系列的 2,996 款有效。没标的，如《文明3 完整版》，不会被折叠，可能和《文明5》《文明6》同时出现，只能靠 MMR 去雷同。</span></div>
       <div class="gap"><span class="what">多人游戏有 30% 查不到人数上限</span><span class="effect">2,288 款多人游戏里，补完还有 682 款没有人数。「几个人一起玩」时，这些游戏只能放进「待确认」。已经用了三条补充规则：2 人请求直接通过；商店介绍里写明的人数；「大型多人」标签在线 10 人以内通过。</span></div>
       <div class="gap"><span class="what">评测数据停在 2026-10-13</span><span class="effect">已补齐并合并成 1.61 亿条。定期补新评测暂不考虑（2026-10-13 定）；以后要做时，步骤是抓 → 核对修复 → 合并 → 重建表，脚本都在。约 3,150 条评测 Steam 计数里有、但切到一小时一段也拿不到（应是被隐藏或删除的），不再追。</span></div>
       <div class="gap"><span class="what">IGDB 从没返回过「在线分屏」这一项</span><span class="effect">「部分人同屏、部分人在线」的混合开局要靠它判断，现在全库都查不到（只有空值和「否」），所以混合开局在人数够时也只记「待确认」，不判通过。</span></div>
@@ -992,21 +992,22 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
       <div class="gap new"><span class="what">只有人民币和美元有价格</span><span class="effect">价格只取了 CN、US 两区。用户用欧元、台币等说预算时，不换算汇率，这次不按预算筛，结果页会说明。CN 区取价在正式部署的网络下是否稳定，还要复测。</span></div>
       <div class="gap"><span class="what">年龄分级只有 29% 有</span><span class="effect">「没有分级」和「查不到」分不开，按年龄筛时大部分游戏无法判断。内容提示（血腥、暴力）只有 26% 有，雷区主要靠标签。</span></div>
       <div class="gap"><span class="what">刚发售的游戏同好数据少</span><span class="effect">现在 2025、2026 年发售的游戏都有足够同好数据；2026-10-13 以后发售的游戏在补新评测之前没有同好数据，只能靠标签和介绍打分，排名会吃亏。</span></div>
-      <div class="gap new"><span class="what">离线检验测不出「这次想要的感觉」</span><span class="effect">离线的「答案」是玩家后来又好评了什么，偏向同好。偏好原话、感觉（各 0.25）、精排（0.6）、种子池 50 和库加分 0.2 的效果，只能靠真实请求和人工打分来定。</span></div>
+      <div class="gap new"><span class="what">离线检验测不出「这次想要的感觉」</span><span class="effect">离线的「答案」是玩家后来又好评了什么，偏向同好。偏好原话、感觉（各 0.25）、精排（0.9）、种子池 50 和库加分 0.2 的效果，只能靠真实请求和人工打分来定。</span></div>
       <div class="gap new"><span class="what">不在核心库的种子没有同好数据</span><span class="effect">「像 PEAK 那样的」这类请求，只能按它的标签和介绍找相似游戏，而同好正是最强的一路。结果页会写明这一点。</span></div>
       <div class="gap"><span class="what">同好关系偏向热门大作</span><span class="effect">例如《星露谷》的同好里出现《CS2》。离线检验时看要不要再压一压热门游戏。</span></div>
     </div>
-    <p class="small"><b>已经解决、从这里移走的：</b>价格每日刷新和入围实时查价（2026-10-16 上线）；446 个标签的分类、整理好的表导入 PostgreSQL、口碑参数拟合（都已完成）；非 PC 版人数怎么用（已定，见上）。</p>
+    <p class="small"><b>已经解决、从这里移走的：</b>价格每日刷新和入围实时查价（2026-10-16 上线）；446 个标签的分类、整理好的表导入 PostgreSQL、口碑参数拟合（都已完成）；非 PC 版人数怎么用（已定，见上）；精排默认开（LLM 精排，w_r 0.9，2026-10-16 按请求集开发集定）；和本地重排模型 Qwen3-Reranker 的对比（已做，质量明显较低，未采用）；US 区价格（已接入每日刷新和实时查价）。</p>
     <div class="sec-head" style="padding-top:8px">
       <p><b>还要做的</b>（需要组内决定或等结果）：</p>
     </div>
     <div class="todo">
       <span>32 条真实请求的推荐结果，人工按 0 / 1 / 2 打分</span>
-      <span>决定精排是否默认开，以及权重 0.6、候选 80 款要不要调</span>
-      <span>本地重排模型 Qwen3-Reranker 和 LLM 精排的对比（结果待出）</span>
+      <span>Qwen3-Reranker 要不要接成 LLM 不可用时的回退（对比已做，未采用）</span>
       <span>用请求集调偏好原话、感觉的 0.25 和种子池 50 / 库加分 0.2</span>
       <span>松绑建议的代价怎么算、能否两两组合放松</span>
-      <span>是否加第二个对照区，CN 区取价在部署环境复测</span>
+      <span>只有人民币、美元有价格：其他币种的预算要不要支持</span>
+      <span>「GTA」「Elder Scrolls」这类系列名，还对不到具体一款游戏</span>
+      <span>CN 区取价在部署环境复测</span>
     </div>
   </section>
 
