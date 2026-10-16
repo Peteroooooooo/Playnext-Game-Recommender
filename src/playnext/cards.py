@@ -9,7 +9,7 @@ import pandas as pd
 from . import config as C
 from .kb import KB
 from .llm import chat_json
-from .rules import PASS, FilterResult
+from .rules import PASS, FilterResult, money
 from .spec import SessionSpec
 
 SETUP_ZH = {"online": "在线组队", "local": "本地同屏", "remote": "远程同乐", "hybrid": "混合开局"}
@@ -23,10 +23,7 @@ STEPS = {
 }
 
 
-def _money(v, region):
-    if v is None:
-        return None
-    return (f"¥{v:g}" if region == "CN" else f"${v:g}")
+_money = money
 
 
 def price_facts(prices, appid, region):
@@ -46,7 +43,8 @@ def price_facts(prices, appid, region):
         parts.append(f"史低 {_money(p['low'], region)}" + (f"（{p['low_time'][:7]}）" if p["low_time"] else ""))
         if p["final"] is not None:
             gap = p["final"] / p["low"] - 1
-            parts.append("已在史低" if gap <= C.NEAR_LOW - 1 else f"距史低 +{gap * 100:.0f}%")
+            out["near_low"] = bool(gap <= C.NEAR_LOW - 1)
+            parts.append("已在史低" if out["near_low"] else f"距史低 +{gap * 100:.0f}%")
     else:
         parts.append("史低未知")
     out["text"] = " ／ ".join(parts)
@@ -99,6 +97,7 @@ def build_card(kb: KB, spec: SessionSpec, i, rel, ranked, details, fr: FilterRes
         hit = anchors[int(ev["tag_hit"][i])]
         shared = [kb.tag_zh[t] for t in kb.core.get(a, []) if t in set(kb.core.get(hit, []))][:4]
         like = {"anchor": kb.display_name(hit), "shared_core_tags": shared}
+        card["anchor_appid"] = int(anchors[int(ev["co_hit"][i])])
         more, less = tag_diff(kb, a, hit)
         card["diff"] = {"more": more, "less": less, "anchor": kb.display_name(hit)}
         k = int(ev["co_hit"][i])
@@ -182,12 +181,17 @@ def setup_card(kb, spec, fr, a, owned_by):
            "max_players": None if not mx or mx[0] is None else mx[0], "max_source": mx[1] if mx else None,
            "steps": STEPS[kind], "controller": next((v for k, v in CONTROLLER.items() if k in cats), None)}
     members = spec.members
+    alts = plan.get("alternatives") or []
+    if alts:
+        verb = "当主机并购买" if plan.get("rule") == "host_only" else "购买"
+        out["alternatives"] = [f"也可以由{members[j].name}{verb}：{_money(v, members[j].region)}（{members[j].region} 区）"
+                               for j, v in alts]
     if plan.get("rule") == "free":
-        out["purchase"] = "免费游戏，每人新增 ¥0"
+        out["purchase"] = "免费游戏，无需购买"
     elif plan.get("rule") == "host_only":
         host = plan.get("host")
         if plan["new_copies"] == 0:
-            out["purchase"] = f"仅主机需拥有：{members[host].name}已有，新增 ¥0；其余成员作为来宾加入"
+            out["purchase"] = f"仅主机需拥有：{members[host].name}已有，无需新购；其余成员作为来宾加入"
         else:
             out["purchase"] = (f"仅主机需拥有：{members[host].name}购买（{_money(plan['per_member'][host], members[host].region)}）"
                                "并当主机，其余成员作为来宾加入")
@@ -214,8 +218,8 @@ REASON_SYS = """You write a short Chinese recommendation reason (60-120 Chinese 
 
 
 def _fact_text(card):
-    return json.dumps({k: card.get(k) for k in ("name", "like", "diff", "colike", "lineage", "rating", "time_to_beat",
-                                                "setup", "library_hint")}, ensure_ascii=False)
+    return json.dumps({k: card.get(k) for k in ("name", "like", "diff", "colike", "lineage", "lineage_path", "rating",
+                                                "time_to_beat", "setup", "library_hint")}, ensure_ascii=False)
 
 
 def _consistent(reason, card):

@@ -1,7 +1,7 @@
 """Paths A and B (design 4.1): read a Steam library with the project key.
 
-The SteamID only lives inside these functions: callers get a Library (appid -> hours) and a salted session hash,
-never the ID itself. Nothing here logs or stores it.
+The SteamID only lives inside these functions: callers get a Library (appid -> hours) and a keyed hash of the
+account (profiles.profile_key), never the ID itself. Nothing here logs or stores it.
 """
 import hashlib
 import json
@@ -11,6 +11,7 @@ import urllib.parse
 import urllib.request
 
 from .pricing import load_env
+from .profiles import profile_key
 from .spec import Library
 
 API = "https://api.steampowered.com"
@@ -64,14 +65,14 @@ def fetch_library(steamid, key=None) -> Library:
 
 
 def library_from_profile(text) -> tuple[Library, str]:
-    """Path B. Returns (library, session hash of the account)."""
+    """Path B. Returns (library, profile key of the account: keyed hash for the slow loop, see profiles.py)."""
     key = load_env().get("STEAM_API_KEY")
     if not key:
         raise LibraryError("STEAM_API_KEY missing")
     sid = resolve_steamid(text, key)
     if not sid:
         raise LibraryError("没认出这个 Steam 账号：请检查主页链接或自定义名")
-    return fetch_library(sid, key), account_hash(sid)
+    return fetch_library(sid, key), profile_key(sid)
 
 
 def account_hash(steamid):

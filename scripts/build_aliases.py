@@ -59,8 +59,9 @@ TEST = [
 
 
 def norm(s):
-    s = unicodedata.normalize("NFKC", str(s)).lower()
-    s = re.sub(r"[®™©]", "", s)
+    # the marks go before NFKC, which would turn "™" into the letters "TM" ("HELLDIVERS™ 2" -> "helldiverstm2")
+    s = re.sub(r"[®™©℠]", "", str(s))
+    s = unicodedata.normalize("NFKC", s).lower()
     return re.sub(r"[^0-9a-z㐀-鿿぀-ヿ]", "", s)
 
 

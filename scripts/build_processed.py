@@ -7,6 +7,7 @@ Usage: python scripts/build_processed.py
 """
 import json
 import re
+import sys
 from datetime import datetime, timezone
 
 import pandas as pd
@@ -143,7 +144,17 @@ def main():
     prices["currency"] = prices["region"].map({"CN": "CNY", "US": "USD"})
     prices["steam_low"] = [lows.get((a, r), (None,))[0] for a, r in zip(prices["appid"], prices["region"])]
     prices["steam_low_time"] = [lows.get((a, r), (None, None, None))[2] for a, r in zip(prices["appid"], prices["region"])]
-    prices.to_parquet(OUT / "prices.parquet", index=False)
+    # a newer snapshot from the daily refresh (src/playnext/refresh.py, dated in the parquet metadata) is kept:
+    # rebuilding from the first raw pulls would put old prices back. --rebuild-prices forces the raw version.
+    sys.path.insert(0, str(ROOT / "src"))
+    from playnext.refresh import snapshot_info
+    info = snapshot_info()
+    if info and info.get("source") == "metadata" and "--rebuild-prices" not in sys.argv:
+        old = pd.read_parquet(OUT / "prices.parquet")
+        old = old[old["appid"].isin(set(prices["appid"]))]
+        print(f"prices.parquet kept: refreshed snapshot of {info['snapshot_date']} ({len(old):,} rows)")
+    else:
+        prices.to_parquet(OUT / "prices.parquet", index=False)
 
     # IGDB
     ext = json.loads((RAW / "igdb" / "external_games.json").read_text(encoding="utf-8"))
@@ -201,6 +212,10 @@ def main():
         for f in fields:
             vals = [r.get(f) or 0 for r in use]
             rec[f] = max(vals) if vals and max(vals) > 0 else None
+        # which record the counts came from: "pc", or "other" (console or platform-less rows). Where IGDB has both PC
+        # and console rows, the console count is <= the PC one in 99% of pairs but lower in 3% (e.g. 8 vs 255 online),
+        # so an "other" count is a lower bound: PASS within it, UNKNOWN above it
+        rec["count_platform"] = ("pc" if pc else "other") if any(rec[f] is not None for f in fields) else None
         for f in flags:
             rec[f] = any(r.get(f) for r in use) if use else None
         rec["desc_max_players"] = extract_max_players(desc_en.get(a, ""))
@@ -226,7 +241,8 @@ def main():
     print(f"IGDB mapped {pct(games['igdb_id'].notna().sum())}; developer {pct(pd.DataFrame(comp).query('developer')['appid'].nunique())}; "
           f"series {pct(pd.DataFrame(series)['appid'].nunique())}; similar (in core) {pct(pd.DataFrame(similar)['appid'].nunique())}; "
           f"time-to-beat {pct(pd.DataFrame(ttb)['appid'].nunique())}")
-    print(f"multiplayer games {len(mp):,}: IGDB count {igdb_any.sum():,} ({100 * igdb_any.mean():.0f}%); "
+    print(f"multiplayer games {len(mp):,}: IGDB count {igdb_any.sum():,} ({100 * igdb_any.mean():.0f}%), "
+          f"of which from a non-PC record {(mp['count_platform'] == 'other').sum():,}; "
           f"after description + MMO fill {filled.sum():,} ({100 * filled.mean():.0f}%)")
 
 

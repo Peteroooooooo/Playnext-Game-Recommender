@@ -25,6 +25,7 @@ import {
   MAX_MEMBERS,
   newMember,
   singleForm,
+  type CardNote,
   type Libs,
   type Mode,
   type Party,
@@ -72,6 +73,11 @@ function readBoot(): Boot {
 
 const boot = readBoot();
 
+/** "2026-10-14T03:00:00Z" → "2026-10-14"; anything else is shown as sent. */
+function snapshotDate(s: string): string {
+  return /^\d{4}-\d{2}-\d{2}/.exec(s)?.[0] ?? s;
+}
+
 type Phase = { kind: "loading"; slow: boolean; follow?: boolean } | { kind: "action" } | null;
 
 export default function App() {
@@ -103,6 +109,7 @@ export default function App() {
   const [reasons, setReasons] = useState<ReasonsResponse>({});
   const [reasonsState, setReasonsState] = useState<ReasonsState>("idle");
   const [followText, setFollowText] = useState("");
+  const [cardNote, setCardNote] = useState<CardNote | null>(null);
 
   const reasonsSeq = useRef(0);
   const resultsRef = useRef<HTMLElement>(null);
@@ -154,6 +161,7 @@ export default function App() {
     setLibs({});
     setResult(null);
     setReasons({});
+    setCardNote(null);
     reasonsSeq.current += 1;
     setBanner(msg);
   }
@@ -219,6 +227,7 @@ export default function App() {
 
   async function run(call: () => Promise<RecommendResult>, p: Exclude<Phase, null>, forMode: Mode): Promise<boolean> {
     setError(null);
+    setCardNote(null);
     setPhase(p);
     if (p.kind === "loading") {
       window.requestAnimationFrame(() =>
@@ -260,7 +269,20 @@ export default function App() {
 
   function cardAction(appid: number, action: CardActionKind, member = 0) {
     if (!result || busy) return;
-    void run(() => api.card(result.session_id, appid, action, member), { kind: "action" }, resultMode);
+    const sid = result.session_id;
+    const name = result.picks.find((c) => c.appid === appid)?.name ?? "";
+    // Goes through run/applyResult like every card action, so the reasonsSeq guard still drops stale reasons.
+    void run(
+      async () => {
+        const r = await api.card(sid, appid, action, member);
+        if ((action === "liked" || action === "disliked") && r.feedback) {
+          setCardNote({ appid, name, action, member, saved: r.feedback.saved, text: r.feedback.message });
+        }
+        return r;
+      },
+      { kind: "action" },
+      resultMode,
+    );
   }
 
   async function followUp() {
@@ -371,6 +393,7 @@ export default function App() {
               reasonsState={reasonsState}
               busy={phase?.kind === "action"}
               onAction={cardAction}
+              cardNote={cardNote}
               followText={followText}
               onFollowText={setFollowText}
               onFollowSubmit={() => void followUp()}
@@ -394,6 +417,11 @@ export default function App() {
             {health && <> 推荐库共 {health.games.toLocaleString("zh-CN")} 款游戏。</>}
           </p>
           <p>数据来源：Steam 商店、IGDB、IsThereAnyDeal、Kaggle「steam-reviews-100m」（sergiodelcarpio，MIT）与 Steam 评测接口。价格数据由 IsThereAnyDeal 提供。</p>
+          {health?.price_snapshot && (
+            <p className="muted">
+              价格快照：<span className="mono">{snapshotDate(health.price_snapshot)}</span>
+            </p>
+          )}
         </footer>
       </main>
     </>

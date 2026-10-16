@@ -1,0 +1,1580 @@
+{
+ "r04": {
+  "parsed": {
+   "seeds": [],
+   "played": [],
+   "excluded": [],
+   "preference_text": "story rich games with likeable characters + good gameplay",
+   "feel_want": [
+    "Story Rich"
+   ],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [
+    "Visual Novel"
+   ],
+   "avoid_content": [],
+   "budget": {
+    "amount": 14.0,
+    "scope": "per_person",
+    "currency": "USD"
+   },
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 9.1,
+  "error": null
+ },
+ "r03": {
+  "parsed": {
+   "seeds": [
+    "Satisfactory"
+   ],
+   "played": [
+    "Satisfactory"
+   ],
+   "excluded": [
+    "Factorio",
+    "Dwarf Fortress",
+    "RimWorld"
+   ],
+   "preference_text": "aren't so punishing... don't like the idea of putting a lot of hours into a save and then having to start all over again because I didn't do something earlier in the save... if I do something wrong or find something new, I can just take down the factory and build it again in a better way instead of having to start a fresh save",
+   "feel_want": [
+    "Relaxing"
+   ],
+   "feel_avoid": [
+    "Unforgiving",
+    "Difficult"
+   ],
+   "mechanics": [
+    "Base Building",
+    "Resource Management"
+   ],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 10.9,
+  "error": null
+ },
+ "r06": {
+  "parsed": {
+   "seeds": [
+    "What Remains of Edith Finch",
+    "Firewatch"
+   ],
+   "played": [
+    "What Remains of Edith Finch",
+    "Firewatch"
+   ],
+   "excluded": [],
+   "preference_text": "very, very influential",
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 11.6,
+  "error": null
+ },
+ "r05": {
+  "parsed": {
+   "seeds": [
+    "RimWorld",
+    "Factorio"
+   ],
+   "played": [
+    "Elden Ring",
+    "The Witcher 3: Wild Hunt",
+    "Hades II",
+    "Balatro",
+    "Resident Evil 4",
+    "Hades",
+    "Baldur's Gate 3",
+    "The Elder Scrolls V: Skyrim"
+   ],
+   "excluded": [
+    "Baldur's Gate 3",
+    "The Elder Scrolls V: Skyrim"
+   ],
+   "preference_text": "play forever (or at least for a very long time) without getting bored interesting enough to keep me playing for thousands of hours but doesn't feel stressful infinitely replayable",
+   "feel_want": [
+    "Replay Value"
+   ],
+   "feel_avoid": [
+    "Difficult",
+    "Unforgiving"
+   ],
+   "mechanics": [],
+   "avoid_tags": [
+    "Turn-Based Combat",
+    "Inventory Management"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": true,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 14.7,
+  "error": null
+ },
+ "r01": {
+  "parsed": {
+   "seeds": [
+    "Stardew Valley"
+   ],
+   "played": [
+    "Stardew Valley",
+    "Grand Theft Auto",
+    "Red Dead Redemption",
+    "The Elder Scrolls",
+    "Fallout",
+    "The Witcher",
+    "Kingdom Come: Deliverance"
+   ],
+   "excluded": [],
+   "preference_text": "emphasis on building, clearing land, etc. ... looking for something small, chill, that matches my preferences and that I can jump in and out of ... maybe a pixel game, where I can have some property, clear it out and upgrade my house without really strict time-based gameplay with energy meters",
+   "feel_want": [
+    "Relaxing",
+    "Cozy",
+    "Building",
+    "Pixel Graphics"
+   ],
+   "feel_avoid": [
+    "Time Management",
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [
+    "Platformer",
+    "Linear"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 18.7,
+  "error": null
+ },
+ "r02": {
+  "parsed": {
+   "seeds": [
+    "Hollow Knight",
+    "Animal Well",
+    "The Legend of Zelda: Breath of the Wild",
+    "Minecraft",
+    "Fortnite",
+    "Cuphead",
+    "Super Mario Maker",
+    "Grand Theft Auto",
+    "Mario Kart DS"
+   ],
+   "played": [
+    "Hollow Knight",
+    "Animal Well",
+    "The Legend of Zelda: Breath of the Wild",
+    "Minecraft",
+    "Fortnite",
+    "Cuphead",
+    "Super Mario Maker",
+    "Grand Theft Auto",
+    "Mario Kart DS",
+    "Elden Ring",
+    "Genshin Impact",
+    "Terraria",
+    "Immortals Fenyx Rising",
+    "Tchia",
+    "LEGO Bricktales",
+    "Just Cause 3",
+    "Cyberpunk 2077",
+    "Neon White"
+   ],
+   "excluded": [
+    "Elden Ring",
+    "Genshin Impact",
+    "Terraria",
+    "Immortals Fenyx Rising",
+    "Tchia",
+    "LEGO Bricktales",
+    "Just Cause 3",
+    "Cyberpunk 2077",
+    "Neon White"
+   ],
+   "preference_text": "flawless movement, cryptic atmosphere, non-linear exploration, and discovering secrets on my own using clever items/tools without hand-holding. zero visual bloat, minimal menus, and quick action",
+   "feel_want": [
+    "Exploration",
+    "Atmospheric",
+    "Nonlinear",
+    "Fast-Paced"
+   ],
+   "feel_avoid": [
+    "Souls-like",
+    "Inventory Management",
+    "Dialogue Heavy",
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 18.8,
+  "error": null
+ },
+ "r07": {
+  "parsed": {
+   "seeds": [
+    "Rust",
+    "Stardew Valley",
+    "Schedule 1"
+   ],
+   "played": [
+    "Rust",
+    "Stardew Valley",
+    "Schedule 1",
+    "Escape from Tarkov",
+    "Animal Crossing"
+   ],
+   "excluded": [],
+   "preference_text": "build something from nothing",
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 10.2,
+  "error": null
+ },
+ "r08": {
+  "parsed": {
+   "seeds": [
+    "Stardew Valley",
+    "Valheim"
+   ],
+   "played": [
+    "Path of Exile",
+    "Diablo",
+    "Warframe",
+    "Stardew Valley",
+    "Valheim"
+   ],
+   "excluded": [
+    "Sun Haven"
+   ],
+   "preference_text": "Grindy but chill niche games that have fun gameloop with grind, maybe simulation, maybe life sim? Something with endless or just far progression at any pace",
+   "feel_want": [
+    "Relaxing",
+    "Cozy"
+   ],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 13.7,
+  "error": null
+ },
+ "r10": {
+  "parsed": {
+   "seeds": [
+    "Overcooked! 2",
+    "Ship of Fools",
+    "Left 4 Dead 2",
+    "PAYDAY 2"
+   ],
+   "played": [
+    "Overcooked! 2",
+    "Ship of Fools",
+    "Left 4 Dead 2",
+    "PAYDAY 2"
+   ],
+   "excluded": [],
+   "preference_text": "don't need to buy more than 1 copy to play together",
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "near_record_low",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 3,
+    "interaction": "coop",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 10.3,
+  "error": null
+ },
+ "r13": {
+  "parsed": {
+   "seeds": [],
+   "played": [],
+   "excluded": [
+    "Minecraft",
+    "Valorant",
+    "League of Legends"
+   ],
+   "preference_text": null,
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [
+    "Horror"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "cheap",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 4,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 7.5,
+  "error": null
+ },
+ "r09": {
+  "parsed": {
+   "seeds": [
+    "It Takes Two",
+    "A Way Out",
+    "River Tails: Stronger Together",
+    "Stardew Valley",
+    "Overcooked! 2"
+   ],
+   "played": [
+    "It Takes Two",
+    "Split Fiction",
+    "A Way Out",
+    "River Tails: Stronger Together",
+    "Resident Evil 5",
+    "Resident Evil Revelations 2",
+    "Stardew Valley",
+    "PlateUp!",
+    "Sackboy: A Big Adventure",
+    "Overcooked! 2",
+    "Castle Crashers"
+   ],
+   "excluded": [
+    "POPUCOM"
+   ],
+   "preference_text": "history focused games, and games which co-op oriented",
+   "feel_want": [],
+   "feel_avoid": [
+    "Action"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "coop",
+    "setup": "local",
+    "groups": null
+   },
+   "people": [
+    {
+     "name": "wife",
+     "likes": [
+      "Stardew Valley",
+      "Overcooked! 2"
+     ],
+     "owns": [],
+     "preference_text": "history focused",
+     "feel_want": [],
+     "feel_avoid": [
+      "Action"
+     ],
+     "avoid_tags": [],
+     "avoid_content": []
+    }
+   ]
+  },
+  "seconds": 16.8,
+  "error": null
+ },
+ "r16": {
+  "parsed": {
+   "seeds": [
+    "Portal",
+    "Minecraft",
+    "Trailmakers",
+    "Supermarket Together",
+    "Valheim"
+   ],
+   "played": [
+    "Phasmophobia",
+    "Lethal Company",
+    "RV There Yet",
+    "Dark Hours",
+    "Mimesis",
+    "The Headliners",
+    "REPO"
+   ],
+   "excluded": [],
+   "preference_text": "save-able progression, more long-term, goal-oriented games that will still entertain the ladies but also keep the gentlemen engaged and wanting to play more",
+   "feel_want": [
+    "Casual"
+   ],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 4,
+    "interaction": "coop",
+    "setup": "online",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 9.8,
+  "error": null
+ },
+ "r17": {
+  "parsed": {
+   "seeds": [],
+   "played": [],
+   "excluded": [],
+   "preference_text": "硬體要求低但劇情好 上班可以偷玩 有事情的時候要關掉 也不能被同事發現 最好是有女主 然後可以快速切換畫面",
+   "feel_want": [
+    "Story Rich",
+    "Female Protagonist"
+   ],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 9.4,
+  "error": null
+ },
+ "r15": {
+  "parsed": {
+   "seeds": [
+    "Deep Rock Galactic",
+    "The Binding of Isaac"
+   ],
+   "played": [
+    "WEBFISHING",
+    "Roblox",
+    "Terraria",
+    "Minecraft",
+    "Lethal Company",
+    "R.E.P.O.",
+    "The Binding of Isaac",
+    "Deep Rock Galactic"
+   ],
+   "excluded": [],
+   "preference_text": null,
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": {
+    "amount": 20.0,
+    "scope": "per_person",
+    "currency": "EUR"
+   },
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "coop",
+    "setup": "online",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 12.9,
+  "error": null
+ },
+ "r12": {
+  "parsed": {
+   "seeds": [
+    "LEGO VOYAGERS"
+   ],
+   "played": [],
+   "excluded": [
+    "LEGO VOYAGERS"
+   ],
+   "preference_text": "safe for younger gamers",
+   "feel_want": [
+    "Family Friendly"
+   ],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [
+    "Violent",
+    "Gore"
+   ],
+   "avoid_content": [
+    "gore"
+   ],
+   "budget": null,
+   "price_intent": "cheap",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 3,
+    "interaction": "coop",
+    "setup": "online",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 19.4,
+  "error": null
+ },
+ "r11": {
+  "parsed": {
+   "seeds": [
+    "Stardew Valley",
+    "Peak",
+    "Split Fiction",
+    "Core Keeper",
+    "Wildmender",
+    "Kingdom Two Crowns",
+    "Unravel Two"
+   ],
+   "played": [
+    "Stardew Valley",
+    "Peak"
+   ],
+   "excluded": [],
+   "preference_text": "Cozy - No combat, or if there is, it has to be easy or avoidable combat or able to be modified to lower the combat experience - No one trick pony, like only fishing, only building houses, it has to have a bunch of stuff wheter things to do or an engaging story or a good gameplay loop",
+   "feel_want": [
+    "Cozy"
+   ],
+   "feel_avoid": [
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "near_record_low",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "coop",
+    "setup": "online",
+    "groups": null
+   },
+   "people": [
+    {
+     "name": "girlfriend",
+     "likes": [],
+     "owns": [],
+     "preference_text": "mostly plays puzzle games but she's willing to play and learn other genres",
+     "feel_want": [
+      "Puzzle"
+     ],
+     "feel_avoid": [],
+     "avoid_tags": [],
+     "avoid_content": []
+    }
+   ]
+  },
+  "seconds": 20.0,
+  "error": null
+ },
+ "r14": {
+  "parsed": {
+   "seeds": [
+    "PEAK",
+    "PICO PARK",
+    "PICO PARK 2"
+   ],
+   "played": [
+    "Left 4 Dead 2",
+    "Human: Fall Flat",
+    "RVThereYet",
+    "Don't Starve Together",
+    "It Takes Two",
+    "Split Fiction",
+    "PICO PARK",
+    "PICO PARK 2"
+   ],
+   "excluded": [
+    "R.E.P.O.",
+    "Lethal Company"
+   ],
+   "preference_text": null,
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [
+    "Horror",
+    "Psychological Horror",
+    "Survival Horror"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 5,
+    "interaction": "coop",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 15.0,
+  "error": null
+ },
+ "r19": {
+  "parsed": {
+   "seeds": [
+    "Total War: THREE KINGDOMS",
+    "Total War: WARHAMMER",
+    "Stellaris",
+    "They Are Billions"
+   ],
+   "played": [
+    "Nioh 2 - The Complete Edition",
+    "Total War: THREE KINGDOMS",
+    "Total War: WARHAMMER",
+    "Stellaris",
+    "They Are Billions"
+   ],
+   "excluded": [],
+   "preference_text": "轉換心情 紓壓爽GAME 不同類型或風格",
+   "feel_want": [
+    "Relaxing",
+    "Casual"
+   ],
+   "feel_avoid": [
+    "Souls-like",
+    "Difficult",
+    "Unforgiving"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": true,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 3.7,
+  "error": null
+ },
+ "r22": {
+  "parsed": {
+   "seeds": [
+    "Balatro"
+   ],
+   "played": [
+    "Balatro"
+   ],
+   "excluded": [],
+   "preference_text": "無即時性，想停就停不會影響遊戲 有點思考與挑戰 不要太簡單以至於無聊 也不要太難以至於佔用看劇的大腦CPU",
+   "feel_want": [
+    "Turn-Based",
+    "Relaxing"
+   ],
+   "feel_avoid": [
+    "Difficult",
+    "Fast-Paced"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": true,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 9.2,
+  "error": null
+ },
+ "r21": {
+  "parsed": {
+   "seeds": [
+    "Dave the Diver",
+    "Sakuna: Of Rice and Ruin"
+   ],
+   "played": [
+    "Dave the Diver",
+    "Sakuna: Of Rice and Ruin",
+    "Stardew Valley",
+    "The Forest",
+    "7 Days to Die",
+    "Don't Starve"
+   ],
+   "excluded": [
+    "Stardew Valley",
+    "The Forest",
+    "7 Days to Die",
+    "Don't Starve"
+   ],
+   "preference_text": "出外捕魚打獵 打食材做料理 種田是其次 順便收集金屬礦物木頭等資源 會慢慢增加設備 沒有生存壓力 可以慢慢混 不會有怪物來襲擊你家 動作遊戲 不是第一人稱畫面",
+   "feel_want": [
+    "Relaxing",
+    "Casual"
+   ],
+   "feel_avoid": [
+    "Unforgiving",
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [
+    "First-Person"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 10.3,
+  "error": null
+ },
+ "r24": {
+  "parsed": {
+   "seeds": [],
+   "played": [
+    "Undertale",
+    "Stardew Valley",
+    "Detroit: Become Human",
+    "Little Nightmares"
+   ],
+   "excluded": [],
+   "preference_text": "沉浸式玩得让人忘记吃饭 愉快的游戏体验 有深度有剧情有趣味有画风有巧思",
+   "feel_want": [
+    "Immersive",
+    "Story Rich"
+   ],
+   "feel_avoid": [
+    "Difficult",
+    "Unforgiving"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": true,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 8.5,
+  "error": null
+ },
+ "r18": {
+  "parsed": {
+   "seeds": [
+    "The Forest",
+    "Sons of the Forest",
+    "Green Hell",
+    "Palworld",
+    "DRAGON QUEST BUILDERS 2"
+   ],
+   "played": [
+    "The Forest",
+    "Sons of the Forest",
+    "Green Hell",
+    "Palworld",
+    "Stardew Valley",
+    "DRAGON QUEST BUILDERS 2"
+   ],
+   "excluded": [],
+   "preference_text": "生存建造類型遊戲 休閒玩 能單人玩的愉快為主 希望單人模式進遊戲時不會強迫要登入官方伺服器那種 可接受小農，但不要太農 希望有NPC夥伴加入幫你做雜事，或安排NPC工作 有戰鬥升級元素，自己家園蓋好後，可以去探險打怪打寶 希望在家園的部分有料理元素 節奏不要太緊湊",
+   "feel_want": [
+    "Relaxing",
+    "Casual"
+   ],
+   "feel_avoid": [
+    "Fast-Paced",
+    "Difficult",
+    "Horror"
+   ],
+   "mechanics": [
+    "Survival",
+    "Base Building"
+   ],
+   "avoid_tags": [
+    "Zombies",
+    "Sci-fi",
+    "Space",
+    "Cute"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": true,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 15.7,
+  "error": null
+ },
+ "r23": {
+  "parsed": {
+   "seeds": [
+    "Ratopia"
+   ],
+   "played": [
+    "SimCity 4",
+    "SimCity",
+    "Diplomacy is Not an Option",
+    "Ratopia",
+    "Farthest Frontier",
+    "Going Medieval",
+    "Kingdoms and Castles",
+    "Project Zomboid",
+    "Settlement Survival",
+    "Frostpunk",
+    "RimWorld"
+   ],
+   "excluded": [
+    "RimWorld",
+    "Against the Storm"
+   ],
+   "preference_text": "種田遊戲",
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [
+    "Aliens",
+    "Sci-fi",
+    "Space"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 15.6,
+  "error": null
+ },
+ "r20": {
+  "parsed": {
+   "seeds": [],
+   "played": [
+    "Sid Meier's Civilization V",
+    "Sid Meier's Civilization VI",
+    "XCOM: Enemy Unknown",
+    "XCOM 2"
+   ],
+   "excluded": [],
+   "preference_text": "不會太複雜的回合策略遊戲 非即時不需要花太多精力玩的策略遊戲 感覺比較喜歡有經營成分重一點，分配物資/升級建築之類",
+   "feel_want": [
+    "Casual",
+    "Relaxing"
+   ],
+   "feel_avoid": [
+    "Difficult"
+   ],
+   "mechanics": [
+    "Turn-Based Strategy",
+    "Management"
+   ],
+   "avoid_tags": [
+    "JRPG",
+    "Roguelike",
+    "Roguelite",
+    "RTS"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": null,
+    "interaction": "any",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 17.3,
+  "error": null
+ },
+ "r28": {
+  "parsed": {
+   "seeds": [
+    "Planet Zoo",
+    "Frostpunk",
+    "Princess Maker",
+    "Dave the Diver",
+    "Overcooked!",
+    "The Sims"
+   ],
+   "played": [
+    "Princess Maker",
+    "Planet Zoo",
+    "Frostpunk",
+    "Dave the Diver",
+    "Overcooked!",
+    "The Sims"
+   ],
+   "excluded": [
+    "Don't Starve Together"
+   ],
+   "preference_text": "雙人生活模擬或經營類遊戲 主要是休閒 難度希望不要太高 如果有戰鬥要素的話不太吃操作 可以蓋房子或設施的建造要素 有輕微3D暈 2D比較偏好一點 3D也不排斥 有劇情佳 希望有主線或一定的方向引導循序漸進",
+   "feel_want": [
+    "Casual",
+    "Relaxing",
+    "Cozy"
+   ],
+   "feel_avoid": [
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "near_record_low",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "coop",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 4.4,
+  "error": null
+ },
+ "r26": {
+  "parsed": {
+   "seeds": [
+    "Counter-Strike",
+    "Empire Earth",
+    "StarCraft II",
+    "Command & Conquer: Red Alert",
+    "Age of Empires"
+   ],
+   "played": [
+    "Warcraft III",
+    "Battlefield",
+    "Counter-Strike",
+    "Age of Empires",
+    "Empire Earth",
+    "StarCraft II",
+    "Command & Conquer: Red Alert"
+   ],
+   "excluded": [],
+   "preference_text": "合作對抗電腦的，可以讓我們爽玩八小時",
+   "feel_want": [
+    "Co-op",
+    "PvE"
+   ],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 4,
+    "interaction": "coop",
+    "setup": "online",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 10.1,
+  "error": null
+ },
+ "r30": {
+  "parsed": {
+   "seeds": [
+    "Satisfactory"
+   ],
+   "played": [],
+   "excluded": [],
+   "preference_text": "慢節奏",
+   "feel_want": [],
+   "feel_avoid": [
+    "Fast-Paced"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "coop",
+    "setup": "online",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 6.3,
+  "error": null
+ },
+ "r27": {
+  "parsed": {
+   "seeds": [
+    "Rabbids: Party of Legends",
+    "Super Mario Party"
+   ],
+   "played": [
+    "Rabbids: Party of Legends",
+    "Super Mario Party"
+   ],
+   "excluded": [],
+   "preference_text": null,
+   "feel_want": [
+    "Family Friendly",
+    "Party Game",
+    "Casual",
+    "Minigames"
+   ],
+   "feel_avoid": [
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": 7,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "any",
+    "setup": "local",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 16.3,
+  "error": null
+ },
+ "r25": {
+  "parsed": {
+   "seeds": [
+    "Don't Starve Together",
+    "Cult of the Lamb",
+    "The Legend of Zelda: Breath of the Wild",
+    "The Legend of Zelda: Tears of the Kingdom",
+    "The Legend of Zelda: Echoes of Wisdom",
+    "DAVE THE DIVER",
+    "Don't Starve",
+    "鴨科夫",
+    "Core Keeper",
+    "Enshrouded"
+   ],
+   "played": [
+    "Don't Starve Together",
+    "Cult of the Lamb",
+    "The Legend of Zelda: Breath of the Wild",
+    "The Legend of Zelda: Tears of the Kingdom",
+    "The Legend of Zelda: Echoes of Wisdom",
+    "DAVE THE DIVER",
+    "Don't Starve",
+    "鴨科夫"
+   ],
+   "excluded": [
+    "It Takes Two",
+    "Palworld",
+    "Stardew Valley",
+    "Terraria"
+   ],
+   "preference_text": "能夠多人合作 但單人也能有樂趣 多人共鬥不錯但戰鬥難度希望不要太高",
+   "feel_want": [],
+   "feel_avoid": [
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [
+    "Automation",
+    "Realistic",
+    "Gore"
+   ],
+   "avoid_content": [
+    "gore"
+   ],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "coop",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 18.4,
+  "error": null
+ },
+ "r32": {
+  "parsed": {
+   "seeds": [
+    "Party Animals"
+   ],
+   "played": [
+    "Party Animals"
+   ],
+   "excluded": [],
+   "preference_text": "本機多人遊玩的遊戲 假日想跟侄子們同樂",
+   "feel_want": [],
+   "feel_avoid": [],
+   "mechanics": [],
+   "avoid_tags": [],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 3,
+    "interaction": "any",
+    "setup": "local",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 8.8,
+  "error": null
+ },
+ "r31": {
+  "parsed": {
+   "seeds": [
+    "Age of Empires II",
+    "League of Legends",
+    "HELLDIVERS 2"
+   ],
+   "played": [
+    "Age of Empires II",
+    "League of Legends",
+    "HELLDIVERS 2"
+   ],
+   "excluded": [
+    "Party Animals",
+    "Ultimate Chicken Horse",
+    "Overcooked!",
+    "PUBG: BATTLEGROUNDS",
+    "Apex Legends",
+    "Counter-Strike"
+   ],
+   "preference_text": "可以有一點策略性，但不要太燒腦的佳 如果可以是一場一場的佳， 主要是彈性高、遊戲時間好預測，但也非必要 不排斥射擊類遊戲，但太純槍戰的就沒有很喜歡",
+   "feel_want": [
+    "Strategy"
+   ],
+   "feel_avoid": [
+    "Difficult"
+   ],
+   "mechanics": [],
+   "avoid_tags": [
+    "Sports",
+    "Racing",
+    "Party Game"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "none",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "any",
+    "setup": "online",
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 12.3,
+  "error": null
+ },
+ "r29": {
+  "parsed": {
+   "seeds": [],
+   "played": [
+    "Minecraft",
+    "Core Keeper",
+    "The Planet Crafter",
+    "Terraria"
+   ],
+   "excluded": [],
+   "preference_text": "能探索找到新地區，感受到全新的風景，也獲得新的資源 不一定只限挖礦，主軸是找資源，礦物/植物/動物都可以 有基地建設或某種升級，讓找到的資源有用途，有回饋感 希望不要太難，不想玩一直死亡，過度強調生存感的遊戲 有沒有戰鬥都可以，但希望不要殭屍",
+   "feel_want": [],
+   "feel_avoid": [
+    "Difficult",
+    "Unforgiving",
+    "Survival"
+   ],
+   "mechanics": [
+    "Exploration",
+    "Base Building"
+   ],
+   "avoid_tags": [
+    "Zombies"
+   ],
+   "avoid_content": [],
+   "budget": null,
+   "price_intent": "near_record_low",
+   "only_discounted": false,
+   "library_policy": "none",
+   "language": null,
+   "platform": null,
+   "age_limit": null,
+   "max_hours": null,
+   "same_studio": false,
+   "single_player": false,
+   "party": {
+    "size": 2,
+    "interaction": "coop",
+    "setup": null,
+    "groups": null
+   },
+   "people": []
+  },
+  "seconds": 14.6,
+  "error": null
+ }
+}

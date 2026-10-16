@@ -376,6 +376,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
             <li><a href="#run-ad">A/B + D 组合</a></li>
           </ol>
         </li>
+        <li><a href="#rs-title">32 条真实请求的对比</a></li>
         <li><a href="#c-title">一张推荐卡</a></li>
         <li><a href="#g-title">现在的缺口</a></li>
         <li><a href="#d-title">数据文件（给开发）</a></li>
@@ -398,9 +399,9 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
     </div>
     <div class="facts-strip">
       <span>推荐范围：<a href="#t-core">核心库</a> <span class="mono">7,304</span> 款（按 SteamSpy 记录的评价数不少于 1,000 条筛出、再去掉非游戏，<a href="#k-title">怎么来的见下一节</a>）</span>
-      <span>数据取于 <span class="mono">2026-10</span></span>
+      <span>数据取于 <span class="mono">2026-10</span>；价格 <span class="mono">2026-10-16</span> 刷新，之后每天一次</span>
     </div>
-    <p class="status-note"><b>现在做到哪了：</b>数据已经下载、整理成表；推荐系统本身还没开始写（仓库里还没有 <code>src/</code>）。本页的推荐结果来自模拟脚本 <code>scripts/simulate_inputs.py</code>，它按设计文档跑了第 1~4 步。标着「上线后」「计划」的都还没实现。</p>
+    <p class="status-note"><b>现在做到哪了（2026-10-16）：</b>推荐系统已经做完整条流程（代码在 <code>src/playnext/</code>），有网页可以用：后端 FastAPI，前端 React（<code>web/</code>）。第 1~5 步都在运行，卡片上的反馈会存进 PostgreSQL。价格每天自动刷新一次，入围的 20 款在用户提问时再实时查。还没定的事见最后一节「现在的缺口」。</p>
   </header>
 
   <section aria-labelledby="q-title">
@@ -426,7 +427,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
       </article>
       <article class="q">
         <h3>推荐得准不准？</h3>
-        <p>拿真实玩家的评测记录来考系统，不用人工打分。</p>
+        <p>先拿真实玩家的评测记录来考，不用人工打分；再拿论坛上的真实求推荐帖来比。最后还要人工打分确认。</p>
         <div class="chips"><span class="src s4"><b>4</b>评测</span></div>
       </article>
     </div>
@@ -510,7 +511,9 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
       <div id="t-fit"><dt>契合度</dt><dd>一款游戏合不合这次口味的分数，0~1。它是在本次候选里相对拉开的：1.00 表示这次候选里最高，不表示「完全一样」。</dd></div>
       <div id="t-window"><dt>窗口 / 雷同度</dt><dd>排先后时，只在契合度和当前最高分相差不超过 0.1 的几款里比口碑和价格，这个范围叫窗口；这样便宜但不合口味的游戏不会越级。雷同度是候选和已经选中的游戏在标签上有多像，越像越扣分，避免 5 款都差不多。</dd></div>
       <div id="t-short"><dt>入围 / 备选</dt><dd>契合度前 20 名叫入围；入围里没进前 5 的叫备选，留在结果页上让用户自己按价格筛。</dd></div>
-      <div id="t-llm"><dt>LLM</dt><dd>生成式大语言模型，这里负责听懂用户的话、写推荐理由。</dd></div>
+      <div id="t-llm"><dt>LLM</dt><dd>生成式大语言模型，这里负责听懂用户的话、给候选打精排分、写推荐理由。它不提供事实。</dd></div>
+      <div id="t-rerank"><dt>精排</dt><dd>用户说了想要什么时，把契合度前约 80 款的介绍和这句话一起交给 LLM，逐款打 0~10 分，再和原来的分数合在一起。前面几路只看数字，精排能读懂「别太难」这类细节。</dd></div>
+      <div id="t-index"><dt>轻量索引</dt><dd>Steam 商店里全部 193,457 款游戏的编号和名字（不含其他资料）。用户提到不在核心库的游戏时，靠它认出来。</dd></div>
       <div id="t-vec"><dt>向量模型</dt><dd>把一段文字变成一串数字，意思越接近，数字越接近。4B、0.6B 指模型大小（约 40 亿、6 亿个参数）。</dd></div>
     </dl>
   </section>
@@ -535,7 +538,8 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
           <li><span>446 个标签的中英文名 <span class="eg">Casual = 休闲。LLM 理解用户的话时从这张表里挑词。Steam 中文表里有 19 个标签只给了英文，如「Unforgiving」，我们补了中文（严苛）</span></span></li>
           <li><span><a class="term" href="#t-cat">官方分类</a> <span class="eg">单人、在线合作、在线对抗、同屏合作、同屏对抗、<a class="term" href="#t-remote">远程同乐</a>、手柄支持程度</span></span></li>
           <li><span>评价数和好评率，取的是商店页上显示的那个（Steam 筛过的）数字 <span class="eg">《Hades》28.7 万条评价，97% 好评</span></span></li>
-          <li><span>CN 区和 US 区的现价、是否免费；正在打折的还有原价和折扣 <span class="eg">《Hades》CN 区 ¥92；772 款免费；取数那天 CN 区 608 款在打折</span></span></li>
+          <li><span>CN 区和 US 区的现价、是否免费；正在打折的还有原价和折扣 <span class="eg">《Hades》CN 区 ¥92；10-16 快照里 786 款免费；10-10 首次取数时 CN 区 608 款在打折，10-16 刷新时约 1,100 款，约 920 款现价有变化</span></span></li>
+          <li><span>价格每天刷新一次（CN、US 两区，一次约 8 分钟）；<a class="term" href="#t-short">入围</a>的 20 款在用户提问时再实时查 <span class="eg">实时查不到时用当天快照，卡片写明「价格取于某日（每日快照）」</span></span></li>
           <li><span>中文、英文介绍全文</span></li>
           <li><span>平台（Windows / Mac / Linux）、Steam Deck 兼容等级、支持的语言 <span class="eg">支持简体中文的只有 4,112 款（55%）</span></span></li>
           <li><span>年龄分级和内容提示 <span class="eg">如「血腥」「暴力」，用来排除用户的雷区</span></span></li>
@@ -564,7 +568,8 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         </ul>
         <div class="cover">
           <span><b>覆盖：</b>98% 的游戏能对上；开发商 90%、相似游戏 94%、系列 43%、通关时长 38%。</span>
-          <span>多人游戏（带 Steam 官方的在线、同屏或局域网的合作 / 对抗分类）共 2,198 款，IGDB 写了人数上限的只有 912 款（41%），其中 382 款的数字取自主机版记录（没有 PC 版那一条）。再用两条规则补数字：商店英文介绍里写明的人数（如「up to 4 players」）、带「大型多人」标签的按 10 人以内处理。补完是 1,531 款（70%）。</span>
+          <span>多人游戏（带 Steam 官方的在线、同屏或局域网的合作 / 对抗分类）共 2,288 款，IGDB 写了人数上限的只有 936 款（41%），其中 394 款的数字只来自非 PC 版记录（主机版或没标平台）。再用两条规则补数字：商店英文介绍里写明的人数（如「up to 4 players」）、带「大型多人」标签的按 10 人以内处理（只用于在线，不用于同屏）。补完是 1,606 款（70%）。</span>
+          <span>只有非 PC 版人数的游戏（全库 583 款）和 PC 版对照，96% 一致，所以只用它放行、不用它否决：请求人数不超过它就通过，超过了记「待确认」。</span>
         </div>
       </article>
 
@@ -578,7 +583,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         <ul class="gets">
           <li><span>每款游戏在 Steam 上的历史最低价和日期，CN 区、US 区各一份 <span class="eg">例：《Hades》CN 区史低 ¥23</span></span></li>
           <li><span>史低不是我们算的：ITAD 一直盯着 Steam 的价格，记下每次变价，返回它见过的最低价。只算 Steam 这一家店，CN 区最早记到 2016 年</span></li>
-          <li><span>现在手上只有 2026-10 的一次性快照。计划上线后全库每天刷新一次，<a class="term" href="#t-short">入围</a>的 20 款在用户提问时再实时查一次</span></li>
+          <li><span>全库每天刷新一次（服务每小时看一眼，快照超过 1 天就重取，检查通过才替换，旧文件留备份），和 Steam 现价一起刷；<a class="term" href="#t-short">入围</a>的 20 款在用户提问时再实时查一次。首次刷新在 2026-10-16</span></li>
           <li><span>现价 ≤ 史低 × 1.05 算「接近史低」</span></li>
           <li><span class="muted">现价不从这里拿，用 Steam 商店的。免费游戏不显示史低：后来转免费的游戏，ITAD 还留着收费时期的史低（CN 区 199 款，如 CS2 显示 ¥14.99）。</span></li>
         </ul>
@@ -609,7 +614,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         </ul>
         <div class="cover">
           <span><b>覆盖：</b>评测总表 1.61 亿条，覆盖 7,412 款核心库游戏，评测时间 2010-10 到 2026-10-13；和 Steam 自己报的条数核对过。</span>
-          <span>「有足够的同好数据」（至少 20 款同好游戏）：7,304 款里 7,303 款，2023 到 2026 年发售的全部达到（旧数据上 2024 年只有 53%、2025 年 35%）。还缺的这一路改用 IGDB 相似游戏，权重分给其他几路。</span>
+          <span>「有足够的同好数据」（至少 20 款同好游戏）：7,304 款里 7,303 款，2023 到 2026 年发售的全部达到（旧数据上 2024 年只有 53%、2025 年 35%）。没有同好数据的游戏，这一路的权重按比例分给标签和介绍；IGDB 相似游戏不再顶替打分，只写进卡片。</span>
           <span>考试成绩（前 20 款里猜中玩家后来推荐的比例）：同好 EASE 22.2%，只推热门 14.9%；去掉最热门 100 款后 17.2% 对 5.7%。按「比别人玩得多的程度」挑本人好评的游戏，猜对 63.8%，只看小时数 59.4%。</span>
         </div>
       </article>
@@ -618,22 +623,23 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         <div class="id">
           <span class="num">5</span>
           <h3>用户的 Steam 游戏库</h3>
-          <p class="what">通过 Steam Web API 的 GetOwnedGames 接口（要用我们申请的 <a class="term" href="#t-key">key</a>），在用户登录或贴出个人主页链接时实时查询，不提前存。key 已验证可用；查询代码还没写，模拟里用的是假数据。</p>
+          <p class="what">通过 Steam Web API 的 GetOwnedGames 接口（要用我们申请的 <a class="term" href="#t-key">key</a>），在用户登录或贴出个人主页链接时实时查询，不提前存。查询和 Steam 官方登录都已做好。Steam ID 只在查询时用一下，不写进任何文件或日志。</p>
           <span class="status live">用的时候实时查</span>
         </div>
         <ul class="gets">
           <li><span>用户有哪些游戏，每款玩了多少小时 <span class="eg">一个用户查一次</span></span></li>
           <li><span>比别的玩家玩得更久的几款代表他的口味，当作<a class="term" href="#t-anchor">锚点</a> <span class="eg">《双人成行》大家中位玩 19 小时，他玩了 40 小时，就比《文明6》玩 157 小时（刚好中位）更能说明喜欢。只开过一会儿的，排位接近 0，自然不起作用</span></span></li>
           <li><span>只认 Steam 自己的记录，不猜：Steam 上有游玩时长的默认不再推荐；时长为 0 的可以推荐，卡片只写「已在你的 Steam 库里，Steam 上没有游玩记录」（他可能在别处玩过，我们不知道）。别处玩过的，用户说了才算 <span class="eg">话里说「Switch 上玩过《空洞骑士》」，或在卡片上点「玩过了」</span>；多人时算「谁已有、谁要买」</span></li>
-          <li><span>计划：用 GetAppList 接口拿全量游戏编号和名字 <span class="eg">库里出现不在核心库的游戏时，用来认出它，再临时补拉档案</span></span></li>
+          <li><span>库里或话里出现不在核心库的游戏，用<a class="term" href="#t-index">轻量索引</a>认出名字 <span class="eg">索引来自 Steam 的 GetAppList 接口，193,457 款，只含仍在售的</span></span></li>
+          <li><span>绑定了账号的人，卡片上点的「喜欢 / 不喜欢 / 玩过了」会记下来，下次再来时生效 <span class="eg">账号只存成带密钥的编号，存进 PostgreSQL；访客点的只在这次会话里有效</span></span></li>
         </ul>
         <p class="cover"><b>覆盖：</b>只有设成公开的游戏库能查到。私密库的返回里没有「游戏数」这一项，系统据此判断，改用问卷，不报错。</p>
       </article>
 
       <div class="tools">
         <h3>另外有两个模型，它们不是数据源</h3>
-        <p><span class="src tool"><b>AI</b>生成式 LLM</span> 把用户说的话整理成<a class="term" href="#t-spec">条件表</a>，最后写一段推荐理由。它不提供任何事实，所有事实都来自上面 5 个数据源。用的是 gemini-3.8-flash-anti，一次约 10 秒。只发用户的偏好原话和游戏介绍，不发 Steam ID 和游戏库。</p>
-        <p><span class="src tool"><b>AI</b>向量模型</span> 把游戏介绍和用户说的话都变成一串数字，数字越接近，意思越接近。用的是装在本机的 Qwen3-Embedding-4B（约 40 亿参数；没有显卡时退回约 6 亿参数的 0.6B 版）。中英文介绍都要编码，目前只做了英文的试验版。</p>
+        <p><span class="src tool"><b>AI</b>生成式 LLM</span> 把用户说的话整理成<a class="term" href="#t-spec">条件表</a>，给候选打<a class="term" href="#t-rerank">精排</a>分，最后写一段推荐理由。它不提供任何事实，所有事实都来自上面 5 个数据源。用的是 gemini-3.8-flash-anti，一次约 10~20 秒。只发用户的偏好原话和游戏介绍，不发 Steam ID 和游戏库。446 个标签也是它一次性分好类的：玩法 237、题材 101、氛围 39、其他 69（手工改了 5 处）。</p>
+        <p><span class="src tool"><b>AI</b>向量模型</span> 把游戏介绍和用户说的话都变成一串数字，数字越接近，意思越接近。用的是装在本机的 Qwen3-Embedding-4B（约 40 亿参数；没有显卡时退回约 6 亿参数的 0.6B 版）。中英文介绍都已编码（2026-10-14，英文 7,302 款、中文 7,301 款），一款游戏取两版里更像的那个分数，所以中文的话也能匹配只有英文介绍的游戏。</p>
       </div>
 
       <details class="more">
@@ -677,7 +683,7 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         <thead><tr><th></th><th>第 2 层什么都不填</th><th>+ C 问卷</th><th>+ D 一句话</th></tr></thead>
         <tbody>
           <tr><th>有库（A 或 B）</th><td>库里玩得多的游戏当口味<br><span class="muted">下方模拟「A/B」</span></td><td>点选的游戏决定找什么；库只在最像点选游戏的 50 款里调先后；问卷里的雷区、语言生效</td><td>话里的条件、感觉生效。提到游戏时同左；只说感觉时，库照常当口味<br><span class="muted">下方模拟「A/B + D」</span></td></tr>
-          <tr><th>没有库</th><td>没有任何口味信息，先弹问卷<br><span class="muted">库是私密的也走这里</span></td><td>点选的游戏当口味<br><span class="muted">下方模拟「C」</span></td><td>话里提到的游戏和感觉当口味<br><span class="muted">下方模拟「D」</span></td></tr>
+          <tr><th>没有库</th><td>没有任何口味信息：先在满足条件的游戏里按口碑和评测人数排一版，同时提示补几款喜欢的游戏<br><span class="muted">库是私密的也走这里</span></td><td>点选的游戏当口味<br><span class="muted">下方模拟「C」</span></td><td>话里提到的游戏和感觉当口味<br><span class="muted">下方模拟「D」</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -686,7 +692,9 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
       <h3>多个输入怎么合到一起</h3>
       <ul class="gets s1">
         <li><span><b>条件取并集</b>：预算、雷区、语言、平台、人数，不管从问卷还是从话里来，都生效。同一项说了两次，以最后说的为准。</span></li>
-        <li><span><b>库永远负责三件事</b>，不管口味用不用它：去掉 Steam 上有游玩时长的和用户说玩过的、给 Steam 上没玩过的已有游戏标「已在库里」、多人时算谁要买。</span></li>
+        <li><span><b>库永远负责三件事</b>，不管口味用不用它：一个人来问时去掉 Steam 上有游玩时长的（多人时不去掉，和朋友重玩很常见）、给 Steam 上没玩过的已有游戏标「已在库里」、多人时算谁要买。</span></li>
+        <li><span><b>说过玩过的一律去掉</b>：话里说的「玩过 X」、卡片上点的「玩过了」「不喜欢」，单人和多人都排除。</span></li>
+        <li><span><b>点名的游戏不在核心库也能用</b>：比如「像 PEAK 那样的」，先在<a class="term" href="#t-index">轻量索引</a>里认出它，再实时取它的商店标签和介绍当口味参照。它没有同好数据，结果页会写明。</span></li>
         <li><span><b><a class="term" href="#t-anchor">口味锚点</a>放在一起</b>：问卷点的游戏和话里提到的游戏（都叫<a class="term" href="#t-seed">种子</a>）各 1.0 分；库里的游戏按「比别人玩得多的程度」给 0~1 分。<b>点名了种子游戏时</b>，先只按种子和这句话挑出最像的 50 款，库只在这 50 款里加分（最多 0.2），不能把别的游戏带进来：「这次想要的」决定范围，「一贯玩的」只决定范围里的先后。</span></li>
         <li><span><b>同系列只占一个位置</b>：同一系列的游戏只留最合适的一款，其余折叠成「同系列还有 N 款」，点开能看。系列游戏照样可以推荐，只是不刷屏。</span></li>
         <li><span><b><a class="term" href="#t-feel">感觉</a>单独一路</b>：「轻松」「别太难」翻成标签，占契合度的 0.25，和锚点同时起作用。只说感觉、没点名游戏时，库照常当口味。</span></li>
@@ -699,16 +707,16 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
   <section aria-labelledby="f-title">
     <div class="sec-head">
       <h2 id="f-title">这些数据在推荐的哪一步用上</h2>
-      <p>这是设计文档里的流程：用户给出输入后，系统走完第 1~5 步，给出 3 到 5 款推荐。虚线框的两步不在用户请求时运行。现在第 1~4 步只有模拟脚本，第 5 步还没做。</p>
+      <p>用户给出输入后，系统走完第 1~5 步，给出 3 到 5 款推荐；第 6 步在用户点卡片上的按钮时运行。虚线框的两步不在用户请求时运行。这些步骤都已经做好，代码在 <code>src/playnext/</code>，网页上可以直接用。</p>
     </div>
     <div class="flow">
       <div class="step offline">
         <span class="n">0</span>
         <div class="body">
           <h3>提前备好数据（离线）</h3>
-          <p class="say">把 1~4 号数据源下载、清洗、按 <a class="term" href="#t-appid">AppID</a> 对齐成表；离线算好同好关系、介绍向量；把 446 个标签分成玩法 / 题材 / 氛围。</p>
-          <p class="eg">现状：表已做好；同好关系已用新评测数据重建；中英文介绍向量和别名表已做好（2026-10-14）；标签分类还没做</p>
-          <div class="uses"><span>用到</span><span class="src s1"><b>1</b></span><span class="src s2"><b>2</b></span><span class="src s3"><b>3</b></span><span class="src s4"><b>4</b></span><span class="src tool"><b>AI</b>向量模型、LLM</span></div>
+          <p class="say">把 1~4 号数据源下载、清洗、按 <a class="term" href="#t-appid">AppID</a> 对齐成表，再导入 PostgreSQL 数据库；离线算好同好关系、介绍向量；把 446 个标签分成玩法 / 题材 / 氛围；建好别名表和<a class="term" href="#t-index">轻量索引</a>。价格每天自动刷新一次。</p>
+          <p class="eg">现状：全部做好。标签分类：玩法 237、题材 101、氛围 39、其他 69；价格 2026-10-16 首次刷新，之后由服务每天自动刷</p>
+          <div class="uses"><span>用到</span><span class="src s1"><b>1</b></span><span class="src s2"><b>2</b></span><span class="src s3"><b>3</b></span><span class="src s4"><b>4</b></span><span class="src tool"><b>AI</b>向量模型、LLM</span><span class="src tool"><b>DB</b>PostgreSQL</span></div>
         </div>
       </div>
       <div class="step">
@@ -716,8 +724,9 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         <div class="body">
           <h3>听懂要求</h3>
           <p class="say">把游戏库、问卷、一句话（可以同时有）合成一张<a class="term" href="#t-spec">条件表</a>：系统能逐条判断的条件、<a class="term" href="#t-anchor">口味锚点</a>和想要的<a class="term" href="#t-feel">感觉</a>。</p>
-          <p class="eg">「5 个人各自在家，每人 ¥50 以内」→ 5 人 · 在线 · 每人预算 ¥50</p>
-          <div class="uses"><span>用到</span><span class="src s1"><b>1</b>标签中英文名（让 LLM 从里面挑词）</span><span class="src s5"><b>5</b>游戏库</span><span class="src s4"><b>4</b>时长参照</span><span class="src tool"><b>AI</b>LLM</span></div>
+          <p class="eg">「5 个人各自在家，每人 ¥50 以内」→ 5 人 · 在线 · 每人预算 ¥50（人民币）</p>
+          <p class="say">话里提到的游戏先查<a class="term" href="#t-alias">别名表</a>。不在核心库的，在<a class="term" href="#t-index">轻量索引</a>里按名字找，实时取一次它的商店标签和介绍，当作只有内容信号的锚点。预算会记下币种：人民币对国区、美元对美区；其他币种（如欧元）没有价格数据，这次不按预算筛，结果页会说明。</p>
+          <div class="uses"><span>用到</span><span class="src s1"><b>1</b>标签中英文名（让 LLM 从里面挑词）、别名表、轻量索引</span><span class="src s5"><b>5</b>游戏库</span><span class="src s4"><b>4</b>时长参照</span><span class="src tool"><b>AI</b>LLM</span></div>
         </div>
       </div>
       <div class="step">
@@ -726,25 +735,28 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
           <h3>排除玩不了的</h3>
           <p class="say">先去掉条件不满足的游戏。每条规则只给三种结果：通过、不通过、<a class="term" href="#t-unknown">待确认</a>。查不到的事实标成「待确认」，不当作满足。</p>
           <p class="eg">5 人在线 → 去掉没有在线合作的、最多只支持 4 人的、超预算的</p>
-          <div class="uses"><span>用到</span><span class="src s1"><b>1</b>平台、语言、分级、雷区标签、多人分类、价格（现在是快照，计划改成每日刷新）</span><span class="src s2"><b>2</b>人数上限</span><span class="src s5"><b>5</b>玩过的、已有的</span></div>
-          <p class="multi">多人时多三项：这种玩法在不在（看<a class="term" href="#t-cat">官方分类</a>）；人数够不够（看 IGDB，缺了按三条补充规则：2 人请求直接通过、用商店介绍里写明的人数、带「大型多人」标签的 10 人以内通过）；谁要买（在线每人一份、同屏一台机器一份、<a class="term" href="#t-remote">远程同乐</a>只要主机有）。</p>
+          <div class="uses"><span>用到</span><span class="src s1"><b>1</b>平台、语言、分级、雷区标签、多人分类、价格（每日快照）</span><span class="src s2"><b>2</b>人数上限</span><span class="src s5"><b>5</b>玩过的、已有的</span></div>
+          <p class="small">只有用户明说要一个人玩（「单机」「没朋友一起玩」，或问卷勾了「一个人玩」）时，才要求游戏有 Steam「单人」分类。一个人来问不等于只想一个人玩。</p>
+          <p class="multi">多人时多三项：这种玩法在不在（看<a class="term" href="#t-cat">官方分类</a>）；人数够不够（看 IGDB，缺了按三条补充规则：2 人请求直接通过、用商店介绍里写明的人数、带「大型多人」标签的在线 10 人以内通过；人数只来自非 PC 版记录的，只用来放行，超出时记「待确认」）；谁要买（在线每人一份、同屏一台机器一份、<a class="term" href="#t-remote">远程同乐</a>只要主机有）。跨区组队时只在同一区内比价，其他区的人选列为「其他方案」。</p>
+          <p class="small"><b>去掉的也看得到：</b>结果页有一栏「没通过的」，列出最合口味、但违反了某条硬条件的至多 8 款，并写明是哪条。</p>
         </div>
       </div>
       <div class="step">
         <span class="n">3</span>
         <div class="body">
           <h3>找合口味的</h3>
-          <p class="say">在剩下的游戏里，从四个角度给每款打「像不像」的分（用户说了感觉时再加一路），合成一个<a class="term" href="#t-fit">契合度</a>。算法见下一节。</p>
-          <p class="eg">像《Hades》吗？比一比标签、介绍、喜欢它的玩家还喜欢什么、是不是同一个工作室</p>
-          <div class="uses"><span>用到</span><span class="src s1"><b>1</b>标签、介绍</span><span class="src s4"><b>4</b>同好关系</span><span class="src s2"><b>2</b>相似游戏、工作室、系列</span><span class="src s5"><b>5</b>玩得最多的游戏</span><span class="src tool"><b>AI</b>向量模型</span></div>
-          <p class="multi">多人时每个成员各算一遍契合度，再合成群体分：0.6 × 全员平均 + 0.4 × 最低那个人的分，照顾最不满意的人。</p>
+          <p class="say">在剩下的游戏里，从三个角度给每款打「像不像」的分：喜欢它的玩家还喜欢什么（占大头）、标签、介绍。用户说了偏好原话或感觉时，再各加一路。合成一个<a class="term" href="#t-fit">契合度</a>。是不是同一个工作室或系列，只写进卡片当证据，不打分（用户明说「同工作室也行」时才算分）。算法见下一节。</p>
+          <p class="eg">像《Hades》吗？主要看喜欢它的玩家还喜欢什么，标签和介绍只占一点</p>
+          <p class="say"><b>再用 LLM 复核一遍（<a class="term" href="#t-rerank">精排</a>）：</b>用户说了想要什么时，把契合度前 80 款，加上只按原话、只按感觉各自最高的 10 款，连同这句话一起交给 LLM，一次调用给每款打 0~10 分。最后的分 = 0.4 × 原来的分 + 0.6 × LLM 的分。只给种子或游戏库、没说话时不精排。</p>
+          <div class="uses"><span>用到</span><span class="src s4"><b>4</b>同好关系</span><span class="src s1"><b>1</b>标签、介绍</span><span class="src s5"><b>5</b>玩得最多的游戏</span><span class="src tool"><b>AI</b>向量模型、LLM（精排）</span></div>
+          <p class="multi">多人时每个成员各算一遍契合度，精排也按人分开打（有自己原话的成员各一列，共同要求一列，还是一次调用）。之后合成群体分：0.6 × 全员平均 + 0.4 × 最低那个人的分，照顾最不满意的人。</p>
         </div>
       </div>
       <div class="step">
         <span class="n">4</span>
         <div class="body">
           <h3>排先后</h3>
-          <p class="say">取契合度最高的 20 款<a class="term" href="#t-short">入围</a>，上线后会实时查一次它们的现价和史低（现在用快照）。Steam 好评率低于 70% 的不进前 5（口碑底线，前 5 凑不满时才补入）。契合度差不多的几款之间，再看口碑和价格；同时避免挑出来的几款太雷同。没进前 5 的留作<a class="term" href="#t-short">备选</a>，用户可以在结果页按价格自己筛。</p>
+          <p class="say">同系列的只留一款，其余折叠。取契合度最高的 20 款<a class="term" href="#t-short">入围</a>，实时查一次它们的现价和史低；查不到就用当天快照，卡片上写明。实时价超预算的去掉，由后面的补上。Steam 好评率低于 70% 的不进前 5（口碑底线，前 5 凑不满时才补入）。契合度差不多的几款之间，再看口碑和价格；同时避免挑出来的几款太雷同。没进前 5 的留作<a class="term" href="#t-short">备选</a>，用户可以在结果页按价格自己筛。</p>
           <p class="eg">两款都很合口味，一款今天正好在史低 → 它排前面（只在用户提了价格要求时这样比）</p>
           <div class="uses"><span>用到</span><span class="src s1"><b>1</b>好评率、现价、标签（防雷同）</span><span class="src s3"><b>3</b>史低</span><span class="src s5"><b>5</b>已拥有优先（用户要求时）</span></div>
         </div>
@@ -753,8 +765,18 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
         <span class="n">5</span>
         <div class="body">
           <h3>做推荐卡</h3>
-          <p class="say">把前面用到的事实拼成卡片，每条都能说出来源；LLM 只写一段约 150 字的理由，理由里的数字和游戏名必须能在卡片上找到。（还没实现）</p>
-          <div class="uses"><span>用到</span><span class="muted" style="font-size:13.5px">前面所有数据</span><span class="src tool"><b>AI</b>LLM</span></div>
+          <p class="say">把前面用到的事实拼成卡片，每条都能说出来源：像在哪、差在哪、同好人数、工作室 / 系列路径、口碑、价格和取价时间、库状态；多人时再加谁要买、怎么开局。工作室 / 系列路径由 PostgreSQL 实时查（查不到就用内存里的同工作室 / 同系列记录）。</p>
+          <p class="say">理由分两步出：先给一句模板理由，结果出来后 LLM 再批量写一段 60~120 字的理由补上（约 17 秒）。理由里的数字和《》里的游戏名必须能在卡片事实里找到，不符就重写一次，还不符就用模板。</p>
+          <div class="uses"><span>用到</span><span class="muted" style="font-size:13.5px">前面所有数据</span><span class="src tool"><b>AI</b>LLM</span><span class="src tool"><b>DB</b>PostgreSQL</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <span class="n">6</span>
+        <div class="body">
+          <h3>记住反馈（慢循环）</h3>
+          <p class="say">卡片上有「喜欢」「不喜欢」「玩过了」三个按钮。绑定了 Steam 账号的人，点的结果存进 PostgreSQL，下次同一账号来时生效：玩过的和不喜欢的不再推荐，喜欢的当口味参照，分量每 180 天减半。账号只存成带密钥的编号，密钥不在数据库里。访客点的只在这次会话里有效。</p>
+          <p class="say">卡片上还有「事实有误？」。报告单独存放，不带任何账号或会话信息，下次刷新数据时人工核对。</p>
+          <div class="uses"><span>用到</span><span class="src s5"><b>5</b>绑定的账号</span><span class="src tool"><b>DB</b>PostgreSQL</span></div>
         </div>
       </div>
       <div class="step check">
@@ -775,345 +797,216 @@ footer { margin-top: 48px; padding-block: 20px 48px; border-top: 1px solid var(-
   <section aria-labelledby="a-title">
     <div class="sec-head">
       <h2 id="a-title">第 3、4 步的打分怎么算</h2>
-      <p>不管输入怎么组合，都用这一套。权重和阈值都是目前的初始值，要在离线检验里再调。</p>
+      <p>不管输入怎么组合，都用这一套。下面的权重大多已用离线检验定下（2026-10-14 至 10-16）；偏好原话、感觉和精排的权重离线测不出来，还要用真实请求再调。</p>
     </div>
     <div class="algo">
       <article>
-        <h3>标签像不像</h3>
+        <h3>玩家觉得像不像（占 0.90）</h3>
+        <p>EASE 提前算好一张「喜欢 A 的人会多喜欢 B」的权重表；用户的每款锚点游戏查一行，乘上锚点权重再加起来。卡片上的「x 人同时推荐」另查人数表。没有同好数据的游戏，这一路的权重分给标签和介绍。</p>
+        <div class="chips"><span class="src s4"><b>4</b>同好表</span></div>
+      </article>
+      <article>
+        <h3>标签像不像（占 0.05）</h3>
         <p>每款游戏的标签按票数变成权重（票数 ÷ 最高票），「独立」这种人人都有的标签降权。两款游戏比一比权重分布有多接近。</p>
         <div class="chips"><span class="src s1"><b>1</b>game_tags</span></div>
       </article>
       <article>
-        <h3>介绍读起来像不像</h3>
-        <p>介绍和用户原话都转成向量比相似度。用户说了偏好原话时，一半看「像不像锚点游戏的介绍」，一半看「像不像用户这句话」。</p>
+        <h3>介绍读起来像不像（占 0.05）</h3>
+        <p>候选游戏的介绍和锚点游戏的介绍都转成向量，比相似度。中英文两版各比一次，取更像的那个。</p>
         <div class="chips"><span class="src s1"><b>1</b>介绍</span><span class="src tool"><b>AI</b>向量模型</span></div>
       </article>
       <article>
-        <h3>玩家觉得像不像</h3>
-        <p>EASE 提前算好一张「喜欢 A 的人会多喜欢 B」的权重表；用户的每款锚点游戏查一行，乘上锚点权重再加起来。卡片上的「x 人同时推荐」另查人数表。同好数据不够的游戏，这一路改用 IGDB 相似游戏。</p>
-        <div class="chips"><span class="src s4"><b>4</b>同好表</span></div>
-      </article>
-      <article>
-        <h3>是不是一家人</h3>
-        <p>同工作室、同系列、在 IGDB 相似列表里，任一项命中记 1 分，否则 0 分。</p>
+        <h3>是不是一家人（不打分，只当证据）</h3>
+        <p>同工作室、同系列、在 IGDB 相似列表里，会写进卡片，但不加分。离线检验里它每加一点权重都让结果变差。用户明说「同工作室也行」时，才给它 0.15。</p>
         <div class="chips"><span class="src s2"><b>2</b>工作室、系列、相似游戏</span></div>
       </article>
       <article>
-        <h3>感觉对不对（用户说了感觉才算）</h3>
+        <h3>像不像这句话（用户说了偏好原话才算，0.25）</h3>
+        <p>用户的原话和每款游戏的介绍都转成向量，直接比相似度。它补的是「这次想要什么」，锚点游戏说不出这个。</p>
+        <div class="chips"><span class="src s1"><b>1</b>介绍</span><span class="src tool"><b>AI</b>向量模型</span></div>
+      </article>
+      <article>
+        <h3>感觉对不对（用户说了感觉才算，0.25）</h3>
         <p>「想玩点轻松的」由 LLM 翻成标签：想要「放松」「休闲」「温馨惬意」，不想要「低容错」「类魂系列」。带想要的标签加分、带不想要的减分，票数越多加减越多。只排先后，不删游戏。</p>
         <div class="chips"><span class="src s1"><b>1</b>game_tags</span><span class="src tool"><b>AI</b>LLM</span></div>
       </article>
+      <article>
+        <h3>LLM 复核（<a class="term" href="#t-rerank">精排</a>，占 0.6）</h3>
+        <p>前面几路把一句话压成一串数字，会丢掉「别太难」里的「别」。精排让 LLM 同时读这句话和至多 100 款候选的名字、主要标签、介绍开头，逐款打 0~10 分。它只判断合不合口味；人数、价格这些事实仍由规则判断。</p>
+        <div class="chips"><span class="src s1"><b>1</b>标签、介绍</span><span class="src tool"><b>AI</b>LLM</span></div>
+      </article>
     </div>
-    <div class="formula">锚点不止一个时：标签、介绍两路，候选游戏和每个锚点各比一次，乘上锚点权重，取最大的那个
-              （所以能说出「像你玩过的哪一款」）；同好一路把各锚点的分加起来，
-              每个锚点贡献多少也能拆出来
+    <div class="formula">锚点不止一个时：同好、标签、介绍三路都是候选游戏和每个锚点各比一次，
+              乘上锚点权重再加起来（离线检验里「相加」比「取最大」准）；
+              卡片上「像你玩过的哪一款」取贡献最大的那个锚点
 
-契合度 = 0.30 × 标签 + 0.25 × 介绍 + 0.30 × 同好 + 0.15 × 一家人
+锚点分 = 0.90 × 同好 + 0.05 × 标签 + 0.05 × 介绍
         每一路先在本次候选里拉到 0~1（这次最高的记 1，最低的记 0）；
         某一路没有数据，就把它的权重分给其他几路
         所以契合度是相对分：1.00 表示这次候选里最高，不表示完全一样
-        用户说了感觉时：契合度 = 0.75 × 上式 + 0.25 × 感觉分
 
-第 4 步：取契合度前 20 款
+说了偏好原话：契合度 = 0.75 × 锚点分 + 0.25 × 像不像这句话
+又说了感觉：  契合度 = 0.75 × 上一行 + 0.25 × 感觉分
+              （没有锚点时，就只用这两路）
+
+精排（说了想要什么时）：
+        最后的分 = 0.4 × 契合度 + 0.6 × LLM 的 0~10 分（也先拉到 0~1）
+        没进精排的游戏只剩 0.4 × 契合度，所以不会越过精排过的游戏
+
+第 4 步：同系列只留一款，取前 20 款入围，实时查价格
         → 只在「和当前最高分差距 ≤ 0.1」的几款里挑（喜好优先，便宜不能让不合口味的越级）
         → 窗口内分 = 0.5 × 契合度 + 0.3 × 口碑 + 0.2 × 价格分（没提价格时只看前两项）
-          口碑 = (好评数 + 24.6) ÷ (总评价数 + 30)，评价少的往中间拉
-                 24.6 和 30 是占位值，还没用全库数据拟合
+          口碑 = (好评数 + 6.69) ÷ (总评价数 + 6.69 + 1.43)，评价少的往中间拉
+                 6.69 和 1.43 是用 7,298 款游戏的好评率拟合的（2026-10-16），
+                 相当于每款先加 8 条左右的「虚拟评价」，平均 82% 好评
           价格分 = 现价在史低 1.05 倍以内记 1，到 2 倍记 0，中间按比例
                    只在用户提了价格要求（便宜点、打折中）时才算
         → 每挑一款，扣掉它和已选游戏的标签相似度（0.65 × 窗口内分 − 0.35 × 雷同度），挑满 5 款</div>
-  </section>
-
-  <section aria-labelledby="sim-title">
-    <div class="sec-head">
-      <h2 id="sim-title">模拟测试：四种输入组合各走一遍<span class="badge-new">新数据重跑</span></h2>
-      <p>用真实的数据（核心库 7,304 款的全部表）跑了四个模拟用户：三个单独输入，一个「有库 + 一句话」的组合。下面每一步的数字都是脚本 <code>scripts/simulate_inputs.py</code> 算出来的，不是手填的。2026-10-13 换成 1.61 亿条的评测总表重跑：同好这一路改用 EASE、各锚点的分相加（和设计文档一致），库里游戏的权重改查新的时长参照表。2026-10-14 知识库收尾后再跑一次：剔除非游戏、CN 区不卖的直接排除、介绍向量换成中英文正式版（取两版中较大的相似度）、种子名先查别名表。A 和 B 拿到的是同一份库，合成一个例子。结果里的<a class="term" href="#t-fit">契合度</a>都是本次候选里的相对分。</p>
-      <p><strong>2026-10-14 晚的更新：</strong>这一节是调权重之前的模拟，用的是初始权重（标签 0.30、介绍 0.25、同好 0.30、血统 0.15）。之后用 5 万名留出玩家调过权重，改成同好 0.90、标签 0.05、介绍 0.05，并在有偏好原话时加了 LLM 语义精排；正式系统在 <code>src/playnext/</code>，结果见设计文档 5.5 和第 7 节，以及 <code>eval/request_set_report.md</code>（32 条论坛上的真实请求）。这里的推荐名单留作“调参前”的对照，不代表现在的输出。</p>
-    </div>
-
-    <div class="cmp">
-      <table>
-        <thead><tr><th></th><th>C 种子问卷</th><th>D 直接说（LLM）</th><th>A / B Steam 游戏库</th><th>A / B + D 组合</th></tr></thead>
-        <tbody>
-          <tr><th>用户给什么</th><td>点选《Hades》《Hollow Knight》，勾「要简体中文」「不要恐怖」</td><td>一句话</td><td>登录或贴主页链接</td><td>同一份库 + 「像《Hades》、别太难、¥100 以内」</td></tr>
-          <tr><th>谁来听懂</th><td>不需要 LLM，表单直接变成条件</td><td>LLM 填条件表，程序校验格式</td><td>Steam 接口拉库，程序算锚点</td><td>两样都做，再合并</td></tr>
-          <tr><th>口味锚点</th><td>点选的游戏，每款权重 1.0</td><td>话里提到的游戏（1.0）+ 想要的感觉</td><td>Steam 上玩过的游戏，权重 = 比别人玩得多的程度</td><td>点名的《Hades》+ 不想要的感觉决定候选；库只在前 50 款里加分</td></tr>
-          <tr><th>多用到的数据</th><td>—</td><td><span class="src s1"><b>1</b>标签名表</span> <span class="src tool"><b>AI</b>LLM、向量模型</span></td><td><span class="src s5"><b>5</b>游戏库</span> <span class="src s4"><b>4</b>时长参照</span></td><td>前两列都有</td></tr>
-          <tr><th>第 1 步耗时</th><td>瞬间</td><td>LLM 7.1 秒</td><td>一次接口调用</td><td>LLM 11.5 秒 + 一次接口调用</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- C -->
-    <article class="run" aria-labelledby="run-c">
-      <div class="run-head"><span class="letter">C</span><h3 id="run-c">种子问卷</h3></div>
-      <div class="input"><span class="lbl">模拟输入</span><span>喜欢的游戏：《Hades》《Hollow Knight》 · 必须支持简体中文 · 雷区：恐怖</span></div>
-
-      <div class="pstep"><div class="k">1 听懂<small>不调 LLM</small></div><div class="v">
-        <p>两款都在核心库里，直接用游戏编号当锚点，各 1.0 分。「不要恐怖」对应到 3 个标签：恐怖、心理恐怖、生存恐怖。</p>
-        <div class="pull"><span class="src s1"><b>1</b></span><code>games.parquet</code><code>tags.parquet</code></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">2 排除<small>三值规则</small></div><div class="v">
-        <div class="funnel">
-          <div class="fr"><span>去掉两款种子</span><div class="track" aria-hidden="true"><span class="ok" style="width:99.97%"></span></div><span class="num">7,302</span></div>
-          <div class="fr"><span>CN 区有售</span><div class="track" aria-hidden="true"><span class="ok" style="width:97%"></span></div><span class="num">7,085</span></div>
-          <div class="fr"><span>支持简体中文</span><div class="track" aria-hidden="true"><span class="ok" style="width:56.4%"></span></div><span class="num">4,118 + 1 待确认</span></div>
-          <div class="fr"><span>不带恐怖标签</span><div class="track" aria-hidden="true"><span class="ok" style="width:43.9%"></span></div><span class="num">3,204 + 1 待确认</span></div>
-        </div>
-        <div class="legend"><span><i style="background:var(--accent)"></i>通过</span><span><i style="background:var(--warn)"></i>待确认（查不到支持哪些语言）</span></div>
-        <p class="small">之前 CN 区不卖的 226 款没有数据，全进了待确认；现在 219 款用 US 区数据补上，又因为 CN 区买不到被直接排除，待确认只剩 1 款。</p>
-        <div class="pull"><span class="src s1"><b>1</b></span><code>games.language_codes</code><code>game_tags</code></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">3 打分<small>4 路 × 2 个锚点</small></div><div class="v">
-        <p>以第 1 名《Hades II》为例。标签分：和《Hades》像 0.90，和《Hollow Knight》像 0.16，取大的 0.90。同好分是两个锚点相加：从《Hades》来 0.073，从《Hollow Knight》来 0.004，合计 0.077，全场最高。它四路都是满分，契合度 1.00。</p>
-        <div class="pull"><span class="src s1"><b>1</b></span><code>game_tags</code><code>介绍向量</code><span class="src s4"><b>4</b></span><code>ease_reviews100m</code><code>colike_reviews100m</code><span class="muted">（人数）</span><span class="src s2"><b>2</b></span><code>companies</code><code>series</code><code>similar</code></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">4 结果<small>前 20 → 前 5</small></div><div class="v">
-        <ol class="picks">
-          <li class="pick"><span class="rk">1</span><div><div class="nm">Hades II</div><div class="meta">2025 · Supergiant Games · 像《Hades》</div><div class="ev"><span class="s1">动作 · 类 Rogue · 轻度 Rogue</span><span class="s4">同好 26,066 人，排第 1</span><span class="s2">同工作室 · 同系列</span></div></div><div class="side"><span class="fit">1.00</span><span>95% 好评</span><span class="muted">¥108 · 史低 ¥75.6</span></div></li>
-          <li class="pick"><span class="rk">2</span><div><div class="nm">Momodora: Reverie Under The Moonlight</div><div class="meta">2016 · Bombservice · 像《Hollow Knight》</div><div class="ev"><span class="s1">类银河战士恶魔城 · 探索 · 类魂</span><span class="s4">同好 1,956 人</span><span class="s2">IGDB 相似</span><span class="s2">同系列还有 1 款（Moonlit Farewell）</span></div></div><div class="side"><span class="fit">0.51</span><span>93% 好评</span><span class="muted">¥36 · 史低 ¥7</span></div></li>
-          <li class="pick"><span class="rk">3</span><div><div class="nm">Nine Sols</div><div class="meta">2024 · Red Candle Games · 像《Hollow Knight》</div><div class="ev"><span class="s1">类银河战士恶魔城 · 类魂 · 低容错</span><span class="s4">同好 9,755 人，排第 8</span><span class="s2">IGDB 相似</span></div></div><div class="side"><span class="fit">0.59</span><span>94% 好评</span><span class="muted">¥130 · 史低 ¥52</span></div></li>
-          <li class="pick"><span class="rk">4</span><div><div class="nm">Death's Door</div><div class="meta">2021 · Acid Nerve · 像《Hollow Knight》</div><div class="ev"><span class="s1">类魂 · 冒险 · 探索</span><span class="s4">和《Hades》同好 2,933 人</span><span class="s2">IGDB 相似</span></div></div><div class="side"><span class="fit">0.48</span><span>92% 好评</span><span class="muted">¥76 · 史低 ¥7.6</span></div></li>
-          <li class="pick"><span class="rk">5</span><div><div class="nm">Dead Cells</div><div class="meta">2018 · Motion Twin · 像《Hollow Knight》</div><div class="ev"><span class="s1">冒险 · 类银河战士恶魔城 · 2D</span><span class="s4">和《Hades》同好 16,072 人，排第 3</span></div></div><div class="side"><span class="fit">0.52</span><span>97% 好评</span><span class="muted">¥80 · 史低 ¥32</span></div></li>
-        </ol>
-        <p class="small">第 3 名《Nine Sols》契合度比第 2 名高却排后面：它和已选的《Hades II》更像（雷同度 0.29，《Momodora》只有 0.11），被扣了分；第 5 名和第 4 名也是这样（0.48 对 0.39）。这就是防雷同在起作用。</p>
-        <p class="small"><b>和旧数据比：</b>旧数据里《Nine Sols》（2024 年发售）没有同好数据，这次有 9,755 人；前 5 名里换掉了《Realm of Ink》《Pyre》，换进《Death's Door》《Dead Cells》。</p>
-        <p class="small"><b><a class="term" href="#t-unknown">待确认组</a>：</b>《Total War: SHOGUN 2》，商店没给支持语言，判断不了是否支持中文。以前在这里的《Ori and the Blind Forest》《Rocket League》是 CN 区不卖的游戏，现在直接排除。<b><a class="term" href="#t-short">备选</a>：</b>《Ravenswatch》《Realm of Ink》《Black Myth: Wukong》《ELDEN RING》等 15 款（入围 20 款减去前 5）。</p>
-      </div></div>
-    </article>
-
-    <!-- D -->
-    <article class="run" aria-labelledby="run-d">
-      <div class="run-head"><span class="letter">D</span><h3 id="run-d">直接说（LLM 理解）</h3></div>
-      <div class="input"><span class="lbl">模拟输入</span><span>「我以前沉迷《文明6》和《星露谷物语》，今晚想找类似的轻松游戏，60 块以内，最好正在打折」</span></div>
-
-      <div class="pstep"><div class="k">1 听懂<small>LLM 7.1 秒</small></div><div class="v">
-        <p>LLM 拿到这句话和 446 个标签的中英文名，只填用户说过的项，输出成下面这张<a class="term" href="#t-spec">条件表</a>。程序检查格式和标签名都对，一次通过。seeds 是<a class="term" href="#t-seed">种子</a>，preference_text 是原话里描述感觉的那几个字，feel_want / feel_avoid 是翻成标签的<a class="term" href="#t-feel">感觉</a>。</p>
-<pre class="spec">{
-  "seeds": ["Sid Meier's Civilization VI", "Stardew Valley"],
-  "preference_text": "轻松",
-  "feel_want": ["Relaxing", "Cozy", "Casual"],   ← 想要：放松 · 温馨惬意 · 休闲
-  "feel_avoid": [],
-  "budget": {"amount": 60, "scope": "per_person"},
-  "price_intent": "near_record_low",             ← 「最好正在打折」
-  "party_size": null                             ← 没说，就不填
-}</pre>
-        <p>游戏名对回核心库：先查<a class="term" href="#t-alias">别名表</a>，两款都对上了（《文明6》商店名带 ® 和弯引号，比对前去掉符号）。用户直接写「文明6」「星露谷」也能对上。偏好原话再交给向量模型编码。</p>
-        <div class="pull"><span class="src tool"><b>AI</b></span><span>LLM</span><span class="src s1"><b>1</b></span><code>tags.parquet</code><code>games.name</code><span class="src tool"><b>AI</b></span><span>Qwen3-Embedding-4B</span></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">2 排除<small>预算硬条件</small></div><div class="v">
-        <div class="funnel">
-          <div class="fr"><span>去掉两款种子</span><div class="track" aria-hidden="true"><span class="ok" style="width:99.97%"></span></div><span class="num">7,302</span></div>
-          <div class="fr"><span>CN 区有售</span><div class="track" aria-hidden="true"><span class="ok" style="width:97%"></span></div><span class="num">7,085</span></div>
-          <div class="fr"><span>CN 现价 ≤ ¥60</span><div class="track" aria-hidden="true"><span class="ok" style="width:52.4%"></span><span class="unk" style="width:6.4%"></span></div><span class="num">3,825 + 467 待确认</span></div>
-        </div>
-        <div class="legend"><span><i style="background:var(--accent)"></i>通过（免费游戏算 ¥0）</span><span><i style="background:var(--warn)"></i>待确认（查不到 CN 现价）</span></div>
-        <div class="pull"><span class="src s1"><b>1</b></span><code>prices.parquet</code><span class="muted">（上线后：粗筛用每日快照，入围的 20 款实时复核）</span></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">3 打分<small>锚点 + 感觉</small></div><div class="v">
-        <p>两个种子各 1.0，标签、介绍、同好、一家人四路照常算；介绍这一路一半看种子、一半看「轻松」这个词。再加感觉这一路：带「放松」「温馨惬意」「休闲」越多、票越高，分越高。最后 0.75 × 四路 + 0.25 × 感觉。</p>
-        <p>《Luma Island》三个想要的标签全中，感觉分 1.00，契合度也最高。</p>
-        <div class="pull"><span class="src s1"><b>1</b></span><code>game_tags.weight</code><span>（感觉分）</span></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">4 结果<small>带价格分</small></div><div class="v">
-        <ol class="picks">
-          <li class="pick"><span class="rk">1</span><div><div class="nm">DAVE THE DIVER</div><div class="meta">2023 · MINTROCKET · 像《星露谷》</div><div class="ev"><span class="s1">像素 · 放松 · 角色扮演</span><span class="s1">感觉：放松 · 休闲</span><span class="s4">和《星露谷》同好 17,101 人</span><span class="s2">IGDB 相似</span><span class="s3">正在史低</span></div></div><div class="side"><span class="fit">1.00</span><span>96% 好评</span><span class="muted">¥40 · 史低 ¥40</span></div></li>
-          <li class="pick"><span class="rk">2</span><div><div class="nm">Summer in Mara</div><div class="meta">2020 · Chibig · 像《星露谷》</div><div class="ev"><span class="s1">生活模拟 · 放松 · 农场模拟</span><span class="s1">感觉：放松 · 温馨惬意 · 休闲</span><span class="s3">正在史低</span></div></div><div class="side"><span class="fit">0.92</span><span>75% 好评</span><span class="muted">¥7 · 史低 ¥7</span></div></li>
-          <li class="pick"><span class="rk">3</span><div><div class="nm">Luma Island</div><div class="meta">2024 · Feel Free Games · 像《星露谷》</div><div class="ev"><span class="s1">农场模拟 · 模拟 · 制作</span><span class="s1">感觉：放松 · 温馨惬意 · 休闲</span><span class="s4">同好分低，不在《星露谷》同好前 200</span></div></div><div class="side"><span class="fit">1.00</span><span>84% 好评</span><span class="muted">¥58 · 史低 ¥34.8</span></div></li>
-          <li class="pick"><span class="rk">4</span><div><div class="nm">Civilization III Complete</div><div class="meta">2006 · Firaxis Games · 像《文明6》</div><div class="ev"><span class="s1">策略 · 回合战略</span><span class="miss">感觉：一个都没中</span><span class="s2">同工作室 · 同系列</span></div></div><div class="side"><span class="fit">0.78</span><span>90% 好评</span><span class="muted">¥22 · 史低 ¥3</span></div></li>
-          <li class="pick"><span class="rk">5</span><div><div class="nm">Farmer's Life</div><div class="meta">2023 · FreeMind · 像《星露谷》</div><div class="ev"><span class="s1">模拟 · 农场模拟 · 农业</span><span class="s1">感觉：放松 · 休闲</span></div></div><div class="side"><span class="fit">0.83</span><span>89% 好评</span><span class="muted">¥34.4 · 史低 ¥30.4</span></div></li>
-        </ol>
-        <p class="small">《Summer in Mara》契合度 0.92，在差距 0.1 的窗口里；它 ¥7、正好史低，价格分最高，所以排到第 2。它 75% 好评，刚过 70% 的底线。</p>
-        <p class="small"><b>口碑底线：</b>《HUMANKIND》（68% 好评）和《Spirit of the Island》（69%）都很像，但低于 70%，只进备选并标「口碑褒贬不一」。</p>
-        <p class="small"><b>和上一版比（2026-10-14 知识库收尾后）：</b>前 5 换进《Summer in Mara》和《文明3 完整版》，《Clanfolk》《Ropuka's Idle Island》掉到备选。主要是介绍这一路换成了中英文正式向量，《Summer in Mara》的介绍分从低变高（0.89）。《文明3》进来是因为它和《文明6》标签很像（0.86），而 IGDB 没给它标系列，同系列折叠管不到它（已知漏洞，见下面问题 ①）。这种变化是好是坏，要等离线评估和请求集来判断。</p>
-        <p class="small"><b>备选：</b>《HUMANKIND》（68% 好评）《Spirit of the Island》（69% 好评）《Clanfolk》《Minami Lane》《Ropuka's Idle Island》等 15 款。</p>
-      </div></div>
-    </article>
-
-    <!-- A/B -->
-    <article class="run" aria-labelledby="run-a">
-      <div class="run-head"><span class="letter">A/B</span><h3 id="run-a">Steam 游戏库</h3></div>
-      <div class="input"><span class="lbl">模拟输入（游戏库是编的，不查真实用户）</span><span>《文明6》300 小时 · 《星露谷》60 小时 · 《Hades》80 小时 · 《双人成行》13 小时 · 《Dead Cells》0.7 小时 · 《Slay the Spire》0 小时（打折买的，Steam 上没开过） · 一款不在核心库的游戏 5 小时</span></div>
-
-      <div class="pstep"><div class="k">1 听懂<small>库 → 锚点</small></div><div class="v">
-        <p><b>先判断库是否公开。</b>私密库的接口返回是空的 <code>{"response": {}}</code>，没有「游戏数」→ 判为私密 → 转去 C 问卷。有游戏但时长全是 0 → 判为隐藏了游玩时间，只标「已拥有」。下面是公开库的情况。</p>
-        <p class="small"><b>真实账号实测</b>（随机 600 名评测者，只统计数字）：库能正常读的 48%，读不到的 48%，时长被隐藏的 4%。时长全 0 的 22 人里，21 人评测时玩过 1 小时以上的那款也显示 0，而 Steam 时长不会减少，说明确实是被隐藏了。所以约一半用户用不了库，问卷和一句话两条路径必须能单独给出好结果。</p>
-        <div class="lib">
-          <table>
-            <thead><tr><th>库里的游戏</th><th class="n">他玩了</th><th class="n">别人中位</th><th class="n">比多少人玩得多</th><th>结果</th></tr></thead>
-            <tbody>
-              <tr><td>Civilization VI</td><td class="n">300 h</td><td class="n">157 h</td><td class="n">67%</td><td>锚点，权重 0.67</td></tr>
-              <tr><td>Hades</td><td class="n">80 h</td><td class="n">54 h</td><td class="n">66%</td><td>锚点，权重 0.66</td></tr>
-              <tr><td>Stardew Valley</td><td class="n">60 h</td><td class="n">130 h</td><td class="n">25%</td><td>锚点，权重 0.25</td></tr>
-              <tr><td>It Takes Two</td><td class="n">13 h</td><td class="n">19 h</td><td class="n">21%</td><td>锚点，权重 0.21</td></tr>
-              <tr><td>Dead Cells</td><td class="n">0.7 h</td><td class="n">50 h</td><td class="n">约 0%</td><td class="muted">Steam 上开过，不再推荐；排位约 0，相当于不当锚点（不用另设门槛）</td></tr>
-              <tr><td>Slay the Spire</td><td class="n">0 h</td><td class="n">104 h</td><td class="n">—</td><td class="muted">Steam 上没有游玩记录：不当锚点，可以推荐，卡片标「已在你的 Steam 库里，Steam 上没有游玩记录」</td></tr>
-              <tr><td>不在核心库的游戏</td><td class="n">5 h</td><td class="n">—</td><td class="n">—</td><td class="muted">暂时忽略（以后按需补拉档案）</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="small">注意《星露谷》：60 小时看着不少，但大家中位玩 130 小时，所以权重只有 0.25；《文明6》300 小时差不多是中位的两倍，权重 0.67。</p>
-        <p class="small">为什么看「比别人玩得多」而不看小时数：在 685 万名既有好评又有差评的评测者身上检验，用它挑出本人好评过的游戏，猜对的概率是 63.8%，直接看小时数是 59.4%（50% 等于瞎猜）。见上面流程里的<a href="#pt-test">时长排位检验</a>。</p>
-        <div class="pull"><span class="src s5"><b>5</b></span><span>GetOwnedGames（这里用假数据代替）</span><span class="src s4"><b>4</b></span><code>playtime_reference_100m</code><span class="muted">（每款 101 个分位点）</span></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">2 排除<small>没给条件</small></div><div class="v">
-        <div class="funnel">
-          <div class="fr"><span>去掉 Steam 上玩过的</span><div class="track" aria-hidden="true"><span class="ok" style="width:99.93%"></span></div><span class="num">7,299</span></div>
-          <div class="fr"><span>CN 区有售</span><div class="track" aria-hidden="true"><span class="ok" style="width:96.9%"></span></div><span class="num">7,080</span></div>
-        </div>
-        <p class="small">没说预算、语言、雷区，所以只去掉 Steam 上有游玩时长的 5 款（包括只开过 0.7 小时的《Dead Cells》），再去掉 CN 区买不到的 219 款。《Slay the Spire》时长为 0，留着。</p>
-      </div></div>
-
-      <div class="pstep"><div class="k">3 打分<small>标签取最大，同好相加</small></div><div class="v">
-        <p>第 1 名《Hades II》逐个锚点算。标签这一路取最大，同好这一路（EASE）把各锚点的分加起来：</p>
-        <div class="formula">vs 文明6：   标签 0.00 × 0.67 = 0.00；同好 0.0007
-vs 星露谷：  标签 0.02 × 0.25 = 0.01；同好 0.0004
-vs Hades：   标签 0.90 × 0.66 = 0.59；同好 0.0482
-vs 双人成行：标签 0.02 × 0.21 = 0.00；同好 0.0001
-标签取最大 → 0.59；同好相加 → 0.0494</div>
-      </div></div>
-
-      <div class="pstep"><div class="k">4 结果</div><div class="v">
-        <ol class="picks">
-          <li class="pick"><span class="rk">1</span><div><div class="nm">Hades II</div><div class="meta">2025 · Supergiant Games · 像《Hades》</div><div class="ev"><span class="s1">动作 · 类 Rogue · 轻度 Rogue</span><span class="s4">同好 26,066 人，排第 1</span><span class="s2">同工作室 · 同系列</span></div></div><div class="side"><span class="fit">1.00</span><span>95% 好评</span><span class="muted">¥108 · 史低 ¥75.6</span></div></li>
-          <li class="pick"><span class="rk">2</span><div><div class="nm">Civilization V</div><div class="meta">2010 · Firaxis Games · 像《文明6》</div><div class="ev"><span class="s1">回合战略 · 策略</span><span class="s4">同好 14,925 人，排第 1</span><span class="s2">同工作室 · 同系列</span></div></div><div class="side"><span class="fit">0.79</span><span>95% 好评</span><span class="muted">¥95 · 史低 ¥9.5</span></div></li>
-          <li class="pick"><span class="rk">3</span><div><div class="nm">Hollow Knight</div><div class="meta">2017 · Team Cherry · 像《Hades》，标签不太像，靠同好进来</div><div class="ev"><span class="s4">和《Hades》同好 28,046 人，排第 4</span><span class="s2">IGDB 相似</span></div></div><div class="side"><span class="fit">0.51</span><span>96% 好评</span><span class="muted">¥58 · 史低 ¥19.2</span></div></li>
-          <li class="pick"><span class="rk">4</span><div><div class="nm">Black Myth: Wukong</div><div class="meta">2024 · Game Science · 像《Hades》</div><div class="ev"><span class="s1">神话 · 动作 · 剧情丰富</span><span class="s4">同好分主要来自《文明6》（14,593 人）</span><span class="s2">IGDB 相似</span></div></div><div class="side"><span class="fit">0.55</span><span>96% 好评</span><span class="muted">¥268 · 史低 ¥187.6</span></div></li>
-          <li class="pick"><span class="rk">5</span><div><div class="nm">Age of Wonders 4</div><div class="meta">2023 · Triumph Studios · 像《文明6》</div><div class="ev"><span class="s1">策略 · 回合战略</span><span class="s4">和《文明6》同好 1,779 人</span><span class="s2">IGDB 相似</span><span class="muted">同系列还有 2 款</span></div></div><div class="side"><span class="fit">0.49</span><span>82% 好评</span><span class="muted">¥198 · 史低 ¥99</span></div></li>
-        </ol>
-        <p class="small"><b>口碑底线：</b>原来排第 3 的《HUMANKIND》（契合度 0.70，68% 好评）低于 70% 的底线，退到备选第 1，标「口碑褒贬不一」；空出的位置由《Age of Wonders 4》（82% 好评）补上。</p>
-        <p class="small"><b>同系列折叠：</b>《文明5》下面折叠了 5 款：《文明7》《文明4》《文明：太空》《殖民》《星舰》，卡片上写「同系列还有 5 款」（《文明4：刀锋之侧》是旧版跳转页，已从核心库剔除）。没折叠之前，入围 20 款里有 7 款 Sid Meier 的游戏，备选前 4 位全是《文明》。《文明3》IGDB 没标系列，没被折进去，还单独排在备选第 1。</p>
-        <p class="small">《Black Myth: Wukong》是很热门的游戏，玩《文明6》的人里很多也推荐了它，所以同好分从《文明6》来；标签上它更像《Hades》。</p>
-        <p class="small"><b>备选：</b>《HUMANKIND》（口碑褒贬不一：68% 好评）《Civilization III》《ENDLESS Legend》《Ravenswatch》《Curse of the Dead Gods》等 15 款。</p>
-      </div></div>
-    </article>
-
-    <!-- A/B + D -->
-    <article class="run" aria-labelledby="run-ad">
-      <div class="run-head"><span class="letter">A+D</span><h3 id="run-ad">有库，再说清楚这次要什么</h3></div>
-      <div class="input"><span class="lbl">模拟输入</span><span>同上面那份游戏库（《文明6》《Hades》《星露谷》《双人成行》……）＋「想再找几款像《Hades》这样的，别太难，100 块以内」</span></div>
-
-      <div class="pstep"><div class="k">1 听懂<small>两样同时做</small></div><div class="v">
-        <p>话这边交给 LLM（11.5 秒，一次通过）：</p>
-<pre class="spec">{
-  "seeds": ["Hades"],                             ← 点名的游戏
-  "preference_text": "别太难",
-  "feel_want":  [],
-  "feel_avoid": ["Difficult", "Souls-like", "Unforgiving"],   ← 不想要：低容错 · 类魂 · Unforgiving
-  "budget": {"amount": 100, "scope": "per_person"}
-}</pre>
-        <p>库这边和上面一样算锚点。用户点名了《Hades》，所以按合并规则分两层：《Hades》决定找什么；库里其他游戏只在最像《Hades》的 50 款里调先后。</p>
-        <div class="anchors">
-          <div class="anchor"><span>Hades（点名，决定候选）</span><span class="w">1.00</span></div>
-          <div class="anchor"><span>Civilization VI（库，只调先后）</span><span class="w">0.67</span></div>
-          <div class="anchor"><span>Stardew Valley（库，只调先后）</span><span class="w">0.25</span></div>
-          <div class="anchor"><span>It Takes Two（库，只调先后）</span><span class="w">0.21</span></div>
-        </div>
-        <div class="pull"><span class="src s5"><b>5</b></span><span>游戏库</span><span class="src s4"><b>4</b></span><span>时长参照</span><span class="src tool"><b>AI</b></span><span>LLM</span><span class="src s1"><b>1</b></span><code>tags.parquet</code></div>
-      </div></div>
-
-      <div class="pstep"><div class="k">2 排除<small>库 + 预算</small></div><div class="v">
-        <div class="funnel">
-          <div class="fr"><span>去掉 Steam 上玩过的</span><div class="track" aria-hidden="true"><span class="ok" style="width:99.93%"></span></div><span class="num">7,299</span></div>
-          <div class="fr"><span>CN 区有售</span><div class="track" aria-hidden="true"><span class="ok" style="width:96.9%"></span></div><span class="num">7,080</span></div>
-          <div class="fr"><span>CN 现价 ≤ ¥100</span><div class="track" aria-hidden="true"><span class="ok" style="width:75.8%"></span><span class="unk" style="width:6.4%"></span></div><span class="num">5,540 + 467 待确认</span></div>
-        </div>
-        <p class="small">库负责去掉玩过的，话负责预算。《Hades II》现价 ¥108，超预算被排除，所以它这次不在结果里。</p>
-      </div></div>
-
-      <div class="pstep"><div class="k">3 打分<small>种子 + 不想要的感觉</small></div><div class="v">
-        <p>四路照常算，再加感觉这一路：带「低容错」「类魂系列」的减分，所以《Hollow Knight》《Dead Cells》这类难的游戏被压到后面。</p>
-        <p>然后分两步：</p>
-        <div class="formula">① 只用《Hades》+「别太难」打分，取前 50 款（种子池）
-② 库里的游戏另算一份「库口味分」，在这 50 款里归一化到 0~1
-   最终分 = 种子分 + 0.2 × 库口味分；50 款以外不加分</div>
-        <p>《Slay the Spire》在种子池里库口味分最高（1.00，主要来自《文明6》：玩《文明6》的人很多也推荐它），加上 0.2 后从第 5 升到第 2。《文明5》只按种子算排不进前 200，进不了种子池，所以库再怎么喜欢它也加不上分。</p>
-      </div></div>
-
-      <div class="pstep"><div class="k">4 结果</div><div class="v">
-        <ol class="picks">
-          <li class="pick"><span class="rk">1</span><div><div class="nm">Vampire Survivors</div><div class="meta">2022 · Poncle · 像《Hades》</div><div class="ev"><span class="s1">动作类 Rogue · 轻度 Rogue</span><span class="s4">同好 19,316 人，排第 5</span><span class="s5">库加分 0.57</span></div></div><div class="side"><span class="fit">1.00</span><span>98% 好评</span><span class="muted">¥25 · 史低 ¥13.5</span></div></li>
-          <li class="pick"><span class="rk">2</span><div><div class="nm">Slay the Spire</div><div class="meta">2019 · Mega Crit Games · 像《Hades》，也合你《文明6》的口味</div><div class="ev"><span class="s1">类 Rogue</span><span class="s4">同好 17,807 人，排第 2</span><span class="s5">库加分 1.00（《文明6》）</span><span class="s1">带「低容错」，扣了一点</span><span class="s5">已在你的 Steam 库里，Steam 上没有游玩记录</span></div></div><div class="side"><span class="fit">0.99</span><span>97% 好评</span><span class="muted">¥88 · 史低 ¥8.8</span></div></li>
-          <li class="pick"><span class="rk">3</span><div><div class="nm">Bastion</div><div class="meta">2011 · Supergiant Games · 像《Hades》</div><div class="ev"><span class="s1">动作 · 好评原声音轨</span><span class="s4">同好 3,681 人</span><span class="s2">同工作室</span><span class="s5">库加分 0.40</span></div></div><div class="side"><span class="fit">0.91</span><span>95% 好评</span><span class="muted">¥58 · 史低 ¥5</span></div></li>
-          <li class="pick"><span class="rk">4</span><div><div class="nm">Realm of Ink</div><div class="meta">2026 · Leap Studio · 像《Hades》</div><div class="ev"><span class="s1">动作类 Rogue · 轻度 Rogue · 砍杀</span><span class="s4">同好分低</span><span class="s2">IGDB 相似</span><span class="s5">库加分 0.23</span></div></div><div class="side"><span class="fit">0.87</span><span>90% 好评</span><span class="muted">¥72 · 史低 ¥44</span></div></li>
-          <li class="pick"><span class="rk">5</span><div><div class="nm">Risk of Rain 2</div><div class="meta">2020 · Hopoo Games · 像《Hades》</div><div class="ev"><span class="s1">动作类 Rogue · 类 Rogue</span><span class="s4">同好 18,588 人，排第 7</span><span class="s5">库加分 0.64</span><span class="s1">带「低容错」，扣了一点</span><span class="muted">同系列还有 2 款</span><span class="s3">正在史低</span></div></div><div class="side"><span class="fit">0.92</span><span>93% 好评</span><span class="muted">¥26.4 · 史低 ¥26.4</span></div></li>
-        </ol>
-        <p class="small">5 款都是照着「像《Hades》、别太难、¥100 以内」来的。对照：不用库、只看这句话时，前 5 名是《Vampire Survivors》《Bastion》《Realm of Ink》《Ravenswatch》《Slay the Spire》。库的作用是把《Slay the Spire》从第 5 提到第 2、把《Risk of Rain 2》带进前 5，挤掉 79% 好评的《Ravenswatch》，范围始终没出「像《Hades》」。之前的规则（库锚点减半后和种子一起算）会让《文明5》排第 2，它和这次的要求无关，所以改了规则。</p>
-        <p class="small"><b>和上一版比（2026-10-14 知识库收尾后）：</b>前 5 换进《Realm of Ink》《Risk of Rain 2》，《Nobody Saves the World》《Pyre》掉到备选，主要是介绍向量换成了中英文正式版。</p>
-        <p class="small"><b>备选：</b>《Ravenswatch》《Heroes of Hammerwatch》（同系列另有 2 款）《Streets of Rogue》《UnderMine》《Nobody Saves the World》《Pyre》等 15 款。</p>
-      </div></div>
-    </article>
-
-    <div class="obs">
-      <b>这次模拟暴露的问题</b>
-      <span>① <b>已改（2026-10-13）</b>：同系列的新作旧作挤占名额（库里有《文明6》时，备选前 4 位全是《文明》）。现在同系列只留一款，其余折叠。剩下的漏洞是 IGDB 只有约四成游戏标了系列，例如《文明3》没标，就折不进去。</span>
-      <span>② <b>已改（2026-10-14）</b>：口碑只在「差距 ≤ 0.1」的窗口里起作用，68% 好评的《HUMANKIND》在 D 和 A/B 两条路径里都进了前 5。现在加了口碑底线：Steam 好评率低于 70%（Steam「褒贬不一」及以下）或没有好评率的，只进备选并标明，前 5 凑不满时才补入。核心库 7,304 款现在全部有好评率，低于 70% 的有 1,073 款（15%）。</span>
-      <span>⑥ <b>已改（2026-10-14）</b>：原来模拟用「玩过 2 小时以上」当排除门槛，这是人为猜的。现在只认 Steam 的记录：有游玩时长就不再推荐；时长为 0 的可以推荐，但卡片只说「Steam 上没有游玩记录」；别处玩过的由用户告诉我们。锚点权重本来就是时长排位，玩得很短排位接近 0，不需要另设门槛。</span>
-      <span>③ 标签、介绍两路还是多个锚点取最大，容易让一个锚点独占前几名。离线检验显示「各锚点相加」比「取最大」猜得准（同好这一路 19.8% 对 16.8%），同好已改成 EASE 相加；标签、介绍两路等建好后再比。</span>
-      <span>④ <b>已改（2026-10-14）</b>：Steam 中文标签表有 19 个标签返回英文，已补中文（如 Unforgiving = 严苛）。建了<a class="term" href="#t-alias">别名表</a>，59 个常见中文简称和英文缩写（文明6、老头环、大镖客2、钢4、BG3 等）全部能对上。</span>
-      <span>⑦ 介绍向量换成中英文正式版后，D 和 A+D 的前 5 各换了 2 款（如《Summer in Mara》进了 D 的第 2）。这说明介绍这一路分量不小，但换得好不好，现在没有依据判断，要靠下一步的离线评估和请求集。</span>
-      <span>⑤ <b>已改（2026-10-13）</b>：用户点名「像《Hades》」时，旧规则（库锚点减半后和种子一起算）让《文明5》排到第 2。现在库只在最像种子的 50 款里加分，《文明5》出局，换进《Slay the Spire》。50 和 0.2 是初始值，要用请求集再调。</span>
-    </div>
-
     <details class="more">
-      <summary>这次模拟是怎么跑的、哪些是假的</summary>
+      <summary>为什么同好占 0.90，工作室和系列不打分</summary>
       <div>
-        <p>脚本 <code>scripts/simulate_inputs.py</code>，结果存在 <code>.cache/simulate_inputs.json</code>。第 3、4 步每条路径计算约 0.1 秒（不含首次加载向量模型的约 10 秒）。2026-10-13 换新评测表重跑时，第 1 步沿用上一次的 LLM 输出（<code>--no-llm</code>），因为第 1 步和评测数据无关。</p>
-        <p><b>真的：</b>7,304 款游戏的全部数据、中英文介绍向量、别名表、评测总表算出的 EASE 权重和同好人数表、时长参照表、LLM 调用（只发了那句话和标签表）、向量模型编码。</p>
-        <p><b>假的或简化的：</b>游戏库是编的，GetOwnedGames 用同样格式的假数据代替；卡片上的「玩过了」按钮没有模拟（「隐藏了游玩时间」的判断已用 600 个真实账号验证）；价格用 2026-10 快照，没有实时查；四路权重、窗口 0.1、口碑先验都是初始值，没调过；没跑第 5 步做卡片，也没跑改条件。</p>
+        <p>原设计是 0.30 标签 + 0.25 介绍 + 0.30 同好 + 0.15 一家人。2026-10-14 用留出的测试玩家比了一次（8,000 人调权重，另 12,000 人报告结果），看前 20 款猜中他后来好评的比例：</p>
+        <p>只用同好：库画像 21.6%，一个种子 18.1%，两个种子 20.5%。原设计权重：11.2%、8.2%、9.8%，差不多只有一半。标签、介绍单独用只有 3%~5%，加进来只会降分；工作室和系列当打分项，给 0.05 就开始降分。按名次合并（RRF）只有约 10%，也不用。</p>
+        <p>标签和介绍各留 0.05，是为了分数接近时有内容信号，没有同好数据的游戏也能排上，代价不到 0.5 个百分点。</p>
+        <p>这个检验有偏向：「答案」是玩家后来又好评了什么，天然偏向同好，测不出「这次想要的感觉」。所以偏好原话、感觉、精排的作用要靠真实请求来检验。</p>
+        <p>口碑的旧占位值是 24.6 和 30（均值相同，但「虚拟评价」有 30 条，约为数据支持的 3.7 倍）。换成拟合值后，按口碑排的前 100 名不变，变化集中在评测很少的游戏上。</p>
       </div>
     </details>
   </section>
 
+  <section aria-labelledby="sim-title">
+    <div class="sec-head">
+      <h2 id="sim-title">模拟测试：四种输入组合各走一遍<span class="badge-new">正式系统重跑</span></h2>
+      <p>四个模拟用户：三个单独输入（种子问卷、一句话、Steam 游戏库），一个「有库 + 一句话」的组合。A 和 B 拿到的是同一份库，合成一个例子。结果里的<a class="term" href="#t-fit">契合度</a>都是本次候选里的相对分。</p>
+      <!-- LEAD: simulation -->
+<p class="status-note"><b>2026-10-16 用正式系统重跑：</b>下面四个例子走的是 <code>src/playnext/</code> 的完整流程（当前权重：同好 0.9、标签 0.05、介绍 0.05、血统 0.0；有偏好原话或感觉时 LLM 精排，w_r = 0.9；口碑先验 α = 6.69、β = 1.43），名单、证据、价格和理由都是系统原样输出，脚本 <code>scripts/simulate_inputs.py</code>，结果存在 <code>.cache/simulate_inputs.json</code>。只有 Steam 游戏库是编的（不查真实账号），价格用当天的每日快照而不是实时价。契合度是本次候选里的相对分，1.00 表示这次最高。</p>
+<!-- /LEAD -->
+    </div>
+
+    <!-- LEAD: simulation-body -->
+
+    <article class="run" aria-labelledby="run-c">
+      <div class="run-head"><span class="letter">C</span><h3 id="run-c">种子问卷</h3></div>
+      <div class="input"><span class="lbl">模拟输入</span><span>喜欢的游戏：《Hades》《Hollow Knight》 · 必须支持简体中文 · 雷区：恐怖</span></div>
+      <div class="pstep"><div class="k">1 听懂</div><div class="v"><p>不调 LLM：表单直接变成条件表，两款游戏当种子，各 1.0 分。</p></div></div>
+      <div class="pstep"><div class="k">2 排除<small>三值规则</small></div><div class="v"><ul class="small"><li>去掉种子 / 已玩过的：通过 7,302，不通过 2，待确认 0</li><li>支持简体中文：通过 4,118，不通过 3,185，待确认 1</li><li>雷区：心理恐怖 / 生存恐怖 / 恐怖：通过 5,677，不通过 1,627，待确认 0</li><li>CN 区有售：通过 7,085，不通过 219，待确认 0</li></ul></div></div>
+      <div class="pstep"><div class="k">3~5 结果<small>规则 0.16 秒；打分 0.33 秒</small></div><div class="v">
+        <ol class="picks"><li class="pick"><span class="rk">1</span><div><div class="nm">Hades II</div><div class="meta">Hades II · 像《Hades》</div><div class="ev"><span class="s1">动作 · 类 Rogue · 轻度 Rogue</span><span class="s4">和《Hades》同好 26,066 人，排第 1</span><span class="s2">Hades —IGDB 相似→ Hades II</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》同系列且同工作室，保持了动作、类 Rogue、轻度 Rogue 与砍杀等核心标签，并拥有女性主角与动作角色扮演特色。Steam 好评率 95%，更有 26,066 名玩家同时推荐了这两部作品。</p></div><div class="side"><span class="fit">1.00</span><span>95% 好评</span><span class="muted">现价 ¥108 ／ 史低 ¥75.6（2026-06） ／ 距史低 +43%</span></div></li><li class="pick"><span class="rk">2</span><div><div class="nm">Terraria</div><div class="meta">Terraria · 像《Hollow Knight》</div><div class="ev"><span class="s1">2D · 冒险 · 探索</span><span class="s4">和《Hollow Knight》同好 70,301 人，排第 2</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hollow Knight》共同具备 2D、冒险和探索元素，并包含开放世界生存制作、沙盒与生存玩法。Steam 好评率达到 97%，通关约 68 小时，有 70,301 名玩家同时推荐了两款作品。</p></div><div class="side"><span class="fit">0.78</span><span>97% 好评</span><span class="muted">现价 ¥42 ／ 史低 ¥18（2016-06） ／ 距史低 +133%</span></div></li><li class="pick"><span class="rk">3</span><div><div class="nm">Celeste</div><div class="meta">Celeste · 像《Hollow Knight》</div><div class="ev"><span class="s1">低容错 · 好评原声音轨 · 独立</span><span class="s4">和《Hollow Knight》同好 30,008 人，排第 1</span><span class="s2">Hollow Knight —IGDB 相似→ Momodora: Reverie Under The Moonlight —IGDB 相似→ Celeste</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hollow Knight》同具低容错、好评原声音轨、独立与平台游戏标签，并展现了精确平台和像素图形特色。游戏 Steam 好评率 97%，通关约 21 小时，有 30,008 名玩家同时推荐了两作（同好中排第 1）。</p></div><div class="side"><span class="fit">0.61</span><span>97% 好评</span><span class="muted">现价 ¥17（-75%） ／ 史低 ¥7.6（2024-06） ／ 距史低 +124%</span></div></li><li class="pick"><span class="rk">4</span><div><div class="nm">Stardew Valley</div><div class="meta">Stardew Valley · 像《Hollow Knight》</div><div class="ev"><span class="s1">独立</span><span class="s4">和《Hollow Knight》同好 42,081 人，排第 15</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hollow Knight》同为独立游戏，并具备农场模拟、像素图形与多人特色。游戏在 Steam 上好评率达 98%，通关约 90 小时，共有 42,081 名玩家同时推荐了这两部作品。</p></div><div class="side"><span class="fit">0.69</span><span>98% 好评</span><span class="muted">现价 ¥48 ／ 史低 ¥14.99（2023-03） ／ 距史低 +220%</span></div></li><li class="pick"><span class="rk">5</span><div><div class="nm">艾尔登法环</div><div class="meta">ELDEN RING · 像《Hollow Knight》</div><div class="ev"><span class="s1">类魂系列 · 低容错</span><span class="s4">和《Hollow Knight》同好 48,368 人，排第 10</span><span class="s2">同系列另有 1 款</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hollow Knight》同样拥有类魂系列与低容错标签，同时融合了角色扮演、动作角色扮演及多人模式。游戏 Steam 好评率达 93%，通关约 119 小时，已有 48,368 名玩家同时推荐了两作。</p></div><div class="side"><span class="fit">0.65</span><span>93% 好评</span><span class="muted">现价 ¥298 ／ 史低 ¥178.8（2023-12） ／ 距史低 +67%</span></div></li></ol>
+        
+        <p class="small"><b><a class="term" href="#t-short">备选</a>（前 5 款）：</b>《Dead Cells》、《Slay the Spire》、《Cuphead》、《Sekiro™: Shadows Die Twice - GOTY Edition》、《Ori and the Will of the Wisps》。<b>没通过的（举例）：</b>《The Binding of Isaac: Rebirth》（支持简体中文；雷区：恐怖）、《Undertale》（支持简体中文；雷区：心理恐怖、恐怖）、《Blasphemous》（雷区：恐怖）。</p>
+      </div></div>
+    </article>
+
+    <article class="run" aria-labelledby="run-a">
+      <div class="run-head"><span class="letter">A/B</span><h3 id="run-a">Steam 游戏库</h3></div>
+      <div class="input"><span class="lbl">模拟输入</span><span>模拟的库：Sid Meier’s Civilization® VI 300 小时、Stardew Valley 60 小时、Hades 80 小时、It Takes Two 13 小时、Dead Cells 0.7 小时、Slay the Spire 0 小时、4000000 5 小时</span></div>
+      <div class="pstep"><div class="k">1 听懂</div><div class="v"><p>没有种子时，Steam 上玩过的游戏就是口味锚点，权重 = 比这款游戏的其他玩家玩得多的程度：Sid Meier’s Civilization® VI 0.67、Stardew Valley 0.25、Hades 0.66、It Takes Two 0.21、Dead Cells 0.00。时长为 0 的游戏不当锚点；不在核心库的那款只计入“已拥有”。</p></div></div>
+      <div class="pstep"><div class="k">2 排除<small>三值规则</small></div><div class="v"><ul class="small"><li>去掉种子 / 已玩过的：通过 7,299，不通过 5，待确认 0</li><li>CN 区有售：通过 7,085，不通过 219，待确认 0</li></ul></div></div>
+      <div class="pstep"><div class="k">3~5 结果<small>规则 0.00 秒；打分 0.03 秒</small></div><div class="v">
+        <ol class="picks"><li class="pick"><span class="rk">1</span><div><div class="nm">Hades II</div><div class="meta">Hades II · 像《Hades》</div><div class="ev"><span class="s1">动作 · 类 Rogue · 轻度 Rogue</span><span class="s4">和《Hades》同好 26,066 人，排第 1</span><span class="s2">Hades —IGDB 相似→ Hades II</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》同属 Supergiant Games 开发且属于同系列，共享动作、类 Rogue、轻度 Rogue 和砍杀标签，并增添了女性主角与动作角色扮演特色。游戏在 Steam 好评率达 95%，通关约需 43 小时。</p></div><div class="side"><span class="fit">1.00</span><span>95% 好评</span><span class="muted">现价 ¥108 ／ 史低 ¥75.6（2026-06） ／ 距史低 +43%</span></div></li><li class="pick"><span class="rk">2</span><div><div class="nm">博德之门3</div><div class="meta">Baldur&#x27;s Gate 3 · 像《Sid Meier’s Civilization® VI》</div><div class="ev"><span class="s4">和《Hades》同好 28,930 人，排第 9</span></div><p class="small">理由（LLM，已过事实校验）：本作有 28,930 名玩家与《Hades》同时推荐。相比于《Sid Meier’s Civilization® VI》，本作包含更多角色扮演、角色自定义与选择取向标签。游戏在 Steam 好评率达 96%，通关约需 132 小时。</p></div><div class="side"><span class="fit">0.67</span><span>96% 好评</span><span class="muted">现价 ¥268 ／ 史低 ¥187.6（2026-10） ／ 距史低 +43%</span></div></li><li class="pick"><span class="rk">3</span><div><div class="nm">Sid Meier&#x27;s Civilization® V</div><div class="meta">Sid Meier&#x27;s Civilization® V · 像《Sid Meier’s Civilization® VI》</div><div class="ev"><span class="s1">回合战略 · 策略</span><span class="s4">和《Sid Meier’s Civilization® VI》同好 14,925 人，排第 1</span><span class="s2">Sid Meier’s Civilization® VI —开发→ Firaxis Games —开发→ Sid Meier&#x27;s Civilization® V</span><span class="s2">同系列另有 3 款</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Sid Meier’s Civilization® VI》同属 Firaxis Games 制作的 Civilization 系列，共享回合战略与策略标签，有 14,925 名玩家同时推荐。Steam 好评率 95%，通关约 53 小时。</p></div><div class="side"><span class="fit">0.58</span><span>95% 好评</span><span class="muted">现价 ¥95 ／ 史低 ¥9.5（2026-03） ／ 距史低 +900%</span></div></li><li class="pick"><span class="rk">4</span><div><div class="nm">Terraria</div><div class="meta">Terraria · 像《Stardew Valley》</div><div class="ev"><span class="s1">沙盒 · 多人 · 像素图形</span><span class="s4">和《Stardew Valley》同好 107,711 人，排第 1</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Stardew Valley》共享沙盒、多人、像素图形和制作标签，并具备更多开放世界生存制作、生存与冒险要素。已有 107,711 名玩家同时推荐两作，Steam 好评率 97%，通关约 68 小时。</p></div><div class="side"><span class="fit">0.55</span><span>97% 好评</span><span class="muted">现价 ¥42 ／ 史低 ¥18（2016-06） ／ 距史低 +133%</span></div></li><li class="pick"><span class="rk">5</span><div><div class="nm">Hollow Knight</div><div class="meta">Hollow Knight · 像《Hades》</div><div class="ev"><span class="s1">好评原声音轨 · 独立 · 单人</span><span class="s4">和《Hades》同好 28,046 人，排第 4</span><span class="s2">IGDB 把本作列为《Stardew Valley》的相似游戏</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》共享好评原声音轨、独立、单人与剧情丰富标签，有 28,046 名玩家同时推荐。相比《Hades》，本作更具类银河战士恶魔城、平台游戏和类魂系列特征。Steam 好评率 96%，通关约 36 小时。</p></div><div class="side"><span class="fit">0.63</span><span>96% 好评</span><span class="muted">现价 ¥58 ／ 史低 ¥19.2（2022-05） ／ 距史低 +202%</span></div></li></ol>
+        
+        <p class="small"><b><a class="term" href="#t-short">备选</a>（前 5 款）：</b>《巫师3：狂猎 — 重制版》、《Slay the Spire》、《黑神话：悟空》、《艾尔登法环》、《Vampire Survivors - 吸血鬼幸存者》。<b>没通过的（举例）：</b>《Hearts of Iron IV》（CN 区不卖（Steam 地区限制））、《Path of Exile》（CN 区不卖（Steam 地区限制））、《Rocket League®》（CN 区不卖（Steam 地区限制））。</p>
+      </div></div>
+    </article>
+
+    <article class="run" aria-labelledby="run-d">
+      <div class="run-head"><span class="letter">D</span><h3 id="run-d">直接说（LLM 理解）</h3></div>
+      <div class="input"><span class="lbl">模拟输入</span><span>「我以前沉迷《文明6》和《星露谷物语》，今晚想找类似的轻松游戏，60 块以内，最好正在打折」</span></div>
+      <div class="pstep"><div class="k">1 听懂</div><div class="v"><p>LLM 8.5 秒，程序校验格式和标签名后得到：种子：Sid Meier’s Civilization® VI、Stardew Valley；想要的感觉：放松、休闲、温馨惬意；预算：60 CNY；价格偏好：near_record_low。</p></div></div>
+      <div class="pstep"><div class="k">2 排除<small>三值规则</small></div><div class="v"><ul class="small"><li>去掉种子 / 已玩过的：通过 7,302，不通过 2，待确认 0</li><li>CN 区有售：通过 7,085，不通过 219，待确认 0</li><li>预算 ≤ ¥60（每日快照）：通过 4,099，不通过 2,570，待确认 635</li></ul></div></div>
+      <div class="pstep"><div class="k">3~5 结果<small>规则 0.01 秒；打分 18.34 秒；LLM 精排 25.6 秒</small></div><div class="v">
+        <ol class="picks"><li class="pick"><span class="rk">1</span><div><div class="nm">波西亚时光</div><div class="meta">My Time at Portia · 像《Stardew Valley》</div><div class="ev"><span class="s1">生活模拟 · 角色扮演 · 农场模拟</span><span class="s1">感觉：放松、休闲</span><span class="s4">和《Stardew Valley》同好 6,710 人，排第 51</span><span class="s2">Stardew Valley —IGDB 相似→ Coral Island —IGDB 相似→ My Time at Portia</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Stardew Valley》同样具有农场模拟、生活模拟与制作元素，带来放松休闲的体验。相比之下，它减少了像素图形与多人玩法，增加了更多开放世界、冒险与采矿内容，已有超过六千名玩家同时推荐了两作。</p></div><div class="side"><span class="fit">0.98</span><span>91% 好评</span><span class="muted">现价 ¥19.6（-80%） ／ 史低 ¥19.6（2023-03） ／ 已在史低</span></div></li><li class="pick"><span class="rk">2</span><div><div class="nm">愿景之城 TerraScape</div><div class="meta">TerraScape · 像《Sid Meier’s Civilization® VI》</div><div class="ev"><span class="s1">回合战略 · 策略</span><span class="s1">感觉：放松、休闲</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Sid Meier’s Civilization® VI》共享策略与回合战略标签，主打轻松舒适的休闲氛围。游戏淡化了历史与大战略机制，融入了解谜、中世纪与棋盘游戏特色，让玩家能轻松建造属于自己的华丽王国。</p></div><div class="side"><span class="fit">0.98</span><span>88% 好评</span><span class="muted">现价 ¥29（-50%） ／ 史低 ¥29（2026-03） ／ 已在史低</span></div></li><li class="pick"><span class="rk">3</span><div><div class="nm">Echoes of the Plum Grove</div><div class="meta">Echoes of the Plum Grove · 像《Stardew Valley》</div><div class="ev"><span class="s1">农场模拟 · 模拟 · 生活模拟</span><span class="s1">感觉：休闲、温馨惬意</span><span class="s2">Stardew Valley —IGDB 相似→ Coral Island —IGDB 相似→ Echoes of the Plum Grove</span></div><p class="small">理由（LLM，已过事实校验）：本作继承了《Stardew Valley》的核心农场模拟、生活模拟与制作玩法，体验休闲而温馨惬意。相较之下，它减少了像素图形、角色扮演与多人内容，进一步强化了探索、管理以及温馨惬意的田园氛围。</p></div><div class="side"><span class="fit">0.98</span><span>87% 好评</span><span class="muted">现价 ¥35（-50%） ／ 史低 ¥31.5（2026-04） ／ 距史低 +11%</span></div></li><li class="pick"><span class="rk">4</span><div><div class="nm">离去之前 </div><div class="meta">Before We Leave · 像《Sid Meier’s Civilization® VI》</div><div class="ev"><span class="s1">策略</span><span class="s1">感觉：放松、休闲</span><span class="s2">Sid Meier’s Civilization® VI —IGDB 相似→ Terraformers —IGDB 相似→ Before We Leave</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Sid Meier’s Civilization® VI》同属策略范畴，但弱化了回合战略与历史要素，更偏向休闲、经济与放松。玩家可以按照自己的节奏放轻松进行星际扩荒，慢慢编织故事并打造幸福星球组成的小宇宙。</p></div><div class="side"><span class="fit">0.98</span><span>78% 好评</span><span class="muted">现价 ¥26.25（-75%） ／ 史低 ¥19.5（2023-03） ／ 距史低 +35%</span></div></li><li class="pick"><span class="rk">5</span><div><div class="nm">Dorfromantik</div><div class="meta">Dorfromantik · 像《Sid Meier’s Civilization® VI》</div><div class="ev"><span class="s1">回合战略 · 策略</span><span class="s1">感觉：放松、休闲</span><span class="s4">和《Sid Meier’s Civilization® VI》同好 1,458 人，排第 129</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Sid Meier’s Civilization® VI》共享回合战略和策略标签，已有1,458位玩家同时推荐两款作品。游戏去除了大战略与历史背景，转而结合解谜与生态板块布局，呈现出轻松休闲的田野小镇风景。</p></div><div class="side"><span class="fit">0.98</span><span>96% 好评</span><span class="muted">现价 ¥47 ／ 史低 ¥18.8（2025-09） ／ 距史低 +150%</span></div></li></ol>
+        
+        <p class="small"><b><a class="term" href="#t-short">备选</a>（前 5 款）：</b>《露玛岛》、《海岛之魂》、《南之町》、《The Sims™ 4》、《Cozy Grove》。<b>没通过的（举例）：</b>《Sid Meier&#x27;s Civilization® V》（现价 ¥95 超出预算）、《博德之门3》（现价 ¥268 超出预算）、《花园生涯：模拟佛系生活》（现价 ¥103 超出预算）。</p>
+      </div></div>
+    </article>
+
+    <article class="run" aria-labelledby="run-ad">
+      <div class="run-head"><span class="letter">A+D</span><h3 id="run-ad">有库，再说清楚这次要什么</h3></div>
+      <div class="input"><span class="lbl">模拟输入</span><span>「想再找几款像《Hades》这样的，别太难，100 块以内」</span></div>
+      <div class="pstep"><div class="k">1 听懂</div><div class="v"><p>LLM 7.3 秒，程序校验格式和标签名后得到：种子：Hades；不想要：低容错、类魂系列、严苛；预算：100 CNY。另外接上了下面同一份 Steam 库：有显式种子时，库只在前 50 款里加分。</p></div></div>
+      <div class="pstep"><div class="k">2 排除<small>三值规则</small></div><div class="v"><ul class="small"><li>去掉种子 / 已玩过的：通过 7,299，不通过 5，待确认 0</li><li>CN 区有售：通过 7,085，不通过 219，待确认 0</li><li>预算 ≤ ¥100（每日快照）：通过 5,636，不通过 1,033，待确认 635</li></ul></div></div>
+      <div class="pstep"><div class="k">3~5 结果<small>规则 0.01 秒；打分 0.29 秒；LLM 精排 34.5 秒</small></div><div class="v">
+        <ol class="picks"><li class="pick"><span class="rk">1</span><div><div class="nm">暖雪 Warm Snow</div><div class="meta">暖雪 Warm Snow · 像《Hades》</div><div class="ev"><span class="s1">动作类 Rogue · 轻度 Rogue · 类 Rogue</span><span class="s4">和《Hades》同好 2,425 人，排第 166</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》同属动作类 Rogue、轻度 Rogue 与剧情丰富类型，同时融入了 2D 武术动作冒险元素。游戏在 Steam 上拥有 92% 的好评率，已有 2,425 名玩家同时推荐了《Hades》与本作。</p></div><div class="side"><span class="fit">1.00</span><span>92% 好评</span><span class="muted">现价 ¥58 ／ 史低 ¥40.6（2023-06） ／ 距史低 +43%</span></div></li><li class="pick"><span class="rk">2</span><div><div class="nm">Bastion</div><div class="meta">Bastion · 像《Hades》</div><div class="ev"><span class="s1">好评原声音轨 · 独立 · 动作</span><span class="s4">和《Hades》同好 3,681 人，排第 49</span><span class="s2">Hades —开发→ Supergiant Games —开发→ Bastion</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》同属开发商 Supergiant Games，并共享好评原声音轨与单人动作标签，带有动态旁白特色。游戏在 Steam 好评率达 95%，通关约 9 小时，有 3,681 名玩家同时推荐了本作与《Hades》。</p></div><div class="side"><span class="fit">0.81</span><span>95% 好评</span><span class="muted">现价 ¥58 ／ 史低 ¥5（2017-06） ／ 距史低 +1060%</span></div></li><li class="pick"><span class="rk">3</span><div><div class="nm">咩咩启示录</div><div class="meta">Cult of the Lamb · 像《Hades》</div><div class="ev"><span class="s1">动作类 Rogue · 单人 · 轻度 Rogue</span><span class="s4">和《Hades》同好 8,311 人，排第 26</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》共享动作类 Rogue、轻度 Rogue 与单人动作标签，同时包含基地建设与可爱元素。游戏通关约 16 小时，Steam 好评率达 95%，已有 8,311 名玩家同时推荐了《Hades》与本作。</p></div><div class="side"><span class="fit">0.82</span><span>95% 好评</span><span class="muted">现价 ¥59（-50%） ／ 史低 ¥47.2（2026-01） ／ 距史低 +25%</span></div></li><li class="pick"><span class="rk">4</span><div><div class="nm">Death Must Die</div><div class="meta">Death Must Die · 像《Hades》</div><div class="ev"><span class="s1">动作类 Rogue · 轻度 Rogue · 砍杀</span><span class="s4">和《Hades》同好 2,144 人，排第 100</span><span class="s2">Hades —IGDB 相似→ Drova - Forsaken Kin —IGDB 相似→ Halls of Torment —IGDB 相似→ Death Must Die</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》共享动作类 Rogue、轻度 Rogue 与砍杀动作标签，并带有像素图形、弹幕射击与逆弹幕射击特色。Steam 好评率为 90%，已有 2,144 名玩家同时推荐了《Hades》和本作。</p></div><div class="side"><span class="fit">0.80</span><span>90% 好评</span><span class="muted">现价 ¥29 ／ 史低 ¥23.2（2024-06） ／ 距史低 +25%</span></div></li><li class="pick"><span class="rk">5</span><div><div class="nm">苍翼：混沌效应</div><div class="meta">BlazBlue Entropy Effect · 像《Hades》</div><div class="ev"><span class="s1">动作类 Rogue · 动作 · 独立</span></div><p class="small">理由（LLM，已过事实校验）：本作与《Hades》同为包含砍杀要素的独立动作类 Rogue 游戏，并展现出 2D 动作冒险与平台游戏特色。游戏在 Steam 上评测数达 30,676 篇，好评率为 94%。</p></div><div class="side"><span class="fit">0.71</span><span>94% 好评</span><span class="muted">现价 ¥76 ／ 史低 ¥45.6（2026-08） ／ 距史低 +67%</span></div></li></ol>
+        
+        <p class="small"><b><a class="term" href="#t-short">备选</a>（前 5 款）：</b>《Children of Morta》、《Transistor》、《祝你好死》、《UnderMine》、《The Swords of Ditto: Mormo&#x27;s Curse》。<b>没通过的（举例）：</b>《Hades II》（现价 ¥108 超出预算）、《博德之门3》（现价 ¥268 超出预算）、《巫师3：狂猎 — 重制版》（现价 ¥199 超出预算）。</p>
+      </div></div>
+    </article>
+<p class="small"><b>库读不到时：</b>游戏详情不公开的库不报错，结果页提示“我的 Steam 游戏详情不公开，读不到库；可以在 Steam 隐私设置里把“游戏详情”改为公开，或直接点选喜欢的游戏”，并先按口碑排一版（Terraria、黑神话：悟空、Euro Truck Simulator 2……）。</p>
+<!-- /LEAD -->
+  </section>
+
+  <!-- LEAD: request-set -->
+
+  <section aria-labelledby="rs-title">
+    <div class="sec-head">
+      <h2 id="rs-title">32 条真实请求的对比</h2>
+      <p>从 Reddit、PTT 和知乎找了 32 条真人发的求推荐帖（两个场景各 16 条）。每条帖子原文交给两方各推荐 5 款：本系统，和“直接把帖子交给同一个 LLM，让它推荐 5 款”。
+      违规按<b>逐帖人工写下的条件</b>检查（<code>eval/request_set_gold.json</code>：人数、在哪玩、预算、说过玩过或排除的游戏、明确拒绝的内容），不用系统自己的理解，所以系统读漏的条件也算系统的错。完整报告在 <code>eval/request_set_report.md</code>（2026-10-16）。</p>
+    </div>
+    <div class="cmp"><table>
+      <thead><tr><th></th><th>本系统</th><th>本系统，不开精排</th><th>直接问 LLM</th></tr></thead>
+      <tbody><tr><th>违反帖子里写明的条件（款，共 160 款）</th><td>2</td><td>2</td><td>4</td></tr><tr><th>推荐了不在库里 / 认不出的游戏</th><td>0</td><td>0</td><td>2</td></tr><tr><th>命中帖子里网友推荐最多的游戏</th><td>25</td><td>16</td><td>39</td></tr><tr><th>命中原帖主后来说想试 / 喜欢的</th><td>4</td><td>3</td><td>4</td></tr><tr><th>AI 盲评（同一个 LLM 打分，0~2）</th><td>1.71</td><td>0.91</td><td>1.9</td></tr><tr><th>AI 盲评（另一家族的模型打分，0~2）</th><td>1.81</td><td>1.24</td><td>1.91</td></tr></tbody>
+    </table></div>
+    <p class="small"><b>怎么读：</b>守条件这一项系统更少出错，但差距不大，两边都只有几款；系统那 2 款都出在一条写了欧元预算的帖子上，系统没有欧元价格，所以没按预算筛，结果页写明了这一点。口味这一项直接问 LLM 仍然更强，它更会挑大家公认好玩的游戏。
+    精排（让 LLM 给前 80 款按帖子原话打分）是差距缩小的主要原因：另一家族模型的打分从不精排的 1.24 提到 1.81，直接问 LLM 是 1.91。只看没参与调参的 16 条测试集：系统 1.84，直接问 LLM 1.94。
+    “同一个 LLM 打分”的评委和对照组、精排是同一个模型，可能偏向自己的答案，所以调参用的是另一家族模型的打分。原帖主的反馈太少（13 条帖子），那一行差异不显著。</p>
+    <p class="small"><b>需求理解：</b>人数读对 28/30，开局方式 9/9，预算（金额和币种）32/32，说过玩过 / 排除的游戏找全了 121/138，能对上标签的雷区 15/17。</p>
+    <p class="small"><b>精排器对比</b>（16 条开发集上选、16 条测试集上看）：LLM 精排明显好于专用重排模型 Qwen3-Reranker-4B（后者快得多，约 1 秒，但盲评只比不精排略高）。开发集上各自最好的设置：llm llm_w0.6；llmn llmn_w0.9；local local_w0.75；localn localn_w0.75。</p>
+  </section>
+<!-- /LEAD -->
+
   <section aria-labelledby="c-title">
     <div class="sec-head">
       <h2 id="c-title">一张推荐卡，每条信息从哪来</h2>
-      <p>以「刚通关《Hades》，想要类似的」为例，拿《Dead Cells》这款候选演示卡片长什么样。它不是模拟排出来的名次；契合度和理由是示例，其他都是真实数据。第 5 步还没实现，这是设计里的样子。</p>
+      <p>以「刚通关《Hades》，想要类似的」为例，拿《Dead Cells》这款候选演示卡片长什么样。卡片已经做好，网页上的结果就是这样的卡片。这里的契合度和理由是示例，不是系统排出来的名次；其他都是真实数据，价格是 2026-10-16 的快照。</p>
     </div>
     <div class="demo">
       <div class="demo-title"><h3>Dead Cells</h3><span class="muted">2018 · Motion Twin、Evil Empire</span></div>
       <div class="row"><span class="k">名字、年份</span><span class="v">Dead Cells · 2018</span><span class="from"><span class="src s1"><b>1</b>商店</span></span></div>
       <div class="row"><span class="k">开发商</span><span class="v">Motion Twin、Evil Empire</span><span class="from"><span class="src s2"><b>2</b>IGDB</span></span></div>
-      <div class="row"><span class="k">像在哪</span><span class="v">都是「类 Rogue」「动作类 Rogue」「轻度 Rogue」</span><span class="from"><span class="src s1"><b>1</b>标签</span></span></div>
+      <div class="row"><span class="k">像在哪</span><span class="v">共有的主要标签：「类 Rogue」「动作类 Rogue」「轻度 Rogue」「砍杀」</span><span class="from"><span class="src s1"><b>1</b>标签</span></span></div>
+      <div class="row"><span class="k">差在哪</span><span class="v">比《Hades》多：冒险、类银河战士恶魔城、像素图形；少：神话、剧情丰富、迷宫探索</span><span class="from"><span class="src s1"><b>1</b>标签票数</span></span></div>
       <div class="row"><span class="k">同好</span><span class="v">16,072 人同时给两款打了好评，在《Hades》的同好里排第 3</span><span class="from"><span class="src s4"><b>4</b>评测记录</span></span></div>
+      <div class="row"><span class="k">工作室 / 系列</span><span class="v">这一对没有：不同工作室、不同系列，卡片上就不显示这一行。有的时候写成「《Hades》 → Supergiant Games → 《Bastion》（同工作室）」</span><span class="from"><span class="src s2"><b>2</b>IGDB</span> <span class="src tool"><b>DB</b>路径查询</span></span></div>
       <div class="row"><span class="k">口碑</span><span class="v">97% 好评 · 15.7 万条评价</span><span class="from"><span class="src s1"><b>1</b>商店</span></span></div>
-      <div class="row"><span class="k">现价</span><span class="v">CN 区 ¥80</span><span class="from"><span class="src s1"><b>1</b>商店</span></span></div>
-      <div class="row"><span class="k">史低</span><span class="v">¥32（2025-07），现价比史低高 150%</span><span class="from"><span class="src s3"><b>3</b>比价</span></span></div>
+      <div class="row"><span class="k">价格</span><span class="v">现价 ¥80 ／ 史低 ¥32（2025-07） ／ 距史低 +150%<br><span class="muted">价格取于 2026-10-16（每日快照）；实时查到时写「实时价格」</span></span><span class="from"><span class="src s1"><b>1</b>商店</span> <span class="src s3"><b>3</b>比价</span></span></div>
       <div class="row"><span class="k">库状态</span><span class="v">未拥有</span><span class="from"><span class="src s5"><b>5</b>用户的库</span></span></div>
-      <div class="row"><span class="k">契合度、理由</span><span class="v">0.91 ·「同样是动作肉鸽，节奏更快……」</span><span class="from"><span class="src tool"><b>AI</b>综合算出 + LLM 写</span></span></div>
+      <div class="row"><span class="k">契合度、理由</span><span class="v">0.91 ·「同样是动作类 Rogue，多了类银河战士恶魔城的探索……」</span><span class="from"><span class="src tool"><b>AI</b>综合算出 + LLM 写</span></span></div>
+      <div class="row"><span class="k">按钮</span><span class="v">喜欢 · 不喜欢 · 玩过了 · 事实有误？</span><span class="from"><span class="src tool"><b>DB</b>反馈</span></span></div>
     </div>
+    <p class="small">理由里出现的数字和《》里的游戏名，系统会逐个去卡片事实里找，找不到就重写，还不行就用模板理由。所以 LLM 写不出卡片上没有的事实。</p>
   </section>
 
   <section aria-labelledby="g-title">
     <div class="sec-head">
       <h2 id="g-title">现在的缺口</h2>
-      <p>数据缺了不会瞎补，系统会标成「待确认」或者换一个来源顶上。橙色边框是这次核对新发现的。</p>
+      <p>数据缺了不会瞎补，系统会标成「待确认」或者换一个来源顶上。橙色边框是 2026-10-16 核对时新加的。</p>
     </div>
     <div class="gaps">
       <div class="gap"><span class="what">IGDB 只给约四成游戏标了系列</span><span class="effect">同系列折叠只对标了系列的 2,996 款有效。没标的，如《文明3 完整版》，会和《文明5》《文明6》同时出现，模拟里它进了 D 的前 5。</span></div>
-      <div class="gap"><span class="what">多人游戏有 30% 查不到人数上限</span><span class="effect">「几个人一起玩」时，这些游戏只能放进「待确认」。已经用了三条补充规则：2 人请求直接通过；商店介绍里写明的人数；「大型多人」标签在 10 人以内通过。</span></div>
+      <div class="gap"><span class="what">多人游戏有 30% 查不到人数上限</span><span class="effect">2,288 款多人游戏里，补完还有 682 款没有人数。「几个人一起玩」时，这些游戏只能放进「待确认」。已经用了三条补充规则：2 人请求直接通过；商店介绍里写明的人数；「大型多人」标签在线 10 人以内通过。</span></div>
       <div class="gap"><span class="what">评测数据停在 2026-10-13</span><span class="effect">已补齐并合并成 1.61 亿条。定期补新评测暂不考虑（2026-10-13 定）；以后要做时，步骤是抓 → 核对修复 → 合并 → 重建表，脚本都在。约 3,150 条评测 Steam 计数里有、但切到一小时一段也拿不到（应是被隐藏或删除的），不再追。</span></div>
-      <div class="gap new"><span class="what">IGDB 从没返回过「在线分屏」这一项</span><span class="effect">「部分人同屏、部分人在线」的混合开局要靠它判断，现在全库都查不到，这种开局只能全是「待确认」。</span></div>
-      <div class="gap new"><span class="what">382 款游戏的人数上限取自主机版记录</span><span class="effect">设计要求取 PC 版那一条，没有时现在退回其他平台的数字。主机版和 PC 版人数可能不同，需要决定是否接受。</span></div>
-      <div class="gap new"><span class="what">年龄分级只有 29% 有</span><span class="effect">「没有分级」和「查不到」分不开，按年龄筛时大部分游戏无法判断。内容提示（血腥、暴力）只有 26% 有，雷区主要靠标签。</span></div>
-      <div class="gap"><span class="what">刚发售的游戏同好数据少</span><span class="effect">现在 2025、2026 年发售的游戏都有足够同好数据；2026-10-13 以后发售的游戏在补新评测之前没有同好数据，和评测太少的冷门游戏一样改用 IGDB 相似游戏。</span></div>
-      <div class="gap new"><span class="what">同好关系偏向热门大作</span><span class="effect">例如《星露谷》的同好里出现《CS2》。离线检验时看要不要再压一压热门游戏。</span></div>
-      <div class="gap"><span class="what">现在手上的价格是 2026 年 10 月的快照</span><span class="effect">还没做每日刷新和实时查询。做好后，卡片上的现价和史低都是用户提问那一刻查的。</span></div>
+      <div class="gap"><span class="what">IGDB 从没返回过「在线分屏」这一项</span><span class="effect">「部分人同屏、部分人在线」的混合开局要靠它判断，现在全库都查不到（只有空值和「否」），所以混合开局在人数够时也只记「待确认」，不判通过。</span></div>
+      <div class="gap"><span class="what">583 款游戏的人数只来自非 PC 版记录</span><span class="effect">已定（2026-10-16）：这些是主机版或没标平台的记录。和 PC 版对照 96% 一致，偏低的 3.1% 多是大型联机游戏。所以它只用来放行：请求人数不超过它就通过，超过了不判不通过，记「待确认」。</span></div>
+      <div class="gap new"><span class="what">只有人民币和美元有价格</span><span class="effect">价格只取了 CN、US 两区。用户用欧元、台币等说预算时，不换算汇率，这次不按预算筛，结果页会说明。CN 区取价在正式部署的网络下是否稳定，还要复测。</span></div>
+      <div class="gap"><span class="what">年龄分级只有 29% 有</span><span class="effect">「没有分级」和「查不到」分不开，按年龄筛时大部分游戏无法判断。内容提示（血腥、暴力）只有 26% 有，雷区主要靠标签。</span></div>
+      <div class="gap"><span class="what">刚发售的游戏同好数据少</span><span class="effect">现在 2025、2026 年发售的游戏都有足够同好数据；2026-10-13 以后发售的游戏在补新评测之前没有同好数据，只能靠标签和介绍打分，排名会吃亏。</span></div>
+      <div class="gap new"><span class="what">离线检验测不出「这次想要的感觉」</span><span class="effect">离线的「答案」是玩家后来又好评了什么，偏向同好。偏好原话、感觉（各 0.25）、精排（0.6）、种子池 50 和库加分 0.2 的效果，只能靠真实请求和人工打分来定。</span></div>
+      <div class="gap new"><span class="what">不在核心库的种子没有同好数据</span><span class="effect">「像 PEAK 那样的」这类请求，只能按它的标签和介绍找相似游戏，而同好正是最强的一路。结果页会写明这一点。</span></div>
+      <div class="gap"><span class="what">同好关系偏向热门大作</span><span class="effect">例如《星露谷》的同好里出现《CS2》。离线检验时看要不要再压一压热门游戏。</span></div>
     </div>
+    <p class="small"><b>已经解决、从这里移走的：</b>价格每日刷新和入围实时查价（2026-10-16 上线）；446 个标签的分类、整理好的表导入 PostgreSQL、口碑参数拟合（都已完成）；非 PC 版人数怎么用（已定，见上）。</p>
     <div class="sec-head" style="padding-top:8px">
-      <p><b>还没做的加工</b>（下一阶段的任务）：</p>
+      <p><b>还要做的</b>（需要组内决定或等结果）：</p>
     </div>
     <div class="todo">
-      <span>把 446 个标签分成玩法 / 题材 / 氛围</span>
-      <span>把整理好的表导入数据库</span>
-      <span>拟合口碑分的参数</span>
+      <span>32 条真实请求的推荐结果，人工按 0 / 1 / 2 打分</span>
+      <span>决定精排是否默认开，以及权重 0.6、候选 80 款要不要调</span>
+      <span>本地重排模型 Qwen3-Reranker 和 LLM 精排的对比（结果待出）</span>
+      <span>用请求集调偏好原话、感觉的 0.25 和种子池 50 / 库加分 0.2</span>
+      <span>松绑建议的代价怎么算、能否两两组合放松</span>
+      <span>是否加第二个对照区，CN 区取价在部署环境复测</span>
     </div>
   </section>
 
@@ -1131,7 +1024,7 @@ vs 双人成行：标签 0.02 × 0.21 = 0.00；同好 0.0001
             <tr><td>标签名、每款游戏的标签、权重、是否核心</td><td>1</td><td><code>tags.parquet</code> · <code>game_tags.parquet</code></td></tr>
             <tr><td>官方分类（玩家、功能、手柄）</td><td>1</td><td><code>game_categories.parquet</code></td></tr>
             <tr><td>中英文介绍</td><td>1</td><td><code>descriptions.parquet</code></td></tr>
-            <tr><td>现价 + 史低（每区一行）</td><td>1 + 3</td><td><code>prices.parquet</code></td></tr>
+            <tr><td>现价 + 史低（每区一行，每天刷新，取数时间写在文件元数据里；刷新前的旧文件留作备份）</td><td>1 + 3</td><td><code>prices.parquet</code> · <code>prices_backup_*.parquet</code></td></tr>
             <tr><td>人数上限、分屏 / 局域网 / 中途加入、补充规则用的字段</td><td>2（缺失时用 1 的介绍和标签补）</td><td><code>player_counts.parquet</code></td></tr>
             <tr><td>工作室、系列、相似游戏、通关时长</td><td>2</td><td><code>companies</code> · <code>series</code> · <code>similar</code> · <code>time_to_beat.parquet</code></td></tr>
             <tr><td>新评测数据（Kaggle steam-reviews-100m 原始文件，只读）</td><td>4</td><td><code>data/raw/kaggle_reviews100m/</code></td></tr>
@@ -1140,8 +1033,14 @@ vs 双人成行：标签 0.02 × 0.21 = 0.00；同好 0.0001
             <tr><td>我们补抓的评测（已换成加盐编号，增量与修复在 reviews/，补 Kaggle 缺口在 kaggle_gaps/）</td><td>4</td><td><code>data/raw/steam_reviews_increment/</code></td></tr>
             <tr><td>代理池的配置副本（含节点密码和控制密钥，git 已忽略，不要外传）</td><td>—</td><td><code>.cache/proxies/mihomo-export/</code></td></tr>
             <tr><td>给评测者 ID 加盐用的密钥（不能提交、不能外传）</td><td>—</td><td><code>.cache/review_salt</code></td></tr>
-            <tr><td>中英文介绍向量（Qwen3-Embedding-4B，每段最多 1,024 个 token）</td><td>1 · 全部</td><td><code>data/derived/desc_emb_qwen3_4b.npz</code></td></tr><tr><td>别名表、剔除名单</td><td>1 · 全部</td><td><code>data/processed/aliases.parquet</code> · <code>data/processed/excluded_apps.parquet</code></td></tr><tr><td>模拟测试结果</td><td>全部</td><td><code>.cache/simulate_inputs.json</code></td></tr>
+            <tr><td>中英文介绍向量（Qwen3-Embedding-4B，每段最多 1,024 个 token）</td><td>1 · 全部</td><td><code>data/derived/desc_emb_qwen3_4b.npz</code></td></tr><tr><td>别名表、剔除名单</td><td>1 · 全部</td><td><code>data/processed/aliases.parquet</code> · <code>data/processed/excluded_apps.parquet</code></td></tr>
+            <tr><td>标签分类（玩法 / 题材 / 氛围 / 其他）</td><td>1 + LLM</td><td><code>data/processed/tag_categories.parquet</code></td></tr>
+            <tr><td>轻量索引（Steam 全部 193,457 款的编号和名字）</td><td>1</td><td><code>data/processed/app_index.parquet</code></td></tr><tr><td>模拟测试结果</td><td>全部</td><td><code>.cache/simulate_inputs.json</code></td></tr>
             <tr><td>用户的游戏库</td><td>5</td><td>不存文件，实时查询</td></tr>
+            <tr><td>数据库：整理好的表、血统路径查询、卡片反馈（<code>member_feedback</code>，账号只存带密钥的编号）、事实报告（<code>fact_report</code>）</td><td>全部</td><td>PostgreSQL（Docker 容器）</td></tr>
+            <tr><td>给账号编号用的密钥（不能提交、不能外传）</td><td>—</td><td><code>.cache/</code></td></tr>
+            <tr><td>推荐系统代码、网页前端</td><td>—</td><td><code>src/playnext/</code> · <code>web/</code></td></tr>
+            <tr><td>真实请求的对比报告</td><td>全部</td><td><code>eval/request_set_report.md</code></td></tr>
           </tbody>
         </table>
       </div>
@@ -1149,7 +1048,7 @@ vs 双人成行：标签 0.02 × 0.21 = 0.00；同好 0.0001
   </section>
 
   <footer>
-    <p>数据于 2026-10 取得。详细字段和覆盖率见 <code>docs/Data_Sources.md</code>；评测数据从抓取到建表的完整过程见 <code>docs/Review_Data_Pipeline.md</code>；模拟测试脚本 <code>scripts/simulate_inputs.py</code>。</p>
+    <p>数据于 2026-10 取得，价格 2026-10-16 起每天刷新。算法和参数以 <code>docs/Core_Technical_Skeleton.md</code> 和 <code>src/playnext/config.py</code> 为准。详细字段和覆盖率见 <code>docs/Data_Sources.md</code>；评测数据从抓取到建表的完整过程见 <code>docs/Review_Data_Pipeline.md</code>；模拟测试脚本 <code>scripts/simulate_inputs.py</code>。</p>
     <p>数据来源：Steam 商店与 Steam Web API、IGDB（非商业用途）、IsThereAnyDeal、Kaggle「steam-reviews-100m」（sergiodelcarpio，MIT）。价格数据由 IsThereAnyDeal 提供。</p>
   </footer>
 </main>
