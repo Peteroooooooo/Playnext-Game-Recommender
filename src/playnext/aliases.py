@@ -13,15 +13,16 @@ from . import config as C
 
 
 def norm(s):
-    s = unicodedata.normalize("NFKC", str(s)).lower()
-    s = re.sub(r"[®™©]", "", s)
+    # the marks go before NFKC, which would turn "™" into the letters "TM" ("HELLDIVERS™ 2" -> "helldiverstm2")
+    s = re.sub(r"[®™©℠]", "", str(s))
+    s = unicodedata.normalize("NFKC", s).lower()
     return re.sub(r"[^0-9a-z㐀-鿿぀-ヿ]", "", s)
 
 
 def words_of(s):
     """Lower-case words of a name, single-spaced ("Sid Meier's Civilization® VI" -> "sid meier s civilization vi")."""
-    s = unicodedata.normalize("NFKC", str(s)).lower()
-    s = re.sub(r"[®™©]", "", s)
+    s = re.sub(r"[®™©℠]", "", str(s))
+    s = unicodedata.normalize("NFKC", s).lower()
     return " ".join(re.findall(r"[0-9a-z]+", s))
 
 

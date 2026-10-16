@@ -1,7 +1,8 @@
 """PostgreSQL knowledge base (design 6.2): entities and relations as tables, lineage paths by recursive CTE.
 
 The recommender scores from in-memory arrays (kb.py); PostgreSQL holds the same facts with their source and
-fetch date, and answers path questions ("how is X linked to Y") for evidence cards and audits.
+fetch date, answers path questions ("how is X linked to Y") for the evidence cards at request time (PathFinder),
+and keeps the slow-loop feedback and fact-error reports (profiles.py).
 Load: uv run python scripts/load_postgres.py   (connection from .env: PGHOST / PGPORT / PGDATABASE / PGUSER / PGPASSWORD)
 """
 import io
@@ -118,14 +119,61 @@ def load(kb):
         _copy(cur, "similar_to", sim, ["appid", "similar_appid"])
         co = kb.colike.rename(columns={"app_id": "appid"})
         _copy(cur, "co_liked", co, ["appid", "neighbor", "sim", "co_count"])
+        from .refresh import snapshot_info
         pr = pd.read_parquet(C.PROC / "prices.parquet")
         pr = pr[pr["appid"].isin(kb.pos)].copy()
-        pr["fetched"] = fetched
+        pr["fetched"] = (snapshot_info() or {}).get("snapshot_date") or fetched
         _copy(cur, "price_snapshot", pr, ["appid", "region", "currency", "final", "original", "discount_pct", "is_free",
                                           "steam_low", "steam_low_time", "fetched"])
         conn.commit()
         cur.execute("SELECT relname, n_live_tup FROM pg_stat_user_tables ORDER BY relname")
         return dict(cur.fetchall())
+
+
+class PathFinder:
+    """Request-time lineage paths for the cards (design 6.2 '参数化 CTE 递归查询'): one connection per worker, a
+    statement timeout, and silence on any database error so cards fall back to the in-memory lineage."""
+
+    def __init__(self, workers=5, timeout_ms=1500):
+        self.workers, self.timeout_ms = workers, timeout_ms
+        self.ok = None
+        self._local = __import__("threading").local()
+
+    def _conn(self):
+        c = getattr(self._local, "conn", None)
+        if c is None or c.closed:
+            c = connect()
+            c.autocommit = True
+            with c.cursor() as cur:
+                cur.execute(f"SET statement_timeout = {int(self.timeout_ms)}")
+            self._local.conn = c
+        return c
+
+    def available(self):
+        if self.ok is None:
+            try:
+                with self._conn().cursor() as cur:
+                    cur.execute("SELECT count(*) FROM game")
+                    self.ok = cur.fetchone()[0] > 0
+            except Exception:
+                self.ok = False
+        return self.ok
+
+    def one(self, src, dst, max_depth=3):
+        try:
+            paths = lineage_paths(self._conn(), src, dst, max_depth=max_depth, limit=1)
+            return paths[0] if paths else None
+        except Exception:
+            self._local.conn = None
+            return None
+
+    def many(self, pairs, max_depth=3):
+        """pairs: [(src, dst)] -> [path text or None], queried in parallel."""
+        if not pairs or not self.available():
+            return [None] * len(pairs)
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(min(self.workers, len(pairs))) as ex:
+            return list(ex.map(lambda p: self.one(p[0], p[1], max_depth), pairs))
 
 
 def lineage_paths(conn, src, dst, max_depth=3, limit=3):

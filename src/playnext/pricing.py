@@ -47,8 +47,13 @@ class Prices:
         self.env = load_env() if live else {}
         f = C.ROOT / "data" / "raw" / "itad" / "id_map.json"
         self.itad = json.loads(f.read_text(encoding="utf-8")) if (live and f.exists()) else {}
+        # the date the prices were fetched (parquet metadata written by refresh.py), not the file's mtime: a
+        # rebuild or copy changes the mtime but not the prices
+        from .refresh import snapshot_info
+        info = snapshot_info()
         snap = C.PROC / "prices.parquet"
-        self.snapshot_date = datetime.fromtimestamp(snap.stat().st_mtime).strftime("%Y-%m-%d")
+        self.snapshot_date = (info or {}).get("snapshot_date") or \
+            datetime.fromtimestamp(snap.stat().st_mtime).strftime("%Y-%m-%d")
 
     def snapshot(self, appid, region):
         p = self.kb.price(appid, region)
