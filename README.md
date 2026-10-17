@@ -68,6 +68,8 @@ recorded in [docs/Review_Data_Pipeline.md](docs/Review_Data_Pipeline.md).
 | `cards.py` | Step 5: evidence cards, setup cards, LLM reasons with fact check and template fallback |
 | `rerank.py`, `local_rerank.py` | semantic rerank: one batched LLM call per request, a column per target (player, member, shared request); Qwen3-Reranker for comparison |
 | `relax.py` | conflict analyser (subset-sum over failed relaxable rules) |
+| `kb.py` | the knowledge base in memory: processed tables, EASE weights and description vectors aligned with the core games |
+| `outside.py` | games outside the core library: looked up in the light index, fetched once and used as content-only taste anchors (tags + description, no co-like); never recommended |
 | `pipeline.py`, `api.py` | the trunk (including the "没通过的" list of near misses); FastAPI backend (also serves the built web app) |
 | `db.py` | PostgreSQL knowledge base; recursive-CTE lineage paths, queried for the cards at request time |
 | `profiles.py` | slow loop: card feedback per bound account (keyed hash only) and fact-error reports, in PostgreSQL |
@@ -82,17 +84,19 @@ npm --prefix web install && npm --prefix web run build # web app (see web/README
 uv run uvicorn --app-dir src playnext.api:app --host 127.0.0.1 --port 8000
 ```
 
-Open http://127.0.0.1:8000. The API has no authentication; keep it on 127.0.0.1. Card feedback of bound accounts is
-kept in PostgreSQL under a keyed hash; the key is generated once in `.cache/profile_secret` (git-ignored; deleting it
-unlinks all saved feedback). Set `PLAYNEXT_NO_REFRESH=1` to skip the background price refresh. Command-line checks:
+Open http://127.0.0.1:8000. To serve it to others, `pwsh -File scripts/serve.ps1` starts Docker and the database,
+then binds the app to 0.0.0.0:8000 with `--proxy-headers`, for a reverse proxy on a separate server that adds HTTPS,
+basic auth and a rate limit. The app has no authentication of its own; expose it only through such a proxy.
+Card feedback of bound accounts is kept in PostgreSQL under a keyed hash; the key is generated once in
+`.cache/profile_secret` (git-ignored; deleting it unlinks all saved feedback). Set `PLAYNEXT_NO_REFRESH=1` to skip the background price refresh. Command-line checks:
 `scripts/try_request.py "<request>" ["<follow-up>"]` (full path with LLM and live prices), `scripts/smoke_pipeline.py`
 (no LLM). Tests: `uv run pytest` (the PostgreSQL tests skip when the database is not loaded).
 
 Offline evaluation: `eval_fusion.py` (channel weights), `eval_ranking_groups.py` (ranking rules, library bonus,
 synthetic groups), `eval_extra.py` (mechanics combinations, price preference, rating smoothing, scoring latency),
-`eval_request_set.py run|local|sweep|judge|report` (32 real forum requests vs asking the LLM directly, checked against
-hand-written conditions in `eval/request_set_gold.json`; reranker and w_r comparison on a dev / test split; results in
-`eval/`). `simulate_inputs.py` runs the four input paths through the current system for `docs/data_overview.html`.
+`eval_request_set.py run|local|llm_named|sweep|judge|report` (32 real forum requests vs asking the LLM directly,
+checked against hand-written conditions in `eval/request_set_gold.json`; reranker and w_r comparison on a dev / test
+split; results in `eval/`). `simulate_inputs.py` runs the four input paths through the current system for `docs/data_overview.html`.
 Earlier evaluation: `eval_ease.py [N] [M]`, `playtime_signal.py`, `demo_walkthrough.py`.
 Diagnostics: `igdb_mp_coverage.py`, `rate_limit_probe.py`, `diagnose_short_games.py`, `diagnose_paging.py`,
 `diagnose_empty_pages.py`, `probe_owned_games.py` (one Steam profile, counts only), `probe_owned_sample.py`
