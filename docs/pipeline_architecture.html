@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Playnext 流水线架构</title>
-<meta name="description" content="Playnext 怎么猜中玩家口味、一次推荐经过哪几步、怎么证明有效，以及想调整时该动哪里。">
+<meta name="description" content="Playnext 怎么猜中玩家口味、一次推荐经过哪几步、每一路分数怎么算、怎么证明有效，以及想调整时该动哪里。">
 <style>
 :root {
   --bg: #f6f7f9; --surface: #ffffff; --surface-2: #f0f2f5; --ink: #1a1d23; --ink-2: #4a5160; --ink-3: #7a8293;
   --line: #e1e4ea;
-  --off: #0f8a7e; --off-soft: #e3f4f1;   /* offline data */
-  --on: #6a45d1; --on-soft: #efe9fc;     /* online request */
-  --fb: #c27212; --fb-soft: #fbf0e1;     /* feedback */
-  --ok: #1f8a4c; --ok-soft: #e4f4ea;     /* done */
-  --todo: #b4541a; --todo-soft: #fbece2; /* to do */
+  --off: #0f8a7e; --off-soft: #e3f4f1;
+  --on: #6a45d1; --on-soft: #efe9fc;
+  --fb: #c27212; --fb-soft: #fbf0e1;
+  --ok: #1f8a4c; --ok-soft: #e4f4ea;
+  --todo: #b4541a; --todo-soft: #fbece2;
   --shadow: 0 1px 2px rgba(20, 24, 33, .05), 0 4px 16px rgba(20, 24, 33, .05);
   --radius: 14px;
   --font: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -36,52 +36,64 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 16px; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.75 var(--font); -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
 code, .mono { font-family: var(--mono); font-size: .86em; overflow-wrap: anywhere; }
 b { font-weight: 650; }
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
 
-/* top bar */
-.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-.top .wrap { display: flex; align-items: center; gap: 14px; height: 52px; }
-.brand { font-weight: 700; white-space: nowrap; }
-.nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; flex: 1; }
-.nav::-webkit-scrollbar { display: none; }
-.nav a { text-decoration: none; color: var(--ink-2); font-size: 13.5px; padding: 5px 10px; border-radius: 8px; white-space: nowrap; }
-.nav a:hover, .nav a:focus-visible { background: var(--surface-2); color: var(--ink); }
+/* layout with left table of contents */
+.layout { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 36px; max-width: 1340px; margin: 0 auto; padding: 0 20px; }
+.toc-side { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 22px 0 28px; scrollbar-width: thin; }
+.toc-side .brand { font-weight: 700; font-size: 15px; margin: 0 0 4px; }
+.toc-side .brand-sub { font-size: 12.5px; color: var(--ink-3); margin: 0 0 14px; }
+.toc-side ol { list-style: none; margin: 0; padding: 0; }
+.toc-side > nav > ol > li { margin: 2px 0; }
+.toc-side a { display: block; text-decoration: none; color: var(--ink-2); font-size: 13.5px; line-height: 1.45; padding: 5px 10px; border-radius: 8px; border-left: 2px solid transparent; }
+.toc-side a:hover, .toc-side a:focus-visible { background: var(--surface-2); color: var(--ink); }
+.toc-side a.active { color: var(--on); background: var(--on-soft); font-weight: 650; }
+.toc-side ol ol { margin: 1px 0 6px 10px; border-left: 1px solid var(--line); }
+.toc-side ol ol a { font-size: 12.5px; padding: 3px 10px; color: var(--ink-3); border-radius: 0 7px 7px 0; }
+.toc-side ol ol a.active { color: var(--on); background: transparent; font-weight: 650; border-left-color: var(--on); margin-left: -1px; }
+.toc-side .theme { margin-top: 16px; }
 .theme { border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 8px; padding: 4px 10px; font: inherit; font-size: 13px; cursor: pointer; }
 
-.hero { padding: 38px 0 4px; }
+.topbar { display: none; position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.topbar .in { display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 16px; }
+.topbar nav { display: flex; gap: 2px; overflow-x: auto; flex: 1; scrollbar-width: none; }
+.topbar nav::-webkit-scrollbar { display: none; }
+.topbar nav a { text-decoration: none; color: var(--ink-2); font-size: 13px; padding: 5px 9px; border-radius: 8px; white-space: nowrap; }
+
+main { min-width: 0; padding-bottom: 20px; }
+.hero { padding: 36px 0 4px; }
 .hero h1 { font-size: clamp(24px, 4vw, 32px); line-height: 1.3; margin: 0 0 10px; }
-.hero p { color: var(--ink-2); margin: 0 0 6px; max-width: 760px; }
-.toc { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 18px; }
-.toc a { text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; padding: 9px 12px; font-size: 13.5px; color: var(--ink-2); }
-.toc a b { display: block; color: var(--ink); font-size: 14px; }
-.toc a:hover, .toc a:focus-visible { border-color: var(--on); }
+.hero p { color: var(--ink-2); margin: 0 0 6px; max-width: 780px; }
+.qa { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; margin-top: 18px; }
+.qa a { text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; padding: 9px 12px; font-size: 13.5px; color: var(--ink-2); }
+.qa a b { display: block; color: var(--ink); font-size: 14px; }
+.qa a:hover, .qa a:focus-visible { border-color: var(--on); }
 
 section { padding: 40px 0 4px; }
 .sec-head { margin-bottom: 18px; }
-.eyebrow { font-size: 12.5px; font-weight: 600; letter-spacing: .6px; color: var(--ink-3); }
+.eyebrow { font-size: 12.5px; font-weight: 650; letter-spacing: .6px; color: var(--ink-3); }
 .sec-head h2 { font-size: 23px; line-height: 1.35; margin: 2px 0 8px; }
-.sec-head p { margin: 0; color: var(--ink-2); max-width: 820px; }
+.sec-head p { margin: 0; color: var(--ink-2); max-width: 840px; }
+h3.sub-h { font-size: 18px; margin: 30px 0 12px; scroll-margin-top: 16px; }
 
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 20px; }
 
-/* core idea: three steps */
+/* core idea */
 .idea { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 10px; align-items: stretch; }
 .idea .it { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; border-top: 3px solid var(--c); }
 .idea .it .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--cs); color: var(--c); font-weight: 700; font-size: 14px; }
 .idea .it h3 { margin: 8px 0 4px; font-size: 17px; line-height: 1.35; }
 .idea .it p { margin: 0; color: var(--ink-2); font-size: 14px; }
-.idea .it .how { margin-top: 10px; font-size: 12.5px; font-weight: 600; color: var(--c); background: var(--cs); border-radius: 7px; padding: 3px 9px; display: inline-block; }
+.idea .it .how { margin-top: 10px; font-size: 12.5px; font-weight: 650; color: var(--c); background: var(--cs); border-radius: 7px; padding: 3px 9px; display: inline-block; }
 .idea .ar { display: grid; place-items: center; color: var(--ink-3); font-size: 22px; }
 .c-off { --c: var(--off); --cs: var(--off-soft); }
 .c-on { --c: var(--on); --cs: var(--on-soft); }
 .c-fb { --c: var(--fb); --cs: var(--fb-soft); }
 
-/* worked example */
 .example { display: grid; grid-template-columns: 1fr 1.15fr; gap: 14px; margin-top: 14px; }
 .example h4 { margin: 0 0 4px; font-size: 15px; }
 .example .sub { margin: 0 0 12px; font-size: 13px; color: var(--ink-3); }
@@ -98,12 +110,15 @@ section { padding: 40px 0 4px; }
 .pick .k { width: 24px; height: 24px; border-radius: 7px; background: var(--on-soft); color: var(--on); font-weight: 700; font-size: 13px; display: grid; place-items: center; }
 .pick b { font-size: 14.5px; }
 .pick p { margin: 2px 0 0; font-size: 13px; color: var(--ink-2); }
-.chip { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 0 7px; border-radius: 5px; margin: 3px 4px 0 0; }
+.chip { display: inline-block; font-size: 11.5px; font-weight: 650; padding: 0 7px; border-radius: 5px; margin: 3px 4px 0 0; }
 .chip.co { background: var(--off-soft); color: var(--off); }
 .chip.tg { background: var(--surface-2); color: var(--ink-2); }
 .chip.no { background: var(--todo-soft); color: var(--todo); }
 .callout { margin-top: 14px; padding: 12px 14px; border-radius: 11px; background: var(--on-soft); color: var(--ink); font-size: 14px; }
 .callout b { color: var(--on); }
+.callout.answer { background: var(--surface); border: 2px solid var(--on); box-shadow: var(--shadow); padding: 14px 16px; }
+.callout.answer h4 { margin: 0 0 6px; font-size: 15.5px; color: var(--on); }
+.callout.answer p { margin: 4px 0; }
 
 /* map */
 .map { display: grid; gap: 12px; }
@@ -116,37 +131,60 @@ section { padding: 40px 0 4px; }
 .arrow { color: var(--ink-3); font-size: 13px; }
 .map-note { font-size: 12.5px; color: var(--ink-3); margin: 4px 0 0; }
 
-/* stage cards */
+/* cards */
 .flow { display: grid; gap: 0; }
 .connector { height: 20px; margin-left: 33px; border-left: 2px dashed var(--line); }
 .grid2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; border-top: 3px solid var(--c); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; border-top: 3px solid var(--c); scroll-margin-top: 16px; }
 .card-head { display: flex; gap: 12px; align-items: flex-start; }
-.num { flex: none; width: 30px; height: 30px; border-radius: 9px; background: var(--cs); color: var(--c); display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.num { flex: none; min-width: 30px; height: 30px; padding: 0 6px; border-radius: 9px; background: var(--cs); color: var(--c); display: grid; place-items: center; font-weight: 700; font-size: 14px; }
 .card h3 { margin: 0; font-size: 16.5px; line-height: 1.35; }
 .mod { margin: 1px 0 0; font-family: var(--mono); font-size: 12px; color: var(--ink-3); overflow-wrap: anywhere; }
 .lead { margin: 10px 0 0; font-size: 14.5px; color: var(--ink); }
 .algs { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 10px 0; }
-.algs li { font-size: 12.5px; font-weight: 600; padding: 2px 9px; border-radius: 7px; background: var(--cs); color: var(--c); }
-.io { display: grid; grid-template-columns: 44px 1fr; gap: 5px 10px; margin: 0; font-size: 14px; }
-.io dt { font-size: 12px; font-weight: 600; color: var(--ink-3); padding-top: 2px; }
+.algs li { font-size: 12.5px; font-weight: 650; padding: 2px 9px; border-radius: 7px; background: var(--cs); color: var(--c); }
+.io { display: grid; grid-template-columns: 50px 1fr; gap: 6px 10px; margin: 10px 0 0; font-size: 14px; }
+.io dt { font-size: 12px; font-weight: 650; color: var(--ink-3); padding-top: 2px; }
 .io dd { margin: 0; color: var(--ink-2); }
 .why { margin: 12px 0 0; padding: 9px 12px; border-radius: 9px; background: var(--surface-2); font-size: 13px; color: var(--ink-2); }
 .why::before { content: "为什么"; font-weight: 650; color: var(--ink); margin-right: 8px; }
+.more { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 650; color: var(--on); text-decoration: none; }
+.more:hover { text-decoration: underline; }
 .inner { margin-top: 12px; padding: 12px; border-radius: 11px; background: var(--surface-2); }
 .inner-t { font-size: 12.5px; font-weight: 650; color: var(--ink-3); margin: 0 0 8px; }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
-.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; font-size: 13px; color: var(--ink-2); }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; font-size: 13px; color: var(--ink-2); text-decoration: none; display: block; }
 .tile b { display: block; color: var(--ink); font-size: 13.5px; }
-.tile .t { display: inline-block; font-size: 11.5px; font-weight: 600; color: var(--on); background: var(--on-soft); border-radius: 5px; padding: 0 6px; margin-top: 4px; }
+.tile .t { display: inline-block; font-size: 11.5px; font-weight: 650; color: var(--on); background: var(--on-soft); border-radius: 5px; padding: 0 6px; margin-top: 4px; }
 .tile.main { border-color: var(--off); }
 .tile.main .t { color: var(--off); background: var(--off-soft); }
+a.tile:hover, a.tile:focus-visible { border-color: var(--on); }
 .chainbox { display: flex; flex-wrap: wrap; gap: 6px; }
 .chainbox .p { flex: 1 1 130px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; font-size: 13px; color: var(--ink-2); }
 .chainbox .p b { display: block; color: var(--ink); font-size: 13.5px; }
 .chainbox .p .k { font-size: 11.5px; color: var(--on); font-weight: 650; }
 .side { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin-top: 10px; }
 .side div { border: 1px dashed var(--line); border-radius: 10px; padding: 8px 11px; font-size: 13px; color: var(--ink-2); }
+
+/* formulas */
+.formula { margin: 10px 0 0; padding: 10px 13px; border-radius: 10px; background: var(--surface-2); border-left: 3px solid var(--c, var(--on)); font-size: 14px; color: var(--ink); line-height: 1.9; overflow-x: auto; }
+.formula .v { font-family: var(--mono); font-size: .92em; color: var(--c, var(--on)); font-weight: 650; }
+.formula small { display: block; color: var(--ink-3); font-size: 12.5px; line-height: 1.6; margin-top: 2px; }
+.off-note { display: inline-block; font-size: 11.5px; font-weight: 650; color: var(--todo); background: var(--todo-soft); border-radius: 5px; padding: 0 7px; margin-left: 6px; vertical-align: 2px; }
+.ord { counter-reset: s; list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.ord > li { counter-increment: s; display: grid; grid-template-columns: 26px 1fr; gap: 10px; font-size: 14px; color: var(--ink-2); }
+.ord > li::before { content: counter(s); width: 24px; height: 24px; border-radius: 7px; background: var(--cs, var(--on-soft)); color: var(--c, var(--on)); font-weight: 700; font-size: 12.5px; display: grid; place-items: center; }
+.ord > li b { color: var(--ink); }
+.ord .formula { margin-top: 6px; }
+
+/* MMR illustration */
+.mmr-demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+.mmr-demo .round { background: var(--surface-2); border-radius: 11px; padding: 10px 12px; font-size: 13px; color: var(--ink-2); }
+.mmr-demo .round h5 { margin: 0 0 6px; font-size: 13px; color: var(--ink); }
+.mmr-demo .g { display: flex; justify-content: space-between; gap: 8px; padding: 4px 8px; border-radius: 7px; background: var(--surface); border: 1px solid var(--line); margin-top: 5px; }
+.mmr-demo .g.win { border-color: var(--on); color: var(--ink); font-weight: 650; }
+.mmr-demo .g.lose { opacity: .65; text-decoration: line-through; }
+.mmr-demo .g span:last-child { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
 
 /* evidence */
 .ev { display: grid; gap: 14px; }
@@ -168,10 +206,7 @@ section { padding: 40px 0 4px; }
 .bar.best .track i { background: var(--off); }
 .bar.best { color: var(--ink); font-weight: 650; }
 .bar .v { font-family: var(--mono); font-size: 12.5px; text-align: right; }
-.limit { margin-top: 14px; }
-.limit li { margin: 4px 0; }
 
-/* details for engineering steps */
 details.eng { margin-top: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
 details.eng > summary { cursor: pointer; padding: 14px 18px; font-weight: 650; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
 details.eng > summary::-webkit-details-marker { display: none; }
@@ -183,7 +218,6 @@ details.eng > summary small { display: block; font-weight: 400; color: var(--ink
 .steps li .k { width: 24px; height: 24px; border-radius: 7px; background: var(--off-soft); color: var(--off); font-weight: 700; font-size: 12.5px; display: grid; place-items: center; }
 .steps li b { color: var(--ink); }
 
-/* runtime */
 .runtime { display: grid; grid-template-columns: 1fr auto 1fr auto 1.4fr; align-items: center; gap: 10px; }
 .box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow); font-size: 13.5px; color: var(--ink-2); }
 .box h4 { margin: 0 0 4px; font-size: 14.5px; color: var(--ink); }
@@ -191,7 +225,6 @@ details.eng > summary small { display: block; font-weight: 400; color: var(--ink
 .harrow { color: var(--ink-3); font-size: 18px; text-align: center; }
 .deps { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-top: 12px; }
 
-/* table */
 .table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
 table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13.5px; }
 th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -206,47 +239,94 @@ td .mono { color: var(--ink-3); }
 
 footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 13px; }
 
+@media (max-width: 1060px) {
+  .layout { grid-template-columns: 1fr; padding: 0 16px; }
+  .toc-side { display: none; }
+  .topbar { display: block; }
+  html { scroll-padding-top: 62px; }
+  .card, h3.sub-h { scroll-margin-top: 62px; }
+}
 @media (max-width: 820px) {
   .idea { grid-template-columns: 1fr; }
   .idea .ar { transform: rotate(90deg); height: 18px; }
-  .example { grid-template-columns: 1fr; }
-  .evc { grid-template-columns: 1fr; }
-  .runtime { grid-template-columns: 1fr; }
+  .example, .evc, .runtime, .mmr-demo { grid-template-columns: 1fr; }
   .harrow { transform: rotate(90deg); }
   .lane { grid-template-columns: 1fr; gap: 6px; }
   .grid2 { grid-template-columns: 1fr; }
-  .brand { display: none; }
+  .io { grid-template-columns: 44px 1fr; }
 }
-@media print { .top { position: static; } .card, .panel, .box, .evc, .idea .it { box-shadow: none; } details.eng { display: block; } }
+@media print { .toc-side, .topbar { display: none; } .layout { grid-template-columns: 1fr; } .card, .panel, .box, .evc, .idea .it { box-shadow: none; } }
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <span class="brand">Playnext 流水线</span>
-    <nav class="nav" aria-label="页面目录">
-      <a href="#idea">核心思路</a>
-      <a href="#map">全局图</a>
-      <a href="#online">一次推荐</a>
-      <a href="#proof">怎么证明有效</a>
-      <a href="#offline">离线数据</a>
-      <a href="#feedback">反馈</a>
-      <a href="#runtime">运行架构</a>
-      <a href="#knobs">可调之处</a>
+<header class="topbar">
+  <div class="in">
+    <nav aria-label="页面目录（窄屏）">
+      <a href="#idea">核心思路</a><a href="#map">全局图</a><a href="#online">一次推荐</a><a href="#score">打分细节</a>
+      <a href="#rank">排序与 MMR</a><a href="#proof">证明有效</a><a href="#offline">离线数据</a><a href="#feedback">反馈</a>
+      <a href="#runtime">运行架构</a><a href="#knobs">可调之处</a>
     </nav>
-    <button class="theme" id="theme" type="button" aria-label="切换深色或浅色">深色</button>
+    <button class="theme" type="button" data-theme-toggle aria-label="切换深色或浅色">深色</button>
   </div>
 </header>
 
-<main class="wrap">
+<div class="layout">
+  <aside class="toc-side" aria-label="页面目录">
+    <p class="brand">Playnext 流水线</p>
+    <p class="brand-sub">架构与算法逻辑</p>
+    <nav>
+      <ol>
+        <li><a href="#idea">一 · 核心思路</a>
+          <ol><li><a href="#example">例子：一个玩家的库</a></li></ol></li>
+        <li><a href="#map">二 · 全局图</a></li>
+        <li><a href="#online">三 · 一次推荐</a>
+          <ol>
+            <li><a href="#s0">0 输入</a></li>
+            <li><a href="#s1">1 听懂需求</a></li>
+            <li><a href="#s2">2 按硬条件筛</a></li>
+            <li><a href="#s3">3 按口味打分</a></li>
+            <li><a href="#s4">4 排序</a></li>
+            <li><a href="#s5">5 写推荐理由</a></li>
+          </ol></li>
+        <li><a href="#score">四 · 打分细节</a>
+          <ol>
+            <li><a href="#sc-anchor">口味锚点与分量</a></li>
+            <li><a href="#sc-colike">同好</a></li>
+            <li><a href="#sc-tag">标签</a></li>
+            <li><a href="#sc-desc">介绍</a></li>
+            <li><a href="#sc-pref">偏好原话</a></li>
+            <li><a href="#sc-feel">感觉</a></li>
+            <li><a href="#sc-lineage">血统</a></li>
+            <li><a href="#sc-fuse">合成个人分</a></li>
+            <li><a href="#sc-rerank">LLM 精排</a></li>
+            <li><a href="#sc-group">多人合成</a></li>
+          </ol></li>
+        <li><a href="#rank">五 · 排序与 MMR</a>
+          <ol>
+            <li><a href="#rk-short">入围名单</a></li>
+            <li><a href="#rk-base">窗口分</a></li>
+            <li><a href="#rk-mmr">MMR 怎么选</a></li>
+          </ol></li>
+        <li><a href="#proof">六 · 怎么证明有效</a></li>
+        <li><a href="#offline">七 · 离线数据</a></li>
+        <li><a href="#feedback">八 · 反馈</a></li>
+        <li><a href="#runtime">九 · 运行架构</a></li>
+        <li><a href="#knobs">十 · 可调之处</a></li>
+        <li><a href="#principles">十一 · 设计原则</a></li>
+      </ol>
+    </nav>
+    <button class="theme" type="button" data-theme-toggle aria-label="切换深色或浅色">深色</button>
+  </aside>
+
+<main>
   <div class="hero">
     <h1>Playnext 流水线：架构与算法逻辑</h1>
-    <p>先看“核心思路”：系统靠什么猜中你的口味。再看“一次推荐”怎么一步步走，最后看“怎么证明有效”。数值、公式和代码细节不在这页，在 <code>Core_Technical_Skeleton.md</code>、<code>Review_Data_Pipeline.md</code> 和 <code>src/playnext/config.py</code> 里。</p>
-    <nav class="toc" aria-label="按问题找">
-      <a href="#idea"><b>系统怎么知道我喜欢什么？</b>从玩的时长读口味，用千万玩家找隐性关联</a>
-      <a href="#online"><b>一次推荐经过哪几步？</b>理解 → 筛 → 打分 → 排序 → 写理由</a>
+    <p>先看“核心思路”：系统靠什么猜中你的口味；再看“一次推荐”怎么一步步走；想知道分数具体怎么算，看“打分细节”和“排序与 MMR”。具体数值不在这页，在 <code>src/playnext/config.py</code> 里（每项都标了配置名）。</p>
+    <nav class="qa" aria-label="按问题找">
+      <a href="#idea"><b>系统怎么知道我喜欢什么？</b>从时长读口味，用千万玩家找隐性关联</a>
+      <a href="#score"><b>每一路分数怎么算？</b>同好、标签、介绍、感觉……输入、算法、输出</a>
+      <a href="#rk-mmr"><b>MMR 改的是顺序还是内容？</b>两者都改，但只在窗口内换</a>
       <a href="#proof"><b>怎么证明它有效？</b>已经做了什么、还缺什么</a>
-      <a href="#knobs"><b>想调整，该动哪里？</b>每一步的可调项和验证方法</a>
     </nav>
   </div>
 
@@ -257,31 +337,30 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
       <h2 id="idea-t">从你玩过什么，推出你会喜欢什么</h2>
       <p>你喜欢的几款游戏之间，一定有某种共性，哪怕标签上看不出来、类型也不同。系统不去猜这个共性是什么，而是直接看几千万真实玩家的记录：<b>喜欢你那几款的人，后来还喜欢什么</b>。</p>
     </div>
-
     <div class="idea">
       <div class="it c-off">
         <span class="n">1</span>
         <h3>读出你喜欢什么</h3>
-        <p>不看绝对小时数，而是和<b>同一款游戏的其他玩家</b>比：你玩得比大多数人都久，说明你是真喜欢；玩得比一般人少，说明只是一般。比得越靠前，这款游戏代表你口味的分量越重。</p>
-        <span class="how">时长分位（和同款玩家比）</span>
+        <p>不看绝对小时数，而是和<b>同一款游戏的其他玩家</b>比：你玩得比大多数人都久，说明真喜欢；比一般人少，说明只是一般。比得越靠前，这款游戏代表你口味的分量越重。</p>
+        <span class="how">时长分位</span>
       </div>
       <div class="ar" aria-hidden="true">→</div>
       <div class="it c-off">
         <span class="n">2</span>
         <h3>找隐性关联</h3>
-        <p>从几千万条好评里学出“喜欢 A 的人还会喜欢 B 多少”。只看人，不看标签和类型，所以能找到“类型完全不同但同一批人都爱”的游戏。你喜欢的每一款都会“投票”，分量重的票数多。</p>
+        <p>从几千万条好评里学出“喜欢 A 的人还会喜欢 B 多少”。只看人，不看标签和类型，所以能找到“类型完全不同但同一批人都爱”的游戏。你喜欢的每一款都“投票”，分量重的票多。</p>
         <span class="how">同好（EASE 物品协同）</span>
       </div>
       <div class="ar" aria-hidden="true">→</div>
       <div class="it c-on">
         <span class="n">3</span>
         <h3>按这次的要求筛和排</h3>
-        <p>口味只是一半。人数、开局方式、预算、雷区这些硬条件先筛掉不合格的；你这次说的话（“想轻松点”）再让 LLM 精排；最后在喜好相近的游戏之间看口碑和价格。</p>
+        <p>口味只是一半。人数、开局方式、预算、雷区先筛掉不合格的；这次说的话（“想轻松点”）再让 LLM 精排；最后在喜好相近的游戏之间看口碑、价格和多样性。</p>
         <span class="how">硬条件 + 语义精排 + 排序</span>
       </div>
     </div>
 
-    <div class="example">
+    <div class="example" id="example">
       <div class="panel">
         <h4>例子：一个玩家的 Steam 库</h4>
         <p class="sub">条形 = 系统读出的“喜欢程度”（比同款其他玩家玩得多的程度）</p>
@@ -317,8 +396,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <div class="lane-name">离线准备<small>提前算好</small></div>
         <div class="chain">
           <a class="node" href="#o-reviews">几千万条评测</a><span class="arrow">→</span>
-          <a class="node" href="#o-tables">同好矩阵 · 时长参照</a>
-          <span class="arrow">＋</span>
+          <a class="node" href="#o-tables">同好矩阵 · 时长参照</a><span class="arrow">＋</span>
           <a class="node" href="#o-kb">游戏事实库 · 介绍向量 · 关系图谱 · 每日价格</a>
         </div>
       </div>
@@ -356,9 +434,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
       <article class="card c-on" id="s0">
         <div class="card-head"><span class="num">0</span><div><h3>输入</h3><p class="mod">api.py · library.py · web/</p></div></div>
         <p class="lead">三种输入可以叠加：一句话、问卷点选、Steam 游戏库。多人时每位成员各有一份。</p>
-        <dl class="io" style="margin-top:10px">
-          <dt>输出</dt><dd>原话 + 表单 + 各成员的库（游戏和时长）</dd>
-        </dl>
+        <dl class="io"><dt>输出</dt><dd>原话 + 表单 + 各成员的库（游戏和时长）</dd></dl>
       </article>
       <div class="connector" role="presentation"></div>
 
@@ -367,7 +443,8 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <p class="lead">LLM 把原话翻译成一张固定格式的“需求单”，程序负责检查。</p>
         <ul class="algs"><li>LLM 结构化抽取</li><li>格式校验 + 失败重试</li><li>游戏名别名匹配</li></ul>
         <dl class="io">
-          <dt>处理</dt><dd>抽出人数和开局方式、预算（带币种）、说过玩过 / 不要的游戏、雷区、想要的“感觉”（只能从 Steam 标签里选）、偏好原话。提到的游戏名用别名表认，核心库外的游戏查全量索引。问卷不经过 LLM，直接转换</dd>
+          <dt>输入</dt><dd>原话、问卷、库</dd>
+          <dt>处理</dt><dd>抽出人数和开局方式、预算（带币种）、说过玩过 / 不要的游戏、雷区、想要和不想要的“感觉”（只能从 Steam 标签里选）、偏好原话。提到的游戏名用别名表认，核心库外的查全量索引。问卷不经过 LLM，直接转换</dd>
           <dt>输出</dt><dd><b>需求单（SessionSpec）</b>：后面每一步都读它</dd>
         </dl>
         <p class="why">这一步错了会传到后面每一步，所以用强模型、严校验；LLM 不可用时只能用问卷。</p>
@@ -379,8 +456,9 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <p class="lead">逐款逐条对照事实，不符合的直接淘汰；查不到的标“待确认”，不偷偷放行。</p>
         <ul class="algs"><li>三值逻辑：通过 / 不通过 / 未知</li><li>开局方式分流</li><li>最少购买份数</li></ul>
         <dl class="io">
+          <dt>输入</dt><dd>需求单、事实库、价格快照</dd>
           <dt>处理</dt><dd>雷区、语言、平台、预算、玩过 / 排除。多人时再查模式和人数上限，并按开局方式（在线 / 同屏 / 远程同乐 / 混合）算每款最少要新买几份</dd>
-          <dt>输出</dt><dd>合格的游戏 + 每款的开局方案 + “没通过的”及原因</dd>
+          <dt>输出</dt><dd><b>候选池</b>（通过 + 待确认）、每款的开局方案、“没通过的”及原因</dd>
         </dl>
         <div class="side">
           <div><b>一个都不剩：</b>找出放宽哪几条代价最小，给松绑建议</div>
@@ -391,33 +469,23 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
 
       <article class="card c-on" id="s3">
         <div class="card-head"><span class="num">3</span><div><h3>按口味打分</h3><p class="mod">scoring.py · rerank.py · encoder.py</p></div></div>
-        <p class="lead">“核心思路”在这里实现：先确定代表你口味的游戏，再从几个角度给每个合格的游戏打分。</p>
+        <p class="lead">“核心思路”在这里实现：先定下代表你口味的游戏（锚点），再从几个角度给候选池里每款游戏打分，最后合成一个 0~1 的<b>喜好分</b>。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>候选池、需求单（种子、原话、感觉）、各成员的库和以前的“喜欢”</dd>
+          <dt>输出</dt><dd>每款候选的<b>喜好分</b>（多人时每人一份再合成），以及每一路是哪个锚点贡献最大（给卡片当证据）</dd>
+        </dl>
         <div class="inner">
-          <p class="inner-t">① 谁代表你的口味（锚点）</p>
+          <p class="inner-t">每一路怎么算（点开看细节）</p>
           <div class="tiles">
-            <div class="tile"><b>你说的“像 X 那样”</b>最直接的口味</div>
-            <div class="tile main"><b>Steam 库</b>按时长分位给分量，玩得少的几乎不算<span class="t">时长分位</span></div>
-            <div class="tile"><b>以前点过“喜欢”的</b>随时间慢慢变轻</div>
-            <div class="tile"><b>核心库外的游戏</b>只用它的标签和介绍</div>
-          </div>
-        </div>
-        <div class="inner">
-          <p class="inner-t">② 从几个角度打分（每个锚点按分量加起来）</p>
-          <div class="tiles">
-            <div class="tile main"><b>同好（主力）</b>喜欢锚点的人还喜欢什么<span class="t">EASE</span></div>
-            <div class="tile"><b>标签</b>玩家贴的标签像不像<span class="t">IDF 加权余弦</span></div>
-            <div class="tile"><b>介绍</b>商店介绍讲的东西像不像<span class="t">文本向量</span></div>
-            <div class="tile"><b>感觉</b>想要的标签加分、不想要的减分<span class="t">标签加减分</span></div>
-            <div class="tile"><b>偏好原话</b>你的一句话和介绍比<span class="t">文本向量</span></div>
-          </div>
-        </div>
-        <div class="inner">
-          <p class="inner-t">③ 合成一个分</p>
-          <div class="chainbox">
-            <div class="p"><span class="k">统一尺度</span><b>每个角度先归一</b>分数拉到同一把尺子</div>
-            <div class="p"><span class="k">加权合成</span><b>按各角度的占比加起来</b>同好占大头</div>
-            <div class="p"><span class="k">有原话或感觉时</span><b>LLM 精排</b>前几十款按你的原话再打一次分，和上面的分合并</div>
-            <div class="p"><span class="k">多人时</span><b>平均与最低分兼顾</b>每人各算一份，照顾最不满意的人</div>
+            <a class="tile" href="#sc-anchor"><b>口味锚点</b>谁代表你，分量多少<span class="t">时长分位</span></a>
+            <a class="tile main" href="#sc-colike"><b>同好（主力）</b>喜欢锚点的人还喜欢什么<span class="t">EASE</span></a>
+            <a class="tile" href="#sc-tag"><b>标签</b>玩家贴的标签像不像<span class="t">IDF 加权余弦</span></a>
+            <a class="tile" href="#sc-desc"><b>介绍</b>商店介绍像不像<span class="t">文本向量</span></a>
+            <a class="tile" href="#sc-pref"><b>偏好原话</b>你的话和介绍比<span class="t">文本向量</span></a>
+            <a class="tile" href="#sc-feel"><b>感觉</b>想要的加分、不想要的减分<span class="t">标签权重</span></a>
+            <a class="tile" href="#sc-fuse"><b>合成</b>归一、加权、混合<span class="t">min-max + 加权</span></a>
+            <a class="tile" href="#sc-rerank"><b>LLM 精排</b>前几十款按原话再打分<span class="t">LLM 0~10</span></a>
+            <a class="tile" href="#sc-group"><b>多人合成</b>兼顾平均和最不满意的人<span class="t">平均 + 最低</span></a>
           </div>
         </div>
         <p class="why">标签和介绍只看“长得像不像”，同好看“真实玩家会不会一起喜欢”。离线验证里同好猜得最准，所以占主导；LLM 精排补上原话里的细微要求。</p>
@@ -426,20 +494,13 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
 
       <article class="card c-on" id="s4">
         <div class="card-head"><span class="num">4</span><div><h3>排序</h3><p class="mod">ranking.py · pricing.py</p></div></div>
-        <p class="lead">喜好决定大顺序，口碑和价格只在喜好差不多的游戏之间微调。</p>
-        <div class="inner">
-          <p class="inner-t">按顺序</p>
-          <div class="chainbox">
-            <div class="p"><span class="k">折叠</span><b>同系列留最好的一款</b>其余挂在它下面</div>
-            <div class="p"><span class="k">入围</span><b>前几十款查实时价</b>超预算的移出并说明</div>
-            <div class="p"><span class="k">底线</span><b>口碑太差的降到备选</b>并标注</div>
-            <div class="p"><span class="k">窗口</span><b>喜好相近的才互相比</b>比口碑（评测少的往平均拉）、价格、是否已拥有</div>
-            <div class="p"><span class="k">多样性</span><b>避免前几款太像</b>MMR</div>
-          </div>
-        </div>
-        <dl class="io" style="margin-top:10px">
-          <dt>输出</dt><dd>精选 3~5 款 + 备选（可按价格筛、可展开同系列）+ 待确认</dd>
+        <p class="lead">喜好分决定大顺序；口碑、价格和多样性只在喜好分差不多的游戏之间起作用。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>喜好分、候选池、口碑、价格（入围的查实时价）</dd>
+          <dt>处理</dt><dd>同系列折叠 → 取入围名单、复核实时价 → 每轮在“喜好相近的窗口”里用 MMR 选一款，选 5 轮</dd>
+          <dt>输出</dt><dd>精选 3~5 款 + 备选（入围但没选上的）+ 待确认</dd>
         </dl>
+        <a class="more" href="#rank">看排序和 MMR 的细节 →</a>
       </article>
       <div class="connector" role="presentation"></div>
 
@@ -448,6 +509,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <p class="lead">先把证据摆出来，再让 LLM 只根据证据写理由，写错了就退回模板。</p>
         <ul class="algs"><li>证据汇集</li><li>图谱递归路径</li><li>事实一致性校验</li></ul>
         <dl class="io">
+          <dt>输入</dt><dd>精选游戏、打分时记下的证据、事实库、价格</dd>
           <dt>处理</dt><dd>每张卡收集：同好人数、共享标签、从你的游戏到它的关系链（同开发商 / 同系列 / 相似，PostgreSQL 实时查）、现价和史低、人数和开局方案，都带来源。程序检查理由里的数字和游戏名都在证据里，不符就重写一次，仍不符用模板</dd>
           <dt>输出</dt><dd>推荐卡（多人卡附开局方案和每人要不要买）</dd>
         </dl>
@@ -455,10 +517,214 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <!-- 4 PROOF -->
+  <!-- 4 SCORING DETAIL -->
+  <section id="score" aria-labelledby="sc-t">
+    <div class="sec-head">
+      <div class="eyebrow">四 · 打分细节</div>
+      <h2 id="sc-t">每一路分数怎么算</h2>
+      <p>下面的符号：<b>g</b> 是要打分的候选游戏，<b>a</b> 是一个口味锚点，<b>w<sub>a</sub></b> 是这个锚点的分量。所有计算都只在第 2 步留下的<b>候选池</b>里做。代码在 <code>scoring.py</code>，占比等数值在 <code>config.py</code>。</p>
+    </div>
+
+    <div class="grid2">
+      <article class="card c-off" id="sc-anchor">
+        <div class="card-head"><span class="num">锚</span><div><h3>口味锚点与分量</h3><p class="mod">scoring.library_anchors · member_taste</p></div></div>
+        <p class="lead">先定“谁代表你的口味”，以及每款代表多少。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>你说的种子、Steam 库（游戏 + 时长）、以前点过的“喜欢”</dd>
+          <dt>怎么算</dt><dd>
+            <b>种子</b>：分量都是 1。<br>
+            <b>库里的游戏</b>：分量 = <b>时长分位</b> = 这款游戏的玩家里，玩得比你少的人占多大比例（0~1）。没有参照数据的游戏，改用它在你自己库里的时长排位。时长为 0 的不算。<br>
+            <b>以前喜欢的</b>：分量随时间减半衰减（半衰期 <code>LIKED_HALF_LIFE_DAYS</code>）。<br>
+            最多只取分量最重的若干款（<code>MAX_LIBRARY_ANCHORS</code>）。</dd>
+          <dt>输出</dt><dd>锚点名单 {a: w<sub>a</sub>}</dd>
+        </dl>
+        <div class="formula" style="--c:var(--off)"><b>有种子时</b>：种子当锚点，库只在种子打分的前若干名里加一点分（<code>SEED_POOL</code>、<code>LIB_BONUS</code>），库不能把种子以外的游戏拉进来。<br><b>没有种子时</b>：库就是锚点。</div>
+      </article>
+
+      <article class="card c-off" id="sc-colike">
+        <div class="card-head"><span class="num">同</span><div><h3>同好（主力通道）</h3><p class="mod">kb.ease_rows · build_review_tables.py</p></div></div>
+        <p class="lead">“喜欢锚点的人，还会喜欢 g 多少”，把每个锚点的票按分量加起来。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>锚点 {a: w<sub>a</sub>}；离线算好的同好矩阵 B</dd>
+          <dt>怎么算</dt><dd>查表求和：</dd>
+        </dl>
+        <div class="formula" style="--c:var(--off)">同好分(g) = Σ<sub>a</sub> <span class="v">w<sub>a</sub></span> × <span class="v">B[a, g]</span>
+          <small><b>B 怎么来（离线，EASE）</b>：把“哪些玩家好评了哪些游戏”排成一张玩家 × 游戏的大表，求一组系数，让“用其他所有游戏的好评”尽量还原“每款游戏的好评”，同时规定一款游戏不许用自己预测自己，并加正则防止过拟合。得到的系数 B[a, g] 就是“a 对 g 的独立贡献”。<br><b>和简单数“共同好评人数”的区别</b>：它同时考虑所有游戏，“两款都很热门所以碰巧一起出现”的部分会被其他热门游戏分走，留下的才是真关联。</small></div>
+        <dl class="io"><dt>输出</dt><dd>每款候选的同好分；以及贡献最大的锚点（卡片上写“和《X》同好多少人”）</dd></dl>
+      </article>
+
+      <article class="card c-off" id="sc-tag">
+        <div class="card-head"><span class="num">标</span><div><h3>标签</h3><p class="mod">kb._tag_matrix · scoring.channel_scores</p></div></div>
+        <p class="lead">玩家贴的标签像不像，冷门标签说明力更强。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>每款游戏的玩家标签和票数</dd>
+          <dt>怎么算</dt><dd>先给每款游戏做一个<b>标签向量</b>：每个标签的值 = 该标签票数 ÷ 这款游戏最高票标签的票数 × IDF（有这个标签的游戏越少，IDF 越大），再缩放到长度 1。两款游戏的标签相似度就是两个向量的余弦。</dd>
+        </dl>
+        <div class="formula" style="--c:var(--off)">标签分(g) = Σ<sub>a</sub> <span class="v">w<sub>a</sub></span> × <span class="v">cos(标签向量<sub>a</sub>, 标签向量<sub>g</sub>)</span>
+          <small>多个锚点用“加权求和”而不是“取最大”，离线比较时求和更准（<code>TAG_AGG</code>）。</small></div>
+        <dl class="io"><dt>输出</dt><dd>每款候选的标签分；贡献最大的锚点和共享的核心标签（卡片证据）</dd></dl>
+      </article>
+
+      <article class="card c-off" id="sc-desc">
+        <div class="card-head"><span class="num">介</span><div><h3>介绍</h3><p class="mod">kb.desc_sim · encoder.py</p></div></div>
+        <p class="lead">商店介绍讲的东西像不像，补上标签漏掉的题材和氛围。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>离线编码好的中英文介绍向量</dd>
+          <dt>怎么算</dt><dd>两款游戏的介绍相似度 = 英文版余弦和中文版余弦里较大的那个；缺介绍的游戏不参与这一路。</dd>
+        </dl>
+        <div class="formula" style="--c:var(--off)">介绍分(g) = Σ<sub>a</sub> <span class="v">w<sub>a</sub></span> × <span class="v">介绍相似度(a, g)</span>
+          <small>同样是加权求和（<code>DESC_AGG</code>）。</small></div>
+        <dl class="io"><dt>输出</dt><dd>每款候选的介绍分</dd></dl>
+      </article>
+
+      <article class="card c-on" id="sc-pref">
+        <div class="card-head"><span class="num">话</span><div><h3>偏好原话</h3><p class="mod">encoder.py · scoring.channel_scores</p></div></div>
+        <p class="lead">你这次说的一句话（“想要轻松、能慢慢经营的”），直接和每款游戏的介绍比。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>需求单里的偏好原话</dd>
+          <dt>怎么算</dt><dd>请求时用同一个向量模型把这句话编码（带一句“按玩家想要的去找游戏介绍”的指令），和每款游戏的介绍向量算余弦。</dd>
+          <dt>输出</dt><dd>每款候选的原话分（只在说了原话时才有）</dd>
+        </dl>
+      </article>
+
+      <article class="card c-on" id="sc-feel">
+        <div class="card-head"><span class="num">感</span><div><h3>感觉</h3><p class="mod">scoring.feel_raw</p></div></div>
+        <p class="lead">LLM 从 Steam 标签清单里挑出你想要和不想要的“感觉”标签，按这些标签加减分。</p>
+        <dl class="io">
+          <dt>输入</dt><dd>想要的标签（如“放松”“休闲”），不想要的标签（如“高难度”）</dd>
+          <dt>怎么算</dt><dd>某标签在 g 上的权重 = 该标签票数 ÷ g 最高票标签的票数；g 没有这个标签就是 0。</dd>
+        </dl>
+        <div class="formula">感觉分(g) = 想要的标签在 g 上的<span class="v">平均权重</span> − 不想要的标签在 g 上的<span class="v">平均权重</span>
+          <small>只加减分，不排除。“不要恐怖”这类雷区在第 2 步按核心标签硬筛，不在这里。</small></div>
+        <dl class="io"><dt>输出</dt><dd>每款候选的感觉分（只在给了感觉时才有）</dd></dl>
+      </article>
+
+      <article class="card c-off" id="sc-lineage">
+        <div class="card-head"><span class="num">血</span><div><h3>血统 <span class="off-note">默认不计分</span></h3><p class="mod">kb.lineage · db.PathFinder</p></div></div>
+        <p class="lead">是否和某个锚点同开发商、同系列，或被 IGDB 列为相似游戏。</p>
+        <dl class="io">
+          <dt>怎么算</dt><dd>是 = 1，否 = 0。</dd>
+          <dt>用在哪</dt><dd>平时占比为 0，不影响排序，只当卡片上的证据（关系链）。只有你明说“要同工作室的”时才计分（<code>SAME_STUDIO_W</code>）。只有血统分、其他几路都没有数据的游戏，不会被它单独推上来。</dd>
+        </dl>
+      </article>
+    </div>
+
+    <h3 class="sub-h" id="sc-fuse">合成个人分</h3>
+    <article class="card c-on">
+      <div class="card-head"><span class="num">合</span><div><h3>从几路分数到一个人的喜好分</h3><p class="mod">scoring.channel_scores · personal · kb.minmax</p></div></div>
+      <dl class="io">
+        <dt>输入</dt><dd>上面各路的原始分</dd>
+        <dt>输出</dt><dd>这个人（或“共同要求”）对每款候选的个人分，0~1</dd>
+      </dl>
+      <ol class="ord" style="--c:var(--on);--cs:var(--on-soft)">
+        <li><div><b>统一尺度</b>：每一路在本次候选池里做 min-max 归一，最低的变 0、最高的变 1。只在“有这一路数据”的游戏里归一。
+          <div class="formula">归一分<sub>路</sub>(g) = (原始分 − 池内最低) ÷ (池内最高 − 池内最低)</div></div></li>
+        <li><div><b>内容分</b>：同好、标签、介绍（和血统）按占比加权平均。某款游戏缺某一路数据时，那一路不当 0 分，而是把它的占比让给其他路。
+          <div class="formula">内容分(g) = Σ<sub>路</sub> 占比<sub>路</sub> × 归一分<sub>路</sub>(g) ÷ Σ<sub>g 有数据的路</sub> 占比<sub>路</sub><small>占比在 <code>WEIGHTS</code>，同好占绝大部分。</small></div></div></li>
+        <li><div><b>混入原话</b>（说了原话时）：
+          <div class="formula">分 = (1 − <span class="v">原话占比</span>) × 内容分 + <span class="v">原话占比</span> × 原话归一分<small><code>PREF_W</code></small></div></div></li>
+        <li><div><b>混入感觉</b>（给了感觉时），同样的方式再混一次：
+          <div class="formula">分 = (1 − <span class="v">感觉占比</span>) × 上一步的分 + <span class="v">感觉占比</span> × 感觉归一分<small><code>FEEL_W</code></small></div></div></li>
+        <li><div><b>库加分</b>（有种子又有库时）：只给种子分前若干名加一点库的分，见“口味锚点”。</div></li>
+        <li><div><b>再归一一次</b>，得到这个人的个人分，0~1。</div></li>
+      </ol>
+    </article>
+
+    <h3 class="sub-h" id="sc-rerank">LLM 精排</h3>
+    <article class="card c-on">
+      <div class="card-head"><span class="num">精</span><div><h3>按原话再打一次分</h3><p class="mod">rerank.candidates · llm_scores · fuse</p></div></div>
+      <p class="lead">只在说了原话或给了感觉时启用。标签和向量抓不住“能边聊天边玩”“别太肝”这类细微要求，交给 LLM 判断。</p>
+      <dl class="io">
+        <dt>输入</dt><dd>原话（附上提到的游戏的英文名）；候选 = 个人分前若干款（<code>RERANK_N</code>），加上只按原话、只按感觉各自最高的几款（<code>RERANK_EXTRA</code>）</dd>
+        <dt>怎么算</dt><dd>一次调用，把原话和每款候选的名字、主要标签、简介发给 LLM，让它只按口味、感觉、玩法、题材打 0~10 分（人数、价格、平台不归它管）。多人时每个说了话的人和“共同要求”各一列。</dd>
+      </dl>
+      <div class="formula">精排后的分(g) = (1 − <span class="v">w<sub>r</sub></span>) × 个人分(g) + <span class="v">w<sub>r</sub></span> × 归一(LLM 分(g))
+        <small>没进精排的游戏只剩 (1 − w<sub>r</sub>) × 个人分，所以不会越过进了精排的。w<sub>r</sub> 是 <code>RERANK_W</code>，在 32 条真实请求的前一半上选定。LLM 调用失败就跳过精排，结果页注明。</small></div>
+      <dl class="io"><dt>输出</dt><dd>替换后的个人分</dd></dl>
+    </article>
+
+    <h3 class="sub-h" id="sc-group">多人合成</h3>
+    <article class="card c-on">
+      <div class="card-head"><span class="num">群</span><div><h3>从每人的分到一个喜好分</h3><p class="mod">scoring.group_aggregate · combine</p></div></div>
+      <dl class="io">
+        <dt>输入</dt><dd>每位有口味信息的成员的个人分（已归一，彼此可比）；“共同要求”的分（大家一起说的话、共同种子）</dd>
+        <dt>怎么算</dt><dd>单人：个人分就是喜好分。多人：</dd>
+      </dl>
+      <div class="formula">群体分(g) = <span class="v">a</span> × 各成员分的平均 + (1 − <span class="v">a</span>) × 各成员分的最低<br>
+        喜好分(g) = (1 − <span class="v">s</span>) × 群体分 + <span class="v">s</span> × 共同要求分<span style="color:var(--ink-3)">（有共同要求时）</span>
+        <small>“最低”那一项照顾最不满意的人。a 在 <code>GROUP_MEAN_W</code>，s 在 <code>SHARED_W</code>；也可以换成分数相乘（Nash）或“先比最低再比平均”（<code>GROUP_METHOD</code>）。最后在池内再归一一次。</small></div>
+      <dl class="io"><dt>输出</dt><dd><b>喜好分</b>（0~1），交给第 4 步</dd></dl>
+    </article>
+  </section>
+
+  <!-- 5 RANKING DETAIL -->
+  <section id="rank" aria-labelledby="rk-t">
+    <div class="sec-head">
+      <div class="eyebrow">五 · 排序与 MMR</div>
+      <h2 id="rk-t">从喜好分到最终 5 款</h2>
+      <p>代码在 <code>ranking.py</code> 的 <code>rank</code>。</p>
+    </div>
+
+    <div class="callout answer" id="rk-answer">
+      <h4>MMR 改的是顺序还是内容？两者都改。</h4>
+      <p>MMR 不是把排好的 5 款重新排一下，而是<b>一款一款地挑</b>：每轮在“喜好分相近的窗口”里，挑“自身分高、又和已选的不太像”的那款。所以一款游戏如果和已经选上的太像，就会被窗口里另一款不一样的顶掉，<b>它落到备选列表里，不进前 5</b>。最终的顺序就是挑选的先后顺序。</p>
+      <p>但它只能在窗口里换：喜好分比当前最高的低太多的游戏，再不重复也选不上。所以 MMR 不会为了多样性推一款你不太会喜欢的游戏。离线比较里，加窗口和 MMR 后命中率和直接取前 5 差不多，但口碑和多样性更好。</p>
+    </div>
+
+    <h3 class="sub-h" id="rk-short">入围名单</h3>
+    <article class="card c-on">
+      <dl class="io" style="margin-top:0">
+        <dt>输入</dt><dd>喜好分、候选池里“通过”的游戏</dd>
+        <dt>怎么算</dt><dd>按喜好分从高到低；同一系列只留分最高的一款，其余挂在它下面（结果页可展开）；取前若干款查实时价，超预算或不再打折的移出并说明，直到凑够入围名单（<code>SHORTLIST</code>）。</dd>
+        <dt>输出</dt><dd>入围名单。没被选进前 5 的入围游戏就是“备选”</dd>
+      </dl>
+    </article>
+
+    <h3 class="sub-h" id="rk-base">窗口分：喜好之外还看什么</h3>
+    <article class="card c-on">
+      <dl class="io" style="margin-top:0">
+        <dt>输入</dt><dd>喜好分、口碑、价格、是否已拥有、通关时长</dd>
+        <dt>怎么算</dt><dd>几项按占比加权平均，只算这次用得上的项：</dd>
+      </dl>
+      <div class="formula">窗口分(g) = 加权平均( 喜好分, 口碑, [价格偏好], [已拥有], [短游戏] )
+        <small>
+          <b>口碑</b> = (好评数 + α) ÷ (评测数 + α + β)：评测少的游戏往全库平均拉（α、β 用全库数据拟合）。<br>
+          <b>价格偏好</b>（说了“便宜点”或“等史低”才有）：便宜点 = 越便宜越高，免费为 1；等史低 = 现价越接近史低越高。<br>
+          <b>已拥有</b>（说了“优先我有的”才有）：有 = 1。<b>短游戏</b>（说了时长上限才有）：通关时长在上限内 = 1，超出越多越低。<br>
+          占比在 <code>BASE_W</code>、<code>PREFER_OWNED_W</code>、<code>SHORT_W</code>。</small></div>
+    </article>
+
+    <h3 class="sub-h" id="rk-mmr">MMR 怎么一款一款地选</h3>
+    <article class="card c-on">
+      <ol class="ord" style="--c:var(--on);--cs:var(--on-soft)">
+        <li><div><b>定窗口</b>：在还没选的入围游戏里（好评率过底线的优先，<code>RATING_FLOOR</code>），找出当前最高的喜好分；喜好分不低于“最高 − δ”的游戏组成这一轮的窗口（δ 是 <code>DELTA</code>）。</div></li>
+        <li><div><b>算 MMR 分</b>：窗口里每款游戏：
+          <div class="formula">MMR(g) = <span class="v">λ</span> × 窗口分(g) − (1 − <span class="v">λ</span>) × 重复度(g)<small>重复度 = g 和已选游戏之间最高的标签余弦相似度（第一轮为 0）。λ 是 <code>MMR_LAMBDA</code>，越小越看重多样性。</small></div></div></li>
+        <li><div><b>选一款</b>：MMR 分最高的那款进精选（平分时喜好分高的优先）。</div></li>
+        <li><div><b>重复</b>，直到选够精选数量（<code>PICK</code>）。</div></li>
+      </ol>
+      <div class="mmr-demo" aria-label="MMR 示意">
+        <div class="round"><h5>第 1 轮：还没选，重复度都是 0</h5>
+          <div class="g win"><span>肉鸽 A</span><span>窗口分最高 → 选中</span></div>
+          <div class="g"><span>肉鸽 B</span><span>窗口分次高</span></div>
+          <div class="g"><span>经营 C</span><span>窗口分略低</span></div></div>
+        <div class="round"><h5>第 2 轮：B 和 A 很像，被扣分</h5>
+          <div class="g lose"><span>肉鸽 B</span><span>和 A 很像，重复度高</span></div>
+          <div class="g win"><span>经营 C</span><span>不像 A → 选中</span></div>
+          <div class="g"><span>…</span><span></span></div></div>
+        <div class="round"><h5>结果</h5>
+          <div class="g"><span>精选：A、C、…</span><span></span></div>
+          <div class="g"><span>B 落到备选</span><span>内容变了</span></div>
+          <div class="g"><span>喜好分差太多的游戏</span><span>不在窗口，不会被选</span></div></div>
+      </div>
+      <p class="why">只按喜好分取前 5，很容易出现“5 款都是同一种肉鸽”；窗口保证不牺牲喜好，MMR 在窗口里把重复的换成不同的。</p>
+    </article>
+  </section>
+
+  <!-- 6 PROOF -->
   <section id="proof" aria-labelledby="pf-t">
     <div class="sec-head">
-      <div class="eyebrow">四 · 怎么证明有效</div>
+      <div class="eyebrow">六 · 怎么证明有效</div>
       <h2 id="pf-t">已经证明了什么，还缺什么</h2>
       <p>“有效”要说清楚和谁比、哪方面更好。下面按证据从硬到软排。</p>
     </div>
@@ -477,11 +743,10 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         </div>
         <div class="col">
           <h4>结论</h4>
-          <ul><li>同好明显最准，差距远大于误差范围</li><li>把最热门的游戏全去掉再比，同好仍然领先，说明不是“推热门碰巧猜中”</li></ul>
+          <ul><li>同好明显最准，差距远大于误差范围</li><li>把最热门的游戏去掉再比，同好仍然领先，说明不是“推热门碰巧猜中”</li></ul>
           <h4>脚本</h4><p><code>eval_ease.py</code></p>
         </div>
       </article>
-
       <article class="evc">
         <div class="hd"><h3>时长能不能代表“喜欢”</h3><span class="badge ok">已做</span></div>
         <p class="q">用时长去预测这个玩家会不会给好评：和同款玩家比（分位）vs 看绝对小时数。0.5 等于瞎猜，1 是完全准。</p>
@@ -498,19 +763,15 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <h4>脚本</h4><p><code>playtime_signal.py</code></p>
         </div>
       </article>
-
       <article class="evc">
         <div class="hd"><h3>每个部件有没有用</h3><span class="badge ok">已做</span></div>
         <p class="q">一次只拿掉或换掉一个部件，看结果变好还是变差。</p>
         <div class="col">
           <h4>结果</h4>
-          <ul><li>开 LLM 精排：评委打分明显提高</li><li>指定玩法组合：两种核心玩法都满足的比例远高于对照方法</li><li>多人：“平均与最低分兼顾”比“分数相乘”更多人接受</li><li>相关性窗口：命中率不变，口碑和多样性更好</li></ul>
+          <ul><li>开 LLM 精排：评委打分明显提高</li><li>指定玩法组合：两种核心玩法都满足的比例远高于对照方法</li><li>多人：“平均与最低分兼顾”比“分数相乘”更多人接受</li><li>窗口 + MMR：命中率不变，口碑和多样性更好</li></ul>
         </div>
-        <div class="col">
-          <h4>脚本</h4><p><code>eval_fusion.py</code> · <code>eval_ranking_groups.py</code> · <code>eval_extra.py</code> · <code>eval_request_set.py</code></p>
-        </div>
+        <div class="col"><h4>脚本</h4><p><code>eval_fusion.py</code> · <code>eval_ranking_groups.py</code> · <code>eval_extra.py</code> · <code>eval_request_set.py</code></p></div>
       </article>
-
       <article class="evc">
         <div class="hd"><h3>和“直接问 LLM”比</h3><span class="badge mid">已做 · 样本小</span></div>
         <p class="q">32 条论坛真人求推荐帖，原文分别交给系统和直接问 LLM，各推荐 5 款。</p>
@@ -523,20 +784,12 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
           <ul><li>32 条太少，只看得出很大的差距</li><li>评委打分大多到了满分，题目太容易，测不出差别</li></ul>
         </div>
       </article>
-
       <article class="evc">
         <div class="hd"><h3>库留出：系统 vs 直接问 LLM</h3><span class="badge todo">待做 · 建议优先</span></div>
         <p class="q">把“藏起来再猜”用在<b>整个系统</b>上，并和 LLM 正面比：几百名测试玩家，把他后来玩得明显多的游戏藏起来，前面的当 Steam 库，同一份名单分别交给系统和 LLM，看谁猜中得多。</p>
-        <div class="col">
-          <h4>好处</h4>
-          <ul><li>不需要人工打分，可以自动跑几百人</li><li>两边拿到的信息完全一样，比较公平</li></ul>
-        </div>
-        <div class="col">
-          <h4>测不到的</h4>
-          <ul><li>只测“从库猜口味”，测不到这次的原话、多人、预算、雷区</li><li>库只有玩家写过评测的游戏，比真实的库小</li></ul>
-        </div>
+        <div class="col"><h4>好处</h4><ul><li>不需要人工打分，可以自动跑几百人</li><li>两边拿到的信息完全一样，比较公平</li></ul></div>
+        <div class="col"><h4>测不到的</h4><ul><li>只测“从库猜口味”，测不到这次的原话、多人、预算、雷区</li><li>库只有玩家写过评测的游戏，比真实的库小</li></ul></div>
       </article>
-
       <article class="evc">
         <div class="hd"><h3>真人盲评与真实使用</h3><span class="badge todo">待做</span></div>
         <p class="q">两份名单匿名、随机左右，让几位玩家选“更愿意用哪份”；或者让朋友真实使用，看卡片上喜欢 / 不喜欢的比例，一周后问“后来玩了吗”。</p>
@@ -546,14 +799,13 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <!-- 5 OFFLINE -->
+  <!-- 7 OFFLINE -->
   <section id="offline" aria-labelledby="of-t">
     <div class="sec-head">
-      <div class="eyebrow">五 · 离线数据</div>
+      <div class="eyebrow">七 · 离线数据</div>
       <h2 id="of-t">提前准备好的东西</h2>
       <p>在线推荐时不抓数据、不训练，只读这些现成的表和矩阵，所以打分本身很快，耗时主要在 LLM。</p>
     </div>
-
     <div class="grid2">
       <article class="card c-off" id="o-reviews">
         <div class="card-head"><span class="num">①</span><div><h3>评测数据</h3><p class="mod">fetch_reviews_increment.py · fill_kaggle_gaps.py · build_reviews_merged.py</p></div></div>
@@ -567,10 +819,9 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
       </article>
       <article class="card c-off" id="o-tables">
         <div class="card-head"><span class="num">②</span><div><h3>同好矩阵与时长参照</h3><p class="mod">build_review_tables.py</p></div></div>
-        <p class="lead">“核心思路”第 1、2 步用到的两张表。</p>
-        <ul class="algs"><li>EASE 物品协同</li><li>共同好评统计</li><li>时长分位分布</li></ul>
+        <p class="lead">打分时“同好”和“口味锚点”用到的两张表。</p>
         <dl class="io">
-          <dt>同好</dt><dd>把“谁好评了什么”当成玩家 × 游戏的大表，一次求解出“喜欢 A 的人会喜欢 B 多少”。另存每对游戏的共同好评人数，给卡片当证据</dd>
+          <dt>同好</dt><dd>EASE 矩阵 B（算法见 <a href="#sc-colike">同好</a>）；另存每对游戏的共同好评人数，给卡片当证据</dd>
           <dt>时长</dt><dd>每款游戏所有玩家的时长分布，用来算“你比多少人玩得久”</dd>
         </dl>
       </article>
@@ -579,24 +830,21 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <p class="lead">按 Steam 编号把多个公开数据源对齐，每个字段只认一个来源，查不到的保持“未知”。</p>
         <dl class="io">
           <dt>来源</dt><dd>Steam 商店（标签、分类、价格、介绍、语言）· IGDB（人数、系列、开发商、相似游戏）· IsThereAnyDeal（史低）</dd>
-          <dt>加工</dt><dd>从介绍里补抽人数；标签按冷门程度加权、分核心 / 次要并归类；评测少的游戏的好评率往全库平均拉（经验贝叶斯）；关系写进 PostgreSQL</dd>
+          <dt>加工</dt><dd>从介绍里补抽人数；标签按票数分核心 / 次要并归类；拟合口碑先验 α、β；关系写进 PostgreSQL</dd>
         </dl>
       </article>
       <article class="card c-off">
         <div class="card-head"><span class="num">④</span><div><h3>文本与名字</h3><p class="mod">build_desc_embeddings.py · build_aliases.py · build_app_index.py</p></div></div>
-        <dl class="io" style="margin-top:10px">
-          <dt>介绍</dt><dd>中英文介绍编码成向量，给“介绍”和“偏好原话”两个角度用</dd>
+        <dl class="io">
+          <dt>介绍</dt><dd>中英文介绍编码成向量，给“介绍”和“偏好原话”两路用</dd>
           <dt>名字</dt><dd>官方名、俗称、缩写统一规范化后建成别名表；另存全 Steam 游戏名，认出核心库外的游戏</dd>
         </dl>
       </article>
       <article class="card c-off">
         <div class="card-head"><span class="num">⑤</span><div><h3>每日价格</h3><p class="mod">refresh.py · pricing.py</p></div></div>
-        <dl class="io" style="margin-top:10px">
-          <dt>处理</dt><dd>服务后台定时检查，过期就重拉全库现价和史低，旧快照留备份；入围的游戏请求时再查一次实时价</dd>
-        </dl>
+        <dl class="io"><dt>处理</dt><dd>服务后台定时检查，过期就重拉全库现价和史低，旧快照留备份；入围的游戏请求时再查一次实时价</dd></dl>
       </article>
     </div>
-
     <details class="eng">
       <summary><span>评测数据是怎么抓全的（工程细节）<small>7 步，按 Review_Data_Pipeline.md</small></span></summary>
       <ol class="steps">
@@ -611,10 +859,10 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     </details>
   </section>
 
-  <!-- 6 FEEDBACK -->
+  <!-- 8 FEEDBACK -->
   <section id="feedback" aria-labelledby="fb-t">
     <div class="sec-head">
-      <div class="eyebrow">六 · 反馈</div>
+      <div class="eyebrow">八 · 反馈</div>
       <h2 id="fb-t">用户的反应怎么回到流水线</h2>
       <p>只做“给用户要的”：反馈用来更准地满足用户说过的偏好，不做“换换口味”“给你惊喜”。</p>
     </div>
@@ -625,7 +873,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
       </article>
       <article class="card c-fb">
         <div class="card-head"><span class="num">慢</span><div><h3>沉淀口味</h3><p class="mod">profiles.py</p></div></div>
-        <p class="lead">绑定 Steam 的人点的喜欢 / 不喜欢存进 PostgreSQL（只存账号的密钥哈希）。下次：喜欢的变成随时间变轻的口味锚点，不喜欢的直接排除。</p>
+        <p class="lead">绑定 Steam 的人点的喜欢 / 不喜欢存进 PostgreSQL（只存账号的密钥哈希）。下次：喜欢的变成随时间变轻的<a href="#sc-anchor">口味锚点</a>，不喜欢的直接排除。</p>
       </article>
       <article class="card c-fb">
         <div class="card-head"><span class="num">错</span><div><h3>事实报错</h3><p class="mod">/api/report · profiles.py</p></div></div>
@@ -634,10 +882,10 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <!-- 7 RUNTIME -->
+  <!-- 9 RUNTIME -->
   <section id="runtime" aria-labelledby="rt-t">
     <div class="sec-head">
-      <div class="eyebrow">七 · 运行架构</div>
+      <div class="eyebrow">九 · 运行架构</div>
       <h2 id="rt-t">各部分跑在哪里</h2>
       <p>模型要显卡，所以应用跑在本机；对外只经过另一台服务器上的反向代理。</p>
     </div>
@@ -656,10 +904,10 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <!-- 8 KNOBS -->
+  <!-- 10 KNOBS -->
   <section id="knobs" aria-labelledby="kn-t">
     <div class="sec-head">
-      <div class="eyebrow">八 · 想调整时看这里</div>
+      <div class="eyebrow">十 · 想调整时看这里</div>
       <h2 id="kn-t">每一步能调什么，改完用什么验证</h2>
       <p>数值都在 <code>src/playnext/config.py</code>；改结构动对应模块。改完先跑对应的评估，再看 32 条请求有没有变差。</p>
     </div>
@@ -667,56 +915,78 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
       <table>
         <thead><tr><th>步骤</th><th>可以调什么</th><th>在哪里</th><th>改完用什么验证</th></tr></thead>
         <tbody>
-          <tr><td class="s">读口味</td><td>库里取多少款当锚点、时长怎么换算成分量、“喜欢”变轻的速度</td><td><span class="mono">scoring.py</span> · <span class="mono">config.MAX_LIBRARY_ANCHORS</span> · <span class="mono">LIKED_HALF_LIFE_DAYS</span></td><td><span class="mono">playtime_signal.py</span>；库留出评测（待做）</td></tr>
+          <tr><td class="s">口味锚点</td><td>库里取多少款、有种子时库加多少分、“喜欢”变轻的速度</td><td><span class="mono">MAX_LIBRARY_ANCHORS</span> · <span class="mono">SEED_POOL</span> · <span class="mono">LIB_BONUS</span> · <span class="mono">LIKED_HALF_LIFE_DAYS</span></td><td><span class="mono">playtime_signal.py</span>；库留出评测（待做）</td></tr>
           <tr><td class="s">1 听懂</td><td>提示词、抽哪些字段、校验规则、游戏名匹配顺序</td><td><span class="mono">understand.py</span> · <span class="mono">aliases.py</span></td><td>32 条请求的需求理解准确率</td></tr>
           <tr><td class="s">2 筛</td><td>规则、未知事实怎么处理、人数补全、开局方式与购买份数</td><td><span class="mono">rules.py</span></td><td>32 条请求的违规数；<span class="mono">pytest</span></td></tr>
-          <tr><td class="s">3 打分</td><td>各角度的占比、多个锚点怎么合、感觉和原话的占比</td><td><span class="mono">config.WEIGHTS</span> · <span class="mono">TAG_AGG</span> · <span class="mono">FEEL_W</span> · <span class="mono">PREF_W</span></td><td>藏起来再猜（<span class="mono">eval_fusion.py</span>）</td></tr>
-          <tr><td class="s">3 精排</td><td>开不开、占多少、精排多少款、用 LLM 还是专用重排模型</td><td><span class="mono">config.RERANK*</span> · <span class="mono">rerank.py</span> · <span class="mono">local_rerank.py</span></td><td>32 条请求：前一半选、后一半看（<span class="mono">eval_request_set.py</span>）</td></tr>
-          <tr><td class="s">3 多人</td><td>平均与最低分 / 分数相乘 / 先看最低；共同要求的占比</td><td><span class="mono">config.GROUP_METHOD</span> · <span class="mono">SHARED_W</span></td><td>合成小组（<span class="mono">eval_ranking_groups.py</span>）</td></tr>
-          <tr><td class="s">4 排序</td><td>喜好窗口多宽、窗口里口碑 / 价格 / 已拥有的比重、口碑底线、多样性强度、精选几款</td><td><span class="mono">config.DELTA</span> · <span class="mono">BASE_W</span> · <span class="mono">RATING_FLOOR</span> · <span class="mono">MMR_LAMBDA</span> · <span class="mono">PICK</span></td><td><span class="mono">eval_ranking_groups.py</span> · <span class="mono">eval_extra.py</span></td></tr>
+          <tr><td class="s">3 各路占比</td><td>同好 / 标签 / 介绍 / 血统的占比、多锚点求和还是取最大、原话和感觉的占比</td><td><span class="mono">WEIGHTS</span> · <span class="mono">TAG_AGG</span> · <span class="mono">DESC_AGG</span> · <span class="mono">PREF_W</span> · <span class="mono">FEEL_W</span> · <span class="mono">SAME_STUDIO_W</span></td><td>藏起来再猜（<span class="mono">eval_fusion.py</span>）</td></tr>
+          <tr><td class="s">3 精排</td><td>开不开、w<sub>r</sub>、精排多少款、是否附游戏名、用 LLM 还是专用重排模型</td><td><span class="mono">RERANK</span> · <span class="mono">RERANK_W</span> · <span class="mono">RERANK_N</span> · <span class="mono">RERANK_EXTRA</span> · <span class="mono">RERANK_GAME_NAMES</span></td><td>32 条请求：前一半选、后一半看（<span class="mono">eval_request_set.py</span>）</td></tr>
+          <tr><td class="s">3 多人</td><td>平均和最低的比重、共同要求的占比、换聚合方法</td><td><span class="mono">GROUP_MEAN_W</span> · <span class="mono">GROUP_MIN_W</span> · <span class="mono">SHARED_W</span> · <span class="mono">GROUP_METHOD</span></td><td>合成小组（<span class="mono">eval_ranking_groups.py</span>）</td></tr>
+          <tr><td class="s">4 排序</td><td>入围多少、窗口宽度 δ、窗口分里各项比重、口碑先验、好评率底线、多样性 λ、精选几款</td><td><span class="mono">SHORTLIST</span> · <span class="mono">DELTA</span> · <span class="mono">BASE_W</span> · <span class="mono">ALPHA / BETA</span> · <span class="mono">RATING_FLOOR</span> · <span class="mono">MMR_LAMBDA</span> · <span class="mono">PICK</span></td><td><span class="mono">eval_ranking_groups.py</span> · <span class="mono">eval_extra.py</span></td></tr>
           <tr><td class="s">5 写理由</td><td>卡片放哪些证据、理由提示词、事实校验规则</td><td><span class="mono">cards.py</span></td><td>人工看几张卡；退回模板的比例</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section aria-labelledby="pr-t">
+  <section id="principles" aria-labelledby="pr-t">
     <div class="sec-head">
-      <div class="eyebrow">九 · 设计原则</div>
+      <div class="eyebrow">十一 · 设计原则</div>
       <h2 id="pr-t">调整框架时不要打破的几条</h2>
     </div>
     <div class="principles">
       <div class="pr"><b>模型不定事实</b>人数、模式、预算、价格只按数据判断，LLM 只理解和写字</div>
       <div class="pr"><b>未知不当通过</b>查不到就标“需自行确认”，不偷偷放行</div>
       <div class="pr"><b>硬条件和软偏好分开</b>雷区、人数、预算一票否决；风格、折扣只加分</div>
-      <div class="pr"><b>喜好决定大顺序</b>价格和口碑只在喜好相近的游戏之间调整</div>
+      <div class="pr"><b>喜好决定大顺序</b>价格、口碑和多样性只在喜好相近的游戏之间起作用</div>
       <div class="pr"><b>多人先各算再合成</b>保留成员差异，照顾最不满意的人</div>
       <div class="pr"><b>无解不乱推</b>没有符合的就给松绑建议，不偷换条件</div>
     </div>
   </section>
-</main>
 
-<footer>
-  <div class="wrap">依据：<code>docs/Review_Data_Pipeline.md</code>、<code>docs/Core_Technical_Skeleton.md</code> 第 5~7 节、<code>src/playnext/</code> 现有代码，例子来自 <code>.cache/simulate_inputs.json</code>（2026-10-16）。</div>
-</footer>
+  <footer>依据：<code>docs/Review_Data_Pipeline.md</code>、<code>docs/Core_Technical_Skeleton.md</code> 第 5~7 节、<code>src/playnext/scoring.py</code>、<code>rerank.py</code>、<code>ranking.py</code>、<code>kb.py</code>，例子来自 <code>.cache/simulate_inputs.json</code>（2026-10-17）。</footer>
+</main>
+</div>
 
 <script>
 (function () {
-  var root = document.documentElement, btn = document.getElementById("theme");
+  var root = document.documentElement;
+  var btns = document.querySelectorAll("[data-theme-toggle]");
   function current() {
     var t = root.getAttribute("data-theme");
     if (t) return t;
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
-  function label() { btn.textContent = current() === "dark" ? "浅色" : "深色"; }
+  function label() { btns.forEach(function (b) { b.textContent = current() === "dark" ? "浅色" : "深色"; }); }
   try { var saved = localStorage.getItem("playnext-arch-theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
   label();
-  btn.addEventListener("click", function () {
-    var next = current() === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try { localStorage.setItem("playnext-arch-theme", next); } catch (e) {}
-    label();
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("playnext-arch-theme", next); } catch (e) {}
+      label();
+    });
   });
+
+  // highlight the table-of-contents entry for the part of the page being read
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc-side a[href^='#']"));
+  var targets = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+  function update() {
+    var y = window.scrollY + 90, cur = -1;
+    targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top + window.scrollY <= y) cur = i; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) cur = targets.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle("active", i === cur); });
+    var top = cur >= 0 ? links[cur].closest("ol ol") : null;
+    if (top) {
+      var parent = top.parentElement.querySelector(":scope > a");
+      if (parent) parent.classList.add("active");
+    }
+  }
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { update(); ticking = false; }); }
+  }, { passive: true });
+  update();
 })();
 </script>
 </body>
