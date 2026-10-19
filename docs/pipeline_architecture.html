@@ -326,7 +326,7 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
             <li><a href="#ex-in">① 输入：一个游戏库</a></li>
             <li><a href="#ex-filter">② 筛出候选池</a></li>
             <li><a href="#ex-anchor">③ 库 → 锚点和分量</a></li>
-            <li><a href="#ex-grid">④ 怎么“比”：一张大表</a></li>
+            <li><a href="#ex-grid">④ 怎么“比”：缩小版</a></li>
             <li><a href="#ex-tag">⑤ 标签分</a></li>
             <li><a href="#ex-desc">⑥ 介绍分</a></li>
             <li><a href="#ex-colike">⑦ 同好分</a></li>
@@ -633,12 +633,31 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
 
     <!-- ④ -->
     <div class="ex-step" id="ex-grid">
-      <div class="hd"><span class="k">④</span><h3>怎么“比”：锚点 × 候选的一张大表</h3></div>
-      <div class="q-box"><b>是不是拿一款游戏去遍历、找最像的那一款？</b>差不多，但有两点不同：<br>
-        1. 不是在你的库里互相比，而是拿你库里的<b>每一个锚点</b>，去和<b>候选池里的每一款</b>（7,080 款）比。<br>
-        2. 一款候选的分，不是只看和它最像的那一个锚点，而是<b>每个锚点的相似度 × 这个锚点的分量，全部加起来</b>。离线比较过，“加起来”比“取最大”猜得准。</div>
-      <div class="formula" style="margin-top:10px">候选 g 的某一路分 = <span class="v">w<sub>文明6</sub></span> × 相似度(文明6, g) + <span class="v">w<sub>Hades</sub></span> × 相似度(Hades, g) + <span class="v">w<sub>星露谷</sub></span> × 相似度(星露谷, g) + …
-        <small>也就是一张 5 行（锚点）× 7,080 列（候选）的表，每格是“相似度 × 分量”，每一列加起来就是这款候选的分。标签、介绍、同好三路都这样算，区别只是“相似度”怎么定义。下面挑 8 款候选展示：最终推荐的 5 款，加上 3 款“某一路很高、最后却没推荐”的。</small></div>
+      <div class="hd"><span class="k">④</span><h3>怎么“比”：先看一个缩小版</h3></div>
+      <p class="ex-text">先把例子缩小：你的库里只有 <b>2 款</b>（文明6，分量 0.669；Hades，分量 0.658），系统里只有 <b>3 款</b>候选（文明5、Hades II、博德之门3）。用标签分举例，一共 4 步。</p>
+
+      <ol class="ord" style="--c:var(--on);--cs:var(--on-soft)">
+        <li><div><b>画一张表</b>：每一行是一款候选，每一列是你库里的一款游戏。</div></li>
+        <li><div><b>每格填相似度</b>：这一行的候选和这一列你的游戏有多像（0 = 完全不像，1 = 一模一样）。3 行 × 2 列，一共比 6 次。</div></li>
+        <li><div><b>每格乘上这一列的分量</b>：你越喜欢的游戏，它那一列说话越算数。</div></li>
+        <li><div><b>每一行加起来</b>，就是这款候选的标签分。按这个分从高到低排。</div></li>
+      </ol>
+
+      <div class="table-wrap" style="margin-top:12px"><table class="mx" style="min-width:560px">
+        <thead><tr><th>候选（行）</th><th class="n">和文明6比<br><span class="w">分量 0.669</span></th><th class="n">和 Hades 比<br><span class="w">分量 0.658</span></th><th class="n">一行加起来 = 标签分</th><th class="n">排名</th></tr></thead>
+        <tbody>
+          <tr><td>Hades II</td><td class="n">0.001 × 0.669 ≈ 0.001</td><td class="n hl">0.899 × 0.658 ≈ 0.591</td><td class="n"><b>0.592</b></td><td class="n">1</td></tr>
+          <tr><td>文明5</td><td class="n hl">0.805 × 0.669 ≈ 0.539</td><td class="n">0.026 × 0.658 ≈ 0.017</td><td class="n"><b>0.556</b></td><td class="n">2</td></tr>
+          <tr><td>博德之门3</td><td class="n">0.047 × 0.669 ≈ 0.031</td><td class="n">0.040 × 0.658 ≈ 0.027</td><td class="n"><b>0.058</b></td><td class="n">3</td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">读法：Hades II 的分几乎全来自“像 Hades”那一格，文明5 几乎全来自“像文明6”那一格，博德之门3 两边都不像，所以垫底。</p>
+
+      <div class="q-box"><b>你的理解对不对？</b>基本对：“拿你库里的游戏，去和系统里的所有游戏两两算相似度，排成一张表（矩阵），然后把分高的挑出来”，就是这个意思。只差一个细节：<br>
+        <b>不是对你库里每款游戏分别挑出最像的</b>，而是先把每一行（每款候选）的各格按分量<b>加成一个总分</b>，再把所有候选按总分排。所以同时有点像文明6、又有点像 Hades 的游戏，两边的分会叠加；你没怎么玩的游戏（分量小），那一列几乎不影响结果。</div>
+
+      <div class="formula" style="margin-top:12px">真实情况只是表更大：<b>7,080 行</b>（候选池里的每一款）× <b>5 列</b>（你库里有分量的 5 款），每一路都是一张这样的表。
+        <small>标签、介绍、同好三路，表的形状和算法完全一样，<b>只是格子里的“相似度”从哪来不同</b>：标签看玩家贴的标签像不像，介绍看商店介绍像不像，同好看“喜欢这款的人是不是也喜欢那款”。下面 ⑤⑥⑦ 三张表，就是这张大表里挑出 8 行给你看：最终推荐的 5 款，加上 3 款“某一路很高、最后却没推荐”的。</small></div>
     </div>
 
     <!-- ⑤ -->
@@ -648,7 +667,21 @@ footer { margin: 44px 0 0; padding: 20px 0 36px; border-top: 1px solid var(--lin
         <div><b>输入</b>锚点和分量；每款游戏的标签向量（离线算好）</div>
         <div><b>输出</b>7,080 款候选每款一个标签分</div>
       </div>
-      <p class="ex-text"><b>相似度 = 两款游戏标签向量的余弦</b>（0 = 完全不像，1 = 一模一样）。标签向量里每个标签的值 = 这个标签的票数 ÷ 这款最高票标签的票数 × 冷门程度（IDF），再缩放到长度 1。比如 Hades 排前面的是“动作类 Rogue、神话、轻度 Rogue、砍杀”，Hades II 几乎一样，所以两者余弦 0.899；《人类》和文明6都以“4X、回合战略、大战略、历史”为主，余弦 0.939。</p>
+      <p class="ex-text">这一路格子里的“相似度”= <b>两款游戏的标签有多像</b>。怎么算出这个数：</p>
+      <ol class="ord" style="--c:var(--off);--cs:var(--off-soft)">
+        <li><div><b>每款游戏一份“标签成绩单”</b>：每个标签一个值 = 这个标签的票数 ÷ 这款游戏最高票标签的票数，再乘上“冷门程度”（贴这个标签的游戏越少，越能说明问题，值越大），最后整体缩放一下，让每份成绩单的总量一样大。这份成绩单就是“标签向量”。</div></li>
+        <li><div><b>两款游戏比一比</b>：把两份成绩单里<b>同一个标签</b>的值相乘，再把所有标签的乘积加起来。两款游戏共同的标签越多、这些标签在两边都越重，结果越接近 1；一个共同标签都没有就是 0。数学上这叫“余弦相似度”。</div></li>
+      </ol>
+      <div class="table-wrap" style="margin-top:10px"><table class="mx" style="min-width:560px">
+        <thead><tr><th>示意（数字简化）</th><th class="n">回合战略</th><th class="n">4X</th><th class="n">历史</th><th class="n">动作</th><th class="n">和 A 的相似度</th></tr></thead>
+        <tbody>
+          <tr><td>A（像文明6）</td><td class="n">0.60</td><td class="n">0.60</td><td class="n">0.53</td><td class="n">0</td><td class="n">—</td></tr>
+          <tr><td>B（像《人类》）</td><td class="n">0.60</td><td class="n">0.53</td><td class="n">0.60</td><td class="n">0</td><td class="n">0.60×0.60 + 0.60×0.53 + 0.53×0.60 ≈ <b>0.99</b></td></tr>
+          <tr><td>C（一半一半）</td><td class="n">0.80</td><td class="n">0</td><td class="n">0</td><td class="n">0.60</td><td class="n">0.60×0.80 = <b>0.48</b></td></tr>
+          <tr><td>D（像 Hades）</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">1.00</td><td class="n">没有共同标签 = <b>0</b></td></tr>
+        </tbody>
+      </table></div>
+      <p class="ex-text">真实数据里每款游戏有二十个左右的标签，算法一样。比如 Hades 排前面的标签是“动作类 Rogue、神话、轻度 Rogue、砍杀”，Hades II 几乎一样，两者相似度 0.899；《人类》和文明6都以“4X、回合战略、大战略、历史”为主，相似度 0.939。把这些相似度填进 ④ 那张表，就是下面这张：</p>
       <div class="table-wrap" style="margin-top:10px"><table class="mx">
         <thead><tr><th>候选</th><th class="n">文明6<br><span class="w">w 0.669</span></th><th class="n">Hades<br><span class="w">w 0.658</span></th><th class="n">星露谷<br><span class="w">w 0.253</span></th><th class="n">双人成行<br><span class="w">w 0.207</span></th><th class="n">Dead Cells<br><span class="w">w 0.003</span></th><th class="n">加起来</th></tr></thead>
         <tbody>
