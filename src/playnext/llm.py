@@ -4,6 +4,7 @@ import json
 import re
 import time
 
+from . import config as C
 from .pricing import load_env
 
 
@@ -23,7 +24,9 @@ class LLM:
 
     def chat(self, system, user, purpose="", temperature=0):
         t0 = time.time()
-        r = self.client.chat.completions.create(model=self.model, temperature=temperature,
+        effort = C.THINKING.get(purpose)
+        kw = {"reasoning_effort": effort} if effort else {}
+        r = self.client.chat.completions.create(model=self.model, temperature=temperature, **kw,
                                                 messages=[{"role": "system", "content": system},
                                                           {"role": "user", "content": user}])
         self.calls.append((purpose, round(time.time() - t0, 1)))
