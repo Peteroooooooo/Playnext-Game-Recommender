@@ -1,0 +1,5114 @@
+{
+ "understand_none": {
+  "r04": {
+   "parsed": {
+    "seeds": [],
+    "played": [],
+    "excluded": [],
+    "preference_text": "story rich games with likeable characters + good gameplay",
+    "feel_want": [
+     "Story Rich"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Visual Novel"
+    ],
+    "avoid_content": [],
+    "budget": {
+     "amount": 14.0,
+     "scope": "per_person",
+     "currency": "USD"
+    },
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.8,
+   "error": null
+  },
+  "r06": {
+   "parsed": {
+    "seeds": [
+     "What Remains of Edith Finch",
+     "Firewatch"
+    ],
+    "played": [
+     "What Remains of Edith Finch",
+     "Firewatch"
+    ],
+    "excluded": [],
+    "preference_text": "I think about these games every week. There would be times when I'm running, in the shower or just have some free time, and some moment from these games would come back to me. They were very, very influential",
+    "feel_want": [
+     "Walking Simulator",
+     "Story Rich",
+     "Atmospheric",
+     "Emotional"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.9,
+   "error": null
+  },
+  "r03": {
+   "parsed": {
+    "seeds": [
+     "Satisfactory"
+    ],
+    "played": [
+     "Satisfactory"
+    ],
+    "excluded": [],
+    "preference_text": "Base building/resource management games that aren't so punishing, if I do something wrong or find something new, I can just take down the factory and build it again in a better way instead of having to start a fresh save",
+    "feel_want": [
+     "Relaxing",
+     "Casual"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [
+     "Base Building",
+     "Resource Management"
+    ],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.4,
+   "error": null
+  },
+  "r01": {
+   "parsed": {
+    "seeds": [
+     "Stardew Valley"
+    ],
+    "played": [
+     "Stardew Valley"
+    ],
+    "excluded": [],
+    "preference_text": "Chill, emphasis on building, clearing land, small, jump in and out of, pixel game, have some property, clear it out and upgrade house without really strict time-based gameplay with energy meters",
+    "feel_want": [
+     "Relaxing",
+     "Cozy",
+     "Casual"
+    ],
+    "feel_avoid": [
+     "Time Management",
+     "Difficult"
+    ],
+    "mechanics": [
+     "Building",
+     "Base Building"
+    ],
+    "avoid_tags": [
+     "Platformer",
+     "Linear"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 5.1,
+   "error": null
+  },
+  "r05": {
+   "parsed": {
+    "seeds": [
+     "RimWorld",
+     "Factorio",
+     "Elden Ring",
+     "The Witcher 3: Wild Hunt",
+     "Hades II",
+     "Balatro",
+     "Resident Evil 4",
+     "Hades"
+    ],
+    "played": [
+     "Elden Ring",
+     "The Witcher 3: Wild Hunt",
+     "Hades II",
+     "Balatro",
+     "Resident Evil 4",
+     "Hades",
+     "Baldur's Gate 3",
+     "The Elder Scrolls V: Skyrim"
+    ],
+    "excluded": [
+     "Baldur's Gate 3",
+     "The Elder Scrolls V: Skyrim"
+    ],
+    "preference_text": "I can play forever (or at least for a very long time) without getting bored; I don't like games that are too challenging or frustrating; interesting enough to keep me playing for thousands of hours but doesn't feel stressful; infinitely replayable games",
+    "feel_want": [
+     "Replay Value"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Turn-Based Combat",
+     "Inventory Management"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 5.2,
+   "error": null
+  },
+  "r02": {
+   "parsed": {
+    "seeds": [
+     "Hollow Knight",
+     "Animal Well",
+     "The Legend of Zelda: Breath of the Wild",
+     "Minecraft",
+     "Fortnite",
+     "Cuphead",
+     "Super Mario Maker",
+     "Grand Theft Auto",
+     "Mario Kart DS"
+    ],
+    "played": [
+     "Hollow Knight",
+     "Animal Well",
+     "The Legend of Zelda: Breath of the Wild",
+     "Minecraft",
+     "Fortnite",
+     "Cuphead",
+     "Super Mario Maker",
+     "Grand Theft Auto",
+     "Mario Kart DS",
+     "Elden Ring",
+     "Genshin Impact",
+     "Terraria",
+     "Immortals Fenyx Rising",
+     "Tchia",
+     "LEGO Bricktales",
+     "Just Cause 3",
+     "Cyberpunk 2077",
+     "Neon White"
+    ],
+    "excluded": [
+     "Elden Ring",
+     "Genshin Impact",
+     "Terraria",
+     "Immortals Fenyx Rising",
+     "Tchia",
+     "LEGO Bricktales",
+     "Just Cause 3",
+     "Cyberpunk 2077",
+     "Neon White"
+    ],
+    "preference_text": "flawless movement, cryptic atmosphere, non-linear exploration, and discovering secrets on my own using clever items/tools without hand-holding. zero visual bloat, minimal menus, and quick action",
+    "feel_want": [
+     "Atmospheric",
+     "Exploration",
+     "Nonlinear",
+     "Fast-Paced"
+    ],
+    "feel_avoid": [
+     "Souls-like",
+     "Inventory Management",
+     "Dialogue Heavy",
+     "Text-Based"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 5.8,
+   "error": null
+  },
+  "r07": {
+   "parsed": {
+    "seeds": [
+     "Rust",
+     "Stardew Valley",
+     "Schedule 1"
+    ],
+    "played": [
+     "Rust",
+     "Stardew Valley",
+     "Schedule 1",
+     "Escape from Tarkov",
+     "Animal Crossing"
+    ],
+    "excluded": [],
+    "preference_text": "build something from nothing, sink my teeth into",
+    "feel_want": [
+     "Building",
+     "Crafting"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.9,
+   "error": null
+  },
+  "r08": {
+   "parsed": {
+    "seeds": [
+     "Stardew Valley"
+    ],
+    "played": [
+     "Path of Exile",
+     "Diablo",
+     "Warframe",
+     "Stardew Valley",
+     "Valheim"
+    ],
+    "excluded": [
+     "Sun Haven"
+    ],
+    "preference_text": "Grindy but chill game for long autumn nights niche games that have fun gameloop with grind, maybe simulation, maybe life sim? Something with endless or just far progression at any pace",
+    "feel_want": [
+     "Relaxing",
+     "Casual"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.1,
+   "error": null
+  },
+  "r10": {
+   "parsed": {
+    "seeds": [
+     "Overcooked! 2",
+     "Ship of Fools",
+     "Left 4 Dead 2",
+     "PAYDAY 2"
+    ],
+    "played": [
+     "Overcooked! 2",
+     "Ship of Fools",
+     "Left 4 Dead 2",
+     "PAYDAY 2"
+    ],
+    "excluded": [],
+    "preference_text": "Bonus if we don't need to buy more than 1 copy to play together",
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "cheap",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 3,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.7,
+   "error": null
+  },
+  "r09": {
+   "parsed": {
+    "seeds": [
+     "It Takes Two",
+     "A Way Out",
+     "River Tails: Stronger Together",
+     "Stardew Valley",
+     "Overcooked! 2"
+    ],
+    "played": [
+     "It Takes Two",
+     "Split Fiction",
+     "A Way Out",
+     "River Tails: Stronger Together",
+     "Resident Evil 5",
+     "Resident Evil Revelations 2",
+     "Stardew Valley",
+     "PlateUp!",
+     "Sackboy: A Big Adventure",
+     "Overcooked! 2",
+     "Castle Crashers"
+    ],
+    "excluded": [
+     "POPUCOM"
+    ],
+    "preference_text": "history focused, co-op oriented co-op first, single player second or exclusively co-op",
+    "feel_want": [
+     "Historical",
+     "Co-op"
+    ],
+    "feel_avoid": [
+     "Action"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": "local",
+     "groups": null
+    },
+    "people": [
+     {
+      "name": "wife",
+      "likes": [
+       "Stardew Valley",
+       "Overcooked! 2"
+      ],
+      "owns": [],
+      "preference_text": "history focused games, and games which co-op oriented (co-op first, single player second or exclusively co-op), isn't into action games so much",
+      "feel_want": [
+       "Historical",
+       "Co-op"
+      ],
+      "feel_avoid": [
+       "Action"
+      ],
+      "avoid_tags": [],
+      "avoid_content": []
+     }
+    ]
+   },
+   "seconds": 4.7,
+   "error": null
+  },
+  "r12": {
+   "parsed": {
+    "seeds": [],
+    "played": [],
+    "excluded": [
+     "LEGO Voyagers"
+    ],
+    "preference_text": "safe for younger gamers, not violent, cool gaming sessions on multiple computers kind of thing, avoid ones where you have to pay $20 bucks three times for each player to have a copy",
+    "feel_want": [
+     "Family Friendly"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Violent",
+     "Gore"
+    ],
+    "avoid_content": [
+     "gore"
+    ],
+    "budget": null,
+    "price_intent": "cheap",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 3,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.6,
+   "error": null
+  },
+  "r13": {
+   "parsed": {
+    "seeds": [],
+    "played": [],
+    "excluded": [
+     "Minecraft",
+     "VALORANT",
+     "League of Legends"
+    ],
+    "preference_text": null,
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Horror"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "cheap",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 4,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.3,
+   "error": null
+  },
+  "r11": {
+   "parsed": {
+    "seeds": [
+     "Stardew Valley",
+     "Peak",
+     "Split Fiction",
+     "Core Keeper",
+     "Wildermyth",
+     "Kingdom Two Crowns",
+     "Unravel Two"
+    ],
+    "played": [
+     "Stardew Valley",
+     "Peak"
+    ],
+    "excluded": [],
+    "preference_text": "Cozy - No combat, or if there is, it has to be easy or avoidable combat or able to be modified to lower the combat experience - No one trick pony, like only fishing, only building houses, it has to have a bunch of stuff wheter things to do or an engaging story or a good gameplay loop",
+    "feel_want": [
+     "Cozy",
+     "Relaxing",
+     "Casual"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Fast-Paced"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "near_record_low",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": [
+     {
+      "name": "girlfriend",
+      "likes": [],
+      "owns": [],
+      "preference_text": "mostly plays puzzle games but she's willing to play and learn other genres",
+      "feel_want": [],
+      "feel_avoid": [],
+      "avoid_tags": [],
+      "avoid_content": []
+     }
+    ]
+   },
+   "seconds": 7.3,
+   "error": null
+  },
+  "r15": {
+   "parsed": {
+    "seeds": [
+     "Deep Rock Galactic"
+    ],
+    "played": [
+     "WEBFISHING",
+     "Roblox",
+     "Terraria",
+     "Minecraft",
+     "Lethal Company",
+     "R.E.P.O.",
+     "The Binding of Isaac",
+     "Deep Rock Galactic"
+    ],
+    "excluded": [],
+    "preference_text": null,
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": {
+     "amount": 20.0,
+     "scope": "per_person",
+     "currency": "EUR"
+    },
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 3,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.0,
+   "error": null
+  },
+  "r14": {
+   "parsed": {
+    "seeds": [
+     "PEAK",
+     "PICO PARK",
+     "PICO PARK 2"
+    ],
+    "played": [
+     "Left 4 Dead 2",
+     "Human Fall Flat",
+     "RVThereYet",
+     "Don't Starve Together",
+     "It Takes Two",
+     "PICO PARK",
+     "PICO PARK 2"
+    ],
+    "excluded": [
+     "R.E.P.O.",
+     "Lethal Company",
+     "Left 4 Dead 2",
+     "Human Fall Flat",
+     "RVThereYet"
+    ],
+    "preference_text": "aren't horror and won't melt our laptops Can run on integrated graphics",
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Horror",
+     "Psychological Horror",
+     "Survival Horror"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 5,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 5.2,
+   "error": null
+  },
+  "r16": {
+   "parsed": {
+    "seeds": [
+     "Portal",
+     "Minecraft",
+     "Trailmakers",
+     "Supermarket Together",
+     "Valheim"
+    ],
+    "played": [
+     "Phasmophobia",
+     "Lethal Company",
+     "RV There Yet",
+     "Dark Hours",
+     "Mimesis",
+     "The Headliners",
+     "REPO"
+    ],
+    "excluded": [],
+    "preference_text": "save-able progression, more long-term, goal-oriented games that will still entertain the ladies but also keep the gentlemen engaged and wanting to play more",
+    "feel_want": [
+     "Casual"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 4,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.4,
+   "error": null
+  },
+  "r17": {
+   "parsed": {
+    "seeds": [],
+    "played": [],
+    "excluded": [],
+    "preference_text": "硬體要求低但劇情好的遊戲 上班可以偷玩一些小遊戲 有事情的時候要關掉 也不能被同事發現 最好是有女主 然後可以快速切換畫面",
+    "feel_want": [
+     "Story Rich",
+     "Female Protagonist"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.5,
+   "error": null
+  },
+  "r18": {
+   "parsed": {
+    "seeds": [
+     "The Forest",
+     "Sons Of The Forest",
+     "Green Hell",
+     "Palworld",
+     "Dragon Quest Builders 2"
+    ],
+    "played": [
+     "The Forest",
+     "Sons Of The Forest",
+     "Green Hell",
+     "Palworld",
+     "Stardew Valley",
+     "Dragon Quest Builders 2"
+    ],
+    "excluded": [
+     "Conan Exiles",
+     "Windrose",
+     "Medieval Dynasty"
+    ],
+    "preference_text": "生存建造類型 (休閒玩) 能單人玩的愉快 希望單人模式進遊戲時不會強迫要登入官方伺服器 可接受小農，但不要太農 希望有NPC夥伴加入幫你做雜事，或安排NPC工作 有戰鬥升級元素，自己家園蓋好後，可以去探險打怪打寶 不要太可愛的風格 希望在家園的部分有料理元素 節奏不要太緊湊，中年人反應慢",
+    "feel_want": [
+     "Casual",
+     "Relaxing"
+    ],
+    "feel_avoid": [
+     "Fast-Paced",
+     "Difficult",
+     "Cute"
+    ],
+    "mechanics": [
+     "Survival",
+     "Base Building"
+    ],
+    "avoid_tags": [
+     "Zombies",
+     "Sci-fi",
+     "Space",
+     "Horror"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 5.0,
+   "error": null
+  },
+  "r20": {
+   "parsed": {
+    "seeds": [],
+    "played": [
+     "Sid Meier's Civilization V",
+     "Sid Meier's Civilization VI",
+     "XCOM: Enemy Unknown"
+    ],
+    "excluded": [
+     "Age of Empires",
+     "StarCraft"
+    ],
+    "preference_text": "好玩不會太複雜的回合策略遊戲 非即時不需要花太多精力玩 比較喜歡有經營成分重一點，分配物資/升級建築之類",
+    "feel_want": [
+     "Turn-Based Strategy",
+     "Management",
+     "Base Building",
+     "Resource Management"
+    ],
+    "feel_avoid": [
+     "RTS",
+     "Fast-Paced",
+     "JRPG",
+     "Roguelike"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "JRPG",
+     "Roguelike",
+     "RTS"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.9,
+   "error": null
+  },
+  "r19": {
+   "parsed": {
+    "seeds": [
+     "Total War: THREE KINGDOMS",
+     "Total War: WARHAMMER",
+     "Stellaris",
+     "They Are Billions"
+    ],
+    "played": [
+     "Nioh 2 - The Complete Edition",
+     "Total War: THREE KINGDOMS",
+     "Total War: WARHAMMER",
+     "Stellaris",
+     "Clair Obscur: Expedition 33",
+     "They Are Billions"
+    ],
+    "excluded": [],
+    "preference_text": "破玩類似壓力摳咪遊戲後 通常都玩那些遊戲轉換心情 (紓壓爽GAME?) 再想換個不同類型或風格遊戲",
+    "feel_want": [
+     "Relaxing",
+     "Casual"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Souls-like"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.1,
+   "error": null
+  },
+  "r22": {
+   "parsed": {
+    "seeds": [
+     "Balatro"
+    ],
+    "played": [
+     "Balatro"
+    ],
+    "excluded": [],
+    "preference_text": "無即時性，想停就停不會影響遊戲 有點思考與挑戰 不要太簡單以至於無聊 也不要太難以至於佔用看劇的大腦CPU",
+    "feel_want": [
+     "Turn-Based"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Fast-Paced"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.4,
+   "error": null
+  },
+  "r21": {
+   "parsed": {
+    "seeds": [
+     "DAVE THE DIVER",
+     "Sakuna: Of Rice and Ruin"
+    ],
+    "played": [
+     "DAVE THE DIVER",
+     "Sakuna: Of Rice and Ruin",
+     "Stardew Valley",
+     "The Forest",
+     "7 Days to Die",
+     "Don't Starve"
+    ],
+    "excluded": [],
+    "preference_text": "出外捕魚打獵 打食材做料理 種田是其次 順便收集金屬礦物木頭等資源 會慢慢增加設備 沒有生存壓力 可以慢慢混 不會有怪物來襲擊你家 動作遊戲 不是第一人稱畫面",
+    "feel_want": [
+     "Relaxing",
+     "Casual",
+     "Cozy"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [
+     "Action",
+     "Cooking"
+    ],
+    "avoid_tags": [
+     "First-Person"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.0,
+   "error": null
+  },
+  "r23": {
+   "parsed": {
+    "seeds": [
+     "Ratopia"
+    ],
+    "played": [
+     "SimCity 4 Deluxe Edition",
+     "SimCity",
+     "Diplomacy is Not an Option",
+     "Ratopia",
+     "Farthest Frontier",
+     "Going Medieval",
+     "Kingdoms and Castles",
+     "Project Zomboid",
+     "Settlement Survival",
+     "Frostpunk",
+     "RimWorld"
+    ],
+    "excluded": [
+     "RimWorld",
+     "Against the Storm"
+    ],
+    "preference_text": "類似鼠托邦這種種田遊戲 不太喜歡那些異種族跟美術 好像異族外星宇宙類不太會讓我覺得有興趣",
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Aliens",
+     "Space"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.4,
+   "error": null
+  },
+  "r24": {
+   "parsed": {
+    "seeds": [],
+    "played": [
+     "Undertale",
+     "Stardew Valley",
+     "Detroit: Become Human",
+     "Little Nightmares"
+    ],
+    "excluded": [],
+    "preference_text": "能在沉浸式玩得让人忘记吃饭 愉快的游戏体验 有深度有剧情有趣味有画风有巧思",
+    "feel_want": [
+     "Immersive",
+     "Story Rich"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 3.3,
+   "error": null
+  },
+  "r26": {
+   "parsed": {
+    "seeds": [],
+    "played": [
+     "Warcraft III: The Frozen Throne",
+     "Battlefield",
+     "Counter-Strike",
+     "Age of Empires",
+     "Empire Earth",
+     "StarCraft II",
+     "Command & Conquer: Red Alert"
+    ],
+    "excluded": [],
+    "preference_text": "適合網咖的四人合作遊戲 脫離遊戲很久 主題都是合作對抗電腦的 可以讓我們爽玩八小時的遊戲",
+    "feel_want": [
+     "Co-op",
+     "PvE"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": 8.0,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 4,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.0,
+   "error": null
+  },
+  "r28": {
+   "parsed": {
+    "seeds": [
+     "Planet Zoo",
+     "Frostpunk",
+     "Dave the Diver",
+     "Overcooked!",
+     "The Sims",
+     "Princess Maker"
+    ],
+    "played": [
+     "Planet Zoo",
+     "Frostpunk",
+     "Dave the Diver",
+     "Overcooked!",
+     "The Sims",
+     "Princess Maker"
+    ],
+    "excluded": [
+     "Don't Starve Together"
+    ],
+    "preference_text": "雙人生活模擬或經營類遊戲 有主線或一定的方向引導循序漸進 主要是休閒 難度希望不要太高 如果有戰鬥要素的話不太吃操作 可以蓋房子或設施的建造要素 有輕微3D暈 2D比較偏好一點 有劇情佳",
+    "feel_want": [
+     "Casual",
+     "Relaxing",
+     "Cozy"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [
+     "Life Sim",
+     "Management"
+    ],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "near_record_low",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 5.5,
+   "error": null
+  },
+  "r27": {
+   "parsed": {
+    "seeds": [
+     "Mario Party Superstars",
+     "Rabbids: Party of Legends",
+     "Party Animals"
+    ],
+    "played": [
+     "Mario Party Superstars",
+     "Rabbids: Party of Legends"
+    ],
+    "excluded": [],
+    "preference_text": "派對遊戲 給這個年齡層 和大人一起玩",
+    "feel_want": [
+     "Family Friendly",
+     "Casual",
+     "Party Game",
+     "Funny"
+    ],
+    "feel_avoid": [
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": 7,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "any",
+     "setup": "local",
+     "groups": null
+    },
+    "people": [
+     {
+      "name": "女兒",
+      "likes": [
+       "Mario Party Superstars",
+       "Rabbids: Party of Legends"
+      ],
+      "owns": [],
+      "preference_text": null,
+      "feel_want": [
+       "Casual",
+       "Family Friendly"
+      ],
+      "feel_avoid": [
+       "Difficult"
+      ],
+      "avoid_tags": [],
+      "avoid_content": []
+     }
+    ]
+   },
+   "seconds": 5.7,
+   "error": null
+  },
+  "r25": {
+   "parsed": {
+    "seeds": [
+     "Don't Starve Together",
+     "Cult of the Lamb",
+     "The Legend of Zelda: Breath of the Wild",
+     "The Legend of Zelda: Tears of the Kingdom",
+     "The Legend of Zelda: Echoes of Wisdom",
+     "Dave the Diver",
+     "Don't Starve",
+     "ZERO Sievert",
+     "Core Keeper",
+     "Enshrouded"
+    ],
+    "played": [
+     "The Legend of Zelda: Breath of the Wild",
+     "The Legend of Zelda: Tears of the Kingdom",
+     "The Legend of Zelda: Echoes of Wisdom",
+     "Dave the Diver",
+     "Cult of the Lamb",
+     "Don't Starve",
+     "ZERO Sievert"
+    ],
+    "excluded": [
+     "It Takes Two",
+     "Palworld",
+     "Stardew Valley",
+     "Terraria"
+    ],
+    "preference_text": "能夠多人合作 但單人也能有樂趣 多人共鬥不錯但戰鬥難度希望不要太高 不喜歡自動化工廠類型 也不喜歡寫實或太血腥 不喜歡星露谷或terraia的像素風格 core keeper則在接受範圍",
+    "feel_want": [],
+    "feel_avoid": [
+     "Difficult",
+     "Realistic"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Automation",
+     "Gore"
+    ],
+    "avoid_content": [
+     "gore"
+    ],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 6.4,
+   "error": null
+  },
+  "r29": {
+   "parsed": {
+    "seeds": [],
+    "played": [
+     "Minecraft",
+     "Core Keeper",
+     "The Planet Crafter",
+     "Terraria"
+    ],
+    "excluded": [],
+    "preference_text": "能探索找到新地區，感受到全新的風景，也獲得新的資源 不一定只限挖礦，主軸是找資源，礦物/植物/動物都可以 有基地建設或某種升級，讓找到的資源有用途，有回饋感",
+    "feel_want": [
+     "Exploration"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Survival"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Zombies"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "near_record_low",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.8,
+   "error": null
+  },
+  "r30": {
+   "parsed": {
+    "seeds": [
+     "Satisfactory"
+    ],
+    "played": [],
+    "excluded": [],
+    "preference_text": "慢節奏的合作遊戲",
+    "feel_want": [
+     "Relaxing",
+     "Casual"
+    ],
+    "feel_avoid": [
+     "Fast-Paced"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.7,
+   "error": null
+  },
+  "r31": {
+   "parsed": {
+    "seeds": [
+     "Age of Empires II: Definitive Edition",
+     "League of Legends",
+     "HELLDIVERS 2"
+    ],
+    "played": [
+     "Age of Empires II: Definitive Edition",
+     "League of Legends",
+     "HELLDIVERS 2"
+    ],
+    "excluded": [
+     "Party Animals",
+     "Ultimate Chicken Horse",
+     "Overcooked!",
+     "PUBG: BATTLEGROUNDS",
+     "Apex Legends",
+     "Counter-Strike 2"
+    ],
+    "preference_text": "可以有一點策略性，但不要太燒腦的佳 如果可以是一場一場的佳， 主要是彈性高、遊戲時間好預測，但也非必要 不排斥射擊類遊戲，但像太純槍戰的就沒有很喜歡",
+    "feel_want": [
+     "Strategy"
+    ],
+    "feel_avoid": [
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Sports",
+     "Racing",
+     "Party Game",
+     "Cute"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "any",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.1,
+   "error": null
+  },
+  "r32": {
+   "parsed": {
+    "seeds": [
+     "Party Animals"
+    ],
+    "played": [
+     "Party Animals"
+    ],
+    "excluded": [],
+    "preference_text": "本機多人遊玩的遊戲 假日想跟侄子們同樂",
+    "feel_want": [
+     "Family Friendly",
+     "Casual"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 3,
+     "interaction": "any",
+     "setup": "local",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 4.1,
+   "error": null
+  }
+ },
+ "reasons": {
+  "r01|none": {
+   "seconds": 5.8,
+   "cards": [
+    {
+     "name": "房产达人",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》同具沙盒、放松与模拟要素，好评率达93%。游戏侧重于清洁、设计与装饰，玩家能够专注于建造并打理属于自己的房屋资产，体验没有繁琐农作负担的整理与修缮乐趣。"
+    },
+    {
+     "name": "Littlewood",
+     "source": "llm",
+     "reason": "这款像素图形生活模拟游戏好评率93%，完美契合你对放松与建造的偏好。相较于同类作品，它融入了城市营造与探索，玩家不仅能收集材料建设酒馆等设施，还能在轻松的氛围中逐步规划和拓展自己的小镇。"
+    },
+    {
+     "name": "Lightyear Frontier",
+     "source": "llm",
+     "reason": "本作兼具农场模拟、制作与沙盒玩法，主打温馨惬意与放松体验。游戏融入了开放世界生存制作、基地建设和自动化机制，玩家可以在开阔环境中自由建造与规划，享受少一些生活模拟束缚的清爽建设过程。"
+    },
+    {
+     "name": "Farm Together",
+     "source": "llm",
+     "reason": "本作拥有93%的好评率，与《Stardew Valley》同样具备农业、模拟与放松特性。游戏重点突出建造与在线合作，没有复杂的生活模拟与角色扮演剧情，能让你自由自在地规划、开垦土地并发展农庄。"
+    },
+    {
+     "name": "Sun Haven",
+     "source": "llm",
+     "reason": "本作采用细腻的像素图形风格，与《Stardew Valley》一样包含农场模拟与生活模拟，深受数千名同好玩家推荐。游戏带来了丰富的奇幻冒险与角色自定义内容，你可以探索中世纪城镇等多个不同区域。"
+    }
+   ]
+  },
+  "r02|none": {
+   "seconds": 7.1,
+   "cards": [
+    {
+     "name": "Outer Wilds",
+     "source": "llm",
+     "reason": "本作与《ANIMAL WELL》同样具备探索、悬疑与氛围标签，并带有太空背景与好评原声音轨。共有2,652名玩家同时推荐了这两款作品，适合喜爱在冒险旅程中感受悬疑氛围与探索体验的玩家。"
+    },
+    {
+     "name": "Celeste",
+     "source": "llm",
+     "reason": "本作被IGDB列为《Cuphead》的相似游戏，与《ANIMAL WELL》同属像素图形的2D平台游戏，拥有好评原声音轨与精确平台跳跃玩法，契合你对平台操作感与氛围的偏好，但其机制具有低容错特征。"
+    },
+    {
+     "name": "Ori and the Will of the Wisps",
+     "source": "llm",
+     "reason": "本作与《Hollow Knight》同属类银河战士恶魔城平台游戏，拥有好评原声音轨与唯美的单人动作冒险体验。相比之下它较少类魂系列元素与低容错设计，共有18,763名玩家同时推荐了这两款作品。"
+    },
+    {
+     "name": "小飞船大冒险 Minishoot' Adventures",
+     "source": "llm",
+     "reason": "本作与《ANIMAL WELL》同具类银河战士恶魔城、探索、冒险与2D标签，契合你对探索与非线性体验的追求。游戏融入了俯视视角、双摇杆射击与弹幕射击玩法，Steam好评率达97%。"
+    },
+    {
+     "name": "FEZ",
+     "source": "llm",
+     "reason": "本作与《ANIMAL WELL》共享解谜、平台游戏与像素图形标签，带来注重探索与氛围的体验，玩家可以探索充满秘密、谜题与隐藏宝藏的开放世界，并配有好评原声音轨，通关约7小时。"
+    }
+   ]
+  },
+  "r03|none": {
+   "seconds": 5.4,
+   "cards": [
+    {
+     "name": "戴森球计划",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》同样具备基地建设、自动化、建造与资源管理核心标签，并融入太空与城市营造元素。Steam好评率达97%，已有6227名玩家同时推荐了这两款游戏，适合偏好建造与流水线规划的玩家。"
+    },
+    {
+     "name": "星球工匠",
+     "source": "llm",
+     "reason": "游戏与《幸福工厂》同属基地建设、建造与制作类别，且支持在线合作与太空背景的开放世界生存制作。本作在Steam上拥有96%的好评率，并有6967名玩家同时推荐了《幸福工厂》与本作。"
+    },
+    {
+     "name": "FOUNDRY",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》共享基地建设、自动化、开放世界与多人玩法，并带来了体素风格与机器人等特色内容。Steam好评率为82%，有857名玩家同时推荐了《幸福工厂》和本作，能满足自动化流水线构建需求。"
+    },
+    {
+     "name": "Factory Town",
+     "source": "llm",
+     "reason": "这款沙盒作品包含基地建设、自动化与资源管理标签，与《幸福工厂》有共通的建设体验，同时包含城市营造与殖民模拟元素。游戏拥有90%的Steam好评率，提供专注于规划与物流管理的建造乐趣。"
+    },
+    {
+     "name": "异形工厂（Shapez）",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》一样专注于自动化、基地建设、资源管理与沙盒机制，形式上采用2D与策略管理视角。游戏在Steam上好评率达96%，已有1655名玩家同时推荐，专注于纯粹的流水线设计与搭建。"
+    }
+   ]
+  },
+  "r02|default": {
+   "seconds": 16.6,
+   "cards": [
+    {
+     "name": "Outer Wilds",
+     "source": "llm",
+     "reason": "本作与《ANIMAL WELL》一样具备出色的探索、悬疑与冒险氛围。游戏融合了太空探索与丰富的剧情，并拥有好评原声音轨，通关约 19 小时，在 Steam 上获得了 95% 的好评率。"
+    },
+    {
+     "name": "Celeste",
+     "source": "llm",
+     "reason": "本作是一款 2D 独立像素平台游戏，与《ANIMAL WELL》同样拥有独特的氛围与探索感。游戏侧重精确平台跳跃与低容错挑战，拥有好评原声音轨，通关约 21 小时，IGDB 还将其列为《Cuphead》的相似游戏。"
+    },
+    {
+     "name": "Ori and the Will of the Wisps",
+     "source": "llm",
+     "reason": "本作与《Hollow Knight》同属单人类银河战士恶魔城平台游戏，具备优秀的探索与氛围。相比之下，其风格更显唯美，主打动作冒险，且不属于低容错的类魂系列，配有好评原声音轨，好评率达 96%。"
+    },
+    {
+     "name": "小飞船大冒险 Minishoot' Adventures",
+     "source": "llm",
+     "reason": "本作与《ANIMAL WELL》同具 2D 类银河战士恶魔城内核，主打非线性探索与冒险。玩法融合了俯视角与双摇杆弹幕射击，兼具出色的探索氛围，在 Steam 上获得了 97% 的好评率。"
+    },
+    {
+     "name": "FEZ",
+     "source": "llm",
+     "reason": "本作与《ANIMAL WELL》同为像素独立解谜平台游戏，注重探索与氛围。玩家可以在宁静美丽的开放世界中解开谜题、发掘隐藏宝藏与秘密，搭配好评原声音轨，通关约 7 小时。"
+    }
+   ]
+  },
+  "r01|default": {
+   "seconds": 17.6,
+   "cards": [
+    {
+     "name": "房产达人",
+     "source": "llm",
+     "reason": "本作是一款好评率93%的沙盒模拟游戏。与《Stardew Valley》相比，本作包含放松与建造体验，并更侧重清洁、设计与装饰，非常契合想要清理整顿房屋与自由打造房产的需求，且同为模拟与沙盒类型。"
+    },
+    {
+     "name": "Littlewood",
+     "source": "llm",
+     "reason": "本作好评率93%，与《Stardew Valley》同样拥有像素图形、生活模拟与放松体验。在此基础上，游戏更偏重城市营造与探索，能够满足你对像素风、放松建造与打理城镇的需求，还可以建造酒馆等设施。"
+    },
+    {
+     "name": "Lightyear Frontier",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》同样具备沙盒、农场模拟与制作元素，带来放松与温馨惬意的体验。相比之下，本作融入了开放世界生存制作与基地建设，更注重建造与自动化，适合追求轻松建设基地的玩家。"
+    },
+    {
+     "name": "Farm Together",
+     "source": "llm",
+     "reason": "这是一款好评率93%的农业模拟游戏。与《Stardew Valley》一样，本作具备放松与建造的核心体验，支持模拟经营与多人游玩，并更侧重合作，让你能够在没有复杂角色扮演要素的轻松氛围中专注打理与建设。"
+    },
+    {
+     "name": "Sun Haven",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》同属像素图形、农场与生活模拟游戏，兼具放松体验。相比之下，游戏更加注重冒险、奇幻与角色自定义，玩家可以探索中世纪城镇、精灵森林等多重区域，通关约需73小时。"
+    }
+   ]
+  },
+  "r03|default": {
+   "seconds": 15.5,
+   "cards": [
+    {
+     "name": "戴森球计划",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》同样拥有基地建设、自动化、建造和资源管理的核心标签，更增添了太空、管理与城市营造元素。游戏在Steam上拥有97%的好评率，专注于庞大的建设与管理体验，非常契合你对建造与资源规划的偏好。"
+    },
+    {
+     "name": "星球工匠",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》一样具备基地建设、建造、制作与合作标签，同时融入了太空与开放世界生存制作特色，支持在线合作。该作在Steam上收获了96%的好评率，适合喜欢自由投入时间进行探索、基地规划与建造的玩家。"
+    },
+    {
+     "name": "FOUNDRY",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》同属基地建设、自动化、开放世界与多人类型。在此基础上，游戏加入了体素、程序生成以及机器人要素。在Steam上拥有82%的好评率，能让你在开放世界中持续体验规划与搭建自动化基地的乐趣。"
+    },
+    {
+     "name": "Factory Town",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》共享自动化、基地建设、资源管理与沙盒等核心标签，并进一步加入了城市营造、管理和殖民模拟元素。游戏在Steam上好评率为90%，提供纯粹的沙盒建设与管理机制，满足你对资源调度和建设的追求。"
+    },
+    {
+     "name": "异形工厂（Shapez）",
+     "source": "llm",
+     "reason": "本作与《幸福工厂》一样涵盖自动化、基地建设、资源管理及沙盒特色，以2D、策略和管理为主要延伸。游戏在Steam上获得96%的好评率，专注于纯粹的流水线规划与沙盒资源管理，适合享受无拘无束重构布局的建造玩家。"
+    }
+   ]
+  },
+  "r04|none": {
+   "seconds": 5.6,
+   "cards": [
+    {
+     "name": "Undertale",
+     "source": "llm",
+     "reason": "这款游戏拥有剧情丰富与选择取向的标签，玩家评价其故事深情、角色丰富且侧重幽默，契合你对讨喜角色与剧情的需求。本作还具备多结局与好评原声音轨，通关约8小时，Steam好评率达96%（310,276篇评测）。"
+    },
+    {
+     "name": "Portal 2",
+     "source": "llm",
+     "reason": "如果你想要剧情丰富且玩法出色的非纯文字游戏，这款作品带有解谜、平台游戏与单人第一人称玩法标签，契合好玩的需求。Steam好评率高达98%（391,543篇评测），据IGDB显示通关约10小时。"
+    },
+    {
+     "name": "影子诡局：被诅咒的海盗 Shadow Gambit: The Cursed Crew",
+     "source": "llm",
+     "reason": "本作带有剧情丰富标签，满足你对故事向体验的偏好。玩法方面融合了策略、角色扮演、选择取向与角色自定义机制，不是视觉小说类型。游戏在Steam上拥有91%的好评率（5,209篇评测）。"
+    },
+    {
+     "name": "遗忘之城",
+     "source": "llm",
+     "reason": "本作拥有剧情丰富标签，主打冒险、时空旅行、悬疑与探索等丰富玩法，契合你想找故事向非视觉小说游戏的需求。据IGDB统计通关约需9小时，在Steam上拥有95%的好评率（11,193篇评测）。"
+    },
+    {
+     "name": "Haven",
+     "source": "llm",
+     "reason": "如果你想寻找剧情丰富且兼顾玩法的作品，这款游戏包含爱情、本地合作等标签，支持双人或单人体验，通关约15小时（IGDB）。其Steam好评率为88%（5,306篇评测），适合喜欢故事驱动的玩家体验。"
+    }
+   ]
+  },
+  "r05|none": {
+   "seconds": 5.0,
+   "cards": [
+    {
+     "name": "幸福工厂",
+     "source": "llm",
+     "reason": "本作在 Steam 上拥有 97% 的好评率。它与《Factorio》同样具备基地建设、自动化、制作和资源管理等核心元素，在此基础上还增添了探索玩法，通关时长约 172 小时，适合想要持久体验建造乐趣的玩家。"
+    },
+    {
+     "name": "Vampire Survivors - 吸血鬼幸存者",
+     "source": "llm",
+     "reason": "本作在 Steam 上获得了 98% 的极高好评率，通关约 28 小时。它属于动作类 Rogue、弹幕射击与轻度 Rogue 游戏，相较于《Factorio》没有复杂的自动化、基地建设与资源管理，节奏直接爽快。"
+    },
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "本作 Steam 好评率达 97%，通关约 68 小时。它具备出色的重玩价值，与《Factorio》共享沙盒与制作标签，同时融入了开放世界生存制作、冒险与探索要素，少去了繁重的基地建设与自动化管理。"
+    },
+    {
+     "name": "戴森球计划",
+     "source": "llm",
+     "reason": "本作在 Steam 上拥有 97% 的好评率，通关约 88 小时。它与《Factorio》一样以自动化、基地建设、资源管理与沙盒为核心玩法，更进一步融入了太空与科幻背景，让长线规划与建设更具广阔视野。"
+    },
+    {
+     "name": "Stardew Valley",
+     "source": "llm",
+     "reason": "本作在 Steam 上好评率达 98%，通关约 90 小时。它包含沙盒与制作玩法，拥有“Improve your skills over time.”的体验，侧重农场模拟、生活模拟与角色扮演，无须承担复杂的自动化与资源管理负担。"
+    }
+   ]
+  },
+  "r04|default": {
+   "seconds": 15.0,
+   "cards": [
+    {
+     "name": "Undertale",
+     "source": "llm",
+     "reason": "这款作品主打剧情丰富与选择取向，拥有多结局设定以及好评原声音轨。其故事深情且角色鲜明，并带有幽默元素，能够很好地满足你对剧情和生动角色塑造的偏好，同时具备非视觉小说的游玩体验。"
+    },
+    {
+     "name": "Portal 2",
+     "source": "llm",
+     "reason": "这款第一人称解谜与平台游戏具备丰富的剧情，主打单人探索体验。玩家将在独特的解谜机制与关卡推进中感受故事展开，契合你对剧情丰富度以及非视觉小说类玩法的具体要求。"
+    },
+    {
+     "name": "影子诡局：被诅咒的海盗 Shadow Gambit: The Cursed Crew",
+     "source": "llm",
+     "reason": "这是一款融合了角色扮演与策略元素的作品，支持角色自定义与选择取向，并拥有丰富的剧情展开。非视觉小说的玩法重在战术决策，能满足你想要体验充实故事与策略可玩性兼备的期待。"
+    },
+    {
+     "name": "遗忘之城",
+     "source": "llm",
+     "reason": "本作主打悬疑、时空旅行与冒险探索，拥有丰富的剧情体验。玩家将在充满谜团的情境中展开探索，借助交互探索来逐步揭开故事全貌，非常契合你对剧情丰富且非纯视觉小说游戏的需求。"
+    },
+    {
+     "name": "Haven",
+     "source": "llm",
+     "reason": "这款作品包含丰富的剧情体验，核心特色涵盖爱情与本地合作。玩家可以在互动与冒险中体验角色之间的情感故事，契合你寻找剧情充实、角色生动且非传统视觉小说形式的游戏偏好。"
+    }
+   ]
+  },
+  "r06|none": {
+   "seconds": 4.3,
+   "cards": [
+    {
+     "name": "历历在目",
+     "source": "llm",
+     "reason": "本作与《What Remains of Edith Finch》同样具有丰富的剧情，并有 1,516 名玩家同时推荐两作。相比之下，本作更加侧重叙事、情感与互动小说元素，通关约需 2 小时，好评率达 97%。"
+    },
+    {
+     "name": "Outer Wilds",
+     "source": "llm",
+     "reason": "本作被 IGDB 列为《What Remains of Edith Finch》的相似游戏，且两作都主打剧情丰富与出色的氛围。与前作相比，本作包含更多太空、开放世界与探索元素，通关约需 19 小时，好评率达 95%。"
+    },
+    {
+     "name": "The Vanishing of Ethan Carter",
+     "source": "llm",
+     "reason": "本作与《Firewatch》共享悬疑、氛围、步行模拟与探索标签，是一款以探索和发现为核心的第一人称故事导向悬疑游戏。相比之下本作增添了推理与灵异色彩，通关约需 4 小时，Steam 好评率为 87%。"
+    },
+    {
+     "name": "The Beginner's Guide",
+     "source": "llm",
+     "reason": "本作与《What Remains of Edith Finch》共享剧情丰富、步行模拟与氛围标签，并有 1,136 名玩家同时推荐。本作风格更加偏向独立、抽象与超现实，通关流程约 2 小时，好评率为 88%。"
+    },
+    {
+     "name": "Gone Home",
+     "source": "llm",
+     "reason": "本作被 IGDB 列为《Firewatch》的相似游戏，同时与《What Remains of Edith Finch》一样同属步行模拟类型，并有 927 名玩家同时推荐了两作。游戏通关约需 3 小时，Steam 好评率为 77%。"
+    }
+   ]
+  },
+  "r05|default": {
+   "seconds": 15.4,
+   "cards": [
+    {
+     "name": "幸福工厂",
+     "source": "llm",
+     "reason": "本作在 Steam 上好评率达 97%，通关约需 172 小时。游戏与《Factorio》一样包含基地建设、自动化、制作与资源管理要素，同时具备探索内容，已有 15,868 名玩家同时推荐了《Factorio》和本作。"
+    },
+    {
+     "name": "Vampire Survivors - 吸血鬼幸存者",
+     "source": "llm",
+     "reason": "本作在 Steam 拥有 98% 的好评率，通关约需 28 小时。游戏具有动作类 Rogue、弹幕射击与轻度 Rogue 特色，相比《Factorio》少了基地建设与自动化，已有 9,009 名玩家同时推荐了这两款游戏。"
+    },
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "本作在 Steam 拥有 97% 的好评率，通关约需 68 小时。游戏包含沙盒与制作要素，具有重玩价值，并主打开放世界生存制作、冒险与探索。已有 26,255 名玩家同时推荐了《Factorio》和本作。"
+    },
+    {
+     "name": "戴森球计划",
+     "source": "llm",
+     "reason": "本作与《Factorio》同样具备自动化、基地建设、资源管理与沙盒机制，并带有太空与科幻特色。游戏在 Steam 获得 97% 的好评率，通关约需 88 小时，有 7,320 名玩家同时推荐了这两作。"
+    },
+    {
+     "name": "Stardew Valley",
+     "source": "llm",
+     "reason": "本作涵盖沙盒制作、农场模拟、生活模拟与角色扮演要素，Steam 好评率达 98%，通关约需 90 小时。在《边缘世界 RimWorld》同好邻居中排第 20，已有 18,537 名玩家同时推荐了这两款作品。"
+    }
+   ]
+  },
+  "r07|none": {
+   "seconds": 4.9,
+   "cards": [
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "本作与《Rust》一样拥有生存、多人和制作标签，并融入了2D、像素图形与沙盒玩法。在《Stardew Valley》的同好邻居中排第1，获107,711名玩家同时推荐。Steam好评率达97%，通关约需68小时。"
+    },
+    {
+     "name": "边缘世界 RimWorld",
+     "source": "llm",
+     "reason": "本作与《Rust》共享生存和开放世界标签，同时具有殖民模拟、基地建设与策略要素。游戏在Steam上拥有97%的好评率，且有18,537名玩家同时推荐了《Stardew Valley》与本作，适合有空闲时深入体验。"
+    },
+    {
+     "name": "Factorio",
+     "source": "llm",
+     "reason": "本作与《Rust》一样包含制作要素，并侧重自动化、基地建设与资源管理。在Steam上好评率达97%，通关约需72小时。同时有14,891名玩家同时推荐了《Stardew Valley》和本作，能满足从零搭建的乐趣。"
+    },
+    {
+     "name": "Project Zomboid",
+     "source": "llm",
+     "reason": "本作与《Rust》共享生存、开放世界和多人标签，增加了僵尸要素，支持搜刮、建造、制作、战斗、耕种和捕鱼以求生存。Steam好评率94%，通关约32小时，并有29,355名玩家同时推荐了《Stardew Valley》与本作。"
+    },
+    {
+     "name": "Valheim: 英灵神殿",
+     "source": "llm",
+     "reason": "本作与《Rust》同样具有生存、开放世界、多人和制作标签，且更侧重在线合作、基地建设与探索，少见玩家对战。其在Steam上好评率达93%，通关约25小时，有28,203名玩家同时推荐了《Rust》和本作。"
+    }
+   ]
+  },
+  "r06|default": {
+   "seconds": 14.7,
+   "cards": [
+    {
+     "name": "历历在目",
+     "source": "llm",
+     "reason": "本作与《What Remains of Edith Finch》同样具有“剧情丰富”标签，并有 1,516 位玩家同时推荐。游戏更侧重叙事、情感与互动小说元素，通关约需 2 小时，在 Steam 上获得了 97% 的好评率。"
+    },
+    {
+     "name": "Outer Wilds",
+     "source": "llm",
+     "reason": "本作被 IGDB 列为《What Remains of Edith Finch》的相似游戏，共享“剧情丰富”与“氛围”标签，且有 2,884 名玩家同时推荐。本作包含更多太空、开放世界与探索元素，通关约需 19 小时。"
+    },
+    {
+     "name": "The Vanishing of Ethan Carter",
+     "source": "llm",
+     "reason": "这是一款第一人称故事驱动的悬疑游戏，专注于探索与发现。它与《Firewatch》同样具备悬疑、氛围、探索和步行模拟标签，并包含更多推理与灵异元素。Steam 好评率为 87%，通关约需 4 小时。"
+    },
+    {
+     "name": "The Beginner's Guide",
+     "source": "llm",
+     "reason": "本作与《What Remains of Edith Finch》同具“剧情丰富”、“氛围”与“步行模拟”标签，有 1,136 位玩家同时推荐。其风格更加偏向独立、抽象与超现实，通关约需 2 小时，好评率达 88%。"
+    },
+    {
+     "name": "Gone Home",
+     "source": "llm",
+     "reason": "本作被 IGDB 列为《Firewatch》的相似游戏，同时也与《What Remains of Edith Finch》共享“步行模拟”标签，有 927 位玩家同时推荐了两者。游戏通关约需 3 小时，Steam 好评率为 77%。"
+    }
+   ]
+  },
+  "r08|none": {
+   "seconds": 4.8,
+   "cards": [
+    {
+     "name": "Fields of Mistria",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》同具农场模拟、像素图形和生活模拟等标签，带来放松的游玩体验，有近八千名玩家同时推荐两者。游戏通关约需60小时，并增添了动漫风格、爱情与农场管理等内容。"
+    },
+    {
+     "name": "潜水员戴夫 DAVE THE DIVER",
+     "source": "llm",
+     "reason": "本作被IGDB列为《Stardew Valley》的相似游戏，共有超万名玩家同时推荐两作。游戏同样具备像素图形、角色扮演与模拟元素，主打放松基调，并融合了冒险、探索与管理等丰富玩法。"
+    },
+    {
+     "name": "Echoes of the Plum Grove",
+     "source": "llm",
+     "reason": "这款游戏与《Stardew Valley》同样拥有农场模拟、生活模拟以及制作标签，氛围温馨惬意。本作在此基础上突出了管理与探索要素，适合偏爱沉浸式过日子、体验模拟循环的玩家在长夜中游玩。"
+    },
+    {
+     "name": "Dinkum(金垦小镇)",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》共享农业、农场模拟与生活模拟标签，能带来放松体验；同时融合了开放世界生存制作、合作与农场管理要素，同样有两千多名玩家将它与《Valheim: 英灵神殿》一同推荐。"
+    },
+    {
+     "name": "Roots of Pacha",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》同具农场模拟、像素图形与生活模拟等标签，主打放松与温馨惬意的氛围。游戏还包含在线合作、探索与爱情等元素，很契合想要悠闲体验漫长种田日常的玩家。"
+    }
+   ]
+  },
+  "r09|default": {
+   "seconds": 9.0,
+   "cards": [
+    {
+     "name": "真‧三國無雙６ with 猛將傳 DX",
+     "source": "llm",
+     "reason": "本作支持本地同屏双人游玩，且部分支持控制器。与你们玩过的作品相比，游戏包含更多动作、无双与砍杀要素，能为想要走出舒适区、尝试动作风格的伴侣提供双人同屏战斗的体验。"
+    },
+    {
+     "name": "旧世界 Old World",
+     "source": "llm",
+     "reason": "本作支持本地同屏双人游玩，与《双人成行》同样带有合作与多人标签。游戏侧重策略、模拟与大战略要素，适合想要尝试全新游戏类型、体验更偏向策略规划的两人一起同屏游玩。"
+    },
+    {
+     "name": "波兰球：编年史",
+     "source": "llm",
+     "reason": "本作支持本地同屏最多 2 人游玩，且完全支持控制器。它与《双人成行》同样拥有合作、本地合作、分屏及多人标签，并融合了开放世界、战斗与沙盒体验，适合两位玩家一同本地分屏游玩。"
+    },
+    {
+     "name": "As Dusk Falls",
+     "source": "llm",
+     "reason": "本作通关约 7 小时，支持本地同屏并完全支持控制器。它与《A Way Out》同样具备剧情丰富、合作与多人标签，并主打选择取向、自选历险体验与多结局，非常适合两个人一起体验剧情互动。"
+    },
+    {
+     "name": "旅者之憩 Travellers Rest",
+     "source": "llm",
+     "reason": "本作通关约 25 小时，完全支持控制器且支持本地同屏。它与妻子喜爱的《Stardew Valley》同属生活模拟、像素图形与农场模拟，并增加了中世纪与管理元素，已有数千名玩家同时推荐两部作品。"
+    }
+   ]
+  },
+  "r07|default": {
+   "seconds": 19.3,
+   "cards": [
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "本作与《Rust》一样拥有生存、多人和制作标签，偏向2D像素图形与沙盒玩法，少见玩家对战。它在《Stardew Valley》的同好邻居中排第1，Steam好评率97%，通关约需68小时，满足白手起家的制作与探索。"
+    },
+    {
+     "name": "边缘世界 RimWorld",
+     "source": "llm",
+     "reason": "游戏与《Rust》同具生存和开放世界标签，更侧重殖民模拟、基地建设与策略要素。本作在《Stardew Valley》的同好邻居中排第31，拥有97%的Steam好评率，能让你尽情体验从无到有规划与发展基地的建设乐趣。"
+    },
+    {
+     "name": "Factorio",
+     "source": "llm",
+     "reason": "本作与《Rust》一样包含制作要素，并进一步聚焦于自动化、基地建设与资源管理。游戏在Steam上好评率达97%，通关约72小时，且有14,891名玩家同时推荐了《Stardew Valley》和本作，专注于从零搭建规模工程。"
+    },
+    {
+     "name": "Project Zomboid",
+     "source": "llm",
+     "reason": "本作与《Rust》共享生存、开放世界与多人标签，加入了僵尸元素，玩家可体验搜刮、建造、制作与耕种等求生过程。游戏在《Stardew Valley》同好榜排第11，通关约32小时，Steam好评率为94%。"
+    },
+    {
+     "name": "Valheim: 英灵神殿",
+     "source": "llm",
+     "reason": "游戏与《Rust》同样具备生存、开放世界、多人与制作标签，并拥有更多在线合作、基地建设与探索内容。已有28,203名玩家同时推荐了《Rust》和本作，Steam好评率93%，通关约25小时，体验从零开始的建造与探索。"
+    }
+   ]
+  },
+  "r08|default": {
+   "seconds": 14.0,
+   "cards": [
+    {
+     "name": "Fields of Mistria",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》同样具备农场模拟、角色扮演、生活模拟与像素图形标签，能带来放松体验。游戏中包含更多农场管理与动漫元素，IGDB通关约需60小时，拥有Steam 96%的好评率，适合喜爱生活模拟的玩家。"
+    },
+    {
+     "name": "潜水员戴夫 DAVE THE DIVER",
+     "source": "llm",
+     "reason": "本作被IGDB列为《Stardew Valley》相似游戏，两者共享像素图形、模拟、角色扮演与放松标签。本作融入了更多管理、冒险与探索要素，通关约需28小时，在Steam上拥有96%的好评率，能带来充实的模拟体验。"
+    },
+    {
+     "name": "Echoes of the Plum Grove",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》共享农场模拟、生活模拟、模拟与制作标签，能带来温馨惬意的游戏氛围。相较而言，本作包含了更多的探索与管理要素，目前在Steam上拥有87%的好评率，适合偏好温馨生活模拟的玩家。"
+    },
+    {
+     "name": "Dinkum(金垦小镇)",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》共享农场模拟、农业、生活模拟与放松标签，同时融入了更多开放世界生存制作与农场管理要素。本作也获得了2,453名《Valheim: 英灵神殿》玩家的共同推荐，在Steam上拥有92%的好评率。"
+    },
+    {
+     "name": "Roots of Pacha",
+     "source": "llm",
+     "reason": "本作与《Stardew Valley》同具农场模拟、生活模拟、像素图形与独立标签，能带来放松与温馨惬意的体验。游戏相较增加了更多探索与在线合作元素，在Steam上收获了93%的好评率，适合喜爱像素生活模拟的玩家。"
+    }
+   ]
+  },
+  "r09|none": {
+   "seconds": 6.7,
+   "cards": [
+    {
+     "name": "真‧三國無雙６ with 猛將傳 DX",
+     "source": "llm",
+     "reason": "支持本地双人同屏游玩，部分支持控制器。相比《A Way Out》，本作更偏向无双、动作与砍杀玩法，可以在一台电脑连接电视或显示器后，与伴侣一同体验兼具历史背景题材与动作砍杀乐趣的战役关卡。"
+    },
+    {
+     "name": "旧世界 Old World",
+     "source": "llm",
+     "reason": "支持本地双人同屏游玩。本作与《双人成行》同具多人合作特性，但玩法更偏向策略、模拟和大战略。如果想带伴侣跳出动作框架、体验兼顾历史氛围与深层合作规划的其他类型，可以通过同屏模式一起运筹帷幄。"
+    },
+    {
+     "name": "波兰球：编年史",
+     "source": "llm",
+     "reason": "支持本地分屏合作与最多双人同屏，完全支持控制器。游戏与《双人成行》共享本地合作与分屏机制，且融合了开放世界、战斗与沙盒体验，适合夫妻二人各执一个手柄，在同屏画面下共同开启轻松探索。"
+    },
+    {
+     "name": "As Dusk Falls",
+     "source": "llm",
+     "reason": "支持本地同屏合作且完全支持控制器，通关约 7 小时。与《A Way Out》一样拥有丰富的剧情与合作元素，核心更侧重于选择取向、自选历险体验与多结局，非常适合喜爱剧情导向的夫妻二人坐在沙发上共同决策推进。"
+    },
+    {
+     "name": "旅者之憩 Travellers Rest",
+     "source": "llm",
+     "reason": "与《Stardew Valley》同样拥有生活模拟、像素图形与农场模拟标签，且有数千名玩家同时推荐两作。本作加入了中世纪背景与管理要素，支持本地双人同屏游玩并完全支持控制器，很适合夫妻二人一起经营酒馆放松体验。"
+    }
+   ]
+  },
+  "r10|none": {
+   "seconds": 5.4,
+   "cards": [
+    {
+     "name": "速速上菜！",
+     "source": "llm",
+     "reason": "本作支持远程同乐且完全支持控制器，最多 4 人游玩，仅需主机一人购买，来宾无需购买即可加入。游戏同《Overcooked! 2》一样包含烹饪与合作要素，并加入了管理、建造与轻度 Rogue 玩法，Steam 好评率达 94%。"
+    },
+    {
+     "name": "World War Z",
+     "source": "llm",
+     "reason": "若喜欢《Left 4 Dead 2》，本作同样主打僵尸题材与合作玩法，并拓展了第三人称射击体验。游戏支持在线组队，最多支持 4 人联机，完全支持控制器，Steam 好评率为 82%，IGDB 记录通关约需 15 小时。"
+    },
+    {
+     "name": "深岩银河",
+     "source": "llm",
+     "reason": "本作在 Steam 拥有 97% 的好评率，有超过两万名玩家同时推荐了它与《PAYDAY 2》。游戏支持在线组队且完全支持控制器，最多支持 4 人一同游玩，包含矮人特色标签，IGDB 记录通关时间约 110 小时。"
+    },
+    {
+     "name": "Unrailed!",
+     "source": "llm",
+     "reason": "被 IGDB 列为《Overcooked! 2》的相似游戏，同具合作与多人要素，主打火车与程序生成等内容。游戏支持远程同乐，最多 4 人游玩，只需主机一人购买，来宾无需购买，完全支持控制器，Steam 好评率 93%。"
+    },
+    {
+     "name": "Monaco: What's Yours Is Mine",
+     "source": "llm",
+     "reason": "与《PAYDAY 2》同样拥有劫掠、潜行与合作核心标签，并带有本地合作与独立特色。游戏支持远程同乐且完全支持控制器，最多支持 4 人同玩，仅需主机一人购买，其他玩家无需购买即可加入，Steam 好评率为 92%。"
+    }
+   ]
+  },
+  "r11|none": {
+   "seconds": 5.4,
+   "cards": [
+    {
+     "name": "双人成行",
+     "source": "llm",
+     "reason": "本作支持双人在线组队与完全控制器支持。游戏包含合作与解谜标签，通关约需15小时。玩法专注双人协作推进关卡，并提供好友通行证机制，契合想要异地联机体验解谜内容的双人游玩需求。"
+    },
+    {
+     "name": "Roots of Pacha",
+     "source": "llm",
+     "reason": "本作带有温馨惬意体验，支持在线组队与在线合作，并具备农场模拟、生活模拟、探索及爱情等丰富元素，像素图形风格与《Stardew Valley》共享核心标签，内容多样且支持异地联机游玩。"
+    },
+    {
+     "name": "Operation: Tango",
+     "source": "llm",
+     "reason": "这是一款支持双人在线组队的合作游戏，完全支持控制器，通关约需5小时。游戏主打解谜、休闲与黑客题材，非常契合偏好解谜玩法且身处异地的情侣进行双人协作挑战。"
+    },
+    {
+     "name": "Portal 2",
+     "source": "llm",
+     "reason": "本作支持双人在线组队，完全支持控制器，通关约需10小时。核心玩法包含解谜、3D平台与第一人称视角，契合偏爱解谜玩法并需要异地联机合作的双人玩家共同推进关卡。"
+    },
+    {
+     "name": "PHOGS!",
+     "source": "llm",
+     "reason": "本作支持在线组队与完全控制器支持，通关约需9小时。核心包含平台解谜、物理与3D平台要素，注重双人在线合作解密，非常契合想要异地联机且喜爱解谜类玩法的二人共同游玩。"
+    }
+   ]
+  },
+  "r12|none": {
+   "seconds": 6.5,
+   "cards": [
+    {
+     "name": "晃晃人生 / Wobbly Life",
+     "source": "llm",
+     "reason": "这款沙盒开放世界冒险作品带有阖家氛围，Steam好评率达97%。游戏支持在线组队，最多可容纳4人一同游玩，完全支持控制器，非常适合3人通过Steam好友邀请在多台设备上联机探索。"
+    },
+    {
+     "name": "Minecraft Dungeons",
+     "source": "llm",
+     "reason": "本作包含迷宫探索、砍杀与冒险等标签，并带有阖家体验，Steam好评率为90%。游戏完全支持控制器，支持在线组队建房并通过好友邀请联机，据IGDB记录最多支持4人共同展开角色扮演冒险。"
+    },
+    {
+     "name": "胡闹厨房 全都好吃",
+     "source": "llm",
+     "reason": "这款以烹饪为主题的多人合作游戏具有阖家特色，Steam好评率为73%。它完全支持控制器，支持在线组队功能，由房主建房后即可邀请Steam好友加入，满足3人乃至最多4人共同联机游玩的需求。"
+    },
+    {
+     "name": "麻布仔大冒险",
+     "source": "llm",
+     "reason": "这是一部主打阖家体验的平台冒险作品，Steam好评率为82%，通关约需13小时。游戏完全支持控制器，支持在线组队模式，可供3人建房并通过好友邀请联机游玩，据记录最多可支持4人联机。"
+    },
+    {
+     "name": "因果动物园",
+     "source": "llm",
+     "reason": "本作是一款休闲动作解谜平台游戏，带有阖家氛围，Steam好评率为88%。它完全支持控制器，支持在线组队建房，据商店介绍最多可支持10人游玩，很适合3位玩家通过Steam好友邀请联机协作。"
+    }
+   ]
+  },
+  "r10|default": {
+   "seconds": 14.9,
+   "cards": [
+    {
+     "name": "速速上菜！",
+     "source": "llm",
+     "reason": "本作与《Overcooked! 2》同具合作、烹饪与本地合作标签，并增添了轻度 Rogue、管理与建造要素，同时受到《同舟共济》玩家推荐。支持远程同乐最多 4 人游玩且完全支持控制器，仅主机需购买，来宾无需购买即可通过邀请加入。"
+    },
+    {
+     "name": "World War Z",
+     "source": "llm",
+     "reason": "本作与《Left 4 Dead 2》同样拥有僵尸与合作标签，并具备第三人称射击要素。游戏支持在线组队，最多可供 4 人共同游玩，完全支持控制器，在 Steam 上获得了 82% 的好评率，通关约需 15 小时。"
+    },
+    {
+     "name": "深岩银河",
+     "source": "llm",
+     "reason": "本作有超过两万名玩家与《PAYDAY 2》同时推荐，包含矮人要素。游戏支持最多 4 人在线组队，完全支持控制器，通关约需 110 小时。在 Steam 超过三十万篇评测中保持 97% 的好评率。"
+    },
+    {
+     "name": "Unrailed!",
+     "source": "llm",
+     "reason": "本作被 IGDB 列为《Overcooked! 2》的相似游戏，同具合作与本地合作标签，并包含火车与程序生成要素。游戏支持最多 4 人远程同乐与完全控制器支持，仅主机购买即可邀请来宾免费加入，通关约 9 小时。"
+    },
+    {
+     "name": "Monaco: What's Yours Is Mine",
+     "source": "llm",
+     "reason": "本作与《PAYDAY 2》共享合作、潜行与劫掠标签，并带有独立与本地合作特色。游戏完全支持控制器，支持远程同乐模式且最多容纳 4 人，仅需主机购买即可邀请其他成员作为来宾加入，Steam 好评率为 92%。"
+    }
+   ]
+  },
+  "r11|default": {
+   "seconds": 14.4,
+   "cards": [
+    {
+     "name": "双人成行",
+     "source": "llm",
+     "reason": "这款支持双人在线组队的合作游戏，完全支持控制器，通关约需15小时。玩法包含丰富的合作解谜元素，房主建房后可通过Steam好友邀请另一位玩家加入，介绍中还提到了好友通行证机制，非常适合两人异地联机体验。"
+    },
+    {
+     "name": "Roots of Pacha",
+     "source": "llm",
+     "reason": "本作是一款像素图形的独立农场与生活模拟游戏，具有温馨惬意的情感体验。游戏支持在线合作与探索，支持最多4人在线组队，可通过Steam好友邀请联机。适合喜欢农场模拟并希望共同体验探索与生活内容的两个人。"
+    },
+    {
+     "name": "Operation: Tango",
+     "source": "llm",
+     "reason": "这是一款主打在线合作与解谜的休闲黑客题材游戏，通关约需5小时。游戏支持最多2人在线组队，完全支持控制器，房主建房后可通过Steam好友邀请入局，介绍中亦提及好友通行证，适合喜欢解谜的双人联机体验。"
+    },
+    {
+     "name": "Portal 2",
+     "source": "llm",
+     "reason": "作为一款第一人称3D平台动作冒险游戏，本作包含丰富的解谜与合作内容。游戏支持最多2人在线组队游玩，完全支持控制器，通关约需10小时，房主建房后即可通过Steam好友发起邀请，共同应对合作谜题挑战。"
+    },
+    {
+     "name": "PHOGS!",
+     "source": "llm",
+     "reason": "这是一款包含物理机制的独立3D平台解谜游戏，支持在线合作与在线组队，完全支持控制器。游戏通关约需9小时，支持房主建房并通过Steam好友邀请伙伴一同加入，专注于双人协作与趣味的平台解谜过程。"
+    }
+   ]
+  },
+  "r13|none": {
+   "seconds": 5.1,
+   "cards": [
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "本作支持在线组队，可通过 Steam 好友邀请 4 人一同游玩，支持完全控制器操作。包含开放世界生存制作、沙盒与生存等核心元素，Steam 好评率达 97%，适合喜欢 2D 冒险的联机玩家。"
+    },
+    {
+     "name": "Vampire Survivors - 吸血鬼幸存者",
+     "source": "llm",
+     "reason": "本作单人单份售价较低，支持 4 人在线组队联机，支持完全控制器操作。玩法主打动作类 Rogue、弹幕射击与轻度 Rogue 元素，配合像素图形，Steam 好评率高达 98%，适合组队体验。"
+    },
+    {
+     "name": "Among Us",
+     "source": "llm",
+     "reason": "本作单人购买价格实惠，支持 4 人及以上在线组队，支持完全控制器操作。游戏主打太空背景下的社交推理、多人合作玩法，Steam 好评率达 92%，非恐怖题材，适合朋友间轻松互动。"
+    },
+    {
+     "name": "Red Dead Redemption 2",
+     "source": "llm",
+     "reason": "本作支持 4 人在线组队游玩，部分支持控制器。拥有开放世界、剧情丰富与西部等多人标签，Steam 好评率达 92%，据 IGDB 显示通关约需 90 小时，适合多人一起深入体验广阔世界。"
+    },
+    {
+     "name": "Bloons TD 6",
+     "source": "llm",
+     "reason": "本作支持 4 人在线组队，玩法融合塔防与策略元素，非恐怖题材。Steam 好评率达 97%，房主建房后即可通过 Steam 邀请好友，适合 4 位玩家一同布局防线、协同游玩。"
+    }
+   ]
+  },
+  "r12|default": {
+   "seconds": 16.7,
+   "cards": [
+    {
+     "name": "晃晃人生 / Wobbly Life",
+     "source": "llm",
+     "reason": "本作具有阖家氛围，包含沙盒、开放世界与冒险等多重元素。支持在线组队，最多支持4人联机，房主开启游戏建房后可通过Steam好友邀请其余成员入局，完全支持控制器，Steam好评率达97%。"
+    },
+    {
+     "name": "Minecraft Dungeons",
+     "source": "llm",
+     "reason": "本作主打阖家体验，融合了迷宫探索、砍杀、冒险与角色扮演等要素。支持在线组队，最多支持4人共同联机游玩，可通过Steam好友邀请其他成员加入房间，完全支持控制器，Steam好评率为90%。"
+    },
+    {
+     "name": "胡闹厨房 全都好吃",
+     "source": "llm",
+     "reason": "本作包含多人、在线合作、本地合作与烹饪标签，带来阖家游玩体验。支持在线组队，最多支持4人共同参与，房主建房后可通过Steam好友进行邀请入局，完全支持控制器，在Steam上获得73%好评率。"
+    },
+    {
+     "name": "麻布仔大冒险",
+     "source": "llm",
+     "reason": "本作带有阖家氛围，融合了冒险、平台游戏、多人与本地合作要素。游戏支持在线组队，最多支持4人游玩，可通过Steam好友邀请同伴，完全支持控制器，通关约需13小时，在Steam上好评率为82%。"
+    },
+    {
+     "name": "因果动物园",
+     "source": "llm",
+     "reason": "本作具备阖家特点，包含动作、休闲、平台游戏与解谜等标签。支持在线组队，最多支持10人一同联机，可通过Steam好友邀请其余成员加入房间，完全支持控制器，Steam好评率达到88%。"
+    }
+   ]
+  },
+  "r14|none": {
+   "seconds": 4.7,
+   "cards": [
+    {
+     "name": "Among Us",
+     "source": "llm",
+     "reason": "本作支持在线组队，最多支持 15 人一同游玩，5 人建房即可联机。与你们喜欢的《PICO PARK》同样具有多人和在线合作标签，玩法融入社交推理、太空与生存要素，Steam 好评率达 92%，完全支持控制器。"
+    },
+    {
+     "name": "Raft",
+     "source": "llm",
+     "reason": "本作支持在线组队，最多可容纳 8 人，非常适合 5 人一同联机。它与你们玩过的《PICO PARK》同样具备多人与合作标签，主打生存、制作与开放世界生存制作玩法，Steam 好评率达 93%，IGDB 显示通关约需 26 小时。"
+    },
+    {
+     "name": "Tabletop Simulator",
+     "source": "llm",
+     "reason": "本作支持远程同乐，仅需主机一人购买，最多支持 10 人加入，满足你们 5 人的联机需求。游戏完全支持控制器，Steam 好评率达 95%，包含多人、桌上游戏、棋盘游戏与模拟等丰富标签。"
+    },
+    {
+     "name": "密室逃脱模拟器",
+     "source": "llm",
+     "reason": "本作支持在线组队，最多可容纳 10 人联机，满足 5 人开黑需求。与《PICO PARK 2》一样具备多人合作标签，核心玩法为第一人称解谜与密室逃脱，完全支持控制器，Steam 好评率高达 94%。"
+    },
+    {
+     "name": "猛兽派对",
+     "source": "llm",
+     "reason": "本作支持最多 8 人在线组队，5 人可直接联机游玩。与《PICO PARK》同样具备多人、休闲、可爱与合作标签，并增添了欢乐的格斗与玩家对战元素，游戏完全支持控制器，IGDB 显示通关约 5 小时。"
+    }
+   ]
+  },
+  "r13|default": {
+   "seconds": 16.6,
+   "cards": [
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "包含开放世界生存制作、沙盒与2D标签，拥有Steam 97%好评率。游戏支持4人在内的在线组队，最多可达255人，可通过Steam好友邀请联机，并完全支持控制器。IGDB通关耗时约68小时，CN区单人需¥42。"
+    },
+    {
+     "name": "Vampire Survivors - 吸血鬼幸存者",
+     "source": "llm",
+     "reason": "拥有像素图形与动作类Rogue、弹幕射击标签，Steam好评率达98%。游戏支持最多4人在线组队建房联机，并完全支持控制器，IGDB通关时间约为28小时。CN区单人购买价格为¥18.75，四人合计¥75。"
+    },
+    {
+     "name": "Among Us",
+     "source": "llm",
+     "reason": "主打太空背景的多人社交推理与在线合作玩法，Steam好评率为92%。支持4人在线组队，最多可容纳15人，建房后可邀请Steam好友，完全支持控制器。CN区单人购买为¥15，IGDB通关约4小时。"
+    },
+    {
+     "name": "Red Dead Redemption 2",
+     "source": "llm",
+     "reason": "主打西部背景与剧情丰富的开放世界多人作品，Steam好评率为92%。支持4人在线组队，可由房主建房并通过Steam邀请好友，部分支持控制器。游戏通关约90小时（IGDB），CN区单人购买需¥69.75。"
+    },
+    {
+     "name": "Bloons TD 6",
+     "source": "llm",
+     "reason": "涵盖塔防与策略标签，Steam好评率达97%。支持最多4人在线组队，房主建房后可通过Steam好友邀请成员一同入局。该作在IGDB标注通关时长约9999小时，CN区单人购买需¥47，4人合计¥188。"
+    }
+   ]
+  },
+  "r15|none": {
+   "seconds": 5.4,
+   "cards": [
+    {
+     "name": "HELLDIVERS™ 绝地潜兵2",
+     "source": "llm",
+     "reason": "本作支持在线组队，最多可容纳 4 人游玩，房主建房后可通过 Steam 好友邀请成员。作为第三人称射击多人在线合作游戏，有 48,376 名玩家同时推荐了你喜欢的《深岩银河》与本作，好评率达 76%。"
+    },
+    {
+     "name": "雨中冒险 2",
+     "source": "llm",
+     "reason": "本作支持最多 4 人在线组队，与你喜欢的《The Binding of Isaac》同具动作类 Rogue 标签，同时增加了合作、多人与第三人称射击要素。在《深岩银河》的同好邻居中排第 1，通关约需 44 小时。"
+    },
+    {
+     "name": "Valheim: 英灵神殿",
+     "source": "llm",
+     "reason": "本作是一款开放世界生存制作与在线合作游戏，最多支持 10 人在线组队，支持完全手柄控制。有 28,239 名玩家同时推荐了你觉得有趣的《深岩银河》和本作，通关时间约 25 小时，好评率达 93%。"
+    },
+    {
+     "name": "Left 4 Dead 2",
+     "source": "llm",
+     "reason": "本作支持最多 4 人在线组队游玩，房主开房后可通过好友邀请共同体验，完全支持控制器。游戏包含僵尸与多人合作元素，有 26,562 名玩家同时推荐了《深岩银河》与本作，好评率高达 97%，通关约 29 小时。"
+    },
+    {
+     "name": "Castle Crashers®",
+     "source": "llm",
+     "reason": "本作支持在线组队合作，最多可供 4 人共同游玩，拥有清版动作与在线合作特色，并完全支持控制器。在《The Binding of Isaac》的同好邻居中排第 9，好评率达 96%，通关约需 6 小时。"
+    }
+   ]
+  },
+  "r14|default": {
+   "seconds": 15.0,
+   "cards": [
+    {
+     "name": "Among Us",
+     "source": "llm",
+     "reason": "本作支持在线组队，最多支持15人游玩，满足5人组队需求。它与你们喜爱的作品同样拥有多人与在线合作元素，且包含社交推理、太空与生存玩法，完全支持控制器，在Steam上获得92%的好评率。"
+    },
+    {
+     "name": "Raft",
+     "source": "llm",
+     "reason": "支持在线组队游玩，最多支持8人，能很好容纳5人共同体验。它与你们玩过的作品共享多人与合作标签，主打生存、开放世界生存制作与制作玩法，Steam好评率达到93%，通关约需26小时。"
+    },
+    {
+     "name": "Tabletop Simulator",
+     "source": "llm",
+     "reason": "支持通过远程同乐进行5人联机，最高支持10人，仅需主机拥有即可邀请来宾加入。游戏完全支持控制器，与你们体验过的作品共享多人标签，主打桌上游戏、棋盘游戏与模拟玩法，Steam好评率达95%。"
+    },
+    {
+     "name": "密室逃脱模拟器",
+     "source": "llm",
+     "reason": "支持在线组队解谜，最多支持10人，满足5人同行体验。游戏与你们喜欢的作品同样具备合作与多人标签，主打第一人称密室逃脱与解谜玩法，完全支持控制器，Steam好评率达94%，通关约需12小时。"
+    },
+    {
+     "name": "猛兽派对",
+     "source": "llm",
+     "reason": "支持在线组队，最多支持8人，可满足5人同时游玩。本作与你们喜爱的作品共享多人、休闲、可爱和合作标签，完全支持控制器，并带来了欢乐、格斗与玩家对战的体验，Steam好评率为81%。"
+    }
+   ]
+  },
+  "r16|none": {
+   "seconds": 6.2,
+   "cards": [
+    {
+     "name": "Stardew Valley",
+     "source": "llm",
+     "reason": "本作支持 4 人在线组队，主打休闲农场模拟与角色扮演。通关约需 90 小时，并有专属的角色推进剧情，既有长线养成的沉浸感，又具备轻松欢乐的合作体验，能很好兼顾情侣间的联机乐趣。"
+    },
+    {
+     "name": "星球工匠",
+     "source": "llm",
+     "reason": "游戏支持在线组队，非 PC 版记录最高可达 10 人。与《Valheim: 英灵神殿》一样包含基地建设与开放世界生存制作，更融入太空、自动化与资源管理要素，目标清晰明确，适合多对情侣长期协作发展。"
+    },
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "本作通关约需 68 小时，支持多人在线组队，最高支持人数达 255 人。它拥有开放世界生存制作与 2D 像素沙盒冒险内容，兼备丰富的长线探索与目标导向，能让大家持续投入游玩。"
+    },
+    {
+     "name": "Palworld / 幻兽帕鲁",
+     "source": "llm",
+     "reason": "本作通关约 65 小时，商店介绍支持最多 32 人在线组队。同为开放世界生存制作，还加入了生物收集等丰富特色，既满足长线发展的协作追求，又富有趣味，非常适合情侣团队共同开拓。"
+    },
+    {
+     "name": "Farm Together 2",
+     "source": "llm",
+     "reason": "游戏支持 4 人在线组队，拥有休闲、阖家、农业与经济管理等标签。主打轻松的农场模拟与合作管理，步调惬意且易于上手，非常适合带上女友们一同经营发展，享受慢节奏的长期建设过程。"
+    }
+   ]
+  },
+  "r17|none": {
+   "seconds": 5.2,
+   "cards": [
+    {
+     "name": "VA-11 Hall-A: Cyberpunk Bartender Action",
+     "source": "llm",
+     "reason": "本作采用像素图形与赛博朋克风格，是一款剧情丰富的视觉小说。游戏拥有女性主角，贴合你对剧情与主角设定的偏好，且通关约需14小时，Steam好评率达97%。"
+    },
+    {
+     "name": "海沙风云 Far Away",
+     "source": "llm",
+     "reason": "这是一款单人游玩的文字游戏与视觉小说，主打选择取向。其特点包含剧情丰富并设有女性主角，契合你对好剧情以及女主的要求，在Steam上获得了94%的好评率。"
+    },
+    {
+     "name": "Hakuoki: Kyoto Winds",
+     "source": "llm",
+     "reason": "本作是一款以爱情和少女游戏为标签的视觉小说，拥有女性主角且剧情丰富，符合你寻找女主剧情游戏的方向。游戏通关约需43小时，在Steam上拥有92%的好评率。"
+    },
+    {
+     "name": "Jenny LeClue - Detectivu",
+     "source": "llm",
+     "reason": "这是一款主打推理与悬疑氛围的作品，拥有剧情丰富和女性主角标签。主角珍妮是一位聪明的小侦探，拥有敏锐的眼光和超然的直觉，通关约需10小时，Steam好评率达86%。"
+    },
+    {
+     "name": "宇宙之轮姐妹会",
+     "source": "llm",
+     "reason": "这是一款包含魔法元素的互动小说，主打剧情丰富与女性主角。在长达200年的流放后，玩家可与女巫朋友叙旧并结识新朋友，用卡牌揭示她们的过去与未来。通关约需9小时，好评率达93%。"
+    }
+   ]
+  },
+  "r17|default": {
+   "seconds": 12.5,
+   "cards": [
+    {
+     "name": "VA-11 Hall-A: Cyberpunk Bartender Action",
+     "source": "llm",
+     "reason": "本作是一款赛博朋克风格的像素图形视觉小说，契合你对女性主角和剧情丰富的故事偏好。游戏在Steam上拥有97%的好评率，通关时长大约需要14小时，适合喜欢深度剧情体验的玩家。"
+    },
+    {
+     "name": "海沙风云 Far Away",
+     "source": "llm",
+     "reason": "这是一款单人选择取向的文字视觉小说，拥有丰富的剧情并以女性为主角，切合你的体验偏好。游戏在Steam上获得了94%的好评率，专注于叙事与抉择，带来纯粹的文字故事体验。"
+    },
+    {
+     "name": "Hakuoki: Kyoto Winds",
+     "source": "llm",
+     "reason": "本作是一部以女性为主角的视觉小说少女游戏，主打爱情与剧情丰富的内容，符合你对女主叙事的要求。游戏通关约需43小时，在Steam上获得了92%的好评率，适合沉浸于长篇故事之中。"
+    },
+    {
+     "name": "Jenny LeClue - Detectivu",
+     "source": "llm",
+     "reason": "本作是一款以女性为主角的悬疑推理游戏，剧情丰富。玩家将扮演拥有敏锐眼光与直觉的小侦探珍妮探寻真理。游戏通关约需10小时，在Steam上拥有86%的好评率，契合你的剧情与女主偏好。"
+    },
+    {
+     "name": "宇宙之轮姐妹会",
+     "source": "llm",
+     "reason": "这是一款以女性为主角的魔法互动小说，拥有丰富的剧情。玩家能与女巫朋友重聚并使用自创卡牌揭示过去与未来。游戏通关约需9小时，在Steam上好评率达93%，满足你对女主故事的期待。"
+    }
+   ]
+  },
+  "r16|default": {
+   "seconds": 15.7,
+   "cards": [
+    {
+     "name": "Stardew Valley",
+     "source": "llm",
+     "reason": "本作与《Supermarket Together》同样具备休闲的多人模拟玩法，并融入农场模拟与角色扮演元素。拥有角色成长过场，通关约需90小时，支持4人在线组队与控制器操作，适合与好友共同投入长期目标。"
+    },
+    {
+     "name": "星球工匠",
+     "source": "llm",
+     "reason": "本作与《Valheim: 英灵神殿》共享开放世界生存制作、生存、基地建设及在线合作特色。游戏融入太空、自动化与资源管理要素，完全支持控制器，支持在线组队，适合多名好友一同体验长期建设与探索。"
+    },
+    {
+     "name": "Terraria",
+     "source": "llm",
+     "reason": "本作与《Valheim: 英灵神殿》一样具备开放世界生存制作、生存、冒险与多人标签。游戏带来2D像素沙盒体验，通关约需68小时，完全支持控制器并支持在线组队，能满足多人共同积累进度的需求。"
+    },
+    {
+     "name": "Palworld / 幻兽帕鲁",
+     "source": "llm",
+     "reason": "本作与《Valheim: 英灵神殿》同样涵盖开放世界、生存、多人及开放世界生存制作标签，并增加了生物收集要素。游戏通关约需65小时，完全支持控制器，支持最多32人在线组队，适合多人共同长期游玩。"
+    },
+    {
+     "name": "Farm Together 2",
+     "source": "llm",
+     "reason": "本作与《Supermarket Together》同样拥有模拟、经济与管理标签，体验主打休闲与阖家，并聚焦农场模拟与农业。游戏完全支持控制器，支持最多4人在线组队，适合好友共同协作经营与持续发展。"
+    }
+   ]
+  },
+  "r15|default": {
+   "seconds": 29.8,
+   "cards": [
+    {
+     "name": "HELLDIVERS™ 绝地潜兵2",
+     "source": "llm",
+     "reason": "本作支持在线组队与Steam好友邀请，最多支持4人联机。游戏主打在线合作、第三人称射击与多人玩法，并有48,376名玩家同时推荐了你喜欢的《深岩银河》与本作，目前Steam好评率为76%。"
+    },
+    {
+     "name": "雨中冒险 2",
+     "source": "llm",
+     "reason": "本作与《The Binding of Isaac》同具动作类Rogue标签，同时在《深岩银河》同好推荐中位居第1。支持最多4人在线组队与合作，包含第三人称射击玩法，完全支持控制器，通关约需44小时。"
+    },
+    {
+     "name": "Valheim: 英灵神殿",
+     "source": "llm",
+     "reason": "本作支持在线组队，可通过Steam好友邀请成员，最多支持10人一同体验。游戏主打开放世界生存制作与在线合作，完全支持控制器，通关约需25小时，且有28,239名玩家同时推荐了《深岩银河》与本作，好评率达93%。"
+    },
+    {
+     "name": "Left 4 Dead 2",
+     "source": "llm",
+     "reason": "游戏支持最多4人在线组队，可通过Steam好友邀请建房并完全支持控制器。玩法包含僵尸与多人元素，通关约29小时。本作Steam好评率高达97%，且有26,562名玩家同时推荐了你喜爱的《深岩银河》与本作。"
+    },
+    {
+     "name": "Castle Crashers®",
+     "source": "llm",
+     "reason": "在《The Binding of Isaac》同好推荐中排第9位。游戏主打清版动作与在线合作，支持最多4人在线组队，完全支持控制器，通关约需6小时，Steam好评率达到96%。"
+    }
+   ]
+  },
+  "r18|none": {
+   "seconds": 11.2,
+   "cards": [
+    {
+     "name": "中世纪王朝",
+     "source": "llm",
+     "reason": "本作包含建造、制作与角色扮演标签。相比《Sons Of The Forest》，它减少了恐怖与生存恐怖元素，增加了中世纪与建造玩法。你可以在中世纪背景下体验狩猎、生存、建造与领导，建立属于自己的王朝。"
+    },
+    {
+     "name": "灵魂面甲(Soulmask)",
+     "source": "llm",
+     "reason": "本作是一款开放世界生存制作游戏，涵盖狩猎与玩家对战环境等内容。游戏提供偏向部落经营与成长的经营模式、经典生存模式及勇者模式，契合你想要经营家园、避免单纯高压紧凑节奏的体验诉求。"
+    },
+    {
+     "name": "ASKA",
+     "source": "llm",
+     "reason": "这是一款神话背景的开放世界生存模拟游戏，带有维京人、殖民模拟与自动化标签。玩家能白手起家打造聚居地，其自动化与聚居地经营机制贴合你希望减免繁重农活、打理家园的游玩需求。"
+    },
+    {
+     "name": "雾锁王国 (Enshrouded)",
+     "source": "llm",
+     "reason": "本作属于开放世界、生存与基地建设类的动作角色扮演游戏。相比《Sons Of The Forest》，它剥离了恐怖与生存恐怖内容。玩家能够在广袤世界中修造宏伟厅堂、开辟道路，并外出探险战胜强大Boss。"
+    },
+    {
+     "name": "Valheim: 英灵神殿",
+     "source": "llm",
+     "reason": "本作设定在受维京文化启发的神话世界中，是一款开放世界生存制作与在线合作探索游戏。游戏包含玩家对战环境与神话探索内容，无科幻或活尸题材，通关约需25小时，适合体验建造与野外探索。"
+    }
+   ]
+  },
+  "r18|default": {
+   "seconds": 14.9,
+   "cards": [
+    {
+     "name": "中世纪王朝",
+     "source": "llm",
+     "reason": "本作正是你观望的中世纪生存建造作品。以中世纪为背景，集狩猎、生存、建造与领导于一体，专注于建立并传承聚落。相比恐怖题材，它更偏向角色扮演与建造发展，节奏平稳，适合单人体验白手起家的建设过程。"
+    },
+    {
+     "name": "灵魂面甲(Soulmask)",
+     "source": "llm",
+     "reason": "本作融合了开放世界生存制作、狩猎与战斗升级元素。游戏提供偏向部落经营与成长的经营模式等不同玩法倾向，风格写实严肃，既能满足你对聚落管理的需求，又能在建设后外出探索战斗，体验多样的生存玩法。"
+    },
+    {
+     "name": "ASKA",
+     "source": "llm",
+     "reason": "这是一款维京背景的开放世界生存模拟游戏。特色在于带有殖民模拟与自动化元素，让你能白手起家打造繁荣聚居地。通过自动化管理聚落运转，能有效分担繁琐杂务，适合喜欢稳步经营与探索的神话生存爱好者。"
+    },
+    {
+     "name": "雾锁王国 (Enshrouded)",
+     "source": "llm",
+     "reason": "本作将基地建设与动作角色扮演相结合。你可以在广袤世界中修造宏伟厅堂，随后出发探索并迎战强大Boss。它没有恐怖惊悚元素，风格偏向严肃奇幻，契合你盖好家园后再去探险打宝、升级战斗的游玩偏好。"
+    },
+    {
+     "name": "Valheim: 英灵神殿",
+     "source": "llm",
+     "reason": "以维京神话世界为背景的开放世界生存制作游戏。包含建造基地与PVE战斗等核心内容，风格厚重自然且非卡通。玩家可以在广阔地图中采集制作并探索打怪，满足打造家园后出外探险与挑战敌人的生存需求。"
+    }
+   ]
+  },
+  "r19|none": {
+   "seconds": 5.7,
+   "cards": [
+    {
+     "name": "潜水员戴夫 DAVE THE DIVER",
+     "source": "llm",
+     "reason": "想转换心情放松一下，本作拥有放松与休闲体验，融合了探索、模拟、像素图形与冒险元素。在Steam上获得96%好评率，通关约需28小时，同时也有821名玩家在推荐《They Are Billions》之余推荐了它。"
+    },
+    {
+     "name": "全面战争：战锤2",
+     "source": "llm",
+     "reason": "若想找喜爱的策略游戏，本作与《全面战争：三国》同属系列及开发工作室，更侧重奇幻风格。每位传奇领主初始位置不同，各派系拥有独特的战斗方式、军队、怪兽与魔法技能。它在《全面战争：战锤》同好邻居中高居第1名。"
+    },
+    {
+     "name": "Crusader Kings III",
+     "source": "llm",
+     "reason": "如果想尝试策略新作，本作与《Stellaris》出自同一工作室，也是《Stellaris》同好榜第1名。它与《全面战争：三国》共享历史与策略标签，更融入了中世纪、管理以及角色扮演机制，提供扎实的策略体验。"
+    },
+    {
+     "name": "Sid Meier’s Civilization® VI",
+     "source": "llm",
+     "reason": "针对你对策略游戏的需求，本作共享了策略核心标签，并在《Stellaris》同好邻居中排在第8名。游戏在Steam上积累了超过27万篇评测且好评率为86%，通关约需63小时，能带来长线经营的策略乐趣。"
+    },
+    {
+     "name": "冲就完事模拟器",
+     "source": "llm",
+     "reason": "通关紧绷游戏后正适合用本作来舒缓心情。游戏主打清洁、休闲与放松体验，Steam好评率达96%。你可以在不同场景中与污垢作战，或在时间挑战与用水挑战中测试精确度，通关约需35小时，非常适合减压。"
+    }
+   ]
+  },
+  "r20|none": {
+   "seconds": 5.1,
+   "cards": [
+    {
+     "name": "法老王：青铜帝国 Ozymandias",
+     "source": "llm",
+     "reason": "这款回合战略大战略游戏战斗被战力系统简化，没有复杂的回合制战斗，只需合理分配军队与舰队的位置及移动即可，适合不喜欢太繁琐系统的策略偏好，Steam好评率达89%。"
+    },
+    {
+     "name": "Terraforming Mars",
+     "source": "llm",
+     "reason": "这是一款太空背景的桌上棋盘策略游戏，具备纯正的桌面策略体验，注重资源与板块的规划布局，非即时操作，Steam好评率为71%。"
+    },
+    {
+     "name": "Slipways",
+     "source": "llm",
+     "reason": "这款回合战略游戏主打轻松放松，行星具备自我管理机制，玩家只需专注做出决策并合理分配物资资源，免去繁杂琐碎的微操，在Steam上拥有92%的高好评率。"
+    },
+    {
+     "name": "Rebuild 3: Gangs of Deadsville",
+     "source": "llm",
+     "reason": "本作融合了殖民模拟、生存与4X策略要素，偏重基地建设与经营发展，满足你对分配物资与经营成分的偏好，Steam好评率达86%。"
+    },
+    {
+     "name": "Predynastic Egypt",
+     "source": "llm",
+     "reason": "这是一款单人回合制历史策略模拟游戏，首发简体中文版，以娱乐化方式呈现严肃历史与经营模拟，无需拼手速操作，Steam好评率高达91%。"
+    }
+   ]
+  },
+  "r19|default": {
+   "seconds": 18.4,
+   "cards": [
+    {
+     "name": "潜水员戴夫 DAVE THE DIVER",
+     "source": "llm",
+     "reason": "想转换心情放松一下，本作拥有放松与休闲的体验，融合了探索、模拟与冒险元素，采用像素图形。Steam好评率达96%，通关约28小时。它与《They Are Billions》有821名玩家同时推荐，适合换换风格。"
+    },
+    {
+     "name": "全面战争：战锤2",
+     "source": "llm",
+     "reason": "如果你喜欢《全面战争：三国》的策略玩法，本作同属Total War系列及The Creative Assembly工作室。相较三国，本作更偏向奇幻风格，每位传奇领主初始位置不同，各族拥有独特军队与战斗技能，Steam好评率92%。"
+    },
+    {
+     "name": "Crusader Kings III",
+     "source": "llm",
+     "reason": "本作由《Stellaris》的工作室Paradox Development Studio打造，同具策略标签，有10,924名玩家同时推荐两作。与《全面战争：三国》相比，本作聚焦中世纪历史，含角色扮演与管理要素，Steam好评率90%。"
+    },
+    {
+     "name": "Sid Meier’s Civilization® VI",
+     "source": "llm",
+     "reason": "如果你想找策略游戏，本作与你喜欢的《全面战争：三国》同具策略标签，同时有10,818名玩家同时推荐了《Stellaris》与本作。游戏在Steam收获86%好评率，IGDB通关时长约63小时，适合沉浸体验。"
+    },
+    {
+     "name": "冲就完事模拟器",
+     "source": "llm",
+     "reason": "想找舒压体验转换心情，本作主打休闲、放松与清洁模拟，Steam好评率达96%。你能在不同场景中与污垢作战，还能体验时间挑战或用水挑战模式测试精确度。IGDB通关约需35小时，非常适合紧绷后放松。"
+    }
+   ]
+  },
+  "r20|default": {
+   "seconds": 12.0,
+   "cards": [
+    {
+     "name": "法老王：青铜帝国 Ozymandias",
+     "source": "llm",
+     "reason": "这是一款4X大战略回合策略作品。战斗被全新的战力系统所简化，没有复杂的回合制战斗，玩家只需要合理分配军队和舰队的位置以及移动即可，符合你寻找不复杂策略体验的要求。"
+    },
+    {
+     "name": "Terraforming Mars",
+     "source": "llm",
+     "reason": "本作具有太空背景的棋盘游戏与桌上游戏策略体验。虽然带有低容错的特点，但能带来不同于即时操作的策略规划玩法，适合想要体验策略博弈的玩家深入体验。"
+    },
+    {
+     "name": "Slipways",
+     "source": "llm",
+     "reason": "这款回合战略解谜游戏带有放松体验。你的行星会自我管理，而你只需专注做出正确的决定，从而让各个行星获得它们所需要的资源，契合你想分配物资且不烧脑、无需复杂操作的策略需求。"
+    },
+    {
+     "name": "Rebuild 3: Gangs of Deadsville",
+     "source": "llm",
+     "reason": "本作融合了殖民模拟、生存、4X与策略标签。游戏聚焦于殖民模拟管理与生存发展，无需面对即时手速压力，适合喜欢经营成分与策略规划的玩家体验。"
+    },
+    {
+     "name": "Predynastic Egypt",
+     "source": "llm",
+     "reason": "这是一款单人回合制历史策略模拟游戏，娱乐化呈现严肃历史内容。作品以策略模拟为核心，虽然具有低容错特性，但采用回合制进行，无需比拼即时操作与手速。"
+    }
+   ]
+  },
+  "r21|none": {
+   "seconds": 5.8,
+   "cards": [
+    {
+     "name": "Cuisineer 猫娘小厨",
+     "source": "llm",
+     "reason": "本作带有休闲与模拟等标签。玩家可以探险并击败怪物，收集美味食材带回家，在餐馆中烹饪并招待客人，契合你喜欢的外出打怪获取食材并制作料理的循环，同时具有动作类Rogue等特色。"
+    },
+    {
+     "name": "波西亚时光",
+     "source": "llm",
+     "reason": "本作拥有放松和休闲的体验，与你偏好的两款作品共享模拟等标签。玩家需要利用工作台进行收集、挖掘与制作，体验打造工坊的生活，涵盖农场模拟与农业要素，支持收集各类素材并逐步升级制作。"
+    },
+    {
+     "name": "咩咩启示录",
+     "source": "llm",
+     "reason": "本作与你喜欢的作品同属单人冒险类型，融合了基地建设与动作类Rogue要素。玩家可以在探索中收集并利用手边的资源来建造新建筑、吸纳信徒并举行仪式，体验逐步扩展营地的动作冒险历程。"
+    },
+    {
+     "name": "幻想生活ｉ 转圈圈的龙和偷取时间的少女",
+     "source": "llm",
+     "reason": "本作包含动作冒险与休闲探索要素。玩家可以体验战斗职业与怪物对抗，切换采集职业收集丰富的食材与素材，或使用制作职业沉浸于烹饪美食与制造武器，契合出外打怪、收集食材并制作料理的需求。"
+    },
+    {
+     "name": "东方夜雀食堂 - Touhou Mystia's Izakaya",
+     "source": "llm",
+     "reason": "本作带有休闲与模拟标签，白天可以前往各处收集食材并研究可口料理，晚上经营移动烧烤屋招待客人。外出收集食材再进行烹饪经营的玩法流程，非常契合你喜爱的打食材做料理的核心体验。"
+    }
+   ]
+  },
+  "r22|none": {
+   "seconds": 6.4,
+   "cards": [
+    {
+     "name": "Slay the Spire",
+     "source": "llm",
+     "reason": "本作与小丑牌同具牌组构建式类 Rogue、卡牌等标签，也是回合制玩法。游戏拥有四名角色与各自独特的牌组，带来卡牌战斗挑战。好评率达 97%，在小丑牌同好推荐中位列第 1，适合喜爱卡牌构筑的玩家。"
+    },
+    {
+     "name": "Nubby's Number Factory",
+     "source": "llm",
+     "reason": "本作拥有单人、策略、牌组构建和类 Rogue 标签，Steam 好评率达 97%，在小丑牌同好推荐中排名第 5。游戏融入了超现实、心理恐怖与风格化特色，通关约需 2 小时，能带来独特的单人策略构建体验。"
+    },
+    {
+     "name": "哥布林弹球 Peglin",
+     "source": "llm",
+     "reason": "这款游戏和小丑牌一样具备牌组构建、类 Rogue 与回合制机制，没有即时操作压力。特色在于融入了弹球机制、永久死亡与可爱画风，在小丑牌同好中有 1,661 名玩家共同推荐，好评率为 83%。"
+    },
+    {
+     "name": "骰子闯魔城",
+     "source": "llm",
+     "reason": "本作与小丑牌同样拥有牌组构建式类 Rogue、卡牌和回合制玩法，节奏自主。游戏加入了骰子元素、迷宫探索以及回合制战斗，好评率为 83%，适合想体验骰子策略与卡牌构建结合的单机玩家。"
+    },
+    {
+     "name": "弹球亿万富翁",
+     "source": "llm",
+     "reason": "本作带有单人、休闲、类 Rogue 和牌组构建标签，拥有放松体验，无即时压迫感。游戏结合了物理与弹球玩法，风格可爱，通关约 35 小时，好评率达 85%，很适合一边做事一边轻松游玩。"
+    }
+   ]
+  },
+  "r21|default": {
+   "seconds": 15.9,
+   "cards": [
+    {
+     "name": "Cuisineer 猫娘小厨",
+     "source": "llm",
+     "reason": "这款休闲动作类Rogue游戏与你喜欢的循环十分契合。你可以外出探险击败怪物并收集美味食材，再带回家在餐馆中烹饪并招待客人，结合了角色扮演与经营模拟的要素，过程轻松休闲。"
+    },
+    {
+     "name": "波西亚时光",
+     "source": "llm",
+     "reason": "拥有放松休闲的氛围。游戏中你可以利用手册与工作台，自由进行收集、挖掘与制作，逐步经营并打造属于自己的头号工坊，包含农场模拟与开放世界角色扮演要素，没有紧迫生存压力，能慢慢体验建造乐趣。"
+    },
+    {
+     "name": "咩咩启示录",
+     "source": "llm",
+     "reason": "包含动作类Rogue冒险与基地建设玩法。你可以外出探险，收集并利用手边的各种资源，在基地中建造新的建筑、吸纳信徒并举行仪式，兼具可爱的风格与丰富的单人冒险体验，适合喜欢收集资源与扩张建设的玩家。"
+    },
+    {
+     "name": "幻想生活ｉ 转圈圈的龙和偷取时间的少女",
+     "source": "llm",
+     "reason": "本作非常符合外出采集与制作的玩法。你可以与怪物战斗直面挑战，深入自然采集丰富的食材与各类素材，再亲手烹饪做出美食与武器，融合了动作冒险、休闲探索与城市营造，能尽情享受探索与创造的喜悦。"
+    },
+    {
+     "name": "东方夜雀食堂 - Touhou Mystia's Izakaya",
+     "source": "llm",
+     "reason": "同样具备收集食材与料理经营的核心循环。玩家扮演移动烧烤屋的老板娘，白天可以前往各处收集食材并研究可口料理，收集酒水招待客人，属于休闲向的像素角色扮演与模拟游戏，节奏舒适无生存压力。"
+    }
+   ]
+  },
+  "r22|default": {
+   "seconds": 14.2,
+   "cards": [
+    {
+     "name": "Slay the Spire",
+     "source": "llm",
+     "reason": "本作与《Balatro》同属牌组构建式类Rogue卡牌游戏，同好重合度位列第1，Steam好评率达97%。游戏采用回合制卡牌战斗，共有四名拥有独特牌组的角色，兼具策略构建与挑战性，适合喜欢类Rogue构筑的玩家。"
+    },
+    {
+     "name": "Nubby's Number Factory",
+     "source": "llm",
+     "reason": "本作是一款单人类Rogue策略与牌组构建游戏，与《Balatro》的同好玩家重合度排在第5位，Steam好评率达97%。风格上融合了超现实与心理恐怖元素，通关约需2小时，能在单人策略构筑中提供独特体验。"
+    },
+    {
+     "name": "哥布林弹球 Peglin",
+     "source": "llm",
+     "reason": "本作结合了牌组构建与轻度类Rogue元素，与《Balatro》一样同属回合制玩法，节奏可由玩家自主掌控。游戏融入了可爱风格的弹球机制与永久死亡挑战，Steam好评率83%，适合想体验非即时弹球构筑的玩家。"
+    },
+    {
+     "name": "骰子闯魔城",
+     "source": "llm",
+     "reason": "本作与《Balatro》一样主打牌组构建式类Rogue卡牌机制，支持完全由玩家掌控节奏的回合制战斗。游戏在此基础上融合了迷宫探索与独特的骰子要素，Steam好评率为83%，能提供有一定思考深度的构筑体验。"
+    },
+    {
+     "name": "弹球亿万富翁",
+     "source": "llm",
+     "reason": "本作是一款单人休闲类Rogue与牌组构建游戏，融合了物理弹球机制与可爱风格，能带来放松的游玩体验。游戏通关约需35小时，Steam好评率为85%，适合在单人弹球构筑中享受适度策略与休闲节奏的玩家。"
+    }
+   ]
+  },
+  "r23|none": {
+   "seconds": 5.4,
+   "cards": [
+    {
+     "name": "庄园领主 Manor Lords",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》同具策略、模拟、城市营造和基地建设标签，Steam好评率84%。相比之下，游戏更偏向历史大战略与可模组化，少了2D与可爱风格，契合你对非异族、真实历史背景模拟营造的喜好。"
+    },
+    {
+     "name": "族人 Clanfolk",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》共享模拟、沙盒与殖民模拟标签，有72位玩家同时推荐两作。游戏注重像素图形与生活模拟，融入更多农场模拟要素，容错度更高且无外星异族设定，很适合喜欢纯粹种田生活的玩家。"
+    },
+    {
+     "name": "海狸浮生记 Timberborn",
+     "source": "llm",
+     "reason": "本作被IGDB列为《鼠托邦》的相似作品，Steam好评率达96%，同具城市营造与殖民模拟玩法。游戏以自然与体素风格为主，包含自动化机制，少了2D与低容错压力，适合专注建设与发展资源。"
+    },
+    {
+     "name": "纪元1800",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》同样具备城市营造、策略和模拟核心标签，Steam好评率81%。游戏少了生存与殖民模拟的严苛压力，支持多人游玩，以历史时代为背景，符合你偏好写实人类文明而非异星题材的要求。"
+    },
+    {
+     "name": "Infection Free Zone (无感染区)",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》共享基地建设、城市营造、管理与策略标签，Steam好评率80%。题材融合后末日、僵尸与即时战略元素，少了2D和可爱特征，适合偏好现实末日生存与据点经营的玩家。"
+    }
+   ]
+  },
+  "r24|none": {
+   "seconds": 7.2,
+   "cards": [
+    {
+     "name": "INSIDE",
+     "source": "llm",
+     "reason": "如果你追求剧情丰富且专注的单人体验，本作是拥有黑暗氛围的2.5D平台解谜游戏。IGDB显示通关约4小时，流程精炼适中，在Steam上拥有97%的好评率，能让你在独特的氛围感中感受解谜带来的巧妙乐趣。"
+    },
+    {
+     "name": "What Remains of Edith Finch",
+     "source": "llm",
+     "reason": "如果你想要沉浸且无高难度操作负担的体验，这款步行模拟作品主打丰富的剧情与出色的氛围。IGDB显示通关仅约3小时，节奏紧凑不拖沓，在Steam上获得了95%的好评率，非常适合静下心来细细品味故事。"
+    },
+    {
+     "name": "宅男的人间冒险",
+     "source": "llm",
+     "reason": "想要轻松愉快、绝不枯燥的乐趣，这款集讲故事与另类密室解密于一身的作品很契合。它包含各式各样的小游戏、不同类型的战斗与多结局，带来欢乐且剧情丰富的恋爱模拟视觉小说体验，Steam好评率达94%。"
+    },
+    {
+     "name": "生化奇兵：无限 完全版",
+     "source": "llm",
+     "reason": "如果你渴望沉浸式玩到忘记时间的冒险，本作是一款第一人称射击动作游戏。其主打丰富的剧情与沉浸式体验，IGDB显示通关约17小时，在Steam上拥有93%的好评率，能带来充实畅快的故事旅程。"
+    },
+    {
+     "name": "米塔 MiSide",
+     "source": "llm",
+     "reason": "如果你想寻找充满巧思与意想不到剧情的游戏，本作兼具可爱与心理恐怖标签。支持2D到3D视角转换，拥有原创音乐伴奏，你可以与角色及房间物品进行大量互动，剧情发展难以预测，Steam好评率达97%。"
+    }
+   ]
+  },
+  "r23|default": {
+   "seconds": 18.5,
+   "cards": [
+    {
+     "name": "庄园领主 Manor Lords",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》一样拥有策略、模拟、城市营造和基地建设等核心标签。相比之下，它增添了大战略、历史与可模组化元素，且少了低容错与2D可爱风格。游戏在Steam上拥有84%的好评率，IGDB显示通关约需10小时。"
+    },
+    {
+     "name": "族人 Clanfolk",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》同属模拟、沙盒与殖民模拟类型。它融入了更多农场模拟、生活模拟与像素图形特色，同时降低了基地建设与生存的容错压力。游戏在《鼠托邦》同好邻居中排第4位，在Steam获得了91%的好评率。"
+    },
+    {
+     "name": "海狸浮生记 Timberborn",
+     "source": "llm",
+     "reason": "本作被IGDB列为《鼠托邦》的相似游戏，同具城市营造、殖民模拟与建造要素。相比之下本作多了体素、自动化与自然标签，少了2D与低容错。有184位玩家同时推荐两款作品，Steam好评率达96%，通关约需31小时。"
+    },
+    {
+     "name": "纪元1800",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》共享城市营造、策略与模拟的核心标签。相较之下，本作更偏向多人玩法，且不包含殖民模拟、基地建设与生存要素。游戏在Steam上获得了81%的好评率，IGDB记录通关时长约为29小时。"
+    },
+    {
+     "name": "Infection Free Zone (无感染区)",
+     "source": "llm",
+     "reason": "本作与《鼠托邦》同样具备基地建设、城市营造、策略与管理元素。相较之下，它更注重后末日、僵尸与即时战略题材，且少了低容错与2D建造特点。已有57位玩家同时推荐了两作，游戏在Steam上拥有80%的好评率。"
+    }
+   ]
+  },
+  "r24|default": {
+   "seconds": 16.5,
+   "cards": [
+    {
+     "name": "INSIDE",
+     "source": "llm",
+     "reason": "拥有极具沉浸感的黑暗氛围与丰富的剧情内容。本作采用2.5D平台解谜形式，流程紧凑，通关约4小时，既不需要漫长重复的打卡体验，又有着Steam 97%的高好评率认可，十分契合追求剧情与氛围的单人沉浸体验。"
+    },
+    {
+     "name": "What Remains of Edith Finch",
+     "source": "llm",
+     "reason": "本作主打氛围感与步行模拟，带来剧情丰富的叙事体验。在Steam上拥有95%的好评率，通关约3小时，节奏精炼不枯燥，适合不想费力操作、渴望专注享受精彩剧情与深厚氛围的单人沉浸式玩家体验。"
+    },
+    {
+     "name": "宅男的人间冒险",
+     "source": "llm",
+     "reason": "这款游戏集讲故事与另类密室解密于一身，包含各式各样的小游戏与不同类型战斗，带来多结局、欢乐且剧情丰富的恋爱模拟视觉小说体验，充满趣味与不同以往的乐趣，在Steam上获得94%的好评率。"
+    },
+    {
+     "name": "生化奇兵：无限 完全版",
+     "source": "llm",
+     "reason": "具备沉浸式体验与丰富剧情的第一人称动作射击作品。通关约17小时，在Steam上收获了93%的好评率。出色的第一人称动作体验让你免于枯燥感，能够全身心投入到跌宕起伏的冒险故事中。"
+    },
+    {
+     "name": "米塔 MiSide",
+     "source": "llm",
+     "reason": "本作兼具可爱画风与心理恐怖元素，拥有2D到3D的视角转换和独特角色设计。你可以与米塔及房间物品大量互动，面对无法预测、意想不到的丰富剧情。游戏拥有原创音乐伴奏与Steam 97%的高好评率。"
+    }
+   ]
+  },
+  "r25|none": {
+   "seconds": 6.0,
+   "cards": [
+    {
+     "name": "Raft",
+     "source": "llm",
+     "reason": "本作与《饥荒联机版》同具生存与开放世界生存制作特色，且强化了多人、合作与建造要素。游戏支持在线组队建房联机（IGDB显示最多8人），好评率达93%，适合两人一起协作消磨时光。"
+    },
+    {
+     "name": "露玛岛",
+     "source": "llm",
+     "reason": "本作与《潜水员戴夫》一样拥有农场模拟、休闲与放松标签，但去除了像素图形，增添了温馨惬意、建造与在线合作内容。游戏完全支持控制器，支持在线组队（IGDB显示最多4人），氛围轻松无压力。"
+    },
+    {
+     "name": "Dinkum(金垦小镇)",
+     "source": "llm",
+     "reason": "本作被IGDB列为《饥荒联机版》相似作，与《潜水员戴夫》同具放松、模拟与角色扮演要素，并拓展了开放世界生存制作、合作与生活模拟，且非像素画风。支持在线组队与控制器，好评率达92%。"
+    },
+    {
+     "name": "Grounded",
+     "source": "llm",
+     "reason": "本作被IGDB列为《雾锁王国》相似游戏，与《饥荒联机版》共享生存和开放世界生存制作标签，并深化了基地建设与多人合作。支持在线组队联机（IGDB显示最多4人）与控制器，Steam好评率达90%。"
+    },
+    {
+     "name": "幻想生活ｉ 转圈圈的龙和偷取时间的少女",
+     "source": "llm",
+     "reason": "本作与《雾锁王国》共享角色扮演、探索与开放世界标签，同时更偏向休闲、日系角色扮演与城市营造。游戏完全支持控制器，并支持最多4人联机游玩，十分适合多人合作体验温和冒险。"
+    }
+   ]
+  },
+  "r25|default": {
+   "seconds": 13.7,
+   "cards": [
+    {
+     "name": "Raft",
+     "source": "llm",
+     "reason": "本作与你喜欢的《饥荒联机版》同属生存和开放世界生存制作类型，同时拥有建造玩法。游戏支持在线组队合作，通关约需26小时，在Steam上获得了93%的好评率，且有数千名《护核纪元》玩家共同推荐。"
+    },
+    {
+     "name": "露玛岛",
+     "source": "llm",
+     "reason": "这款游戏与《潜水员戴夫》一样具有休闲、放松与农场模拟元素，且没有像素图形与钓鱼标签。它主打温馨惬意与建造，完全支持控制器，支持最多4人在线组队合作，也有不少《护核纪元》玩家同时推荐。"
+    },
+    {
+     "name": "Dinkum(金垦小镇)",
+     "source": "llm",
+     "reason": "游戏与《潜水员戴夫》同样包含放松与农场模拟标签，且不带像素图形标签。它被IGDB列为《饥荒联机版》的相似游戏，拓展了开放世界生存制作与生活模拟玩法，完全支持控制器，并支持在线组队合作。"
+    },
+    {
+     "name": "Grounded",
+     "source": "llm",
+     "reason": "本作与《饥荒联机版》同为生存及开放世界生存制作类型，同时被IGDB列为《雾锁王国》的相似游戏。它支持完全控制器操作与最多4人在线组队合作，包含基地建设内容，通关约需48小时，Steam好评率达90%。"
+    },
+    {
+     "name": "幻想生活ｉ 转圈圈的龙和偷取时间的少女",
+     "source": "llm",
+     "reason": "本作与《雾锁王国》共享角色扮演、探索与开放世界标签，更侧重休闲、日系角色扮演与城市营造。游戏完全支持控制器，支持最多4人联机游玩，通关约需60小时，并拥有91%的Steam好评率。"
+    }
+   ]
+  },
+  "r26|none": {
+   "seconds": 6.3,
+   "cards": [
+    {
+     "name": "Left 4 Dead 2",
+     "source": "llm",
+     "reason": "本作支持在线组队，包含辽阔战役，可在合作、对抗与生还者模式中进行，完全支持控制器。游戏主打僵尸题材与团队合作，既有第一人称射击的爽快感，又契合四人开黑对抗电脑敌人的需求，非常适合网咖组队游玩。"
+    },
+    {
+     "name": "Age of Mythology: Retold",
+     "source": "llm",
+     "reason": "本作是一款神话题材的即时战略游戏，支持在线组队与玩家对战环境。你可以指挥受神话启发的各色单位并进行基地建设。对于喜爱传统战略、想在网咖找回当年联机对抗电脑乐趣的四人队伍来说，非常契合。"
+    },
+    {
+     "name": "元素塔防2",
+     "source": "llm",
+     "reason": "本作主打塔防与即时战术，支持在线组队与玩家对战环境。玩家可以在合作模式中同心协力，分享元素策略并一起制定防御阵型来抵挡敌人的进攻，十分契合想在网咖寻找塔防体验、四人携手对抗电脑的玩家需求。"
+    },
+    {
+     "name": "HELLDIVERS™ 绝地潜兵2",
+     "source": "llm",
+     "reason": "本作是一款第三人称射击游戏，支持在线组队与玩家对战环境。游戏强调团队合作与互相照应，即便存在友军误伤，四人同心协力才能取得胜利。非常适合网咖开黑，体验并肩对抗电脑敌人的激烈战斗。"
+    },
+    {
+     "name": "异形丛生：虫启天降 (Alien Swarm: Reactive Drop)",
+     "source": "llm",
+     "reason": "本作是一款免费的双摇杆射击游戏，支持在线组队、玩家对战环境与合作玩法，并完全支持控制器。四人队伍可以直接建房联机，携手对抗电脑敌人，无门槛即可在网咖展开爽快的团队射击冒险。"
+    }
+   ]
+  },
+  "r27|none": {
+   "seconds": 6.1,
+   "cards": [
+    {
+     "name": "Boomerang Fu",
+     "source": "llm",
+     "reason": "这款游戏主打阖家、社交聚会游戏与休闲体验，带有 4 人本地与本地多人标签。支持本地同屏并完全支持控制器，非常适合大人和孩子各拿一个手柄在电视或显示器前同屏游玩，Steam 好评率高达 97%。"
+    },
+    {
+     "name": "猛兽派对",
+     "source": "llm",
+     "reason": "这款游戏拥有可爱、欢乐、休闲和多人的标签，契合阖家与社交聚会需求。游戏完全支持控制器，支持本地同屏游玩，据 IGDB 显示最多支持 4 人同屏，Steam 好评率 81%，适合大人带孩子一起欢乐互动。"
+    },
+    {
+     "name": "Untitled Goose Game",
+     "source": "llm",
+     "reason": "本作带有合作、多人、欢乐与阖家标签，Steam 好评率达 96%。游戏完全支持控制器，支持本地同屏双人游玩，大人可以连接电视或显示器，和孩子各执一个手柄，一起体验轻松欢乐的合作冒险。"
+    },
+    {
+     "name": "LEGO® The Incredibles",
+     "source": "llm",
+     "reason": "这款动作冒险游戏带有合作、开放世界标签，契合阖家与休闲体验，Steam 好评率达 90%。游戏完全支持控制器并支持本地同屏，大人与孩子一人一个手柄即可同屏游玩，通关时间据 IGDB 记录约为 20 小时。"
+    },
+    {
+     "name": "麻布仔大冒险",
+     "source": "llm",
+     "reason": "这是一款平台冒险游戏，主打本地合作与多人同乐，契合阖家与休闲的氛围。游戏完全支持控制器，支持本地同屏游玩，大人和孩子可以各持手柄在电视前一起闯关，Steam 好评率为 82%。"
+    }
+   ]
+  },
+  "r26|default": {
+   "seconds": 15.7,
+   "cards": [
+    {
+     "name": "Left 4 Dead 2",
+     "source": "llm",
+     "reason": "支持在线组队合作对抗僵尸敌人，拥有辽阔的战役内容，可在合作模式中协同作战。完全支持控制器，非常适合好友在网咖相聚时一同联机抗敌，重温并肩作战的射击合作乐趣。"
+    },
+    {
+     "name": "Age of Mythology: Retold",
+     "source": "llm",
+     "reason": "属于即时战略与基地建设类型，支持在线组队合作及玩家对战环境。玩家可以指挥受神话启发的各种单位，协同制定策略并抗击敌人，很契合喜欢即时战略、想要共同对抗电脑对手的组队体验。"
+    },
+    {
+     "name": "元素塔防2",
+     "source": "llm",
+     "reason": "主打塔防与即时战术玩法，支持在线组队合作及玩家对战环境。好友间能够同心协力共同作战，分享元素策略并一起制定防御阵型来抵挡敌人的进攻，契合寻找防守对抗电脑乐趣的联机需求。"
+    },
+    {
+     "name": "HELLDIVERS™ 绝地潜兵2",
+     "source": "llm",
+     "reason": "主打在线合作与玩家对战环境的第三人称射击体验。队伍在战场上需要互相照应，尽管友军误伤难以避免，但唯有紧密团队合作才能最终获胜，非常适合好友一同组队共同对抗电脑敌人。"
+    },
+    {
+     "name": "异形丛生：虫启天降 (Alien Swarm: Reactive Drop)",
+     "source": "llm",
+     "reason": "属于支持在线组队的双摇杆射击作品，主打玩家对战环境与团队合作，为免费游戏。本作完全支持控制器，适合多位伙伴一同在私人房间中联机开局，在合作抗敌的战斗中体验并肩作战。"
+    }
+   ]
+  },
+  "r28|none": {
+   "seconds": 6.4,
+   "cards": [
+    {
+     "name": "Stardew Valley",
+     "source": "llm",
+     "reason": "本作支持多人体验，具备像素图形与生活模拟、农场模拟及沙盒要素。游戏氛围休闲、放松，完全支持控制器，可由主机发起远程同乐邀请好友双人游玩，通关约需90小时。"
+    },
+    {
+     "name": "《Spiritfarer®》Farewell版",
+     "source": "llm",
+     "reason": "本作主打剧情丰富与管理、建造要素，手绘画面且氛围放松。游戏支持最多2人远程同乐与完全控制器操作，通关约需38小时，玩家能以奔跑、跳跃和滑行的方式体验精心设计的平台关卡。"
+    },
+    {
+     "name": "Roots of Pacha",
+     "source": "llm",
+     "reason": "本作采用像素图形，包含生活模拟、农场模拟与恋爱模拟标签。游戏体验休闲、放松且温馨惬意，支持在线合作与部分控制器支持，最多可供4人组队，适合与好友一同探索帕夏世界。"
+    },
+    {
+     "name": "旅者之憩 Travellers Rest",
+     "source": "llm",
+     "reason": "本作是一款包含中世纪、建造与生活模拟要素的像素图形酒馆管理游戏。游戏具有农场模拟与角色扮演标签，完全支持控制器，通关约需25小时，支持双人通过远程同乐游玩。"
+    },
+    {
+     "name": "露玛岛",
+     "source": "llm",
+     "reason": "本作包含农场模拟与建造要素，体验温馨惬意、休闲放松。游戏支持在线合作组队与完全控制器操作，并提供几乎不用战斗的休闲模式，满足不喜高难度操作的双人游玩需求。"
+    }
+   ]
+  },
+  "r27|default": {
+   "seconds": 16.1,
+   "cards": [
+    {
+     "name": "Boomerang Fu",
+     "source": "llm",
+     "reason": "本作主打阖家与社交聚会体验，支持本地同屏多人游玩，完全支持控制器操作。整体风格兼具休闲与聚会乐趣，拥有 97% 的 Steam 好评率，适合大人与孩子用手柄连接同一台设备共同享受轻松的本地多人时光。"
+    },
+    {
+     "name": "猛兽派对",
+     "source": "llm",
+     "reason": "具备可爱、欢乐与休闲等标签，契合阖家及社交聚会氛围。游戏支持本地同屏最多 4 人同玩并完全支持控制器，通关约需 5 小时。大人能与孩子在同一屏幕前用手柄轻松加入，体验多人欢乐对局。"
+    },
+    {
+     "name": "Untitled Goose Game",
+     "source": "llm",
+     "reason": "本作拥有欢乐与合作标签，具备阖家游玩体验，Steam 好评率达 96%。游戏完全支持控制器，支持本地同屏最多 2 人共同合作，通关约需 5 小时。两人只需准备手柄连接同屏设备，即可一起体验有趣的恶人主角合作流程。"
+    },
+    {
+     "name": "LEGO® The Incredibles",
+     "source": "llm",
+     "reason": "带有动作、冒险、合作与开放世界标签，契合阖家与休闲体验。游戏完全支持控制器，支持本地同屏 2 人协作游玩，通关约需 20 小时。大人和孩子可以在一台电脑前各拿一个手柄，共同沉浸在较长流程的冒险合作中。"
+    },
+    {
+     "name": "麻布仔大冒险",
+     "source": "llm",
+     "reason": "属于平台游戏与冒险类别，包含本地合作、多人、休闲与阖家标签。游戏完全支持控制器，支持本地同屏最多 4 人一同游玩，通关约需 13 小时。大人可以与孩子在同屏下操作手柄，一起合作推进平台关卡与冒险。"
+    }
+   ]
+  },
+  "r29|none": {
+   "seconds": 4.1,
+   "cards": [
+    {
+     "name": "雾锁王国 (Enshrouded)",
+     "source": "llm",
+     "reason": "支持在线组队联机，最多可容纳16人。游戏具备开放世界、生存与基地建设标签，玩家将作为濒死种族最后的希望火苗展开冒险，通关时长约200小时，支持完全控制器操作。"
+    },
+    {
+     "name": "荒原疗者 (Wildmender)",
+     "source": "llm",
+     "reason": "这是一款3D第三人称角色扮演模拟游戏，支持在线组队联机与完全控制器操作。玩家可以制作新的工具，使用工具塑造大地，并引导水流浇灌植物，享受建造与培育的过程。"
+    },
+    {
+     "name": "ASTRONEER",
+     "source": "llm",
+     "reason": "拥有开放世界、太空与开放世界生存制作标签，支持在线组队与手柄操作。游戏设定中每个天体从地表到地心都能完整探索，可通关约51小时，Steam好评率达91%。"
+    },
+    {
+     "name": "无径之林",
+     "source": "llm",
+     "reason": "一款高自由度的新国风生存游戏，涵盖开放世界、制作与沙盒标签。支持在线组队联机，房主建房后即可通过Steam好友邀请他人一同进入世界体验。"
+    },
+    {
+     "name": "永恒天空",
+     "source": "llm",
+     "reason": "支持在线合作组队，最多4人游玩，通关约36小时。游戏包含探索标签并完全支持控制器，玩家能通过学习和研究解锁全新科技，打造更强大的工具与设备。"
+    }
+   ]
+  },
+  "r29|default": {
+   "seconds": 12.6,
+   "cards": [
+    {
+     "name": "雾锁王国 (Enshrouded)",
+     "source": "llm",
+     "reason": "这款开放世界生存游戏支持在线组队，最多可容纳16人一同游玩。玩家可以与好友结伴探索，同时游戏包含基地建设元素，能将搜集到的资源用于搭建与发展。本作完全支持控制器，通关时长约200小时。"
+    },
+    {
+     "name": "荒原疗者 (Wildmender)",
+     "source": "llm",
+     "reason": "本作是一款支持在线组队的3D第三人称角色扮演模拟游戏，完全支持控制器。在游戏中，你可以与同伴一起制作新的工具，并用它们来塑造大地、引导水流浇灌植物，通过改造环境体验多人合作互动的乐趣。"
+    },
+    {
+     "name": "ASTRONEER",
+     "source": "llm",
+     "reason": "这款太空题材的开放世界生存制作游戏支持在线组队，且完全支持控制器。在游戏里，每个天体从地表一直到地心都可以进行完整的探索，适合与好友共同开掘新区域、搜集资源，通关大约需要51小时。"
+    },
+    {
+     "name": "无径之林",
+     "source": "llm",
+     "reason": "这是一款高自由度的新国风生存游戏，融合了开放世界、沙盒与制作元素。游戏支持在线组队联机，玩家可以与好友一同进入房间，在广阔的天地中自由探索、收集资源并进行物品制作，体验结伴冒险的氛围。"
+    },
+    {
+     "name": "永恒天空",
+     "source": "llm",
+     "reason": "本作主打探索与合作生存，支持最多4人在线组队，并完全支持控制器。游戏中通过不断学习和研究，你可以解锁全新的科技，打造出更加强大的工具和设备，让获取的资源转化为实际成长，通关约需36小时。"
+    }
+   ]
+  },
+  "r30|none": {
+   "seconds": 6.9,
+   "cards": [
+    {
+     "name": "Factorio",
+     "source": "llm",
+     "reason": "与《幸福工厂》同样主打自动化、基地建设、资源管理与沙盒玩法，支持通过 Steam 好友邀请进行在线组队连线。其核心在于规划生产流程与设施布局，无需频繁追求即时反应，适合远距离好友一同慢节奏协作。"
+    },
+    {
+     "name": "博德之门3",
+     "source": "llm",
+     "reason": "支持通过 Steam 邀请进行最多 4 人的在线组队合作。游戏侧重角色扮演、角色自定义与选择取向，通关约 132 小时，且完全支持控制器，适合想要寻找非即时反应类玩法、与远方好友慢慢体验剧情与决策的玩家。"
+    },
+    {
+     "name": "纪元1800",
+     "source": "llm",
+     "reason": "支持通过 Steam 邀请进行在线组队合作，相比之下更侧重城市营造、经济与策略规划。整体偏向资源调度与城镇发展，无需讲求高强度的即时反应配合，适合与远在海外的好友一同线上联机、慢节奏经营。"
+    },
+    {
+     "name": "ASTRONEER",
+     "source": "llm",
+     "reason": "与《幸福工厂》共同拥有多人、开放世界、基地建设与合作等标签，并融入了太空与开放世界生存制作要素。支持通过 Steam 好友邀请进行在线组队，且完全支持控制器，适合两位玩家一同慢节奏探索与建造。"
+    },
+    {
+     "name": "FOUNDRY",
+     "source": "llm",
+     "reason": "与《幸福工厂》高度契合，共同涵盖基地建设、自动化、开放世界与多人标签，并带有机器人、程序生成与体素特色。支持通过 Steam 好友邀请进行在线组队连线，专注于规划生产线与搭建工厂，适合慢节奏分工合作。"
+    }
+   ]
+  },
+  "r28|default": {
+   "seconds": 18.2,
+   "cards": [
+    {
+     "name": "Stardew Valley",
+     "source": "llm",
+     "reason": "本作拥有像素图形与生活模拟、农场模拟玩法，支持远程同乐双人游玩。你将带着爷爷留下的残旧工具和几枚硬币开始新生活，节奏休闲放松。作为沙盒与角色扮演作品，IGDB显示通关约90小时，适合双人共同体验。"
+    },
+    {
+     "name": "《Spiritfarer®》Farewell版",
+     "source": "llm",
+     "reason": "本作主打手绘风格与剧情丰富的情感体验，包含建造、管理与冒险要素。游戏支持双人远程同乐，你可以采用奔跑、跳跃和滑行的方式闯过精心设计的平台关卡，过程放松，IGDB显示通关约38小时，契合剧情与建造偏好。"
+    },
+    {
+     "name": "Roots of Pacha",
+     "source": "llm",
+     "reason": "本作采用像素图形，包含生活模拟、农场模拟与恋爱模拟玩法。游戏支持在线合作双人组队，整体氛围休闲、放松且温馨惬意。你将生活在欣欣向荣的集体中，探索美丽的帕夏世界，适合想要轻松同乐的两人游玩。"
+    },
+    {
+     "name": "旅者之憩 Travellers Rest",
+     "source": "llm",
+     "reason": "本作采用像素图形，融合中世纪背景下的酒馆管理、生活模拟与建造要素。游戏支持远程同乐双人游玩，你可以使用各种工具朝着成为最棒酒馆老板的目标经营，IGDB显示通关约25小时，兼顾建造乐趣与明确的发展方向。"
+    },
+    {
+     "name": "露玛岛",
+     "source": "llm",
+     "reason": "本作支持在线合作组队，涵盖农场模拟与建造玩法，氛围休闲且温馨惬意。游戏提供多种游玩方式，其中休闲模式轻松自在且几乎不用战斗，契合低操作门槛与休闲模拟的需求，让两人可以按喜好自由享受建造与生活乐趣。"
+    }
+   ]
+  },
+  "r31|none": {
+   "seconds": 6.0,
+   "cards": [
+    {
+     "name": "深岩银河",
+     "source": "llm",
+     "reason": "这是一款多人合作第一人称射击游戏，支持最多4人在线组队。游戏包含可破坏地形、程序生成的洞穴以及外星怪物，且完全支持控制器，适合双人远程联机体验非纯枪战的射击战斗与合作探险。"
+    },
+    {
+     "name": "钢铁指挥官",
+     "source": "llm",
+     "reason": "本作支持最多4人在线组队，融合了策略、自走棋与机甲等科幻元素，主打“以智取胜”。非常符合你们对策略性、多人合作的偏好，同时非纯射击玩法，适合两人每隔几天开黑对局。"
+    },
+    {
+     "name": "雨中冒险 2",
+     "source": "llm",
+     "reason": "这是一款动作类Rogue第三人称射击游戏，支持最多4人在线合作，完全支持控制器。游戏既能联机冒险也能参与试炼挑战，适合喜欢合作射击且偏好按场次游玩的双人远程联机。"
+    },
+    {
+     "name": "Age of Empires IV: Anniversary Edition",
+     "source": "llm",
+     "reason": "本作是一款即时战略与基地建设游戏，支持最多8人在线组队联机，完全支持控制器。游戏拥有多个文明与丰富地图，注重经济建设与策略规划，能满足你们对策略对战与非纯射击联机的需求。"
+    },
+    {
+     "name": "Warhammer 40,000: 星际战士2",
+     "source": "llm",
+     "reason": "本作是一款第三人称射击动作游戏，支持在线双人组队，完全支持控制器。游戏融合了冒险与战争游戏元素，非传统纯枪战竞技，能满足你们远程连线、畅快合作射击的游玩需求。"
+    }
+   ]
+  },
+  "r32|default": {
+   "seconds": 6.1,
+   "cards": [
+    {
+     "name": "超级鸡马",
+     "source": "llm",
+     "reason": "本作完全支持控制器，支持本地同屏游玩，适合 3 人一起开黑。游戏带有社交聚会、玩家对战与欢乐的多人属性，还融入了平台游戏与关卡编辑玩法，主打多人模式通关与解锁，能带来热闹的对战乐趣。"
+    },
+    {
+     "name": "Overcooked! 2",
+     "source": "llm",
+     "reason": "本作完全支持控制器，支持本地同屏多人模式，满足 3 人同乐。游戏以欢乐、休闲的多人本地合作为核心，聚焦烹饪题材，大家可以在游戏中精诚合作或是互相捣乱，非常适合假日带侄子们一起游玩。"
+    },
+    {
+     "name": "Stick Fight: The Game",
+     "source": "llm",
+     "reason": "本作支持本地同屏游玩，满足 3 人同场作战。游戏主打多人、欢乐、格斗与动作玩法，并结合了 2D 格斗元素。假日与侄子们聚在一台电脑前操作对打，能够体验快节奏的乱斗狂欢。"
+    },
+    {
+     "name": "Castle Crashers®",
+     "source": "llm",
+     "reason": "本作完全支持控制器，支持本地同屏游玩，满足 3 人同台的需求。游戏融合了多人、动作、合作与欢乐标签，主打 2D 清版动作与砍杀玩法，非常适合假日与侄子们一起在屏幕前协作冒险。"
+    },
+    {
+     "name": "Boomerang Fu",
+     "source": "llm",
+     "reason": "本作完全支持控制器，支持本地同屏游玩，满足 3 人同乐需求。游戏主打社交聚会、格斗、玩家对战与合作，在这款疯狂的多人物理游戏中，你们可以利用回旋镖互相对抗，体验充满欢乐的聚会对决。"
+    }
+   ]
+  },
+  "r32|none": {
+   "seconds": 5.2,
+   "cards": [
+    {
+     "name": "超级鸡马",
+     "source": "llm",
+     "reason": "与《猛兽派对》一样具备欢乐的多人对战与社交聚会属性。本作主打平台跳跃与关卡编辑，支持本地同屏最多4人同玩，并完全支持控制器，非常适合你和侄子们在一台电脑前共同游玩派对模式并解锁内容。"
+    },
+    {
+     "name": "Overcooked! 2",
+     "source": "llm",
+     "reason": "与《猛兽派对》同样拥有欢乐与多人合作体验。游戏聚焦于烹饪与本地合作，支持本地同屏最多4人联机并完全支持控制器，通关约需8小时，很适合三个人在本地多人模式中精诚合作或是互相捣乱。"
+    },
+    {
+     "name": "Stick Fight: The Game",
+     "source": "llm",
+     "reason": "与《猛兽派对》同样包含动作、格斗与欢乐的多人对战元素。本作偏向2D格斗风格，支持本地同屏最多4人同乐，部分支持控制器，通关约需43小时，适合假日里与侄子们一起同屏热闹对战。"
+    },
+    {
+     "name": "Castle Crashers®",
+     "source": "llm",
+     "reason": "与《猛兽派对》共享动作、多人合作与欢乐标签。本作侧重2D清版动作与砍杀玩法，支持本地同屏最多4人同玩并完全支持控制器，通关约需6小时，非常适合带着侄子们一起组队闯关冒险。"
+    },
+    {
+     "name": "Boomerang Fu",
+     "source": "llm",
+     "reason": "与《猛兽派对》同属社交聚会、格斗与对战合作类型。在这款多人物理游戏中，你们可以利用回旋镖互相切磋，游戏支持本地同屏最多6人游玩且完全支持控制器，很契合假日带侄子们同屏热闹对决。"
+    }
+   ]
+  },
+  "r30|default": {
+   "seconds": 19.4,
+   "cards": [
+    {
+     "name": "Factorio",
+     "source": "llm",
+     "reason": "本作主打自动化、基地建设与资源管理沙盒玩法，支持在线组队，可通过好友邀请联机。你们可以合力规划工厂生产线与管理资源，侧重建设布局而非即时对抗，适合追求平稳节奏的连线协作。"
+    },
+    {
+     "name": "博德之门3",
+     "source": "llm",
+     "reason": "本作包含角色扮演、角色自定义与选择取向元素，完全支持控制器。游戏支持在线组队并可通过好友邀请连线，能够一同推进剧情发展并做出各自的抉择，无需依赖即时操作反应，便于长距离稳定联机。"
+    },
+    {
+     "name": "纪元1800",
+     "source": "llm",
+     "reason": "本作融合了城市营造、经济管理与策略玩法，支持在线组队连线，可通过好友邀请共同开局。整体重心在于城市长远规划与经济运转，偏向策略思考而非高强度的即时反应，适合想要平稳合作的连线体验。"
+    },
+    {
+     "name": "ASTRONEER",
+     "source": "llm",
+     "reason": "本作聚焦于太空背景下的开放世界生存制作与基地建设，完全支持控制器操作。支持在线组队与好友邀请，大家可以在开放世界中共同收集资源、建造基地并合作生存，节奏平缓自由，适合异地连线协作。"
+    },
+    {
+     "name": "FOUNDRY",
+     "source": "llm",
+     "reason": "本作拥有体素与程序生成世界，主打基地建设、自动化、开放世界与机器人元素。支持在线组队并可通过好友邀请联机，双方可以分工搭建属于各自的自动化生产体系，体验专注建造的慢节奏合作乐趣。"
+    }
+   ]
+  },
+  "r31|default": {
+   "seconds": 20.0,
+   "cards": [
+    {
+     "name": "深岩银河",
+     "source": "llm",
+     "reason": "本作是一款多人合作第一人称射击游戏，包含矮人、100%可破坏地形、程序生成洞穴与外星怪物。游戏支持在线组队建房与完全控制器，Steam好评率达97%，且有48,376名玩家同时推荐了它与《绝地潜兵2》。"
+    },
+    {
+     "name": "钢铁指挥官",
+     "source": "llm",
+     "reason": "本作涵盖自走棋、机甲与策略要素，支持多人在线组队合作。玩家可通过建房邀请好友，体验“以智取胜”的战场对抗。游戏在Steam上拥有83%的好评率，契合喜爱策略玩法的双人组队需求。"
+    },
+    {
+     "name": "雨中冒险 2",
+     "source": "llm",
+     "reason": "本作是一款动作类Rogue第三人称射击游戏，支持线上双人建房组队合作，亦包含棱镜试炼挑战。游戏完全支持控制器，Steam好评率达93%，且有32,546名玩家同时推荐了本作与《绝地潜兵2》。"
+    },
+    {
+     "name": "Age of Empires IV: Anniversary Edition",
+     "source": "llm",
+     "reason": "本作是一款即时战略与基地建设类的多人策略游戏，拥有新文明与8个新地图，支持发展采矿与建设贸易帝国。游戏支持在线组队建房与完全控制器操作，在Steam上拥有85%的好评率。"
+    },
+    {
+     "name": "Warhammer 40,000: 星际战士2",
+     "source": "llm",
+     "reason": "本作是一款第三人称射击动作合作游戏，包含战争与动作冒险要素。支持在线双人组队建房，并完全支持控制器。本作通关约33小时，在《绝地潜兵2》同好中排第1，Steam好评率为84%。"
+    }
+   ]
+  }
+ },
+ "understand_default_again": {
+  "r04": {
+   "parsed": {
+    "seeds": [],
+    "played": [],
+    "excluded": [],
+    "preference_text": "story rich games with likeable characters + good gameplay",
+    "feel_want": [
+     "Story Rich"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Visual Novel"
+    ],
+    "avoid_content": [],
+    "budget": {
+     "amount": 14.0,
+     "scope": "per_person",
+     "currency": "USD"
+    },
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 7.4,
+   "error": null
+  },
+  "r15": {
+   "parsed": {
+    "seeds": [
+     "Deep Rock Galactic",
+     "The Binding of Isaac"
+    ],
+    "played": [
+     "WEBFISHING",
+     "Roblox",
+     "Terraria",
+     "Minecraft",
+     "Lethal Company",
+     "R.E.P.O.",
+     "The Binding of Isaac",
+     "Deep Rock Galactic"
+    ],
+    "excluded": [],
+    "preference_text": "one of my friends has a laptop that easily overheats",
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": {
+     "amount": 20.0,
+     "scope": "per_person",
+     "currency": "EUR"
+    },
+    "price_intent": "cheap",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 8.3,
+   "error": null
+  },
+  "r06": {
+   "parsed": {
+    "seeds": [
+     "What Remains of Edith Finch",
+     "Firewatch"
+    ],
+    "played": [
+     "What Remains of Edith Finch",
+     "Firewatch"
+    ],
+    "excluded": [],
+    "preference_text": null,
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 9.0,
+   "error": null
+  },
+  "r13": {
+   "parsed": {
+    "seeds": [],
+    "played": [],
+    "excluded": [
+     "Minecraft",
+     "Valorant",
+     "League of Legends"
+    ],
+    "preference_text": null,
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Horror"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "cheap",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 4,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 9.2,
+   "error": null
+  },
+  "r08": {
+   "parsed": {
+    "seeds": [
+     "Stardew Valley"
+    ],
+    "played": [
+     "Path of Exile",
+     "Diablo",
+     "Warframe",
+     "Stardew Valley",
+     "Valheim"
+    ],
+    "excluded": [
+     "Sun Haven"
+    ],
+    "preference_text": "Grindy but chill game for long autumn nights niche games that have fun gameloop with grind, maybe simulation, maybe life sim? Something with endless or just far progression at any pace",
+    "feel_want": [
+     "Relaxing",
+     "Cozy"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 10.8,
+   "error": null
+  },
+  "r16": {
+   "parsed": {
+    "seeds": [
+     "Portal",
+     "Minecraft",
+     "Trailmakers",
+     "Supermarket Together",
+     "Valheim"
+    ],
+    "played": [
+     "Phasmophobia",
+     "Lethal Company",
+     "RV There Yet",
+     "Dark Hours",
+     "Mimesis",
+     "The Headliners",
+     "REPO"
+    ],
+    "excluded": [],
+    "preference_text": "save-able progression, more long-term, goal-oriented games that will still entertain the ladies but also keep the gentlemen engaged and wanting to play more",
+    "feel_want": [
+     "Casual"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 4,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 11.5,
+   "error": null
+  },
+  "r07": {
+   "parsed": {
+    "seeds": [
+     "Rust",
+     "Stardew Valley",
+     "Schedule 1"
+    ],
+    "played": [
+     "Rust",
+     "Stardew Valley",
+     "Schedule 1",
+     "Escape from Tarkov",
+     "Animal Crossing"
+    ],
+    "excluded": [],
+    "preference_text": "build something from nothing",
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 11.7,
+   "error": null
+  },
+  "r09": {
+   "parsed": {
+    "seeds": [
+     "It Takes Two",
+     "A Way Out",
+     "River Tails: Stronger Together",
+     "Stardew Valley",
+     "Overcooked! 2"
+    ],
+    "played": [
+     "It Takes Two",
+     "Split Fiction",
+     "A Way Out",
+     "River Tails: Stronger Together",
+     "Resident Evil 5",
+     "Resident Evil Revelations 2",
+     "Stardew Valley",
+     "PlateUp!",
+     "Sackboy: A Big Adventure",
+     "Overcooked! 2",
+     "Castle Crashers"
+    ],
+    "excluded": [],
+    "preference_text": "split-screen couch coop games for couples history focused games, and games which co-op oriented co-op first, single player second or exclusively co-op She isn't into action games so much, but we are open to try step a little out of the comfort zone and try other genres too",
+    "feel_want": [
+     "Historical",
+     "Co-op",
+     "Local Co-Op",
+     "Split Screen"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": "local",
+     "groups": null
+    },
+    "people": [
+     {
+      "name": "wife",
+      "likes": [
+       "Stardew Valley",
+       "Overcooked! 2",
+       "River Tails: Stronger Together",
+       "It Takes Two",
+       "A Way Out"
+      ],
+      "owns": [],
+      "preference_text": "history focused games, and games which co-op oriented co-op first, single player second or exclusively co-op She isn't into action games so much",
+      "feel_want": [
+       "Historical",
+       "Co-op"
+      ],
+      "feel_avoid": [
+       "Action"
+      ],
+      "avoid_tags": [],
+      "avoid_content": []
+     }
+    ]
+   },
+   "seconds": 11.9,
+   "error": null
+  },
+  "r10": {
+   "parsed": {
+    "seeds": [
+     "Overcooked! 2",
+     "Ship of Fools",
+     "Left 4 Dead 2",
+     "PAYDAY 2"
+    ],
+    "played": [
+     "Overcooked! 2",
+     "Ship of Fools",
+     "Left 4 Dead 2",
+     "PAYDAY 2"
+    ],
+    "excluded": [],
+    "preference_text": "don't need to buy more than 1 copy to play together",
+    "feel_want": [
+     "Co-op"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "near_record_low",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 3,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 12.1,
+   "error": null
+  },
+  "r03": {
+   "parsed": {
+    "seeds": [
+     "Satisfactory"
+    ],
+    "played": [
+     "Satisfactory"
+    ],
+    "excluded": [
+     "Factorio",
+     "Dwarf Fortress",
+     "RimWorld"
+    ],
+    "preference_text": "aren't so punishing don't like the idea of putting a lot of hours into a save and then having to start all over again because I didn't do something earlier in the save if I do something wrong or find something new, I can just take down the factory and build it again in a better way instead of having to start a fresh save",
+    "feel_want": [],
+    "feel_avoid": [
+     "Unforgiving",
+     "Difficult"
+    ],
+    "mechanics": [
+     "Base Building",
+     "Resource Management"
+    ],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 12.3,
+   "error": null
+  },
+  "r14": {
+   "parsed": {
+    "seeds": [
+     "PEAK"
+    ],
+    "played": [
+     "Left 4 Dead 2",
+     "Human: Fall Flat",
+     "RVThereYet",
+     "Don't Starve Together",
+     "It Takes Two",
+     "Split Fiction",
+     "PICO PARK",
+     "PICO PARK 2"
+    ],
+    "excluded": [
+     "R.E.P.O",
+     "Lethal Company"
+    ],
+    "preference_text": "won't melt our laptops ... Can run on integrated graphics. A couple of us are on ThinkPads with i7-10th gen",
+    "feel_want": [],
+    "feel_avoid": [
+     "Intentionally Awkward Controls"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Horror",
+     "Psychological Horror",
+     "Survival Horror"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 5,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 13.4,
+   "error": null
+  },
+  "r05": {
+   "parsed": {
+    "seeds": [
+     "Elden Ring",
+     "The Witcher 3: Wild Hunt",
+     "Hades II",
+     "Balatro",
+     "Resident Evil 4",
+     "Hades"
+    ],
+    "played": [
+     "Elden Ring",
+     "The Witcher 3: Wild Hunt",
+     "Hades II",
+     "Balatro",
+     "Resident Evil 4",
+     "Hades",
+     "Baldur's Gate 3",
+     "The Elder Scrolls V: Skyrim"
+    ],
+    "excluded": [],
+    "preference_text": "can play forever (or at least for a very long time) without getting bored interesting enough to keep me playing for thousands of hours but doesn't feel stressful",
+    "feel_want": [
+     "Replay Value"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Turn-Based Combat",
+     "Inventory Management"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 14.0,
+   "error": null
+  },
+  "r02": {
+   "parsed": {
+    "seeds": [
+     "Hollow Knight",
+     "Animal Well"
+    ],
+    "played": [
+     "Hollow Knight",
+     "Animal Well",
+     "The Legend of Zelda: Breath of the Wild",
+     "Minecraft",
+     "Fortnite",
+     "Cuphead",
+     "Super Mario Maker",
+     "Grand Theft Auto",
+     "Mario Kart DS",
+     "Elden Ring",
+     "Genshin Impact",
+     "Terraria",
+     "Immortals Fenyx Rising",
+     "Tchia",
+     "LEGO Bricktales",
+     "Just Cause 3",
+     "Cyberpunk 2077",
+     "Neon White"
+    ],
+    "excluded": [
+     "Elden Ring",
+     "Genshin Impact",
+     "Terraria",
+     "Immortals Fenyx Rising",
+     "Tchia",
+     "LEGO Bricktales",
+     "Just Cause 3",
+     "Cyberpunk 2077",
+     "Neon White"
+    ],
+    "preference_text": "flawless movement, cryptic atmosphere, non-linear exploration, and discovering secrets on my own using clever items/tools without hand-holding. zero visual bloat, minimal menus, and quick action",
+    "feel_want": [
+     "Atmospheric",
+     "Exploration",
+     "Nonlinear",
+     "Fast-Paced"
+    ],
+    "feel_avoid": [
+     "Souls-like",
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Inventory Management",
+     "Dialogue Heavy"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 15.5,
+   "error": null
+  },
+  "r01": {
+   "parsed": {
+    "seeds": [
+     "Stardew Valley"
+    ],
+    "played": [
+     "Stardew Valley",
+     "Grand Theft Auto",
+     "Red Dead Redemption",
+     "The Elder Scrolls",
+     "Fallout",
+     "The Witcher",
+     "Kingdom Come: Deliverance"
+    ],
+    "excluded": [],
+    "preference_text": "Chill, but emphasis on building, clearing land, etc. looking for something small, chill, that I can jump in and out of. maybe a pixel game, where I can have some property, clear it out and upgrade my house without really strict time-based gameplay with energy meters",
+    "feel_want": [
+     "Relaxing",
+     "Cozy",
+     "Building",
+     "Pixel Graphics"
+    ],
+    "feel_avoid": [
+     "Time Management",
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Platformer",
+     "Linear"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 17.0,
+   "error": null
+  },
+  "r17": {
+   "parsed": {
+    "seeds": [],
+    "played": [],
+    "excluded": [],
+    "preference_text": "硬體要求低但劇情好 上班可以偷玩一些小遊戲 但是有事情的時候要關掉 也不能被同事發現 劇情類的遊戲 最好是有女主 然後可以快速切換畫面",
+    "feel_want": [
+     "Story Rich",
+     "Female Protagonist"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 10.0,
+   "error": null
+  },
+  "r12": {
+   "parsed": {
+    "seeds": [
+     "LEGO Voyagers"
+    ],
+    "played": [],
+    "excluded": [],
+    "preference_text": "safe for younger gamers",
+    "feel_want": [
+     "Family Friendly"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Violent",
+     "Gore"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "cheap",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 3,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 18.2,
+   "error": null
+  },
+  "r11": {
+   "parsed": {
+    "seeds": [
+     "Stardew Valley",
+     "Peak",
+     "Split Fiction",
+     "Core Keeper",
+     "Wildmender",
+     "Kingdom Two Crowns",
+     "Unravel Two"
+    ],
+    "played": [
+     "Stardew Valley",
+     "Peak"
+    ],
+    "excluded": [],
+    "preference_text": "Cozy - No combat, or if there is, it has to be easy or avoidable combat or able to be modified to lower the combat experience - No one trick pony, like only fishing, only building houses, it has to have a bunch of stuff wheter things to do or an engaging story or a good gameplay loop",
+    "feel_want": [
+     "Cozy",
+     "Relaxing"
+    ],
+    "feel_avoid": [
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "near_record_low",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": [
+     {
+      "name": "girlfriend",
+      "likes": [],
+      "owns": [],
+      "preference_text": "mostly plays puzzle games but she's willing to play and learn other genres",
+      "feel_want": [
+       "Puzzle"
+      ],
+      "feel_avoid": [],
+      "avoid_tags": [],
+      "avoid_content": []
+     }
+    ]
+   },
+   "seconds": 20.0,
+   "error": null
+  },
+  "r20": {
+   "parsed": {
+    "seeds": [
+     "Demacia Rising"
+    ],
+    "played": [
+     "Sid Meier's Civilization V",
+     "Sid Meier's Civilization VI",
+     "XCOM"
+    ],
+    "excluded": [
+     "Age of Empires",
+     "StarCraft"
+    ],
+    "preference_text": "好玩不會太複雜的回合策略遊戲 非即時不需要花太多精力玩的策略遊戲 經營成分重一點，分配物資/升級建築之類 不喜歡日系回合制遊戲，也不想要Roguelike成分太重的遊戲",
+    "feel_want": [
+     "Casual",
+     "Relaxing"
+    ],
+    "feel_avoid": [
+     "Difficult"
+    ],
+    "mechanics": [
+     "Turn-Based Strategy",
+     "Management"
+    ],
+    "avoid_tags": [
+     "JRPG",
+     "Roguelike",
+     "Roguelite",
+     "RTS"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 12.9,
+   "error": null
+  },
+  "r24": {
+   "parsed": {
+    "seeds": [],
+    "played": [
+     "Undertale",
+     "Stardew Valley",
+     "Detroit: Become Human",
+     "Little Nightmares"
+    ],
+    "excluded": [],
+    "preference_text": "沉浸式玩得让人忘记吃饭 愉快的游戏体验是最重要的 不要让无聊到犯困 也不要让我感到在上班打卡 有深度有剧情有趣味有画风有巧思",
+    "feel_want": [
+     "Immersive",
+     "Story Rich"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving",
+     "Puzzle"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 10.7,
+   "error": null
+  },
+  "r22": {
+   "parsed": {
+    "seeds": [
+     "Balatro"
+    ],
+    "played": [
+     "Balatro"
+    ],
+    "excluded": [],
+    "preference_text": "無即時性，想停就停不會影響遊戲 有點思考與挑戰 不要太簡單以至於無聊 也不要太難以至於佔用看劇的大腦CPU",
+    "feel_want": [
+     "Turn-Based"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Fast-Paced"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 11.6,
+   "error": null
+  },
+  "r19": {
+   "parsed": {
+    "seeds": [
+     "Total War: THREE KINGDOMS",
+     "Total War: WARHAMMER",
+     "Stellaris",
+     "They Are Billions"
+    ],
+    "played": [
+     "Nioh 2 – The Complete Edition",
+     "Total War: THREE KINGDOMS",
+     "Total War: WARHAMMER",
+     "Stellaris",
+     "They Are Billions"
+    ],
+    "excluded": [],
+    "preference_text": "轉換心情 (紓壓爽GAME?) 再想換個不同類型或風格遊戲",
+    "feel_want": [
+     "Relaxing",
+     "Casual"
+    ],
+    "feel_avoid": [
+     "Souls-like",
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 14.5,
+   "error": null
+  },
+  "r25": {
+   "parsed": {
+    "seeds": [
+     "Don't Starve Together",
+     "Cult of the Lamb",
+     "The Legend of Zelda: Breath of the Wild",
+     "The Legend of Zelda: Tears of the Kingdom",
+     "The Legend of Zelda: Echoes of Wisdom",
+     "DAVE THE DIVER",
+     "ZERO Sievert"
+    ],
+    "played": [
+     "Don't Starve Together",
+     "Cult of the Lamb",
+     "The Legend of Zelda: Breath of the Wild",
+     "The Legend of Zelda: Tears of the Kingdom",
+     "The Legend of Zelda: Echoes of Wisdom",
+     "DAVE THE DIVER",
+     "ZERO Sievert"
+    ],
+    "excluded": [
+     "It Takes Two",
+     "Palworld",
+     "Stardew Valley",
+     "Terraria"
+    ],
+    "preference_text": "能夠多人合作 但單人也能有樂趣 多人共鬥不錯但戰鬥難度希望不要太高",
+    "feel_want": [],
+    "feel_avoid": [
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Automation",
+     "Realistic",
+     "Gore"
+    ],
+    "avoid_content": [
+     "gore"
+    ],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 11.9,
+   "error": null
+  },
+  "r27": {
+   "parsed": {
+    "seeds": [
+     "Super Mario Party",
+     "Rabbids: Party of Legends",
+     "Party Animals"
+    ],
+    "played": [
+     "Super Mario Party",
+     "Rabbids: Party of Legends"
+    ],
+    "excluded": [],
+    "preference_text": "小一和大人一起玩的派對遊戲 大概有三分之一的小遊戲是對她來說太難 等於會跳過 但她這樣就玩得很開心",
+    "feel_want": [
+     "Family Friendly",
+     "Party Game",
+     "Casual",
+     "Cute"
+    ],
+    "feel_avoid": [
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": 7,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "any",
+     "setup": "local",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 11.0,
+   "error": null
+  },
+  "r23": {
+   "parsed": {
+    "seeds": [
+     "Ratopia",
+     "SimCity 4",
+     "SimCity",
+     "Diplomacy is Not an Option",
+     "Farthest Frontier",
+     "Going Medieval",
+     "Kingdoms and Castles",
+     "Project Zomboid",
+     "Settlement Survival",
+     "Frostpunk"
+    ],
+    "played": [
+     "SimCity 4",
+     "SimCity",
+     "Diplomacy is Not an Option",
+     "Ratopia",
+     "Farthest Frontier",
+     "Going Medieval",
+     "Kingdoms and Castles",
+     "Project Zomboid",
+     "Settlement Survival",
+     "Frostpunk",
+     "RimWorld"
+    ],
+    "excluded": [
+     "RimWorld",
+     "Against the Storm"
+    ],
+    "preference_text": "種田遊戲 不太喜歡那些異種族跟美術 好像異族外星宇宙類不太會讓我覺得有興趣",
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [
+     "Aliens",
+     "Space",
+     "Sci-fi"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 13.1,
+   "error": null
+  },
+  "r21": {
+   "parsed": {
+    "seeds": [
+     "Dave the Diver",
+     "Sakuna: Of Rice and Ruin"
+    ],
+    "played": [
+     "Dave the Diver",
+     "Sakuna: Of Rice and Ruin",
+     "Stardew Valley",
+     "The Forest",
+     "7 Days to Die",
+     "Don't Starve"
+    ],
+    "excluded": [
+     "Stardew Valley",
+     "The Forest",
+     "7 Days to Die",
+     "Don't Starve"
+    ],
+    "preference_text": "出外捕魚打獵 打食材做料理 種田是其次 順便收集金屬礦物木頭等資源 會慢慢增加設備 沒有生存壓力 可以慢慢混 不會有怪物來襲擊你家 動作遊戲 不是第一人稱畫面",
+    "feel_want": [
+     "Relaxing",
+     "Casual"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "First-Person"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 14.1,
+   "error": null
+  },
+  "r32": {
+   "parsed": {
+    "seeds": [
+     "Party Animals"
+    ],
+    "played": [
+     "Party Animals"
+    ],
+    "excluded": [],
+    "preference_text": "本機多人遊玩的遊戲 假日想跟侄子們同樂",
+    "feel_want": [],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 3,
+     "interaction": "any",
+     "setup": "local",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 7.5,
+   "error": null
+  },
+  "r28": {
+   "parsed": {
+    "seeds": [
+     "Planet Zoo",
+     "Frostpunk"
+    ],
+    "played": [
+     "Planet Zoo",
+     "Frostpunk",
+     "DAVE THE DIVER",
+     "Overcooked!",
+     "The Sims",
+     "Princess Maker"
+    ],
+    "excluded": [
+     "Don't Starve Together"
+    ],
+    "preference_text": "生活模擬或經營類 希望有主線或一定的方向引導循序漸進 主要是休閒，難度希望不要太高，如果有戰鬥要素的話不太吃操作 可以蓋房子或設施的建造要素 有輕微3D暈，2D比較偏好一點 有劇情佳",
+    "feel_want": [
+     "Casual",
+     "Relaxing",
+     "Story Rich",
+     "Building"
+    ],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "near_record_low",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 11.7,
+   "error": null
+  },
+  "r26": {
+   "parsed": {
+    "seeds": [],
+    "played": [
+     "Warcraft III: The Frozen Throne",
+     "Counter-Strike",
+     "Age of Empires",
+     "Empire Earth",
+     "StarCraft II",
+     "Command & Conquer: Red Alert"
+    ],
+    "excluded": [],
+    "preference_text": "合作對抗電腦 爽玩",
+    "feel_want": [
+     "PvE",
+     "Co-op"
+    ],
+    "feel_avoid": [],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 4,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 14.2,
+   "error": null
+  },
+  "r29": {
+   "parsed": {
+    "seeds": [
+     "Core Keeper",
+     "Terraria"
+    ],
+    "played": [
+     "Minecraft",
+     "Core Keeper",
+     "The Planet Crafter",
+     "Terraria"
+    ],
+    "excluded": [],
+    "preference_text": "能探索找到新地區，感受到全新的風景，也獲得新的資源 不一定只限挖礦，主軸是找資源，礦物/植物/動物都可以 有基地建設或某種升級，讓找到的資源有用途，有回饋感 希望不要太難，不想玩一直死亡，過度強調生存感的遊戲 有沒有戰鬥都可以",
+    "feel_want": [],
+    "feel_avoid": [
+     "Difficult",
+     "Unforgiving"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Zombies"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "near_record_low",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 12.1,
+   "error": null
+  },
+  "r30": {
+   "parsed": {
+    "seeds": [
+     "Satisfactory"
+    ],
+    "played": [],
+    "excluded": [],
+    "preference_text": "慢節奏",
+    "feel_want": [],
+    "feel_avoid": [
+     "Fast-Paced"
+    ],
+    "mechanics": [],
+    "avoid_tags": [],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "coop",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 10.9,
+   "error": null
+  },
+  "r18": {
+   "parsed": {
+    "seeds": [
+     "The Forest",
+     "Sons of the Forest",
+     "Green Hell",
+     "Palworld"
+    ],
+    "played": [
+     "The Forest",
+     "Sons of the Forest",
+     "Green Hell",
+     "Palworld",
+     "Stardew Valley",
+     "Dragon Quest Builders 2"
+    ],
+    "excluded": [],
+    "preference_text": "適合中年人的生存建造類型遊戲 (休閒玩) 能單人玩的愉快為主， 希望單人模式進遊戲時不會強迫要登入官方伺服器那種 可接受小農，但不要太農，還有家庭要顧，沒那麼多體力時間... 希望有NPC夥伴加入幫你做雜事，或安排NPC工作 有戰鬥升級元素，自己家園蓋好後，可以去探險打怪打寶 … 不要太可愛的風格 不喜歡活屍題材，也不喜歡太科幻的題材(例如宇宙探索那種) 希望在家園的部分有料理元素 … 節奏不要太緊湊，中年人反應慢",
+    "feel_want": [
+     "Casual",
+     "Relaxing"
+    ],
+    "feel_avoid": [
+     "Fast-Paced"
+    ],
+    "mechanics": [
+     "Survival",
+     "Base Building"
+    ],
+    "avoid_tags": [
+     "Zombies",
+     "Sci-fi",
+     "Space",
+     "Cute"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": true,
+    "party": {
+     "size": null,
+     "interaction": "any",
+     "setup": null,
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 21.2,
+   "error": null
+  },
+  "r31": {
+   "parsed": {
+    "seeds": [
+     "Age of Empires II: Definitive Edition",
+     "League of Legends",
+     "HELLDIVERS™ 2"
+    ],
+    "played": [
+     "Age of Empires II: Definitive Edition",
+     "League of Legends",
+     "HELLDIVERS™ 2"
+    ],
+    "excluded": [
+     "Party Animals",
+     "Ultimate Chicken Horse",
+     "Overcooked!",
+     "PUBG: BATTLEGROUNDS",
+     "Apex Legends",
+     "Counter-Strike 2"
+    ],
+    "preference_text": "可以有一點策略性，但不要太燒腦的佳 如果可以是一場一場的佳， 主要是彈性高、遊戲時間好預測，但也非必要 不排斥射擊類遊戲，但太純槍戰的就沒有很喜歡",
+    "feel_want": [
+     "Strategy"
+    ],
+    "feel_avoid": [
+     "Difficult"
+    ],
+    "mechanics": [],
+    "avoid_tags": [
+     "Party Game",
+     "Sports",
+     "Racing"
+    ],
+    "avoid_content": [],
+    "budget": null,
+    "price_intent": "none",
+    "only_discounted": false,
+    "library_policy": "none",
+    "language": null,
+    "platform": null,
+    "age_limit": null,
+    "max_hours": null,
+    "same_studio": false,
+    "single_player": false,
+    "party": {
+     "size": 2,
+     "interaction": "any",
+     "setup": "online",
+     "groups": null
+    },
+    "people": []
+   },
+   "seconds": 13.3,
+   "error": null
+  }
+ }
+}
