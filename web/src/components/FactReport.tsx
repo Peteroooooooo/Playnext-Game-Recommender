@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { api, errorMessage, type ReportField } from "../api";
-import { REPORT_FIELD_ZH } from "../types";
+import { useT } from "../i18n";
 
 const MAX_TEXT = 300;
 
@@ -16,6 +16,7 @@ interface Props {
 /** "事实有误？" inline form. Only records the report; the current result is not changed. */
 export function FactReportForm({ id, appid, gameName, sessionId, onSent, onCancel }: Props) {
   const uid = useId();
+  const t = useT();
   const [field, setField] = useState<ReportField>("players");
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
@@ -28,17 +29,17 @@ export function FactReportForm({ id, appid, gameName, sessionId, onSent, onCance
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
-    const t = text.trim();
-    if (!t) {
-      setError("说一句哪里不对，比如“其实最多支持 8 人”");
+    const v = text.trim();
+    if (!v) {
+      setError(t.reportNeedText);
       return;
     }
     setBusy(true);
     setError(null);
     try {
-      const r = await api.report({ ...(sessionId ? { session_id: sessionId } : {}), appid, field, text: t });
+      const r = await api.report({ ...(sessionId ? { session_id: sessionId } : {}), appid, field, text: v });
       if (r.ok) onSent();
-      else setError("没能记录，请稍后再试");
+      else setError(t.reportFailed);
     } catch (err) {
       setError(errorMessage(err));
     } finally {
@@ -50,7 +51,7 @@ export function FactReportForm({ id, appid, gameName, sessionId, onSent, onCance
     <form
       id={id}
       className="report"
-      aria-label={`报告《${gameName}》的事实错误`}
+      aria-label={t.reportAria(gameName)}
       aria-busy={busy}
       onSubmit={send}
       onKeyDown={(e) => {
@@ -62,7 +63,7 @@ export function FactReportForm({ id, appid, gameName, sessionId, onSent, onCance
     >
       <div className="field">
         <label className="field-label" htmlFor={`${uid}-field`}>
-          哪一项有误
+          {t.reportField}
         </label>
         <select
           id={`${uid}-field`}
@@ -71,16 +72,16 @@ export function FactReportForm({ id, appid, gameName, sessionId, onSent, onCance
           value={field}
           onChange={(e) => setField(e.target.value as ReportField)}
         >
-          {(Object.keys(REPORT_FIELD_ZH) as ReportField[]).map((k) => (
+          {(Object.keys(t.reportFields) as ReportField[]).map((k) => (
             <option key={k} value={k}>
-              {REPORT_FIELD_ZH[k]}
+              {t.reportFields[k]}
             </option>
           ))}
         </select>
       </div>
       <div className="field">
         <label className="field-label" htmlFor={`${uid}-text`}>
-          具体哪里不对
+          {t.reportDetail}
           <span className="hint" aria-hidden="true">
             {" "}
             {text.length} / {MAX_TEXT}
@@ -92,7 +93,7 @@ export function FactReportForm({ id, appid, gameName, sessionId, onSent, onCance
           rows={3}
           maxLength={MAX_TEXT}
           value={text}
-          placeholder="比如：商店页写的是最多 8 人在线"
+          placeholder={t.reportPlaceholder}
           onChange={(e) => {
             setText(e.target.value);
             if (error) setError(null);
@@ -108,10 +109,10 @@ export function FactReportForm({ id, appid, gameName, sessionId, onSent, onCance
       )}
       <div className="inline-row">
         <button type="submit" className="btn" disabled={busy}>
-          {busy ? "发送中…" : "发送"}
+          {busy ? t.reportSending : t.reportSend}
         </button>
         <button type="button" className="btn ghost" onClick={onCancel}>
-          取消
+          {t.cancel}
         </button>
       </div>
     </form>
