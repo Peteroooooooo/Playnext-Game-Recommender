@@ -37,8 +37,25 @@ def facts(kb: KB, i):
     return {"name": kb.name[a], "tags": [kb.tag_en[t] for t in tags], "about": d}
 
 
-def llm_scores(kb: KB, llm, texts: dict, cand):
-    """texts: target -> words. Returns target -> {row: 0-10 score} from one LLM call."""
+def llm_scores(kb: KB, llm, texts: dict, cand, batches=None):
+    """texts: target -> words. Returns target -> {row: 0-10 score}. One LLM call, or `batches` (default
+    config.RERANK_BATCHES) parallel calls over consecutive slices of the candidates; the raw 0-10 scores of the
+    slices are merged as they are, since the scale is fixed by the prompt (per-batch normalisation drifted more)."""
+    b = max(1, min(batches or C.RERANK_BATCHES, len(cand)))
+    if b == 1:
+        return _llm_scores(kb, llm, texts, cand)
+    from concurrent.futures import ThreadPoolExecutor
+    parts = [[int(x) for x in p] for p in np.array_split(np.array(cand), b)]
+    with ThreadPoolExecutor(b) as ex:
+        got = list(ex.map(lambda p: _llm_scores(kb, llm, texts, p), parts))
+    out = {}
+    for g in got:
+        for t, sc in g.items():
+            out.setdefault(t, {}).update(sc)
+    return out
+
+
+def _llm_scores(kb: KB, llm, texts: dict, cand):
     items = {f"g{k}": facts(kb, i) for k, i in enumerate(cand)}
     keys = {f"r{j}": t for j, t in enumerate(texts)}
 

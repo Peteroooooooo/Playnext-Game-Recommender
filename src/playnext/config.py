@@ -29,6 +29,18 @@ RERANK_W = 0.9           # w_r: share of the rerank score after fusion. Chosen 2
                          # by a second judge of another model family (0.6: 1.73, 0.9 with game names: 1.79; test half
                          # 1.75 -> 1.84). The fused score still decides which 80 games get reranked.
 RERANK_GAME_NAMES = True # append the mentioned games' English store names to the rerank query (rerank.with_game_names)
+RERANK_BATCHES = 1       # > 1: candidates split into this many parallel calls, raw scores kept (per-batch min-max,
+                         # z-score and anchor calibration all drifted more). 2026-10-22, 29 request-set posts, no
+                         # thinking: 1 batch 7.2 s, top 5 vs the old full call 3.38 / 5; 8 batches 4.5 s, 3.10 / 5
+                         # (the same full call run twice: 3.55 / 5). 1 kept: 3 s is not worth the extra drift.
+
+# Generative LLM thinking per call purpose (llm.LLM.chat): a reasoning_effort value ("none" / "low" / ...) or None
+# for the model's own default. 2026-10-22 (scripts/eval_thinking.py, eval_rerank_speed.py, request-set posts):
+# without thinking the parse matches the per-post gold as well as before (people 28/30, budget 32/32, played /
+# excluded 120 vs 121 of 138; the default run twice also differs by one) in 4.2 s instead of 11.9 s; rerank 7.2 s
+# instead of 31 s with top 5 within the model's own run-to-run noise; reasons 160 / 160 pass the fact check in
+# 5.7 s instead of 15.6 s. Purposes not listed use the default.
+THINKING = {"understand": "none", "patch": "none", "rerank": "none", "reasons": "none"}
 
 # Step 4 ranking (design 5.5)
 DELTA = 0.10
