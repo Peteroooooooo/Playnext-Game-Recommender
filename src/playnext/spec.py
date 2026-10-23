@@ -3,6 +3,8 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
+from .i18n import L
+
 
 REGION_CURRENCY = {"CN": "CNY", "US": "USD"}   # store regions with price snapshots (design 3, first batch)
 
@@ -33,7 +35,7 @@ class Library(BaseModel):
 
 
 class Member(BaseModel):
-    name: str = "我"
+    name: str = Field(default_factory=lambda: L("我", "Me"))   # default name, in the request language
     region: str = "CN"
     library: Optional[Library] = None
     owned_extra: list[int] = []           # guests ticking "I already own this" on a card
