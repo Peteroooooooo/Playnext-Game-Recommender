@@ -124,5 +124,11 @@ Built with Python 3.12, FastAPI, NumPy / SciPy / pandas, PostgreSQL 16, React 18
 
 ## Credits
 
-An NUS-ISS group project ("Backlog Breaker"). Price data courtesy of IsThereAnyDeal. IGDB data is used for
-non-commercial purposes. Not affiliated with Valve or Steam.
+Price data courtesy of IsThereAnyDeal. IGDB data is used for non-commercial purposes. Not affiliated with Valve or
+Steam.
+
+## Team
+
+An NUS-ISS group project ("Backlog Breaker").
+
+- [@Peteroooooooo](https://github.com/Peteroooooooo)
