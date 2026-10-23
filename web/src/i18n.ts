@@ -142,7 +142,7 @@ const zh = {
   more: "还可以看看",
   showMore: (n: number) => `再看 ${n} 款`,
   showLess: "收起",
-  nearTitle: "差一点就符合",
+  nearSummary: (n: number) => `还有 ${n} 款差一点符合`,
   openDetail: (name: string) => `${name}，打开详情`,
   positive: (p: number) => `${p}% 好评`,
 
@@ -381,7 +381,7 @@ const en: Dict = {
   more: "You might also like",
   showMore: (n) => `${n} more`,
   showLess: "Show less",
-  nearTitle: "Almost a match",
+  nearSummary: (n) => `${n} more that almost match`,
   openDetail: (name) => `${name}, open details`,
   positive: (p) => `${p}% positive`,
 

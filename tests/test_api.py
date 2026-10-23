@@ -37,14 +37,16 @@ def test_form_group(client):
 
 def test_near_misses_carry_poster_facts_and_relax(client):
     form = {"members": [{"name": "A", "site": 0, "avoid_tags": [1667]}, {"name": "B", "site": 1}],
-            "seeds": [IT_TAKES_TWO], "interaction": "coop", "budget": 1}
+            "seeds": [IT_TAKES_TWO], "interaction": "coop", "budget": 30}
     r = client.post("/api/recommend", json={"form": form}).json()
     assert r["failed"]
     for f in r["failed"]:
         assert "price" in f and "pct_positive" in f and f["miss"]["cause"]
         assert not any("雷区" in w for w in f["why"])   # what the user ruled out is never a near miss
+        assert f["miss"]["cause"] != "mode"             # the setup was stated (online), so lacking it is not near
     budget = [f for f in r["failed"] if f["miss"]["cause"] == "budget"]
     assert budget and all(f["relax"] == "budget" for f in budget)
+    assert all(f["miss"]["value"] <= 1.5 * 30 for f in budget)   # config.NEAR_BUDGET_X
     r2 = client.post("/api/relax", json={"session_id": r["session_id"], "key": "budget"}).json()
     assert len(r2["picks"]) == 5 and r2["understood"]["budget"] is None
 
@@ -110,3 +112,15 @@ def test_stream_reports_real_steps_then_the_result(client):
 def test_stream_turns_http_errors_into_an_error_line(client):
     ev = _lines(client.post("/api/rerun?stream=1", json={"session_id": "nope", "lang": "en"}))
     assert ev[-1]["type"] == "error" and ev[-1]["status"] == 404 and "expired" in ev[-1]["detail"]
+
+
+def test_stated_couch_coop_lists_no_online_only_games_as_near_misses(client):
+    # two people on one screen: games without a local co-op mode (Red Dead 2, Terraria) broke the request outright
+    form = {"members": [{"name": "A", "site": 0}, {"name": "B", "site": 0}], "seeds": [IT_TAKES_TWO],
+            "interaction": "coop"}
+    r = client.post("/api/recommend", json={"form": form}).json()
+    assert r["picks"] and all(c["setup"]["kind"] == "local" for c in r["picks"])
+    assert not [f for f in r["failed"] if f["miss"]["cause"] in ("mode", "region")]
+    # a "1 player on one screen" limit is a single-player game, not a seat short
+    assert all(f["miss"]["value"] >= 2 for f in r["failed"] if f["miss"]["cause"] == "players")
+    assert 1174180 not in [f["appid"] for f in r["failed"]]   # Red Dead Redemption 2

@@ -80,6 +80,10 @@ PREFER_OWNED_W = 0.2     # window term for library_policy = prefer_owned
 SHORT_W = 0.2            # window term for "short game" (IGDB time to beat)
 CHEAP_ZERO = {"CN": 200, "US": 30}   # price_intent "cheap": price score falls linearly from free (1) to this (0)
 FAILED_SHOW = 8          # "没通过的" list: best-liked games that broke a hard rule
+# ... but only when they are a little off (pipeline._is_near; 2026-10-23, the user: a stated 同屏 request must not
+# list online-only games as "差一点"). A stated setup / interaction the game lacks never counts.
+NEAR_PLAYERS_SHORT = 2   # player limit at most this many seats short of the party
+NEAR_BUDGET_X = 1.5      # price at most this multiple of the budget
 
 # Slow loop (design 5.3 Step 6): card feedback saved per bound account, liked games decay as anchors
 LIKED_HALF_LIFE_DAYS = 180

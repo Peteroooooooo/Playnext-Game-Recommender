@@ -260,13 +260,18 @@ class Recommender:
         if rel is None:
             rel = minmax(prior(kb), wide)
         idx = np.flatnonzero(cand)
-        idx = idx[np.argsort(-rel[idx], kind="stable")][:C.FAILED_SHOW]
+        idx = idx[np.argsort(-rel[idx], kind="stable")]
         region = spec.members[0].region
         out = []
         for i in idx:
+            if len(out) == C.FAILED_SHOW:
+                break
             a = int(kb.appids[i])
             broken = [r for r in fr.rules if r.status[i] == FAIL and r.key not in ("exclude", "exclude_owned")]
-            cause, value = _miss(broken[0], a, kb, region)
+            misses = [_miss(r, a, kb, region) for r in broken]
+            if not all(_is_near(spec, c, v) for c, v in misses):
+                continue
+            cause, value = misses[0]
             relax = _relax_key(spec, cause) if len(broken) == 1 else None
             out.append({"appid": a, "name": kb.display_name(a), "why": [r.reason.get(a, r.label) for r in broken],
                         "relevance": round(float(rel[i]), 3), "price": price_facts(self.prices, a, region),
@@ -292,6 +297,22 @@ def _miss(rule, appid, kb, region):
         p = kb.price(appid, region)
         return "budget", None if p is None else float(p["final"])
     return {"discount": "discount", "mechanics": "mechanics", "solo": "solo", "region": "region"}.get(rule.key, "other"), None
+
+
+def _is_near(spec: SessionSpec, cause: str, value) -> bool:
+    """Whether a broken rule is only 'a little off' (a near miss is shown) or plainly not what was asked. A play
+    setup or interaction the user stated (同屏 / 线上 / 合作) that the game lacks is never near; a player limit is
+    near when the mode is really multiplayer (limit >= 2) and at most NEAR_PLAYERS_SHORT seats short, a price when at
+    most NEAR_BUDGET_X x the budget. Not sold in the player's store is never near."""
+    if cause == "mode":
+        return not (spec.sites or spec.setup_hint or spec.interaction != "any")
+    if cause == "region":
+        return False
+    if cause == "players":
+        return value is None or (value >= 2 and spec.party_size - value <= C.NEAR_PLAYERS_SHORT)
+    if cause == "budget":
+        return value is None or spec.budget is None or value <= C.NEAR_BUDGET_X * spec.budget.amount
+    return True
 
 
 def _relax_key(spec: SessionSpec, cause: str):
