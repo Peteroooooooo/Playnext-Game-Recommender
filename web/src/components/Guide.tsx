@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BOOST_DEMO, EXAMPLES, STORE_DEMO, addPart, removePart, splitParts } from "../guide";
 import { useT } from "../i18n";
 import { art } from "../present";
-import { LockIcon, SteamIcon } from "./icons";
+import { LockIcon, SteamIcon } from "./Icons";
 
 interface Props {
   id: string;
