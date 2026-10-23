@@ -10,6 +10,7 @@ import re
 import urllib.parse
 import urllib.request
 
+from .i18n import L
 from .pricing import load_env
 from .profiles import profile_key
 from .spec import Library
@@ -71,7 +72,8 @@ def library_from_profile(text) -> tuple[Library, str]:
         raise LibraryError("STEAM_API_KEY missing")
     sid = resolve_steamid(text, key)
     if not sid:
-        raise LibraryError("没认出这个 Steam 账号：请检查主页链接或自定义名")
+        raise LibraryError(L("没认出这个 Steam 账号：请检查主页链接或自定义名",
+                             "Could not find this Steam account: check the profile link or custom name"))
     return fetch_library(sid, key), profile_key(sid)
 
 

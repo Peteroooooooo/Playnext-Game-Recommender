@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from . import appindex
 from .aliases import Resolver
+from .i18n import L
 from .kb import KB
 from .llm import chat_json
 from .spec import REGION_CURRENCY, Budget, Member, SessionSpec, Site
@@ -81,7 +82,7 @@ Fields:
 - excluded: games the user explicitly does not want recommended for another reason ("not Minecraft", "不要推荐 X", "X is out").
 - preference_text: only the words describing the experience wanted, copied verbatim (drop game names, budget, price, people count, filler such as "similar"). null if none.
 - feel_want / feel_avoid: up to 4 Steam tag names each for the feel, pace or difficulty wanted / not wanted ("别太难" -> feel_avoid Difficult, Souls-like, Unforgiving; "轻松" -> feel_want Relaxing, Casual, Cozy).
-- mechanics: only when the user asks for a combination of gameplay types that must BOTH be central ("肉鸽 + 基地经营" -> Roguelike, Base Building).
+- mechanics: only when the user asks for a combination of two or more gameplay types that must ALL be central ("肉鸽 + 基地经营" -> Roguelike, Base Building). A single gameplay type ("安静的探索") goes in feel_want, never in mechanics.
 - avoid_tags: content refused outright (horror, gore-themed tags, ...); hard exclusion. avoid_content: "gore" and/or "sexual" when refused.
 - budget {amount, scope per_person|team_total, currency}: only an explicit price cap. currency is the ISO code of what they wrote: "60块 / 元 / RMB" = CNY, "$20 / dollars" = USD, "20 euros / €20" = EUR, "NT$300 / 台幣" = TWD, "£" = GBP, and so on. "My budget personally" = per_person.
 - price_intent: near_record_low for "打折 / on sale / 史低 / discount", cheap for "便宜 / cheap"; only_discounted true only for "只看打折的 / must be on sale".
@@ -185,7 +186,8 @@ class Understander:
         for i in range(size):
             prev = old[i] if i < len(old) else None
             region = cur_region if cur_region and same_region else (prev.region if prev else (old[0].region if old else "CN"))
-            m = Member(name=prev.name if prev else ("我" if i == 0 else f"成员{i + 1}"), region=region,
+            m = Member(name=prev.name if prev else (L("我", "Me") if i == 0 else L(f"成员{i + 1}", f"Player {i + 1}")),
+                       region=region,
                        library=prev.library if prev else None, owned_extra=list(prev.owned_extra) if prev else [],
                        liked=dict(prev.liked) if prev else {}, disliked=list(prev.disliked) if prev else [])
             members.append(m)
@@ -214,13 +216,17 @@ class Understander:
                 k += g
         elif size > 1 and p.party.setup == "local":
             sites = [Site(members=list(range(size)))]
+        # a hard gameplay combination needs at least two tags; a single one ("安静的探索" -> Exploration) is a wish
+        mechanics, feel_want = self.tags(p.mechanics), self.tags(p.feel_want)
+        if len(mechanics) < 2:
+            feel_want, mechanics = list(dict.fromkeys(feel_want + mechanics)), []
         budget = unsupported = None
         if p.budget:
             b = Budget(amount=p.budget.amount, scope=p.budget.scope, currency=p.budget.currency)
             budget, unsupported = (b, None) if cur_region else (None, b)
         spec = SessionSpec(
             request_text=text, members=members, seeds=seeds, preference_text=p.preference_text,
-            feel_want=self.tags(p.feel_want), feel_avoid=self.tags(p.feel_avoid), mechanics=self.tags(p.mechanics),
+            feel_want=feel_want, feel_avoid=self.tags(p.feel_avoid), mechanics=mechanics,
             same_studio=p.same_studio, max_hours=p.max_hours, interaction=p.party.interaction, budget=budget,
             single_player=p.single_player and size == 1,
             price_intent=p.price_intent, only_discounted=p.only_discounted, library_policy=p.library_policy,
@@ -233,7 +239,7 @@ class Understander:
 def describe(kb: KB, spec: SessionSpec) -> dict:
     """Readable summary of what Step 1 understood (shown on the result page)."""
     name = kb.display_name
-    tz = lambda ts: [kb.tag_zh[t] for t in ts]
+    tz = lambda ts: [kb.tag_name(t) for t in ts]
     out = {"seeds": [name(a) for a in spec.seeds], "preference_text": spec.preference_text,
            "feel_want": tz(spec.feel_want), "feel_avoid": tz(spec.feel_avoid), "mechanics": tz(spec.mechanics),
            "budget": spec.budget.model_dump() if spec.budget else None,

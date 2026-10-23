@@ -72,6 +72,21 @@ def test_reason_consistency_check():
     assert cards[0]["reason_source"] == "template"   # inconsistent twice -> template
 
 
+def test_single_mechanic_becomes_a_wish(kb):
+    u = Understander(kb, None)
+    one = u.to_spec(ParsedRequest.model_validate({"feel_want": ["Atmospheric"], "mechanics": ["Exploration"]}), "x")
+    assert one.mechanics == [] and one.feel_want == u.tags(["Atmospheric", "Exploration"])
+    two = u.to_spec(ParsedRequest.model_validate({"mechanics": ["Roguelike", "Base Building"]}), "x")
+    assert two.mechanics == u.tags(["Roguelike", "Base Building"]) and two.feel_want == []
+
+
+def test_recommender_ask(kb):
+    from playnext.pipeline import Recommender
+    rec = Recommender(kb=kb, llm=FakeLLM(['{"seeds": ["Hades"]}']), live_prices=False, reasons=False, rerank=False)
+    p, res = rec.ask("像 Hades")
+    assert p.seeds == ["Hades"] and res.picks and "understand" in res.timings
+
+
 def test_price_pref():
     assert price_pref({"is_free": False, "final": 10, "low": 10}) == 1.0
     assert price_pref({"is_free": False, "final": 20, "low": 10}) == 0.0

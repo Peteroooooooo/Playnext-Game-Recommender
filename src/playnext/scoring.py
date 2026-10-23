@@ -80,7 +80,12 @@ def _wagg(sim, w, how):
     return ws.max(0), ws.argmax(0)
 
 
-def channel_scores(kb: KB, taste: Taste, pool: np.ndarray, pref_vec=None) -> Scored:
+def prior(kb: KB):
+    """Smoothed rating x log(reviews): the order when nothing about taste is known (design 5.5 'cold start')."""
+    return (kb.quality * np.log1p(kb.review_count)).astype(np.float32)
+
+
+def channel_scores(kb: KB, taste: Taste, pool: np.ndarray) -> Scored:
     a_ids = [a for a in taste.anchors if a in kb.pos]
     rows = [kb.pos[a] for a in a_ids]
     w = np.array([taste.anchors[a] for a in a_ids], np.float32)
@@ -91,30 +96,23 @@ def channel_scores(kb: KB, taste: Taste, pool: np.ndarray, pref_vec=None) -> Sco
     if a_ids:
         raw["tag"], ev["tag_hit"] = _wagg(kb.T[rows] @ kb.T.T, w, C.TAG_AGG)
         has["tag"] = kb.T_has
-        d, ev["desc_hit"] = _wagg(kb.desc_sim(rows=rows), w, C.DESC_AGG)
         contrib = kb.ease_rows(a_ids) * w[:, None]
         raw["colike"], ev["co_hit"] = contrib.sum(0), contrib.argmax(0)
         ev["co_contrib"] = contrib
-        has["colike"] = kb.ease_has & any(int(a) in kb._ease[1] for a in a_ids)
+        has["colike"] = kb.ease_has & bool(kb.ease_has[rows].any())
         same_dev, same_ser, sim = kb.lineage(a_ids)
         parts = {"dev": same_dev, "ser": same_ser, "sim": sim}
         linked = set().union(*(parts[p] for p in C.LINEAGE_PARTS))
         raw["lineage"] = np.isin(kb.appids, list(linked)).astype(np.float32)
         has["lineage"] = np.ones(n, bool)
         ev.update(same_dev=same_dev, same_ser=same_ser, igdb_sim=sim)
-        raw["desc"], has["desc"] = d, kb.E_has
     else:
-        for c in ("tag", "desc", "colike", "lineage"):
+        for c in ("tag", "colike", "lineage"):
             raw[c], has[c] = zeros.copy(), none
     # seeds outside the core library: content only (no co-like row), added like core anchors of weight 1
     for o in taste.outside:
-        if o.get("tag_vec") is not None:
-            raw["tag"] = raw["tag"] + kb.T @ o["tag_vec"]
-            has["tag"] = kb.T_has
-        if o.get("desc_vec") is not None:
-            d = kb.desc_sim(query=o["desc_vec"])
-            raw["desc"] = raw["desc"] + np.maximum(d, 0)
-            has["desc"] = kb.E_has
+        raw["tag"] = raw["tag"] + kb.T @ o["tag_vec"]
+        has["tag"] = kb.T_has
     if taste.outside:
         ev["outside"] = [o["name"] for o in taste.outside]
     norm = {c: (raw[c] if c == "lineage" else minmax(raw[c], pool & has[c])) for c in raw}
@@ -122,21 +120,27 @@ def channel_scores(kb: KB, taste: Taste, pool: np.ndarray, pref_vec=None) -> Sco
     if taste.same_studio:
         W["lineage"] = C.SAME_STUDIO_W
     wsum = sum(W[c] * has[c] for c in W)
-    content = has["tag"] | has["desc"] | has["colike"]  # lineage alone (a 0/1 feature) must not carry a game
-    fused = np.where(content, sum(W[c] * norm[c] * has[c] for c in W) / np.maximum(wsum, 1e-9), 0).astype(np.float32)
-    if pref_vec is not None:  # the preference sentence against every description (design 5.5 description channel)
-        dp = kb.desc_sim(query=pref_vec)
-        ev["d_pref"] = dp
-        pn = minmax(dp, pool & kb.E_has)
-        norm["pref"], has["pref"] = pn, kb.E_has
-        fused = np.where(content, (1 - C.PREF_W) * fused + C.PREF_W * pn, pn * kb.E_has).astype(np.float32)
-        content = content | kb.E_has
+    content = has["tag"] | has["colike"]  # lineage alone (a 0/1 feature) must not carry a game
+    if C.FUSION == "geometric":
+        # weighted geometric mean of tag and co-like: a game needs both, a zero in either pulls it down; a channel the
+        # game lacks drops out (exponents renormalised); lineage stays an additive bonus
+        e = C.FUSION_EPS
+        wt, wc = W["tag"] * has["tag"], W["colike"] * has["colike"]
+        ws = np.maximum(wt + wc, 1e-9)
+        geo = np.exp((wt * np.log(norm["tag"] + e) + wc * np.log(norm["colike"] + e)) / ws) - e
+        fused = np.where(content, np.maximum(geo, 0) + W["lineage"] * norm["lineage"], 0).astype(np.float32)
+    else:
+        fused = np.where(content, sum(W[c] * norm[c] * has[c] for c in W) / np.maximum(wsum, 1e-9), 0).astype(np.float32)
     if taste.feel_want or taste.feel_avoid:
         f = feel_raw(kb, taste.feel_want, taste.feel_avoid)
         fn = minmax(f, pool & kb.T_has)
         norm["feel"], has["feel"] = fn, kb.T_has
         fused = np.where(content, (1 - C.FEEL_W) * fused + C.FEEL_W * fn, fn * kb.T_has).astype(np.float32)
         ev["feel_tags"] = (list(taste.feel_want), list(taste.feel_avoid))
+    elif not content.any() and taste.preference_text:
+        # words only, nothing they map to: the LLM rerank judges the words over the best-reviewed games
+        fused = minmax(prior(kb), pool)
+        ev["prior"] = True
     return Scored(fused, norm, has, ev)
 
 
@@ -150,9 +154,8 @@ def feel_raw(kb: KB, want, avoid):
     return out
 
 
-def personal(kb: KB, taste: Taste, pool, encoder=None) -> Scored:
-    pref_vec = encoder(taste.preference_text) if (taste.preference_text and encoder) else None
-    s = channel_scores(kb, taste, pool, pref_vec)
+def personal(kb: KB, taste: Taste, pool) -> Scored:
+    s = channel_scores(kb, taste, pool)
     if taste.library and taste.anchors:
         lib = channel_scores(kb, Taste(anchors=taste.library), pool)
         seed_pool = np.zeros(kb.n, bool)
@@ -175,7 +178,7 @@ def group_aggregate(user_scores: list, method=None):
     return C.GROUP_MEAN_W * U.mean(0) + C.GROUP_MIN_W * U.min(0)
 
 
-def relevance(kb: KB, spec: SessionSpec, pool: np.ndarray, encoder=None):
+def relevance(kb: KB, spec: SessionSpec, pool: np.ndarray):
     """Final liking score per game (design 5.5 'final liking score'), plus per-target details for cards.
     details maps each scoring target ('me', a member index, 'shared') to (taste, scored); details['norm'] holds
     every target's pool-normalised score so a rerank can adjust one target before aggregation (combine())."""
@@ -183,26 +186,26 @@ def relevance(kb: KB, spec: SessionSpec, pool: np.ndarray, encoder=None):
     outside = []
     if spec.outside_seeds:
         from .outside import anchor
-        outside = [o for o in (anchor(kb, a, encoder) for a in spec.outside_seeds) if o]
+        outside = [o for o in (anchor(kb, a) for a in spec.outside_seeds) if o]
     if spec.party_size == 1:
         m = spec.members[0]
         taste = member_taste(kb, m, spec.seeds, spec.preference_text, spec.feel_want, spec.feel_avoid, outside)
         taste.same_studio = spec.same_studio
         if taste.empty:
             return None, {}
-        s = personal(kb, taste, pool, encoder)
+        s = personal(kb, taste, pool)
         details["me"], norm["me"] = (taste, s), minmax(s.score, pool)
     else:
         for i, m in enumerate(spec.members):
             if m.has_taste:
                 t = member_taste(kb, m)
-                s = personal(kb, t, pool, encoder)
+                s = personal(kb, t, pool)
                 details[i], norm[i] = (t, s), minmax(s.score, pool)
         if spec.has_shared:
             t = Taste(anchors={a: 1.0 for a in spec.seeds if a in kb.pos}, preference_text=spec.preference_text,
                       feel_want=spec.feel_want, feel_avoid=spec.feel_avoid, same_studio=spec.same_studio,
                       outside=outside)
-            s = personal(kb, t, pool, encoder)
+            s = personal(kb, t, pool)
             details["shared"], norm["shared"] = (t, s), minmax(s.score, pool)
         if not norm:
             return None, {}

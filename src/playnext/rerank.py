@@ -18,15 +18,14 @@ SYS_MULTI = """You score how well each candidate Steam game fits what each perso
 
 
 def candidates(kb: KB, rel, status_ok, details, n=None):
-    """Top-N by the fused score, plus the best games by the sentence and feel channels alone (design 5.5 union)."""
+    """Top-N by the fused score, plus the best games by the feel channel alone (design 5.5 union)."""
     n = n or C.RERANK_N
     idx = np.flatnonzero(status_ok)
     pick = list(idx[np.argsort(-rel[idx], kind="stable")][:n])
-    for key in ("pref", "feel"):
-        for t in details.values():
-            if isinstance(t, tuple) and key in t[1].parts:
-                part = t[1].parts[key]
-                pick += list(idx[np.argsort(-part[idx], kind="stable")][:C.RERANK_EXTRA])
+    for t in details.values():
+        if isinstance(t, tuple) and "feel" in t[1].parts:
+            part = t[1].parts["feel"]
+            pick += list(idx[np.argsort(-part[idx], kind="stable")][:C.RERANK_EXTRA])
     return list(dict.fromkeys(int(i) for i in pick))
 
 
@@ -103,17 +102,33 @@ def with_game_names(kb: KB, spec, text):
     return f"{text}\n(Games mentioned: {', '.join(names[:8])})" if names and text else text
 
 
-def targets_with_words(spec):
-    """Which scoring targets have words to compare (design 5.5: seeds or a library alone are not reranked)."""
+def seed_words(kb: KB, seeds):
+    """'Games like X' with no other words: the request the rerank judges is the reference games' own store facts
+    (design 10.18; a library alone is still not reranked). None when no seed is in the core library."""
+    ref = [facts(kb, kb.pos[a]) for a in dict.fromkeys(seeds) if a in kb.pos]
+    if not ref:
+        return None
+    return "Games like these (the player's reference games, with their store facts):\n" + json.dumps(ref, ensure_ascii=False)
+
+
+def targets_with_words(spec, kb: KB | None = None):
+    """Which scoring targets have words to compare (design 5.5). With `kb` and config.RERANK_SEEDS, a target that
+    has reference games but no words is reranked against those games' facts."""
+    seeds = kb is not None and C.RERANK_SEEDS
     if spec.party_size == 1:
         m = spec.members[0]
         if spec.preference_text or spec.feel_want or spec.feel_avoid or m.preference_text:
             return {"me": spec.request_text or spec.preference_text or m.preference_text}
-        return {}
+        words = seeds and seed_words(kb, list(spec.seeds) + list(m.seeds))
+        return {"me": words} if words else {}
     out = {}
     if spec.preference_text or spec.feel_want or spec.feel_avoid:
         out["shared"] = spec.request_text or spec.preference_text
+    elif seeds and (words := seed_words(kb, spec.seeds)):
+        out["shared"] = words
     for i, m in enumerate(spec.members):
         if m.preference_text:
             out[i] = m.preference_text
+        elif seeds and (words := seed_words(kb, m.seeds)):
+            out[i] = words
     return out

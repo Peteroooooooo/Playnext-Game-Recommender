@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from . import config as C
+from .i18n import L
 from .kb import KB
 from .pricing import Prices, price_pref
 from .rules import PASS, UNKNOWN, FilterResult, money, over_budget
@@ -50,10 +51,11 @@ def _live_ok(kb: KB, spec: SessionSpec, fr: FilterResult, prices: Prices, i):
         if p is None or p["is_free"]:
             return None
         if spec.only_discounted and not p["discount_pct"]:
-            return "实时价格：已不在打折"
+            return L("实时价格：已不在打折", "live price: no longer on sale")
         if (spec.budget and spec.budget.applies_to(m.region) and p["final"] is not None
                 and p["final"] > spec.budget.amount):
-            return f"实时价格 {money(p['final'], m.region)} 超出预算"
+            return L(f"实时价格 {money(p['final'], m.region)} 超出预算",
+                     f"live price {money(p['final'], m.region)} is over budget")
         return None
     kind = fr.best_setup.get(a)
     plan = fr.setups[kind].plan.get(a) if kind else None
@@ -70,8 +72,10 @@ def _live_ok(kb: KB, spec: SessionSpec, fr: FilterResult, prices: Prices, i):
     if over is None:
         return None
     region = next((m.region for m in spec.members if spec.budget.applies_to(m.region)), spec.members[0].region)
-    scope = "每人预算" if spec.budget.scope == "per_person" else "团队预算"
-    return f"实时价格 {money(over, region)} 超出{scope} {money(spec.budget.amount, region)}"
+    per = spec.budget.scope == "per_person"
+    scope = L("每人预算" if per else "团队预算", "the per-person budget" if per else "the team budget")
+    return L(f"实时价格 {money(over, region)} 超出{scope} {money(spec.budget.amount, region)}",
+             f"live price {money(over, region)} is over {scope} of {money(spec.budget.amount, region)}")
 
 
 def window_score(kb: KB, spec: SessionSpec, prices: Prices, i, rel):

@@ -90,3 +90,20 @@ def test_pipeline_group_and_empty(kb):
     assert not res.picks and res.relax
     res = rec.recommend(SessionSpec())
     assert res.picks and any("口味" in n for n in res.notes)  # cold start: rating prior plus a hint
+
+
+def test_geometric_fusion_needs_both_channels(kb, monkeypatch):
+    # design 10.18: tag^0.7 x co-like^0.3; a sandbox library must not get Counter-Strike 2 (co-like top, tag ~0), and
+    # every top game needs co-like support
+    from conftest import TERRARIA
+    lib = {TERRARIA: 600, 892970: 240, 322330: 180, 264710: 95, 242760: 60}  # Terraria, Valheim, DST, Subnautica, The Forest
+    lib = {a: h for a, h in lib.items() if a in kb.pos}
+    pool = np.ones(kb.n, bool)
+    monkeypatch.setattr(C, "FUSION", "geometric")
+    s = personal(kb, member_taste(kb, Member(library=Library(owned=lib))), pool)
+    top = np.argsort(-np.where(pool, s.score, -np.inf))[:20]
+    assert kb.pos[730] not in set(top.tolist())
+    assert (s.parts["colike"][top] > 0).all() and (s.parts["tag"][top] > 0).all()
+    monkeypatch.setattr(C, "FUSION", "linear")
+    lin = personal(kb, member_taste(kb, Member(library=Library(owned=lib))), pool)
+    assert lin.score.shape == s.score.shape
