@@ -229,8 +229,8 @@ export function Results({ result: r, busy, playedOut, onOpen, onFocusGame, onRel
       )}
 
       {near.length > 0 && (
-        <section className="more" aria-labelledby="near-t">
-          <h3 id="near-t">{t.nearTitle}</h3>
+        <details className="near">
+          <summary>{t.nearSummary(near.length)}</summary>
           <div className="shelf">
             {near.map((m) => (
               <GameTile
@@ -245,7 +245,7 @@ export function Results({ result: r, busy, playedOut, onOpen, onFocusGame, onRel
               />
             ))}
           </div>
-        </section>
+        </details>
       )}
     </div>
   );
