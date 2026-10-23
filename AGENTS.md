@@ -11,7 +11,7 @@
 - Python 3.12，用 uv 管理，虚拟环境在仓库根目录的 `.venv`。第一次用先跑 `uv sync`。
 - 运行任何 Python 都用 `uv run python ...`、`uv run pytest`。不要直接敲 `python`：这台机器 PATH 上的 `python` 是 Windows 应用商店的占位程序，不会有任何输出。shell 里激活的 conda 环境（dailystudy）也不要用，uv 会自动忽略它。
 - 加依赖用 `uv add --bounds exact <包名>`，版本写死；测试和开发工具加 `--dev`。改完一起提交 `pyproject.toml` 和 `uv.lock`。
-- torch 在 Windows / Linux 上走 PyTorch 的 cu128 源（本机 RTX 4070 Ti SUPER 16 GB），macOS 走 PyPI。
+- torch 与 sentence-transformers 在 `models` 依赖组，只给离线脚本和评测用（默认会装）；在线服务不跑本地模型，服务器上用 `uv sync --no-group models`。torch 在 Windows / Linux 上走 PyTorch 的 cu128 源（本机 RTX 4070 Ti SUPER 16 GB），macOS 走 PyPI。
 - 数据库：`docker compose up -d` 启动本地 PostgreSQL 16，只监听 127.0.0.1。连接参数在 `.env` 的 `PGHOST` / `PGPORT` / `PGDATABASE` / `PGUSER` / `PGPASSWORD`。
 - 生成式 LLM：OpenAI 兼容接口，参数在 `.env` 的 `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL`。它返回的 JSON 可能包在 ```json 代码块里，解析前先去掉，再用 Pydantic 校验。一次小请求约 10 秒，别放在需要即时响应的循环里。
 - `.env` 用 `scripts/check_keys.py` 里的 `load_env()` 读取，不另加依赖。

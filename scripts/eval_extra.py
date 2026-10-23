@@ -9,9 +9,10 @@
             (a) price_intent none / near_record_low / cheap with the CN snapshot prices (no live calls);
             (b) rating smoothing: Beta prior from config vs the old placeholder (24.6, 5.4) vs the Wilson 95 % lower
                 bound vs no quality term, by swapping kb.quality in this script (package files untouched).
-  latency : scoring.channel_scores / relevance serial vs the four independent channels (tag, description,
-            co-like, lineage) in a ThreadPoolExecutor (variant written here), plus member-level concurrency for a
-            4-member group. Median of 30 interleaved runs after warm-up.
+  latency : scoring.channel_scores / relevance serial vs the independent channels (tag, co-like, lineage; the
+            description channel of the recorded runs was removed, design 10.18) in a ThreadPoolExecutor (variant
+            written here), plus member-level concurrency for a 4-member group. Median of 30 interleaved runs after
+            warm-up.
 Bootstrap 95 % CIs (400 resamples) over reviewers (paired where a difference is reported) or over tag pairs.
 Results: data/derived/eval_extra.json; log: data/derived/eval_extra.log.
   pricecurve : near_record_low price-preference curve (zero point 2x / 3x / 4x / 6x of the record low, linear, plus
@@ -58,7 +59,7 @@ def config_snapshot(kb):
     pos, rc = kb.pos_reviews, kb.review_count
     return {"ALPHA": C.ALPHA, "BETA": C.BETA, "WEIGHTS": dict(C.WEIGHTS), "DELTA": C.DELTA, "MMR_LAMBDA": C.MMR_LAMBDA,
             "BASE_W": dict(C.BASE_W), "RATING_FLOOR": C.RATING_FLOOR, "NEAR_LOW": C.NEAR_LOW,
-            "CHEAP_ZERO": dict(getattr(C, "CHEAP_ZERO", {})), "TAG_AGG": C.TAG_AGG, "DESC_AGG": C.DESC_AGG,
+            "CHEAP_ZERO": dict(getattr(C, "CHEAP_ZERO", {})), "TAG_AGG": C.TAG_AGG,
             "MAX_LIBRARY_ANCHORS": C.MAX_LIBRARY_ANCHORS, "SHORTLIST": C.SHORTLIST, "PICK": C.PICK,
             "kb_quality_matches_ALPHA_BETA": bool(np.allclose(kb.quality, (pos + C.ALPHA) / (rc + C.ALPHA + C.BETA))),
             "single_player_rules": [r.key for r in hard_filter(kb, SessionSpec()).rules]}
@@ -459,26 +460,23 @@ def _channel_jobs(kb, a_ids, rows, w):
     def tag():
         return _wagg(kb.T[rows] @ kb.T.T, w, C.TAG_AGG)
 
-    def desc():
-        return _wagg(kb.desc_sim(rows=rows), w, C.DESC_AGG)
-
     def colike():
         contrib = kb.ease_rows(a_ids) * w[:, None]
-        return contrib.sum(0), contrib.argmax(0), contrib, kb.ease_has & any(int(a) in kb._ease[1] for a in a_ids)
+        return contrib.sum(0), contrib.argmax(0), contrib, kb.ease_has & bool(kb.ease_has[rows].any())
 
     def lineage():
         same_dev, same_ser, sim = kb.lineage(a_ids)
         parts = {"dev": same_dev, "ser": same_ser, "sim": sim}
         linked = set().union(*(parts[p] for p in C.LINEAGE_PARTS))
         return np.isin(kb.appids, list(linked)).astype(np.float32), same_dev, same_ser, sim
-    return {"tag": tag, "desc": desc, "colike": colike, "lineage": lineage}
+    return {"tag": tag, "colike": colike, "lineage": lineage}
 
 
-def channel_scores_concurrent(kb, taste, pool, pref_vec=None):
-    """scoring.channel_scores with the four anchor channels computed in parallel threads; same output."""
+def channel_scores_concurrent(kb, taste, pool):
+    """scoring.channel_scores with the anchor channels computed in parallel threads; same output."""
     a_ids = [a for a in taste.anchors if a in kb.pos]
-    if not a_ids or pref_vec is not None or taste.feel_want or taste.feel_avoid:
-        return _orig_channel_scores(kb, taste, pool, pref_vec)
+    if not a_ids or taste.outside or taste.feel_want or taste.feel_avoid:
+        return _orig_channel_scores(kb, taste, pool)
     rows = [kb.pos[a] for a in a_ids]
     w = np.array([taste.anchors[a] for a in a_ids], np.float32)
     fut = {k: _EX_CH.submit(f) for k, f in _channel_jobs(kb, a_ids, rows, w).items()}
@@ -486,8 +484,6 @@ def channel_scores_concurrent(kb, taste, pool, pref_vec=None):
     ev, raw, has = {"anchors": a_ids}, {}, {}
     raw["tag"], ev["tag_hit"] = r["tag"]
     has["tag"] = kb.T_has
-    raw["desc"], ev["desc_hit"] = r["desc"]
-    has["desc"] = kb.E_has
     raw["colike"], ev["co_hit"], ev["co_contrib"], has["colike"] = r["colike"]
     raw["lineage"], same_dev, same_ser, sim = r["lineage"]
     has["lineage"] = np.ones(kb.n, bool)
@@ -497,7 +493,7 @@ def channel_scores_concurrent(kb, taste, pool, pref_vec=None):
     if taste.same_studio:
         W["lineage"] = C.SAME_STUDIO_W
     wsum = sum(W[c] * has[c] for c in W)
-    content = has["tag"] | has["desc"] | has["colike"]
+    content = has["tag"] | has["colike"]
     fused = np.where(content, sum(W[c] * norm[c] * has[c] for c in W) / np.maximum(wsum, 1e-9), 0).astype(np.float32)
     return Scored(fused, norm, has, ev)
 
@@ -555,8 +551,7 @@ def eval_latency(kb, us):
         blas, threadpool_limits = None, None
     out = {"env": {"cpu_count": os.cpu_count(), "numpy": np.__version__, "blas": blas, "reps": 30, "warmup": 3,
                    "channel_threads": 4, "member_threads": 4}}
-    kb.desc_sim(rows=[0])  # load the lazy matrices before timing
-    kb.ease_rows([int(kb.appids[0])])
+    kb.ease_rows([int(kb.appids[0])])  # load the lazy tables before timing
     kb.lineage([int(kb.appids[0])])
     for name, spec in specs.items():
         fr = hard_filter(kb, spec)

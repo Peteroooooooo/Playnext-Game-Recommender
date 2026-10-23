@@ -3,8 +3,9 @@
 Example user (made up): a Steam library + one sentence. Shows every intermediate number:
 anchor weights (playtime percentile), each channel's raw similarity and the anchor it came from,
 min-max normalisation, the weighted fusion, then the Step 4 window + quality + MMR pick.
-Channel weights, the 50/50 split inside the description channel and the lineage rule are demo values,
-not tuned. The description channel uses the English vectors from build_desc_embeddings.py (Qwen3-Embedding-4B).
+Channel weights and the lineage rule are demo values, not tuned (production: config.WEIGHTS). The description
+channel compares the precomputed English vectors from build_desc_embeddings.py; the sentence only reaches the
+scores through the feel tags Step 1 picks for it (no text model runs here, design 10.15).
 Usage: uv run python scripts/demo_walkthrough.py
 """
 import sys
@@ -25,7 +26,6 @@ FEEL = {"want": ["Relaxing", "Casual", "Cozy", "Wholesome"],  # what Step 1's LL
 FEEL_WEIGHT = float(sys.argv[1]) if len(sys.argv) > 1 else 0.25
 DELTA, TOP_SHOW, PICK = 0.10, 10, 5
 ALPHA, BETA = C.ALPHA, C.BETA  # smoothed-rating Beta prior fitted on the core library (playnext.config)
-MODEL = ROOT / ".cache" / "models" / "Qwen3-Embedding-4B"
 PROC = ROOT / "data" / "processed"
 DER = ROOT / "data" / "derived"
 DESC_EMB = DER / "desc_emb_qwen3_4b.npz"
@@ -65,14 +65,6 @@ def desc_vectors(appids):
     return z["en"][[row[a] for a in appids]].astype(np.float32)
 
 
-def encode_query(text):
-    import torch
-    from sentence_transformers import SentenceTransformer
-    m = SentenceTransformer(str(MODEL), model_kwargs={"torch_dtype": torch.float16}, tokenizer_kwargs={"padding_side": "left"})
-    prompt = "Instruct: Given what a player says they want, retrieve games whose store description matches it\nQuery: "
-    return m.encode([text], prompt=prompt, normalize_embeddings=True)[0].astype(np.float32)
-
-
 def weighted_max(sim, w):
     """sim: anchors x games. Returns per-game best weighted similarity and which anchor gave it."""
     ws = sim * w[:, None]
@@ -104,9 +96,7 @@ def main():
     tag_raw, tag_hit = weighted_max(T[ai] @ T[ci].T, wv)
 
     E = desc_vectors(appids)
-    q = encode_query(SENTENCE)
     d_anchor, d_hit = weighted_max(E[ai] @ E[ci].T, wv)
-    d_pref = E[ci] @ q
 
     z = np.load(DER / "ease_reviews100m.npz")
     col = {a: j for j, a in enumerate(z["items"])}
@@ -128,8 +118,7 @@ def main():
     lineage = np.array([1.0 if (a in same_dev or a in same_ser or a in igdb_sim) else 0.0 for a in cand], np.float32)
 
     mm = lambda x: (x - x.min()) / (x.max() - x.min() + 1e-9)
-    desc_raw = 0.5 * mm(d_anchor) + 0.5 * mm(d_pref)
-    parts = {"tag": mm(tag_raw), "desc": mm(desc_raw), "colike": mm(co_raw), "lineage": lineage}
+    parts = {"tag": mm(tag_raw), "desc": mm(d_anchor), "colike": mm(co_raw), "lineage": lineage}
     score = sum(WEIGHTS[k] * v for k, v in parts.items())
 
     an = [names[a] for a in anchors]
@@ -142,7 +131,7 @@ def main():
         a = cand[j]
         rows.append({"game": names[a][:30],
                      "tag": f"{tag_raw[j]:.2f} ({an[tag_hit[j]][:10]})",
-                     "desc(anchor/sentence)": f"{d_anchor[j]:.2f} ({an[d_hit[j]][:10]}) / {d_pref[j]:.2f}",
+                     "desc": f"{d_anchor[j]:.2f} ({an[d_hit[j]][:10]})",
                      "colike(EASE)": f"{co_raw[j]:.4f} ({an[co_hit[j]][:10]})",
                      "lineage": int(lineage[j]),
                      "norm t/d/c/l": "/".join(f"{parts[k][j]:.2f}" for k in WEIGHTS),
