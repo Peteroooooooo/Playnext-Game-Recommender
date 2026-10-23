@@ -3,6 +3,12 @@ import { EXAMPLES, addPart, removePart, splitParts } from "./guide";
 import { DICTS } from "./i18n";
 
 describe("guide chips", () => {
+  it("does not append a separator for an empty chip", () => {
+    expect(addPart("cozy", "  ", ", ")).toBe("cozy");
+    expect(addPart("轻松", "", "，")).toBe("轻松");
+    expect(addPart("", "  ", "，")).toBe("");
+  });
+
   it("trims a chip label before adding it", () => {
     expect(addPart("cozy", " on sale ", ", ")).toBe("cozy, on sale");
     expect(addPart("", " 两个人同屏 ", "，")).toBe("两个人同屏");
