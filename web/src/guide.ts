@@ -43,7 +43,8 @@ export const STORE_DEMO: { appid: number; cn: string | null; us: string }[] = [
 /** "a, b" + "c" → "a, b, c"; empty parts dropped. Used by the "+" chips in the guide. */
 export function addPart(text: string, part: string, sep: string): string {
   const cur = text.trim();
-  return cur ? `${cur}${sep}${part}` : part;
+  const next = part.trim();
+  return cur ? `${cur}${sep}${next}` : next;
 }
 
 export function removePart(text: string, part: string, sep: string): string {
