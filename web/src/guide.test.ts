@@ -3,6 +3,11 @@ import { EXAMPLES, addPart, removePart, splitParts } from "./guide";
 import { DICTS } from "./i18n";
 
 describe("guide chips", () => {
+  it("trims a chip label before adding it", () => {
+    expect(addPart("cozy", " on sale ", ", ")).toBe("cozy, on sale");
+    expect(addPart("", " 两个人同屏 ", "，")).toBe("两个人同屏");
+  });
+
   it("adds a part with the language's separator", () => {
     expect(addPart("", "两个人同屏", "，")).toBe("两个人同屏");
     expect(addPart("想玩轻松的 ", "两个人同屏", "，")).toBe("想玩轻松的，两个人同屏");
