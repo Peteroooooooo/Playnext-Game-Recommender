@@ -1,6 +1,6 @@
 """Knowledge base loaded into memory: processed tables plus the derived matrices (design 6.2, 6.3).
 
-Heavy parts (EASE weights, description vectors) load on first use. Every per-game array is aligned with
+Heavy parts (co-like neighbours, description texts) load on first use. Every per-game array is aligned with
 `KB.appids` (the 7,304 core games, games.parquet order).
 """
 from functools import cached_property
@@ -8,7 +8,7 @@ from functools import cached_property
 import numpy as np
 import pandas as pd
 
-from . import config as C
+from . import config as C, i18n
 
 
 class KB:
@@ -60,6 +60,8 @@ class KB:
         self.quality = (self.pos_reviews + C.ALPHA) / (rc + C.ALPHA + C.BETA)
         self.rating_ok = (g["pct_positive"] >= C.RATING_FLOOR).to_numpy()
         self.popularity = rc
+        import pyarrow as pa
+        pa.default_memory_pool().release_unused()   # buffers of the parquet reads above
 
     # ---------- tags ----------
     def _tag_matrix(self, gt):
@@ -82,18 +84,6 @@ class KB:
             out[k, sub["appid"].map(self.pos).to_numpy()] = sub["weight"].to_numpy()
         return out
 
-    # ---------- description vectors ----------
-    @cached_property
-    def E_lang(self):
-        z = np.load(C.DESC_EMB)
-        assert np.array_equal(z["appids"], self.appids), "rerun build_desc_embeddings.py after build_processed.py"
-        return {lang: (z[lang].astype(np.float32), z["has_" + lang]) for lang in ("en", "zh")}
-
-    @property
-    def E_has(self):
-        (_, a), (_, b) = self.E_lang.values()
-        return a | b
-
     def tag_vector(self, tags: dict):
         """{tagid: votes} of any game -> a row in the same space as self.T (votes / top votes x IDF, unit length)."""
         v = np.zeros(len(self.tag_cols), np.float32)
@@ -105,46 +95,13 @@ class KB:
         n = np.linalg.norm(v)
         return v / n if n else None
 
-    def desc_sim(self, rows=None, query=None):
-        """Description similarity = larger of the English and Chinese versions (design 5.5); -1 where missing.
-        rows: anchor row indices -> (len(rows), n); query: one query vector -> (n,)."""
-        best = None
-        for E, has in self.E_lang.values():
-            if query is not None:
-                s = np.where(has, E @ query, -1.0)
-            else:
-                s = np.where(has[rows][:, None] & has[None, :], E[rows] @ E.T, -1.0)
-            best = s if best is None else np.maximum(best, s)
-        return best.astype(np.float32)
-
-    @cached_property
-    def descriptions(self):
-        """(appid, 'en' | 'zh') -> short + full description text (cleaned)."""
-        d = pd.read_parquet(C.PROC / "descriptions.parquet")
-        return {(int(a), l): f"{s} {f}".strip() for a, l, s, f in d[["appid", "lang", "short", "full"]].itertuples(index=False)
-                if (s or f)}
-
-    # ---------- co-like (EASE) ----------
+    # ---------- dense EASE matrix: offline scripts only (build_neighbors.py, eval_*.py), never the service ----------
     @cached_property
     def _ease(self):
         z = np.load(C.DER / "ease_reviews100m.npz")
         row = {int(a): j for j, a in enumerate(z["items"])}
         col = np.array([row.get(int(a), -1) for a in self.appids])
         return z["B"], row, col
-
-    @property
-    def ease_has(self):
-        return self._ease[2] >= 0
-
-    def ease_rows(self, appids):
-        """(len(appids), n) EASE weights B[anchor, candidate] over the core games; zero rows for unknown anchors."""
-        B, row, col = self._ease
-        out = np.zeros((len(appids), self.n), np.float32)
-        ok = col >= 0
-        for k, a in enumerate(appids):
-            if int(a) in row:
-                out[k, ok] = B[row[int(a)], col[ok]]
-        return out
 
     def ease_core(self):
         """Full core x core EASE matrix (eval only, ~210 MB)."""
@@ -154,14 +111,62 @@ class KB:
         M[np.ix_(ok, ok)] = B[np.ix_(col[ok], col[ok])]
         return M
 
+    # ---------- descriptions ----------
     @cached_property
-    def colike(self):
-        c = pd.read_parquet(C.DER / "colike_reviews100m.parquet")
-        return c[c["app_id"].isin(self.pos) & c["neighbor"].isin(self.pos)]
+    def descriptions(self):
+        """(appid, 'en' | 'zh') -> short + full description text (cleaned)."""
+        return Texts(C.PROC / "descriptions.parquet")
+
+    # ---------- co-like (EASE): each game's top-K neighbours, the service's table (design 10.16) ----------
+    @cached_property
+    def _nb(self):
+        z = np.load(C.NEIGHBORS)
+        assert np.array_equal(z["appids"], self.appids), "rerun build_neighbors.py after build_processed.py"
+        return {k: z[k] for k in z.files if k != "appids"}
+
+    @property
+    def ease_has(self):
+        return self._nb["ease_has"]
+
+    def ease_rows(self, appids):
+        """(len(appids), n) EASE weights B[anchor, candidate]: the anchor's top-K co-like neighbours, 0 elsewhere;
+        zero rows for anchors outside the core library or without co-like data."""
+        rows = np.array([self.pos.get(int(a), 0) for a in appids], np.int64)
+        out = np.zeros((len(rows), self.n), np.float32)
+        np.put_along_axis(out, self._nb["ease_idx"][rows].astype(np.int64),
+                          self._nb["ease_val"][rows].astype(np.float32), 1)
+        ok = np.array([int(a) in self.pos for a in appids], bool) & self.ease_has[rows]
+        out[~ok] = 0
+        return out
 
     @cached_property
-    def colike_by_app(self):
-        return {a: d for a, d in self.colike.groupby("app_id")}
+    def colike(self):
+        """Co-recommendation counts of each game's 200 nearest co-like neighbours (load_postgres.py, cards)."""
+        c = pd.read_parquet(C.DER / "colike_reviews100m.parquet")
+        return c[c["app_id"].isin(self.pos) & c["neighbor"].isin(self.pos)].reset_index(drop=True)
+
+    @cached_property
+    def _colike_ix(self):
+        """Arrays sorted by (anchor, co-like similarity descending): anchor appids, neighbour appids, counts. Read
+        straight from the file, without keeping the table (about 18 MB instead of about 80 MB)."""
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+        t = pq.read_table(C.DER / "colike_reviews100m.parquet", columns=["app_id", "neighbor", "sim", "co_count"])
+        app, nb, sim, cnt = (t[c].to_numpy() for c in ("app_id", "neighbor", "sim", "co_count"))
+        del t
+        pa.default_memory_pool().release_unused()
+        core = np.fromiter(self.pos, np.int64)
+        ok = np.isin(app, core) & np.isin(nb, core)
+        app, nb, sim, cnt = app[ok], nb[ok], sim[ok], cnt[ok]
+        o = np.lexsort((-sim, app))
+        return app[o].astype(np.int32), nb[o].astype(np.int32), cnt[o].astype(np.int32)
+
+    def colike_pair(self, anchor, appid):
+        """(players who recommended both, rank of appid among the anchor's co-like neighbours) or None."""
+        app, nb, cnt = self._colike_ix
+        lo, hi = np.searchsorted(app, anchor, "left"), np.searchsorted(app, anchor, "right")
+        hit = np.flatnonzero(nb[lo:hi] == appid)
+        return (int(cnt[lo + hit[0]]), int(hit[0]) + 1) if len(hit) else None
 
     # ---------- lineage ----------
     @cached_property
@@ -196,13 +201,73 @@ class KB:
         return float(np.interp(hours, q, np.linspace(0, 1, 101)))
 
     # ---------- helpers ----------
-    def display_name(self, appid, lang="zh"):
+    def display_name(self, appid, lang=None):
+        """Chinese store name when there is one (zh), else the English store name; `lang` defaults to the request's."""
         zh = self.name_zh.get(appid)
-        return zh if lang == "zh" and isinstance(zh, str) and zh else self.name[appid]
+        return zh if (lang or i18n.lang()) == "zh" and isinstance(zh, str) and zh else self.name[appid]
+
+    def tag_name(self, tagid):
+        """Tag name in the request's language."""
+        return self.tag_en[tagid] if i18n.lang() == "en" else self.tag_zh[tagid]
 
     def price(self, appid, region):
         """Snapshot row as a dict (final, original, discount_pct, is_free, currency, steam_low, steam_low_time)."""
         return self.price_d.get(region, {}).get(appid)
+
+
+class DenseKB(KB):
+    """The exact dense co-like table instead of the top-K neighbours, plus the description vectors of the historical
+    description-similarity experiments (offline checks, eval_fusion.py / eval_slim.py, and the worked example of
+    docs/pipeline_architecture.html; needs the matrices the service does not ship)."""
+
+    @cached_property
+    def E_lang(self):
+        """{'en' | 'zh': (unit description vectors, has-description mask)} from build_desc_embeddings.py."""
+        z = np.load(C.DESC_EMB)
+        assert np.array_equal(z["appids"], self.appids), "rerun build_desc_embeddings.py after build_processed.py"
+        return {lang: (z[lang].astype(np.float32), z["has_" + lang]) for lang in ("en", "zh")}
+
+    @property
+    def ease_has(self):
+        return self._ease[2] >= 0
+
+    def ease_rows(self, appids):
+        B, row, col = self._ease
+        out = np.zeros((len(appids), self.n), np.float32)
+        ok = col >= 0
+        for k, a in enumerate(appids):
+            if int(a) in row:
+                out[k, ok] = B[row[int(a)], col[ok]]
+        return out
+
+
+class Texts:
+    """(appid, lang) -> description text, held as UTF-8 bytes (about 27 MB instead of about 100 MB as Python strings
+    built through pandas); read-only dict-style get()."""
+
+    def __init__(self, path):
+        import pyarrow as pa
+        import pyarrow.compute as pc
+        import pyarrow.parquet as pq
+        t = pq.read_table(path, columns=["appid", "lang", "short", "full"])
+        s, f = (pc.fill_null(t[c].cast(pa.large_string()), "") for c in ("short", "full"))
+        text = pc.utf8_trim_whitespace(pc.binary_join_element_wise(s, f, pa.scalar(" ", pa.large_string())))
+        keep = pc.greater(pc.utf8_length(text), 0)
+        self._text = pc.filter(text, keep).combine_chunks()
+        keys = zip(pc.filter(t["appid"], keep).to_pylist(), pc.filter(t["lang"], keep).to_pylist())
+        self._row = {(int(a), l): i for i, (a, l) in enumerate(keys)}
+        del t, s, f, text, keep
+        pa.default_memory_pool().release_unused()
+
+    def get(self, key, default=None):
+        i = self._row.get(key)
+        return default if i is None else self._text[i].as_py()
+
+    def __contains__(self, key):
+        return key in self._row
+
+    def __len__(self):
+        return len(self._row)
 
 
 TAG_CATEGORIES = ("gameplay", "theme", "mood", "other")
