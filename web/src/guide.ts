@@ -54,7 +54,7 @@ export function addPart(text: string, part: string, sep: string): string {
 
 export function removePart(text: string, part: string, sep: string): string {
   return splitParts(text, sep)
-    .filter((x) => x !== part)
+    .filter((x) => x !== part.trim())
     .join(sep);
 }
 
