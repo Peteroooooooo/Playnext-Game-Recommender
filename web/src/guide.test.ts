@@ -3,6 +3,12 @@ import { EXAMPLES, addPart, removePart, splitParts } from "./guide";
 import { DICTS } from "./i18n";
 
 describe("guide chips", () => {
+  it("keeps an existing chip once and uses whole-part matching", () => {
+    expect(addPart("cozy, on sale", "on sale", ", ")).toBe("cozy, on sale");
+    expect(addPart("轻松，两个人同屏", " 两个人同屏 ", "，")).toBe("轻松，两个人同屏");
+    expect(addPart("not on sale", "on sale", ", ")).toBe("not on sale, on sale");
+  });
+
   it("does not append a separator for an empty chip", () => {
     expect(addPart("cozy", "  ", ", ")).toBe("cozy");
     expect(addPart("轻松", "", "，")).toBe("轻松");
