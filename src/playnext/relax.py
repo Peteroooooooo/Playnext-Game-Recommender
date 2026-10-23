@@ -7,13 +7,19 @@ Changing the setup or dropping a member re-runs Step 2 with the changed spec, as
 """
 import numpy as np
 
+from .i18n import L
 from .kb import KB
 from .rules import FAIL, PASS, UNKNOWN, FilterResult, hard_filter
 from .spec import Budget, SessionSpec
 
 COST = {"unknown": 1, "mechanics": 1, "discount": 1, "budget": 2, "setup": 3, "people": 4}
-LABEL = {"unknown": "接受“待确认”的游戏（有字段缺失）", "mechanics": "允许其中一种玩法是次要元素",
-         "discount": "不限“正在打折”"}
+
+
+def label(key):
+    """Text of a relaxation, in the request language."""
+    return {"unknown": L("接受“待确认”的游戏（有字段缺失）", "Accept “to confirm” games (some fields missing)"),
+            "mechanics": L("允许其中一种玩法是次要元素", "Allow one of the mechanics to be a secondary element"),
+            "discount": L("不限“正在打折”", "Don't require “on sale”")}[key]
 
 
 def subset_counts(masks, k):
@@ -53,9 +59,11 @@ def analyse(kb: KB, spec: SessionSpec, fr: FilterResult, rel=None, limit=5):
         for key in names:
             if key == "budget":
                 need = _min_budget(kb, spec, fr, avail)
-                items.append({"key": "budget", "text": f"预算提高到 ¥{need:g}" if need else "放宽预算", "value": need})
+                text = (L(f"预算提高到 ¥{need:g}", f"Raise the budget to ¥{need:g}") if need
+                        else L("放宽预算", "Loosen the budget"))
+                items.append({"key": "budget", "text": text, "value": need})
             else:
-                items.append({"key": key, "text": LABEL[key]})
+                items.append({"key": key, "text": label(key)})
         out.append({"changes": items, "count": int(counts[s]), "cost": sum(COST[x] for x in names),
                     "examples": _examples(kb, avail, rel)})
     if spec.party_size > 1:
@@ -95,7 +103,8 @@ def _examples(kb, avail, rel, n=3):
 def _setup_alternatives(kb, spec, rel):
     out = []
     current = set(spec.setup_types)
-    for kind, text in (("remote", "改用远程同乐（只需主机拥有）"), ("online", "改成各自在家在线联机")):
+    for kind, text in (("remote", L("改用远程同乐（只需主机拥有）", "Switch to Remote Play Together (only the host needs the game)")),
+                       ("online", L("改成各自在家在线联机", "Play online, each from home"))):
         if kind in current:
             continue
         alt = spec.model_copy(update={"sites": None, "setup_hint": kind})
@@ -109,20 +118,22 @@ def _setup_alternatives(kb, spec, rel):
         fr = hard_filter(kb, alt)
         n = int((fr.status == PASS).sum())
         if n:
-            out.append({"changes": [{"key": "budget", "text": "不设预算"}], "count": n, "cost": COST["budget"],
+            out.append({"changes": [{"key": "budget", "text": L("不设预算", "No budget")}], "count": n, "cost": COST["budget"],
                         "examples": _examples(kb, fr.status == PASS, rel)})
     if spec.party_size > 2:
         alt = spec.model_copy(update={"members": spec.members[:-1], "sites": None})
         fr = hard_filter(kb, alt)
         n = int((fr.status == PASS).sum())
         if n:
-            out.append({"changes": [{"key": "people", "text": f"少 1 人（{spec.party_size - 1} 人）"}], "count": n,
+            fewer = spec.party_size - 1
+            out.append({"changes": [{"key": "people", "text": L(f"少 1 人（{fewer} 人）", f"One player fewer ({fewer} players)")}],
+                        "count": n,
                         "cost": COST["people"], "examples": _examples(kb, fr.status == PASS, rel)})
     if not spec.accept_unknown:
         alt = spec.model_copy(update={"accept_unknown": True})
         fr = hard_filter(kb, alt)
         n = int((fr.status == PASS).sum())
         if n:
-            out.append({"changes": [{"key": "unknown", "text": LABEL["unknown"]}], "count": n, "cost": COST["unknown"],
+            out.append({"changes": [{"key": "unknown", "text": label("unknown")}], "count": n, "cost": COST["unknown"],
                         "examples": _examples(kb, fr.status == PASS, rel)})
     return out
