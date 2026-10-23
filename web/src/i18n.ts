@@ -123,10 +123,12 @@ const zh = {
   swappedN: (k: number) => `你玩过的 ${k} 款已换掉`,
   libApplied: "已导入你的 Steam 游戏库，推荐已按你的库更新",
 
-  stepUnderstand: "正在理解你的需求",
-  stepPick: "正在挑选",
-  stepRerank: "正在按你的描述排序",
-  stepPrices: "正在查实时价格",
+  tasksLbl: "进度",
+  taskDone: "（已完成）",
+  stepUnderstand: "理解你的需求",
+  stepPick: "挑出候选游戏",
+  stepRerank: "逐款对照你的要求",
+  stepPrices: "查实时价格",
 
   understoodLbl: "我理解成",
   headSolo: (n: number) => `为你挑了 ${n} 款`,
@@ -360,10 +362,12 @@ const en: Dict = {
   swappedN: (k) => `${k} games you've played were replaced`,
   libApplied: "Steam library imported; picks now follow your library",
 
-  stepUnderstand: "Reading your request",
-  stepPick: "Picking games",
-  stepRerank: "Ranking them by what you said",
-  stepPrices: "Checking live prices",
+  tasksLbl: "Progress",
+  taskDone: " (done)",
+  stepUnderstand: "Read your request",
+  stepPick: "Pick candidate games",
+  stepRerank: "Compare each game with your request",
+  stepPrices: "Check live prices",
 
   understoodLbl: "I read this as",
   headSolo: (n) => `${n} picks for you`,

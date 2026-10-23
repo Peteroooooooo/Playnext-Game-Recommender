@@ -1,5 +1,5 @@
 // How result data is turned into the short text the page shows. Pure functions, covered by present.test.ts.
-import type { Card, NearMiss, PriceFacts, Understood } from "./api";
+import type { Card, NearMiss, PriceFacts, StepEvent, StepId, Understood } from "./api";
 import type { Dict } from "./i18n";
 import { money } from "./types";
 
@@ -127,40 +127,23 @@ export function revealed(text: string, ms: number, cps: number): number {
 /** Reveal speed: Chinese characters per second, about the same reading pace in English letters. */
 export const revealCps = (text: string) => (/[一-鿿]/.test(text) ? 45 : 140);
 
-export interface Step {
-  label: keyof Pick<Dict, "stepUnderstand" | "stepPick" | "stepRerank" | "stepPrices">;
-  /** Expected seconds; the backend does not stream progress, so steps advance on these estimates. */
-  sec: number;
+/** One line of the task list shown while a request runs; the backend streams each step as it reaches it. */
+export interface Task {
+  id: StepId;
+  state: "pending" | "active" | "done";
 }
 
-/** Measured on the text path with thinking off (design 10.13): understand ~4.5 s, rerank ~7 s. */
-export const TEXT_STEPS: Step[] = [
-  { label: "stepUnderstand", sec: 4.5 },
-  { label: "stepPick", sec: 1 },
-  { label: "stepRerank", sec: 7 },
-  { label: "stepPrices", sec: 1.5 },
-];
+export const STEP_LABEL: Record<StepId, keyof Pick<Dict, "stepUnderstand" | "stepPick" | "stepRerank" | "stepPrices">> = {
+  understand: "stepUnderstand",
+  pick: "stepPick",
+  rerank: "stepRerank",
+  prices: "stepPrices",
+};
 
-/** The last request again with one condition dropped: no understanding step, the rerank runs again. */
-export const RELAX_STEPS: Step[] = TEXT_STEPS.slice(1);
-
-export const FORM_STEPS: Step[] = [
-  { label: "stepPick", sec: 1 },
-  { label: "stepPrices", sec: 1.5 },
-];
-
-/** Step and bar fraction at `t` seconds. The bar slows down near the end and never reaches 1 on its own. */
-export function progressAt(steps: Step[], t: number): { label: Step["label"]; frac: number } {
-  const total = steps.reduce((s, x) => s + x.sec, 0);
-  let acc = 0;
-  let label = steps[steps.length - 1].label;
-  for (const s of steps) {
-    acc += s.sec;
-    if (t < acc) {
-      label = s.label;
-      break;
-    }
-  }
-  const frac = t <= total ? 0.9 * (t / total) : 0.9 + 0.08 * (1 - Math.exp(-(t - total) / total));
-  return { label, frac };
+/** The task list after one stream event: the plan lists every step, a skipped step leaves the list. */
+export function applyStep(tasks: Task[], ev: StepEvent): Task[] {
+  if (ev.type === "plan") return ev.steps.map((id) => ({ id, state: "pending" }));
+  if (ev.state === "skip") return tasks.filter((k) => k.id !== ev.step);
+  const state = ev.state === "start" ? "active" : "done";
+  return tasks.map((k) => (k.id === ev.step ? { ...k, state } : k));
 }

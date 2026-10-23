@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from . import appindex, config as C
+from . import appindex, config as C, progress
 from .cards import build_card, price_facts, write_reasons
 from .aliases import Resolver
 from .i18n import L
@@ -61,8 +61,10 @@ class Recommender:
     def understand(self, text, base: SessionSpec | None = None, parsed: ParsedRequest | None = None):
         if self.understander is None:
             raise RuntimeError("no LLM configured: build the SessionSpec directly")
+        progress.start("understand")
         p = self.understander.patch(parsed, text) if parsed is not None else self.understander.parse(text)
         spec = self.understander.to_spec(p, text if parsed is None else (base.request_text + " / " + text), base)
+        progress.done("understand")
         return p, spec
 
     # ---------- Steps 2-5 ----------
@@ -71,6 +73,7 @@ class Recommender:
         any reranker) and try other fusion weights without new model calls."""
         kb, t = self.kb, {}
         t0 = time.time()
+        progress.start("pick")
         fr = hard_filter(kb, spec)
         notes = []
         secondary = np.zeros(kb.n, bool)
@@ -106,10 +109,12 @@ class Recommender:
         t1 = time.time()
         rel, details = relevance(kb, spec, pool)
         t["scoring"] = round(time.time() - t1, 3)
+        progress.done("pick")
         debug = {}
         texts = {k: (with_game_names(kb, spec, v) if C.RERANK_GAME_NAMES else v)
                  for k, v in targets_with_words(spec, kb).items() if k in details.get("norm", {})}
         if rel is not None and texts and (rerank_scores is not None or (self.llm is not None and C.RERANK and self.rerank)):
+            progress.start("rerank")
             t1 = time.time()
             try:
                 cand = candidates(kb, rel, fr.status == PASS, details)
@@ -130,9 +135,13 @@ class Recommender:
                                "Semantic reranking is unavailable right now; results are scored by tags and "
                                "co-players only"))
             t["rerank"] = round(time.time() - t1, 3)
+            progress.done("rerank")
+        else:
+            progress.skip("rerank")
         understood = describe(kb, spec)
         if rel is None:
             if not (fr.status == PASS).any():
+                progress.skip("prices")
                 return Result(spec, understood, [], [], [], fr.summary(), analyse(kb, spec, fr), timings=t, notes=notes,
                               failed=self.failed_list(spec, fr), debug=debug)
             # no taste at all (design 5.5 'cold start'): the conditions alone still deserve an answer, so rank the
@@ -158,8 +167,10 @@ class Recommender:
                     notes.append(L(f"“{name}”按《{shown}》理解，另有 {len(cands) - 1} 个版本，可以改",
                                    f"Read “{name}” as {shown}; there are {len(cands) - 1} other versions you can switch to"))
         t2 = time.time()
+        progress.start("prices")
         ranked = rank(kb, spec, rel - 2.0 * secondary if secondary.any() else rel, fr, self.prices)
         t["ranking_and_live_prices"] = round(time.time() - t2, 3)
+        progress.done("prices")
         t3 = time.time()
         picks = [build_card(kb, spec, i, rel, ranked, details, fr, self.prices, ranked.steps[k])
                  for k, i in enumerate(ranked.picks)]

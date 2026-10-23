@@ -87,3 +87,26 @@ def test_merge_form_keeps_currency_said_in_text():
 
 def test_text_needs_llm(client):
     assert client.post("/api/recommend", json={"text": "像 Hades 的"}).status_code == 503
+
+
+def _lines(resp):
+    import json
+    return [json.loads(x) for x in resp.text.splitlines() if x.strip()]
+
+
+def test_stream_reports_real_steps_then_the_result(client):
+    resp = client.post("/api/recommend?stream=1", json={"form": {"seeds": [HADES]}})
+    assert resp.headers["content-type"].startswith("application/x-ndjson")
+    ev = _lines(resp)
+    assert ev[0] == {"type": "plan", "steps": ["pick", "rerank", "prices"]}
+    steps = [(e["step"], e["state"]) for e in ev if e["type"] == "step"]
+    # no LLM in the test client, so the rerank is skipped; every other step starts before it is done
+    assert steps == [("pick", "start"), ("pick", "done"), ("rerank", "skip"), ("prices", "start"), ("prices", "done")]
+    assert ev[-1]["type"] == "result" and len(ev[-1]["data"]["picks"]) == 5
+    plain = client.post("/api/recommend", json={"form": {"seeds": [HADES]}}).json()
+    assert [c["appid"] for c in plain["picks"]] == [c["appid"] for c in ev[-1]["data"]["picks"]]
+
+
+def test_stream_turns_http_errors_into_an_error_line(client):
+    ev = _lines(client.post("/api/rerun?stream=1", json={"session_id": "nope", "lang": "en"}))
+    assert ev[-1]["type"] == "error" and ev[-1]["status"] == 404 and "expired" in ev[-1]["detail"]
