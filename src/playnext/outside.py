@@ -2,9 +2,10 @@
 
 A name that matches no core game is looked up in the light index of all Steam games (appindex.py). When it is a
 Steam game, its store entry is fetched once (IStoreBrowseService/GetItems, the same request as the core library),
-and it becomes a content-only taste anchor: its tags in the core tag space and its description vector. It has no
-co-like data (it is not in the review matrix), so for such an anchor the co-like weight goes to tags and
-descriptions. It is never recommended itself (not in the core library) and the card says the anchor was outside.
+and it becomes a content-only taste anchor: its tags in the core tag space. It has no co-like data (it is not in
+the review matrix) and no description vector (no text model runs in the service, design 10.15), so such an anchor
+scores by tags alone. It is never recommended itself (not in the core library) and the card says the anchor was
+outside.
 """
 import json
 import re
@@ -86,13 +87,12 @@ def lookup(name, kb: KB | None = None):
     return _picked[key]
 
 
-def anchor(kb: KB, appid, encoder=None):
-    """-> {"appid", "name", "tag_vec", "desc_vec"} usable by scoring.channel_scores, or None."""
+def anchor(kb: KB, appid):
+    """-> {"appid", "name", "tag_vec"} usable by scoring.channel_scores, or None when it has no core tags."""
     f = fetch(appid)
     if not f:
         return None
     tv = kb.tag_vector(f["tags"])
-    dv = encoder.doc(f["text"]) if (encoder is not None and hasattr(encoder, "doc") and f["text"]) else None
-    if tv is None and dv is None:
+    if tv is None:
         return None
-    return {"appid": f["appid"], "name": f["name"], "tag_vec": tv, "desc_vec": dv}
+    return {"appid": f["appid"], "name": f["name"], "tag_vec": tv}

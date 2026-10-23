@@ -10,6 +10,7 @@ import io
 import pandas as pd
 
 from . import config as C
+from .i18n import L, carry
 from .pricing import load_env
 
 SCHEMA = """
@@ -173,7 +174,14 @@ class PathFinder:
             return [None] * len(pairs)
         from concurrent.futures import ThreadPoolExecutor
         with ThreadPoolExecutor(min(self.workers, len(pairs))) as ex:
-            return list(ex.map(lambda p: self.one(p[0], p[1], max_depth), pairs))
+            # carry: the path text is built in the worker, which must see the request's language
+            return list(ex.map(carry(lambda p: self.one(p[0], p[1], max_depth)), pairs))
+
+
+def _edge_label(label):
+    """PATH_SQL edge labels are stored in Chinese; shown in the request's language."""
+    return {"开发": L("开发", "developer"), "系列": L("系列", "series"),
+            "IGDB 相似": L("IGDB 相似", "IGDB similar")}.get(label, label)
 
 
 def lineage_paths(conn, src, dst, max_depth=3, limit=3):
@@ -198,6 +206,6 @@ def lineage_paths(conn, src, dst, max_depth=3, limit=3):
     for path, labels in rows:
         steps = [names.get(path[0], path[0])]
         for node, label in zip(path[1:], labels):
-            steps.append(f"—{label}→ {names.get(node, node)}")
+            steps.append(f"—{_edge_label(label)}→ {names.get(node, node)}")
         out.append(" ".join(steps))
     return out
