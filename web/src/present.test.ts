@@ -2,18 +2,17 @@ import { describe, expect, it } from "vitest";
 import type { Card, Understood } from "./api";
 import { DICTS } from "./i18n";
 import {
+  applyStep,
   cardBadges,
   englishName,
   metaText,
   missLabel,
   nextRound,
   shuffled,
-  progressAt,
   revealCps,
   revealed,
   shortName,
   shortTime,
-  TEXT_STEPS,
   understoodChips,
   understoodNotes,
 } from "./present";
@@ -151,14 +150,17 @@ describe("timing", () => {
     expect(revealCps("中文理由")).toBeLessThan(revealCps("An English reason"));
   });
 
-  it("walks through the steps and never fills the bar on its own", () => {
-    expect(progressAt(TEXT_STEPS, 0).label).toBe("stepUnderstand");
-    expect(progressAt(TEXT_STEPS, 5).label).toBe("stepPick");
-    expect(progressAt(TEXT_STEPS, 8).label).toBe("stepRerank");
-    const late = progressAt(TEXT_STEPS, 120);
-    expect(late.label).toBe("stepPrices");
-    expect(late.frac).toBeLessThan(1);
-    expect(progressAt(TEXT_STEPS, 14).frac).toBeGreaterThan(progressAt(TEXT_STEPS, 7).frac);
+  it("ticks off the streamed steps and drops a skipped one", () => {
+    let k = applyStep([], { type: "plan", steps: ["pick", "rerank", "prices"] });
+    expect(k.map((x) => x.state)).toEqual(["pending", "pending", "pending"]);
+    k = applyStep(k, { type: "step", step: "pick", state: "start" });
+    expect(k[0].state).toBe("active");
+    k = applyStep(k, { type: "step", step: "pick", state: "done" });
+    k = applyStep(k, { type: "step", step: "rerank", state: "skip" });
+    expect(k).toEqual([
+      { id: "pick", state: "done" },
+      { id: "prices", state: "pending" },
+    ]);
   });
 
   it("has every UI text in both languages", () => {

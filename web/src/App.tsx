@@ -7,6 +7,7 @@ import {
   type GameHit,
   type Health,
   type LibrarySummary,
+  type OnStep,
   type RecommendResult,
   type Region,
   type RelaxKey,
@@ -19,7 +20,7 @@ import { TopBar } from "./components/TopBar";
 import { EXAMPLES } from "./guide";
 import { DICTS, initialLang, LangContext, saveLang, useT, type Lang } from "./i18n";
 import HOME_ART from "./home_art.json";
-import { art, FORM_STEPS, nextRound, progressAt, RELAX_STEPS, shortName, TEXT_STEPS, type Step } from "./present";
+import { applyStep, art, nextRound, shortName, STEP_LABEL, type Task } from "./present";
 import { emptyPrefs, singleForm, type Libs } from "./types";
 
 // ---------- draft kept across the Steam OpenID round trip (no Steam ID in it) ----------
@@ -72,7 +73,7 @@ const HOME_CYCLE_MS = 7000;
 /** How long the played picks stay greyed before the new picks replace them. */
 const PLAYED_OUT_MS = 1600;
 
-type Phase = { kind: "loading"; steps: Step[]; t0: number } | { kind: "action" } | null;
+type Phase = { kind: "loading"; tasks: Task[] } | { kind: "action" } | null;
 
 const smooth = (): ScrollBehavior => (window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
 const NO_REASON: ReasonState = { text: null, llm: false, at: 0 };
@@ -218,7 +219,13 @@ export default function App() {
       .catch(() => fill(null));
   }
 
-  async function start(call: () => Promise<RecommendResult>, steps: Step[]): Promise<RecommendResult | null> {
+  /** Stream events of run `seq` update its task list; a newer run makes them stale. */
+  const stepper = (seq: number): OnStep => (ev) => {
+    if (seq !== runSeq.current) return;
+    setPhase((ph) => (ph?.kind === "loading" ? { kind: "loading", tasks: applyStep(ph.tasks, ev) } : ph));
+  };
+
+  async function start(call: (onStep: OnStep) => Promise<RecommendResult>): Promise<RecommendResult | null> {
     const seq = ++runSeq.current;
     setStarted(true);
     setGuideOpen(false);
@@ -227,10 +234,10 @@ export default function App() {
     setResult(null);
     setReasons({});
     setPlayedOut([]);
-    setPhase({ kind: "loading", steps, t0: performance.now() });
+    setPhase({ kind: "loading", tasks: [] });
     window.scrollTo({ top: 0, behavior: smooth() });
     try {
-      const r = await call();
+      const r = await call(stepper(seq));
       if (seq !== runSeq.current) return null;
       applyResult(r, seq);
       setFocusApp(r.picks[0]?.appid ?? r.backups[0]?.appid ?? null);
@@ -246,25 +253,25 @@ export default function App() {
   function submit() {
     const s = text.trim();
     if (!s || busy) return;
-    void start(() => api.recommend({ session_id: sessionId, text: s, form: singleForm(region, emptyPrefs()) }), TEXT_STEPS);
+    void start((on) => api.recommend({ session_id: sessionId, text: s, form: singleForm(region, emptyPrefs()) }, on));
   }
 
   function pickGame(g: GameHit) {
     setText(g.name);
     const prefs = { ...emptyPrefs(), seeds: [{ appid: g.appid, name: g.name, year: g.year }] };
-    void start(() => api.recommend({ session_id: sessionId, form: singleForm(region, prefs) }), FORM_STEPS);
+    void start((on) => api.recommend({ session_id: sessionId, form: singleForm(region, prefs) }, on));
   }
 
   function relaxText(change: string) {
     if (!result || busy) return;
     const sid = result.session_id;
-    void start(() => api.followup(sid, change), TEXT_STEPS);
+    void start((on) => api.followup(sid, change, on));
   }
 
   function relaxKey(key: RelaxKey) {
     if (!result || busy) return;
     const sid = result.session_id;
-    void start(() => api.relax(sid, key), RELAX_STEPS).then((r) => r && say(t.relaxed));
+    void start((on) => api.relax(sid, key, on)).then((r) => r && say(t.relaxed));
   }
 
   /** × : drop the request, the results and any pending answer, and go back to the home screen. */
@@ -310,9 +317,9 @@ export default function App() {
   async function rerunWithLibrary(sid: string) {
     const old = result;
     const seq = ++runSeq.current;
-    setPhase({ kind: "loading", steps: RELAX_STEPS, t0: performance.now() });
+    setPhase({ kind: "loading", tasks: [] });
     try {
-      const r = await api.rerun(sid);
+      const r = await api.rerun(sid, stepper(seq));
       if (seq !== runSeq.current) return;
       const out = (r.played_out ?? []).filter((a) => old?.picks.some((c) => c.appid === a));
       if (out.length) {
@@ -345,7 +352,7 @@ export default function App() {
     if (boot.connected == null) return;
     if (boot.sessionId && boot.draft?.ran) {
       const sid = boot.sessionId;
-      void start(() => api.rerun(sid), RELAX_STEPS).then((r) => r && say(DICTS[bootLang].libApplied));
+      void start((on) => api.rerun(sid, on)).then((r) => r && say(DICTS[bootLang].libApplied));
     } else say(DICTS[bootLang].steamConnectedToast);
   }, []);
 
@@ -449,7 +456,7 @@ export default function App() {
 
           <div className="stage" aria-live="polite">
             {result && <Understood result={result} />}
-            {phase?.kind === "loading" && <Status steps={phase.steps} t0={phase.t0} />}
+            {phase?.kind === "loading" && <Tasks tasks={phase.tasks} />}
             {error && (
               <p className="error-line" role="alert">
                 {error}
@@ -496,24 +503,26 @@ export default function App() {
   );
 }
 
-/** One line and a thin bar while a request runs; the steps advance on measured timings. */
-function Status({ steps, t0 }: { steps: Step[]; t0: number }) {
+/** The steps of the running request, each ticked off when the backend reports it done; gone once the result is in. */
+function Tasks({ tasks }: { tasks: Task[] }) {
   const t = useT();
-  const [sec, setSec] = useState(0);
-  useEffect(() => {
-    const id = window.setInterval(() => setSec((performance.now() - t0) / 1000), 200);
-    return () => window.clearInterval(id);
-  }, [t0]);
-  const { label, frac } = progressAt(steps, sec);
   return (
-    <>
-      <div className="status" role="status">
-        <span className="spin" aria-hidden="true" />
-        <span>{t[label]}</span>
-      </div>
-      <div className="pbar" aria-hidden="true">
-        <i style={{ width: `${frac * 100}%` }} />
-      </div>
-    </>
+    <ol className="tasks" aria-label={t.tasksLbl}>
+      {tasks.map((k) => (
+        <li key={k.id} className={`task ${k.state}`} aria-current={k.state === "active" ? "step" : undefined}>
+          <span className="mark" aria-hidden="true">
+            {k.state === "done" ? (
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3.5 8.5l3 3 6-7" />
+              </svg>
+            ) : k.state === "active" ? (
+              <span className="spin" />
+            ) : null}
+          </span>
+          <span>{t[STEP_LABEL[k.id]]}</span>
+          {k.state === "done" && <span className="sr-only">{t.taskDone}</span>}
+        </li>
+      ))}
+    </ol>
   );
 }
