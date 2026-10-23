@@ -44,6 +44,7 @@ export const STORE_DEMO: { appid: number; cn: string | null; us: string }[] = [
 export function addPart(text: string, part: string, sep: string): string {
   const cur = text.trim();
   const next = part.trim();
+  if (!next) return cur;
   return cur ? `${cur}${sep}${next}` : next;
 }
 
