@@ -1,6 +1,7 @@
 """Simulate the four ways in (seed questionnaire, free text via the LLM, Steam library, library + free text) with
 the real system (src/playnext, current config), plus a private library, and record what each step produced into
-.cache/simulate_inputs.json, which docs/data_overview.html quotes.
+.cache/simulate_inputs.json. Its mocked library (MOCK_OWNED) is reused by explain_library_example.py and
+explain_request_example.py.
 
 What is simulated rather than real: the Steam library is made up (no SteamID is queried; GetOwnedGames is mocked
 with the same JSON shape and parsed by library.parse_owned); prices come from the daily snapshot, not a live
