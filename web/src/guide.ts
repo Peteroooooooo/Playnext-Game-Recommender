@@ -42,9 +42,13 @@ export const STORE_DEMO: { appid: number; cn: string | null; us: string }[] = [
 
 /** "a, b" + "c" → "a, b, c"; empty parts dropped. Used by the "+" chips in the guide. */
 export function addPart(text: string, part: string, sep: string): string {
-  const cur = text.trim();
+  let cur = text.trim();
   const next = part.trim();
   if (!next || splitParts(cur, sep).includes(next)) return cur;
+  const delimiter = sep.trim() || sep;
+  while (delimiter && cur.endsWith(delimiter)) {
+    cur = cur.slice(0, -delimiter.length).trimEnd();
+  }
   return cur ? `${cur}${sep}${next}` : next;
 }
 
