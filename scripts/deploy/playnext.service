@@ -1,0 +1,21 @@
+# systemd unit for the Playnext service on a Linux server (installed by scripts/deploy/server.sh).
+# It listens only on the server's EasyTier address; the public entry is nginx on the Lightsail server (10.10.10.40),
+# which adds HTTPS and the rate limit. --proxy-headers makes the Steam login return to the public domain.
+# The venv's Python lives under /root/.local/share/uv, so the service runs as root.
+[Unit]
+Description=Playnext game recommender
+After=network-online.target docker.service easytier.service
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/opt/playnext
+ExecStart=/opt/playnext/.venv/bin/uvicorn --app-dir src playnext.api:app --host 10.10.10.30 --port 8000 --proxy-headers --forwarded-allow-ips 10.10.10.40
+# binding fails until EasyTier has brought up tun0; keep retrying
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
