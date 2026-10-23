@@ -3,6 +3,12 @@ import { EXAMPLES, addPart, removePart, splitParts } from "./guide";
 import { DICTS } from "./i18n";
 
 describe("guide chips", () => {
+  it("trims removal targets without matching substrings", () => {
+    expect(removePart("cozy, on sale", " on sale ", ", ")).toBe("cozy");
+    expect(removePart("轻松，两个人同屏", " 两个人同屏 ", "，")).toBe("轻松");
+    expect(removePart("not on sale, on sale", "on sale", ", ")).toBe("not on sale");
+  });
+
   it("avoids doubled separators after a typed trailing comma", () => {
     expect(addPart("cozy, ", "on sale", ", ")).toBe("cozy, on sale");
     expect(addPart("轻松，， ", "两个人同屏", "，")).toBe("轻松，两个人同屏");
