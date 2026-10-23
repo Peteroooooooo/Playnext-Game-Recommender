@@ -421,20 +421,22 @@ export const api = {
     return `/api/auth/steam/login?${p}`;
   },
 
-  recommend: (body: RecommendBody) => request<RecommendResult>("/api/recommend", { json: { ...body, lang: apiLang } }),
+  recommend: (body: RecommendBody, onStep: OnStep) =>
+    streamed<RecommendResult>("/api/recommend", { ...body, lang: apiLang }, onStep),
 
-  followup: (sessionId: string, text: string) =>
-    request<RecommendResult>("/api/followup", { json: { session_id: sessionId, text, lang: apiLang } }),
+  followup: (sessionId: string, text: string, onStep: OnStep) =>
+    streamed<RecommendResult>("/api/followup", { session_id: sessionId, text, lang: apiLang }, onStep),
 
   card: (sessionId: string, appid: number, action: CardActionKind, member = 0) =>
     request<RecommendResult>("/api/card", { json: { session_id: sessionId, appid, action, member, lang: apiLang } }),
 
   /** "Skip this condition" on a near miss: the last request again without it; no LLM call. */
-  relax: (sessionId: string, key: RelaxKey) =>
-    request<RecommendResult>("/api/relax", { json: { session_id: sessionId, key, lang: apiLang } }),
+  relax: (sessionId: string, key: RelaxKey, onStep: OnStep) =>
+    streamed<RecommendResult>("/api/relax", { session_id: sessionId, key, lang: apiLang }, onStep),
 
   /** The last request again with the libraries imported since; no understanding step. */
-  rerun: (sessionId: string) => request<RecommendResult>("/api/rerun", { json: { session_id: sessionId, lang: apiLang } }),
+  rerun: (sessionId: string, onStep: OnStep) =>
+    streamed<RecommendResult>("/api/rerun", { session_id: sessionId, lang: apiLang }, onStep),
 
   reasons: (sessionId: string) =>
     request<ReasonsResponse>("/api/reasons", { json: { session_id: sessionId, lang: apiLang } }),
@@ -442,6 +444,55 @@ export const api = {
   /** "事实有误？": stored for the next data refresh, does not change the current result. */
   report: (body: ReportBody) => request<{ ok: boolean }>("/api/report", { json: body }),
 };
+
+/** The streamed pipeline steps (?stream=1, api.py `streamed`), in the order the backend runs them. */
+export type StepId = "understand" | "pick" | "rerank" | "prices";
+export type StepEvent =
+  | { type: "plan"; steps: StepId[] }
+  | { type: "step"; step: StepId; state: "start" | "done" | "skip" };
+export type OnStep = (ev: StepEvent) => void;
+
+/** POST with ?stream=1: one JSON object per line; step lines go to `onStep`, the last line is the result or an error. */
+async function streamed<T>(path: string, json: unknown, onStep: OnStep): Promise<T> {
+  let res: Response;
+  try {
+    res = await fetch(`${path}?stream=1`, {
+      method: "POST",
+      headers: { Accept: "application/x-ndjson", "Content-Type": "application/json" },
+      body: JSON.stringify(json),
+    });
+  } catch {
+    throw new ApiError(0, T().errOffline);
+  }
+  if (!res.ok || !res.body) {
+    // request validation (422) fails before the stream starts and answers as plain JSON
+    const body = await res.json().catch(() => null);
+    throw new ApiError(res.status, detailText(body) ?? T().errHttp(res.status));
+  }
+  const reader = res.body.getReader();
+  const dec = new TextDecoder();
+  let buf = "";
+  for (;;) {
+    let chunk: ReadableStreamReadResult<Uint8Array>;
+    try {
+      chunk = await reader.read();
+    } catch {
+      throw new ApiError(0, T().errOffline);
+    }
+    buf += dec.decode(chunk.value ?? new Uint8Array(), { stream: !chunk.done });
+    let nl: number;
+    while ((nl = buf.indexOf("\n")) >= 0) {
+      const line = buf.slice(0, nl).trim();
+      buf = buf.slice(nl + 1);
+      if (!line) continue;
+      const ev = JSON.parse(line) as StepEvent | { type: "result"; data: T } | { type: "error"; status: number; detail: unknown };
+      if (ev.type === "result") return ev.data;
+      if (ev.type === "error") throw new ApiError(ev.status, detailText(ev) ?? T().errHttp(ev.status));
+      onStep(ev);
+    }
+    if (chunk.done) throw new ApiError(0, T().errOffline);
+  }
+}
 
 export function errorMessage(e: unknown): string {
   if (e instanceof ApiError) return e.message;

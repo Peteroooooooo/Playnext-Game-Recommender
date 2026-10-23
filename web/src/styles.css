@@ -266,11 +266,18 @@ main { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; paddin
   padding: 4px 10px; border-radius: 980px; background: rgba(0, 0, 0, .7); font-size: 12.5px; font-weight: 600; animation: pop-in .3s ease both; }
 
 /* ---------- status while searching ---------- */
-.status { margin-top: 22px; display: flex; align-items: center; gap: 10px; color: var(--ink-2); font-size: 15px; }
+/* task list: one line per backend step, ticked off as the stream reports it */
+.tasks { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 15px; }
+.task { display: flex; align-items: center; gap: 10px; color: var(--ink-3); transition: color .25s; animation: rise .3s ease both; }
+.task.active { color: var(--ink); }
+.task.done { color: var(--ink-2); }
+.task .mark { flex: none; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 50%; }
+.task.pending .mark { border: 1.5px solid rgba(255, 255, 255, .25); }
+.task.done .mark { background: var(--green); color: #000; animation: pop-in .2s ease both; }
+.task.done .mark svg { width: 12px; height: 12px; }
 .spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .2); border-top-color: #fff; animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.pbar { margin-top: 12px; width: min(680px, 100%); height: 3px; border-radius: 2px; background: var(--fill); overflow: hidden; }
-.pbar i { display: block; height: 100%; width: 0; background: #fff; border-radius: inherit; transition: width .3s linear; }
+@media (prefers-reduced-motion: reduce) { .task, .task.done .mark { animation: none; } .spin { animation-duration: 2.4s; } }
 .understood { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 14px; color: var(--ink-2); animation: rise .4s ease both; }
 .understood .lbl { color: var(--ink-3); margin-right: 4px; }
 .chip { background: var(--fill); border-radius: 980px; padding: 4px 12px; color: var(--ink); }
