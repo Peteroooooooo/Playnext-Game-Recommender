@@ -1,6 +1,7 @@
 # Playnext-Game-Recommender
 
 Context-aware Steam game recommender (NUS-ISS group project "Backlog Breaker").
+Try it: **https://playnext.peteroooooooo.com**
 Design document: [docs/Core_Technical_Skeleton.md](docs/Core_Technical_Skeleton.md).
 
 ## Setup
@@ -109,7 +110,10 @@ synthetic groups), `eval_extra.py` (mechanics combinations, price preference, ra
 checked against hand-written conditions in `eval/request_set_gold.json`; reranker and w_r comparison on a dev / test
 split; results in `eval/`), `eval_content_weight.py` (content share and tag gate on the held-out reviewers),
 `eval_seed_rerank.py gen|sweep|report` ("games like X": with and without the seed rerank, and the stage-1 tag share
-under the rerank; blind judge input in `eval/`). `simulate_inputs.py` runs the four input paths through the current system for `docs/data_overview.html`.
+under the rerank; blind judge input in `eval/`), `eval_rerank_weight.py gen|regen|report` (rerank weight w_r on seed,
+free-text and free-text + library requests). `simulate_inputs.py` runs the four input paths through the current
+system; `explain_library_example.py` and `explain_request_example.py` record the examples of
+`docs/pipeline_architecture.html`.
 Earlier evaluation: `eval_ease.py [N] [M]`, `playtime_signal.py`, `demo_walkthrough.py`.
 Diagnostics: `igdb_mp_coverage.py`, `rate_limit_probe.py`, `diagnose_short_games.py`, `diagnose_paging.py`,
 `diagnose_empty_pages.py`, `probe_owned_games.py` (one Steam profile, counts only), `probe_owned_sample.py`
