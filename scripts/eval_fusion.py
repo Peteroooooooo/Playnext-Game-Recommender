@@ -24,7 +24,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from playnext import config as C  # noqa: E402
-from playnext.kb import KB  # noqa: E402
+from playnext.kb import KB, DenseKB  # noqa: E402
 
 OUT = C.DER / "eval_fusion.json"
 FEAT_DIR = C.CACHE / "eval_fusion"
@@ -358,7 +358,7 @@ def main():
     if cmd == "grid2":
         return grid2(KB())
     t0 = time.time()
-    kb = KB()
+    kb = DenseKB()   # features() needs the description vectors (DenseKB.E_lang)
     if cmd in ("features", "all"):
         features(kb)
     if cmd in ("grid", "all"):

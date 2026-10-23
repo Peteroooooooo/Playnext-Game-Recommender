@@ -1,8 +1,12 @@
 """Run the library example of docs/pipeline_architecture.html (the mocked Steam library of simulate_inputs.py) through
 the real Step 2-4 code and record every intermediate number the page shows: anchor weights, per-anchor similarities
-for a few candidates, channel sums, pool normalisation, fusion, and each ranking / MMR round.
-No LLM and no encoder are needed: a library alone has no words, so there is no semantic rerank (rerank.targets_with_words).
-Usage: uv run python scripts/explain_library_example.py   -> .cache/explain_library_example.json
+for a few candidates, channel sums (tag and co-like; lineage only feeds cards), pool normalisation, fusion, and each
+ranking / MMR round.
+No LLM is needed: a library alone has no words, so there is no semantic rerank (rerank.targets_with_words).
+The page's numbers use --dense (exact tables, kb.DenseKB); without it the service's top-200 neighbour tables are
+used (slightly different intermediate scores; at tag 0.70 with geometric fusion the five picks and their order match,
+design 10.16 / 10.18).
+Usage: uv run python scripts/explain_library_example.py [--dense]   -> .cache/explain_library_example.json
 """
 import json
 import sys
@@ -12,7 +16,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from playnext import config as C  # noqa: E402
-from playnext.kb import minmax  # noqa: E402
+from playnext.kb import KB, DenseKB, minmax  # noqa: E402
 from playnext.library import parse_owned  # noqa: E402
 from playnext.pipeline import Recommender  # noqa: E402
 from playnext.ranking import fold_series, rank, window_score  # noqa: E402
@@ -32,7 +36,7 @@ def r3(x):
 
 
 def main():
-    rec = Recommender(live_prices=False, reasons=False)
+    rec = Recommender(kb=DenseKB() if "--dense" in sys.argv else KB(), live_prices=False, reasons=False)
     kb = rec.kb
     name = lambda a: kb.display_name(int(a))
     lib = parse_owned(MOCK_OWNED)
@@ -58,7 +62,6 @@ def main():
     rows = [kb.pos[a] for a in a_ids]
     w = np.array([anchors[a] for a in a_ids], np.float32)
     tag_sim = kb.T[rows] @ kb.T.T                        # anchors x games
-    desc_sim = kb.desc_sim(rows=rows)
     ease = kb.ease_rows(a_ids)
     sc = channel_scores(kb, member_taste(kb, m), pool)
     rel, details = relevance(kb, spec, pool)
@@ -71,7 +74,7 @@ def main():
     show = list(picks)
     channel_top = {}
     pass_idx = np.flatnonzero(pool)
-    for ch in ("tag", "desc", "colike"):
+    for ch in ("tag", "colike"):
         order = pass_idx[np.argsort(-sc.parts[ch][pass_idx], kind="stable")]
         channel_top[ch] = [{"name": name(kb.appids[i]), "norm": r3(sc.parts[ch][i])} for i in order[:5]]
         for i in order[:EXTRA]:
@@ -89,8 +92,6 @@ def main():
             "appid": int(kb.appids[i]), "name": name(kb.appids[i]), "picked": i in picks,
             "tag": {"per_anchor": per_anchor(tag_sim, i), "raw": r3((w[:, None] * tag_sim[:, i:i + 1]).sum()),
                     "norm": r3(sc.parts["tag"][i])},
-            "desc": {"per_anchor": per_anchor(desc_sim, i), "raw": r3((w[:, None] * desc_sim[:, i:i + 1]).sum()),
-                     "norm": r3(sc.parts["desc"][i])},
             "colike": {"per_anchor": per_anchor(ease, i), "raw": r3((w[:, None] * ease[:, i:i + 1]).sum()),
                        "norm": r3(sc.parts["colike"][i])},
             "lineage": int(sc.parts["lineage"][i]), "has": has,
@@ -100,9 +101,8 @@ def main():
             "pct_positive": round(100 * kb.pos_reviews[i] / kb.review_count[i], 1) if kb.review_count[i] else None,
         })
     pool_range = {}
-    for ch in ("tag", "desc", "colike"):
-        raw = {"tag": (w[:, None] * tag_sim).sum(0), "desc": (w[:, None] * desc_sim).sum(0),
-               "colike": (w[:, None] * ease).sum(0)}[ch]
+    for ch in ("tag", "colike"):
+        raw = {"tag": (w[:, None] * tag_sim).sum(0), "colike": (w[:, None] * ease).sum(0)}[ch]
         mask = pool & sc.has[ch]
         pool_range[ch] = {"min": r3(raw[mask].min()), "max": r3(raw[mask].max()), "games": int(mask.sum()),
                           "argmax": name(kb.appids[np.flatnonzero(mask)[np.argmax(raw[mask])]])}

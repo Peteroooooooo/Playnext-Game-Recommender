@@ -53,7 +53,7 @@ def main():
     n_users = int(sys.argv[1]) if len(sys.argv) > 1 else 200
     seed = int(sys.argv[2]) if len(sys.argv) > 2 else 1
     llm = LLM()
-    rec = Recommender(llm=None, encoder=None, live_prices=False, reasons=False, rerank=False)
+    rec = Recommender(llm=None, live_prices=False, reasons=False, rerank=False)
     rec.want_failed = False
     kb = rec.kb
     t = pd.read_parquet(C.DER / "eval_reviews100m_test.parquet")

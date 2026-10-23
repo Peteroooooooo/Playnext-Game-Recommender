@@ -1,0 +1,72 @@
+{
+ "all": {
+  "posts": 32,
+  "enc": {
+   "judge": 1.65,
+   "judge2": 0.709,
+   "fail": 2,
+   "community": 24
+  },
+  "noenc": {
+   "judge": 1.647,
+   "judge2": 0.7,
+   "fail": 2,
+   "community": 25
+  },
+  "paired_diff_noenc_minus_enc": -0.003,
+  "posts_worse_same_better": [
+   4,
+   26,
+   2
+  ],
+  "top5_overlap": 4.75,
+  "cand_overlap": 0.688
+ },
+ "seeded": {
+  "posts": 25,
+  "enc": {
+   "judge": 1.608,
+   "judge2": 0.676,
+   "fail": 2,
+   "community": 22
+  },
+  "noenc": {
+   "judge": 1.62,
+   "judge2": 0.68,
+   "fail": 2,
+   "community": 23
+  },
+  "paired_diff_noenc_minus_enc": 0.012,
+  "posts_worse_same_better": [
+   1,
+   22,
+   2
+  ],
+  "top5_overlap": 4.84,
+  "cand_overlap": 0.695
+ },
+ "words_only": {
+  "posts": 7,
+  "enc": {
+   "judge": 1.8,
+   "judge2": 0.829,
+   "fail": 0,
+   "community": 2
+  },
+  "noenc": {
+   "judge": 1.743,
+   "judge2": 0.771,
+   "fail": 0,
+   "community": 2
+  },
+  "paired_diff_noenc_minus_enc": -0.057,
+  "posts_worse_same_better": [
+   3,
+   4,
+   0
+  ],
+  "top5_overlap": 4.43,
+  "cand_overlap": 0.661
+ },
+ "judge_run_agreement": 0.863
+}
