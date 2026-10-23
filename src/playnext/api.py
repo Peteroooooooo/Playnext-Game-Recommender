@@ -3,19 +3,23 @@
 No accounts: a session is an in-memory id. Steam IDs never leave library.py; sessions keep only appid -> hours.
 Binds to 127.0.0.1 by default; there is no authentication, so do not expose it to a network as is.
 """
+import json
+import queue
 import secrets
 import threading
 import time
+from contextvars import copy_context
 from pathlib import Path
-from typing import Literal, Optional
+from typing import Callable, Literal, Optional
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import appindex, config as C
+from . import appindex, config as C, progress
 from .cards import write_reasons
 from .i18n import L, set_lang
 from .library import LibraryError, fetch_library, library_from_profile, openid_login_url, openid_verify
@@ -303,8 +307,48 @@ def respond(sid, s, res):
     return out
 
 
+STEPS_TEXT = ["understand", "pick", "rerank", "prices"]
+STEPS_AGAIN = ["pick", "rerank", "prices"]
+
+
+def streamed(work: Callable[[], dict], steps: list, stream: bool):
+    """Plain JSON, or with ?stream=1 one JSON object per line while the request runs: {"type": "plan", "steps"},
+    then {"type": "step", "step", "state": "start" | "done" | "skip"} as the pipeline reaches each step
+    (progress.py), and last {"type": "result", "data"} or {"type": "error", "status", "detail"}."""
+    if not stream:
+        return work()
+    q: queue.Queue = queue.Queue()
+
+    def run():
+        with progress.listen(lambda ev: q.put({"type": "step", **ev})):
+            try:
+                q.put({"type": "result", "data": jsonable_encoder(work())})
+            except HTTPException as e:
+                q.put({"type": "error", "status": e.status_code, "detail": e.detail})
+            except Exception:
+                q.put({"type": "error", "status": 500,
+                       "detail": L("服务出错了，请再试一次", "Something went wrong, please try again")})
+
+    threading.Thread(target=copy_context().run, args=(run,), daemon=True).start()
+
+    def lines():
+        yield json.dumps({"type": "plan", "steps": steps}) + "\n"
+        while True:
+            ev = q.get()
+            yield json.dumps(ev, ensure_ascii=False) + "\n"
+            if ev["type"] != "step":
+                return
+    # X-Accel-Buffering: nginx in front of the server would otherwise hold the lines until the end
+    return StreamingResponse(lines(), media_type="application/x-ndjson",
+                             headers={"X-Accel-Buffering": "no", "Cache-Control": "no-cache"})
+
+
 @app.post("/api/recommend")
-def recommend(body: RecommendIn):
+def recommend(body: RecommendIn, stream: bool = False):
+    return streamed(lambda: _recommend(body), STEPS_TEXT if body.text else STEPS_AGAIN, stream)
+
+
+def _recommend(body: RecommendIn):
     r = rec()
     sid, s = session(body.session_id)
     begin(s, body.lang)
@@ -337,7 +381,11 @@ class FollowIn(BaseModel):
 
 
 @app.post("/api/followup")
-def followup(body: FollowIn):
+def followup(body: FollowIn, stream: bool = False):
+    return streamed(lambda: _followup(body), STEPS_TEXT, stream)
+
+
+def _followup(body: FollowIn):
     r = rec()
     sid, s = begin_existing(body.session_id, body.lang)
     if s["spec"] is None:
@@ -414,8 +462,13 @@ class RelaxIn(BaseModel):
 
 
 @app.post("/api/relax")
-def relax(body: RelaxIn):
-    """'不在乎这条': the last request again with one condition dropped, offered on a near miss. No LLM call."""
+def relax(body: RelaxIn, stream: bool = False):
+    """'不在乎这条': the last request again with one condition dropped, offered on a near miss. No understanding
+    call; the rerank runs again."""
+    return streamed(lambda: _relax(body), STEPS_AGAIN, stream)
+
+
+def _relax(body: RelaxIn):
     r = rec()
     sid, s = begin_existing(body.session_id, body.lang)
     if s["spec"] is None:
@@ -430,9 +483,13 @@ class RerunIn(BaseModel):
 
 
 @app.post("/api/rerun")
-def rerun(body: RerunIn):
+def rerun(body: RerunIn, stream: bool = False):
     """The last request again with the Steam libraries connected since then (the page calls it right after an import).
     No LLM understanding step. `played_out`: earlier picks that are now left out because they have Steam playtime."""
+    return streamed(lambda: _rerun(body), STEPS_AGAIN, stream)
+
+
+def _rerun(body: RerunIn):
     r = rec()
     sid, s = begin_existing(body.session_id, body.lang)
     spec = s["spec"]
