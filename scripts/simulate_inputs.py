@@ -49,18 +49,17 @@ def summary(rec, res, extra=None):
 
 
 def main(use_llm=True):
-    llm = encoder = None
+    llm = None
     if use_llm:
-        from playnext.encoder import Encoder
         from playnext.llm import LLM
-        llm, encoder = LLM(timeout=120), Encoder()
+        llm = LLM(timeout=120)
     try:
         from playnext.db import PathFinder
         paths = PathFinder()
         paths = paths if paths.available() else None
     except Exception:
         paths = None
-    rec = Recommender(llm=llm, encoder=encoder, live_prices=False, reasons=False, paths=paths)
+    rec = Recommender(llm=llm, live_prices=False, reasons=False, paths=paths)
     kb = rec.kb
     by_name = {n: int(t) for t, n in kb.tag_en.items()}
     lib = parse_owned(MOCK_OWNED)

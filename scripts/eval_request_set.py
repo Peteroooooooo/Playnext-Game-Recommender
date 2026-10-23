@@ -19,7 +19,6 @@ import hashlib
 import json
 import random
 import sys
-import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -95,23 +94,8 @@ def split(rs):
     return out
 
 
-class Locked:
-    """The encoder runs on the GPU; requests run in threads."""
-
-    def __init__(self, f):
-        self.f, self.lock = f, threading.Lock()
-
-    def __call__(self, *a, **kw):
-        with self.lock:
-            return self.f(*a, **kw)
-
-    def doc(self, text):
-        with self.lock:
-            return self.f.doc(text)
-
-
-def make_rec(llm=None, encoder=None, **kw):
-    rec = Recommender(llm=llm, encoder=encoder, live_prices=False, reasons=False, **kw)
+def make_rec(llm=None, **kw):
+    rec = Recommender(llm=llm, live_prices=False, reasons=False, **kw)
     rec.want_failed = False
     return rec
 
@@ -142,14 +126,10 @@ def resolve_names(rec, llm, names, cache):
 # ---------------------------------------------------------------- run
 
 def run():
-    from playnext.encoder import Encoder
     rs = rows()
     llm = LLM(timeout=180)
-    enc = Encoder()
-    enc("warm up")
-    enc = Locked(enc)
-    rec = make_rec(llm, enc)
-    plain = make_rec(llm, enc, rerank=False)
+    rec = make_rec(llm)
+    plain = make_rec(llm, rerank=False)
     kb = rec.kb
     und = load("understand.json", {})
     sysrun = load("system.json", {})
@@ -219,7 +199,7 @@ def run():
 
 def local():
     """Qwen3-Reranker on the cached candidates, with the request as is and with the English names of the games it
-    mentions appended (rerank.with_game_names). Runs without the text encoder: both 4B models do not fit in 16 GB."""
+    mentions appended (rerank.with_game_names)."""
     from playnext.kb import KB
     from playnext.local_rerank import LocalReranker, game_doc
     from playnext.rerank import with_game_names

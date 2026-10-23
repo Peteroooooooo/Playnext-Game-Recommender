@@ -1,0 +1,4442 @@
+{
+ "sandbox_survival_crafter": {
+  "library": {
+   "Terraria": 620.0,
+   "Valheim": 240.0,
+   "Don't Starve Together": 180.0,
+   "Subnautica": 95.0,
+   "The Forest": 60.0,
+   "Raft": 45.0,
+   "Grounded": 38.0,
+   "Core Keeper": 30.0,
+   "Stardew Valley": 12.0,
+   "ARK: Survival Evolved": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Don't Starve",
+    "tags": [
+     "Survival",
+     "Open World Survival Craft",
+     "Crafting",
+     "Adventure",
+     "Indie",
+     "Sandbox",
+     "Singleplayer",
+     "Perma Death"
+    ],
+    "about": "Don’t Starve is an uncompromising wilderness survival game full of science and magic. Enter a strange and unexplored world full of strange creatures, dangers, and surprises. Gather resources to craft "
+   },
+   "c2": {
+    "name": "Subnautica: Below Zero",
+    "tags": [
+     "Open World Survival Craft",
+     "Survival",
+     "Underwater",
+     "Singleplayer",
+     "Open World",
+     "Horror",
+     "Exploration",
+     "Multiplayer"
+    ],
+    "about": "Dive into a freezing underwater adventure on an alien planet. Below Zero is set two years after the original Subnautica. Return to Planet 4546B to uncover the truth behind a deadly cover-up. Survive b"
+   },
+   "c3": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c4": {
+    "name": "7 Days to Die",
+    "tags": [
+     "Survival",
+     "Zombies",
+     "Multiplayer",
+     "Open World",
+     "Open World Survival Craft",
+     "Base Building",
+     "Post-apocalyptic",
+     "Online Co-Op"
+    ],
+    "about": "7 Days to Die is an open-world game that is a unique combination of first-person shooter, survival horror, tower defense, and role-playing games. Play the definitive zombie survival sandbox RPG that c"
+   },
+   "c5": {
+    "name": "Rust",
+    "tags": [
+     "Survival",
+     "Crafting",
+     "Multiplayer",
+     "Open World",
+     "Open World Survival Craft",
+     "Building",
+     "PvP",
+     "Sandbox"
+    ],
+    "about": "The only aim in Rust is to survive. Everything wants you to die - the island’s wildlife, other inhabitants, the environment, and other survivors. Do whatever it takes to last another night.  The only "
+   },
+   "c6": {
+    "name": "Green Hell",
+    "tags": [
+     "Survival",
+     "Open World Survival Craft",
+     "Multiplayer",
+     "Online Co-Op",
+     "Open World",
+     "Crafting",
+     "Action",
+     "Base Building"
+    ],
+    "about": "Plunge into the open-world survival simulation set in the extreme conditions of the uncharted Amazon jungle. Use real-life survival techniques to craft, hunt, fight, and gather resources, set a makesh"
+   },
+   "c7": {
+    "name": "Sons Of The Forest",
+    "tags": [
+     "Survival",
+     "Open World",
+     "Multiplayer",
+     "Co-op",
+     "Survival Horror",
+     "Base Building",
+     "Horror",
+     "Crafting"
+    ],
+    "about": "Sent to find a missing billionaire on a remote island, you find yourself in a cannibal-infested hellscape. Craft, build, and struggle to survive, alone or with friends, in this terrifying new open-wor"
+   },
+   "c8": {
+    "name": "Necesse",
+    "tags": [
+     "Open World Survival Craft",
+     "Pixel Graphics",
+     "Multiplayer",
+     "Open World",
+     "Sandbox",
+     "Survival",
+     "Crafting",
+     "Adventure"
+    ],
+    "about": "Build, quest, and conquer across an infinite procedurally generated world. Play alone or with friends as you establish a settlement and explore deep dungeons, fight monsters and bosses, mine rare ores"
+   }
+  }
+ },
+ "farming_cozy": {
+  "library": {
+   "Stardew Valley": 480.0,
+   "Dinkum": 90.0,
+   "Coral Island": 85.0,
+   "My Time at Portia": 70.0,
+   "Slime Rancher": 60.0,
+   "Sun Haven": 55.0,
+   "Graveyard Keeper": 40.0,
+   "Terraria": 8.0,
+   "Unpacking": 4.0,
+   "STORY OF SEASONS: Pioneers of Olive Town": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Fields of Mistria",
+    "tags": [
+     "Farming Sim",
+     "Dating Sim",
+     "RPG",
+     "Pixel Graphics",
+     "Life Sim",
+     "Romance",
+     "Simulation",
+     "Cute"
+    ],
+    "about": "Start your new life! Build the farm of your dreams as you discover a world brimming with possibilities. Magic, romance, and adventure all await you in this nostalgic farming / life sim RPG!  Get ready"
+   },
+   "c2": {
+    "name": "Travellers Rest",
+    "tags": [
+     "Life Sim",
+     "Pixel Graphics",
+     "Management",
+     "Farming Sim",
+     "RPG",
+     "Medieval",
+     "Crafting",
+     "Building"
+    ],
+    "about": "Craft, farm, build and cook! In Travellers Rest you will have to use all the available tools to become the best tavern keeper in the realm. Create unique dishes and drinks to please your customers as "
+   },
+   "c3": {
+    "name": "Littlewood",
+    "tags": [
+     "Pixel Graphics",
+     "Life Sim",
+     "City Builder",
+     "Simulation",
+     "Relaxing",
+     "RPG",
+     "Agriculture",
+     "Crafting"
+    ],
+    "about": "The world has already been saved. Now it's time to rebuild your town, learn new hobbies, and forge lifelong friendships in this peaceful and relaxing RPG. You defeated the Dark Wizard. The world of So"
+   },
+   "c4": {
+    "name": "My Time at Sandrock",
+    "tags": [
+     "Life Sim",
+     "Building",
+     "Farming Sim",
+     "Multiplayer",
+     "Crafting",
+     "Dating Sim",
+     "Sandbox",
+     "RPG"
+    ],
+    "about": "Travel to the desert community of Sandrock and take on the role of a fledgling Builder. Use your trusty toolset to gather resources, construct machines, and turn your run-down workshop into a well-oil"
+   },
+   "c5": {
+    "name": "Palworld",
+    "tags": [
+     "Open World",
+     "Survival",
+     "Creature Collector",
+     "Multiplayer",
+     "Open World Survival Craft",
+     "Online Co-Op",
+     "Crafting",
+     "Indie"
+    ],
+    "about": "Fight, farm, build and work alongside mysterious creatures called \"Pals\" in this completely new multiplayer, open world survival and crafting game! Q. What kind of game is this? A. In this game, you c"
+   },
+   "c6": {
+    "name": "DAVE THE DIVER",
+    "tags": [
+     "Pixel Graphics",
+     "Management",
+     "Casual",
+     "Adventure",
+     "Relaxing",
+     "Exploration",
+     "Singleplayer",
+     "Fishing"
+    ],
+    "about": "DAVE THE DIVER is a casual, singleplayer adventure RPG featuring deep-sea exploration and fishing during the day and sushi restaurant management at night. Join Dave and his quirky friends as they seek"
+   },
+   "c7": {
+    "name": "Slime Rancher 2",
+    "tags": [
+     "Cute",
+     "Relaxing",
+     "Singleplayer",
+     "Open World",
+     "Colorful",
+     "First-Person",
+     "Creature Collector",
+     "Adventure"
+    ],
+    "about": "Continue the adventures of Beatrix LeBeau as she journeys across the Slime Sea to Rainbow Island, a land brimming with ancient mysteries, and bursting with wiggly, new slimes to wrangle in this sequel"
+   },
+   "c8": {
+    "name": "Farm Together",
+    "tags": [
+     "Agriculture",
+     "Multiplayer",
+     "Simulation",
+     "Relaxing",
+     "Online Co-Op",
+     "Casual",
+     "Farming Sim",
+     "Building"
+    ],
+    "about": "Grow your own farm all by yourself, or cooperate with your friends in this unique, relaxing farming experience!  The ultimate farming experience! From the creators of Avatar Farm comes Farm Together, "
+   },
+   "c9": {
+    "name": "Clanfolk",
+    "tags": [
+     "Farming Sim",
+     "Pixel Graphics",
+     "Life Sim",
+     "RPG",
+     "Relaxing",
+     "Simulation",
+     "Agriculture",
+     "Crafting"
+    ],
+    "about": "Clanfolk is a colony sim set in the Scottish Highlands. Harness your environment to survive - fish, gather, hunt, and farm as you prepare for the winter. Build an inn, trade with other clans, have chi"
+   }
+  }
+ },
+ "metroidvania_fan": {
+  "library": {
+   "Hollow Knight": 210.0,
+   "Dead Cells": 120.0,
+   "Blasphemous": 40.0,
+   "Ori and the Will of the Wisps": 35.0,
+   "Bloodstained: Ritual of the Night": 30.0,
+   "Prince of Persia The Lost Crown": 28.0,
+   "Hades": 25.0,
+   "Ori and the Blind Forest: Definitive Edition": 22.0,
+   "Axiom Verge": 15.0,
+   "Salt and Sanctuary": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c2": {
+    "name": "Ori and the Blind Forest",
+    "tags": [
+     "Great Soundtrack",
+     "Atmospheric",
+     "Platformer",
+     "Metroidvania",
+     "Adventure",
+     "Story Rich",
+     "Fantasy",
+     "2D"
+    ],
+    "about": "“Ori and the Blind Forest” tells the tale of a young orphan destined for heroics, through a visually stunning action-platformer crafted by Moon Studios for PC. The forest of Nibel is dying. After a po"
+   },
+   "c3": {
+    "name": "Guacamelee! Super Turbo Championship Edition",
+    "tags": [
+     "Platformer",
+     "Metroidvania",
+     "2D",
+     "Beat 'em up",
+     "Action",
+     "Colorful",
+     "Cartoony",
+     "Local Co-Op"
+    ],
+    "about": "The definitive version of the smash-hit Metroidvania-style action-platformer, Guacamelee! STCE adds new levels, powers, challenges, and refinements to the sprawling, ridiculous, Mexican-inspired adven"
+   },
+   "c4": {
+    "name": "Blasphemous 2",
+    "tags": [
+     "Difficult",
+     "Combat",
+     "Fantasy",
+     "Metroidvania",
+     "Souls-like",
+     "Adventure",
+     "Pixel Graphics",
+     "2D Platformer"
+    ],
+    "about": "The Penitent One awakens as Blasphemous 2 joins him once again in an endless struggle against The Miracle. Dive into a perilous new world filled with mysteries and secrets to discover, and tear your w"
+   },
+   "c5": {
+    "name": "ENDER MAGNOLIA: Bloom in the Mist",
+    "tags": [
+     "Metroidvania",
+     "2D",
+     "Female Protagonist",
+     "Dark Fantasy",
+     "Singleplayer",
+     "Souls-like",
+     "Action RPG",
+     "RPG"
+    ],
+    "about": "Decades after the events of ENDER LILIES, Homunculi — sorrowful, artificial life forms — roam the land. In this dark fantasy Metroidvania, face formidable enemies and explore a bewitching post-apocaly"
+   },
+   "c6": {
+    "name": "Cuphead",
+    "tags": [
+     "Difficult",
+     "Co-op",
+     "Cartoon",
+     "Platformer",
+     "Local Co-Op",
+     "Great Soundtrack",
+     "2D",
+     "Multiplayer"
+    ],
+    "about": "Cuphead is a classic run and gun action game heavily focused on boss battles. Inspired by cartoons of the 1930s, the visuals and audio are painstakingly created with the same techniques of the era, i."
+   },
+   "c7": {
+    "name": "ENDER LILIES: Quietus of the Knights",
+    "tags": [
+     "Metroidvania",
+     "Female Protagonist",
+     "Dark Fantasy",
+     "Souls-like",
+     "Great Soundtrack",
+     "Singleplayer",
+     "Atmospheric",
+     "2D"
+    ],
+    "about": "ENDER LILIES is a dark fantasy 2D action RPG about unraveling the mysteries of a destroyed kingdom. On this sorrowful journey, encounter horrific enemies against whom a moment of inattention could be "
+   },
+   "c8": {
+    "name": "Nine Sols",
+    "tags": [
+     "Metroidvania",
+     "Souls-like",
+     "Difficult",
+     "2D",
+     "Platformer",
+     "Action",
+     "Hand-drawn",
+     "Story Rich"
+    ],
+    "about": "Nine Sols is a lore rich, hand-drawn 2D action-platformer featuring Sekiro-inspired deflection focused combat. Embark on a journey of eastern fantasy, explore the land once home to an ancient alien ra"
+   },
+   "c9": {
+    "name": "Foregone",
+    "tags": [
+     "Action",
+     "Indie",
+     "Platformer",
+     "Side Scroller",
+     "2D",
+     "Metroidvania",
+     "Pixel Graphics",
+     "Souls-like"
+    ],
+    "about": "Foregone is a fast and fluid 2D action-platformer packed with legendary loot and stunning pixel art. Collect an arsenal of powerful weapons and unravel a compelling story of regret and conspiracy as y"
+   },
+   "c10": {
+    "name": "Celeste",
+    "tags": [
+     "Precision Platformer",
+     "Difficult",
+     "Pixel Graphics",
+     "Great Soundtrack",
+     "Indie",
+     "Platformer",
+     "2D Platformer",
+     "Female Protagonist"
+    ],
+    "about": "Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight platformer from the creators of TowerFall. Brave hundreds of hand-crafted challenges, uncover "
+   }
+  }
+ },
+ "grand_strategy_4x": {
+  "library": {
+   "Sid Meier’s Civilization® VI": 780.0,
+   "Europa Universalis IV": 650.0,
+   "Stellaris": 520.0,
+   "Crusader Kings III": 410.0,
+   "Hearts of Iron IV": 320.0,
+   "Total War: WARHAMMER III": 140.0,
+   "Age of Wonders 4": 25.0,
+   "ENDLESS Legend™": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Total War: WARHAMMER II",
+    "tags": [
+     "Strategy",
+     "Fantasy",
+     "Turn-Based Strategy",
+     "RTS",
+     "Grand Strategy",
+     "War",
+     "Multiplayer",
+     "Singleplayer"
+    ],
+    "about": "The forces of Lustria await your command. Choose your Legendary Lord, expand your armies, forge alliances in a strategic turn-based campaign, and unleash the might of your monstrous forces in fast-pac"
+   },
+   "c2": {
+    "name": "Baldur's Gate 3",
+    "tags": [
+     "RPG",
+     "Character Customization",
+     "Choices Matter",
+     "Turn-Based Combat",
+     "Story Rich",
+     "Sexual Content",
+     "CRPG",
+     "Fantasy"
+    ],
+    "about": "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute"
+   },
+   "c3": {
+    "name": "Total War: THREE KINGDOMS",
+    "tags": [
+     "Strategy",
+     "Historical",
+     "War",
+     "Turn-Based Strategy",
+     "Grand Strategy",
+     "RTS",
+     "Military",
+     "Multiplayer"
+    ],
+    "about": "Unite Ancient China under your rule through a thrilling blend of turn-based empire building and real-time battles. Use the Guanxi System and diplomacy to forge alliances, and build powerful armies wit"
+   },
+   "c4": {
+    "name": "Crusader Kings II",
+    "tags": [
+     "Grand Strategy",
+     "Strategy",
+     "Medieval",
+     "Historical",
+     "Political Sim",
+     "Simulation",
+     "RPG",
+     "Sandbox"
+    ],
+    "about": "Explore one of the defining periods in world history in an experience crafted by the masters of Grand Strategy. The Dark Ages might be drawing to a close, but Europe is still in turmoil. Petty lords v"
+   },
+   "c5": {
+    "name": "Mount & Blade II: Bannerlord",
+    "tags": [
+     "Medieval",
+     "Strategy",
+     "Open World",
+     "RPG",
+     "War",
+     "Multiplayer",
+     "Sandbox",
+     "Singleplayer"
+    ],
+    "about": "A strategy/action RPG. Create a character, engage in diplomacy, craft, trade and conquer new lands in a vast medieval sandbox. Raise armies to lead into battle and command and fight alongside your tro"
+   },
+   "c6": {
+    "name": "Oriental Empires",
+    "tags": [
+     "Strategy",
+     "Simulation",
+     "Indie",
+     "Historical",
+     "4X",
+     "Turn-Based",
+     "Military",
+     "Sandbox"
+    ],
+    "about": "Turn based 4X strategy game, recreating the civilizations of ancient China. Develop your land, build great cities, raise huge armies and fight epic battles, with hundreds of soldiers fighting right on"
+   },
+   "c7": {
+    "name": "Rebel Inc: Escalation",
+    "tags": [
+     "Strategy",
+     "Simulation",
+     "Grand Strategy",
+     "4X",
+     "Historical",
+     "War",
+     "Economy",
+     "Tactical"
+    ],
+    "about": "A unique and deeply engaging political/military strategic simulation from the creator of Plague Inc. Balance competing civilian and military priorities and deal with a deadly insurgency in order to st"
+   },
+   "c8": {
+    "name": "Sid Meier's Civilization® V",
+    "tags": [
+     "Turn-Based Strategy",
+     "Strategy",
+     "Turn-Based",
+     "Multiplayer",
+     "Historical",
+     "4X",
+     "Addictive",
+     "Singleplayer"
+    ],
+    "about": "Create, discover, and download new player-created maps, scenarios, interfaces, and more! The Flagship Turn-Based Strategy Game Returns Become Ruler of the World by establishing and leading a civilizat"
+   },
+   "c9": {
+    "name": "Victoria 3",
+    "tags": [
+     "Strategy",
+     "Simulation",
+     "Grand Strategy",
+     "Economy",
+     "Political Sim",
+     "Historical",
+     "Capitalism",
+     "Diplomacy"
+    ],
+    "about": "Paradox Development Studio invites you to build your ideal society in the tumult of the exciting and transformative 19th century. Balance the competing interests in your society and earn your place in"
+   },
+   "c10": {
+    "name": "Old World",
+    "tags": [
+     "Strategy",
+     "Simulation",
+     "Grand Strategy",
+     "4X",
+     "Historical",
+     "Turn-Based Strategy",
+     "Multiplayer",
+     "War"
+    ],
+    "about": "Old World is a revolutionary new historical strategy game where you lead your dynasty over generations of rule against rival kings and queens. Wage massive wars, manage your court, and build a dynasty"
+   }
+  }
+ },
+ "city_builder": {
+  "library": {
+   "Cities: Skylines": 540.0,
+   "Anno 1800": 230.0,
+   "Against the Storm": 70.0,
+   "Cities: Skylines II": 60.0,
+   "Tropico 6": 50.0,
+   "Frostpunk": 45.0,
+   "Planet Coaster": 40.0,
+   "Banished": 30.0,
+   "SimCity™ 4 Deluxe Edition": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Sid Meier’s Civilization® VI",
+    "tags": [
+     "Strategy",
+     "Turn-Based Strategy",
+     "Multiplayer",
+     "Historical",
+     "Grand Strategy",
+     "Singleplayer",
+     "Turn-Based",
+     "4X"
+    ],
+    "about": "Expand your empire, advance your culture and go head-to-head against history’s greatest leaders. Will your civilization stand the test of time?  Civilization VI offers new ways to engage with your wor"
+   },
+   "c2": {
+    "name": "RollerCoaster Tycoon® 3: Complete Edition",
+    "tags": [
+     "Management",
+     "Strategy",
+     "Building",
+     "Simulation",
+     "City Builder",
+     "Casual",
+     "Sandbox",
+     "Family Friendly"
+    ],
+    "about": "Build the park of a lifetime and rediscover the critically acclaimed rollercoaster simulation bestseller. Feel the thrill of a genre-defining classic, complete with two huge expansion packs.  Your Par"
+   },
+   "c3": {
+    "name": "Transport Fever 2",
+    "tags": [
+     "Simulation",
+     "Strategy",
+     "Management",
+     "Transportation",
+     "Trains",
+     "City Builder",
+     "Economy",
+     "Sandbox"
+    ],
+    "about": "The classic transport simulation genre has a new gold standard with Transport Fever 2. Discover a whole new world by navigating transport routes through land, water and air. May progress and prosperit"
+   },
+   "c4": {
+    "name": "Planet Zoo",
+    "tags": [
+     "Management",
+     "Zoo",
+     "Simulation",
+     "Building",
+     "Sandbox",
+     "Nature",
+     "City Builder",
+     "Economy"
+    ],
+    "about": "Build a world for wildlife in Planet Zoo. From the developers of Planet Coaster and Zoo Tycoon comes the ultimate zoo sim. Construct detailed habitats, manage your zoo, and meet authentic living anima"
+   },
+   "c5": {
+    "name": "Tropico 5",
+    "tags": [
+     "Strategy",
+     "City Builder",
+     "Simulation",
+     "Sandbox",
+     "Multiplayer",
+     "Economy",
+     "Management",
+     "Resource Management"
+    ],
+    "about": "Return to the remote island nation of Tropico and expand your Dynasty’s reign from the early colonial period to beyond the 21st Century, facing new challenges including advanced trading mechanics, tec"
+   },
+   "c6": {
+    "name": "RimWorld",
+    "tags": [
+     "Colony Sim",
+     "Base Building",
+     "Survival",
+     "Strategy",
+     "Sandbox",
+     "Management",
+     "Singleplayer",
+     "Moddable"
+    ],
+    "about": "A sci-fi colony sim driven by an intelligent AI storyteller. Generates stories by simulating psychology, ecology, gunplay, melee combat, climate, biomes, diplomacy, interpersonal relationships, art, m"
+   },
+   "c7": {
+    "name": "Foundation",
+    "tags": [
+     "City Builder",
+     "Simulation",
+     "Medieval",
+     "Strategy",
+     "Sandbox",
+     "Management",
+     "Resource Management",
+     "Building"
+    ],
+    "about": "Foundation is a grid-less, laidback medieval city-building game with a focus on organic development, monument construction and resource management.  Foundation is a gridless medieval city builder wher"
+   },
+   "c8": {
+    "name": "Manor Lords",
+    "tags": [
+     "Strategy",
+     "Simulation",
+     "City Builder",
+     "Base Building",
+     "Grand Strategy",
+     "Historical",
+     "Management",
+     "Building"
+    ],
+    "about": "Manor Lords is a medieval strategy game featuring in-depth city building, large-scale tactical battles, and complex economic and social simulations. Rule your lands as a medieval lord – the seasons pa"
+   },
+   "c9": {
+    "name": "Prison Architect",
+    "tags": [
+     "Simulation",
+     "Building",
+     "Sandbox",
+     "Base Building",
+     "Colony Sim",
+     "Strategy",
+     "Management",
+     "City Builder"
+    ],
+    "about": "Only the world’s most ruthless Warden can contain the world’s most ruthless inmates. Design and develop your personalized penitentiary in Prison Architect.  Welcome Wardens! Only the world’s most ruth"
+   }
+  }
+ },
+ "competitive_fps": {
+  "library": {
+   "Counter-Strike 2": 780.0,
+   "Apex Legends™": 320.0,
+   "PUBG: BATTLEGROUNDS": 230.0,
+   "Team Fortress 2": 90.0,
+   "Hunt: Showdown 1896": 60.0,
+   "Halo Infinite": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Garry's Mod",
+    "tags": [
+     "Sandbox",
+     "Moddable",
+     "Multiplayer",
+     "Physics",
+     "Building",
+     "Funny",
+     "Casual",
+     "First-Person"
+    ],
+    "about": "Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. We give you the tools and leave you to play.  Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. "
+   },
+   "c2": {
+    "name": "Realm Royale Reforged",
+    "tags": [
+     "Battle Royale",
+     "Free to Play",
+     "Multiplayer",
+     "Shooter",
+     "Survival",
+     "Early Access",
+     "PvP",
+     "Action"
+    ],
+    "about": "Join 20+ million players and experience a new kind of battle royale in Realm Royale Reforged! Choose your class, forge deadly weapons, and master powerful abilities to be the last champion standing. M"
+   },
+   "c3": {
+    "name": "Rust",
+    "tags": [
+     "Survival",
+     "Crafting",
+     "Multiplayer",
+     "Open World",
+     "Open World Survival Craft",
+     "Building",
+     "PvP",
+     "Sandbox"
+    ],
+    "about": "The only aim in Rust is to survive. Everything wants you to die - the island’s wildlife, other inhabitants, the environment, and other survivors. Do whatever it takes to last another night.  The only "
+   },
+   "c4": {
+    "name": "Counter-Strike: Source",
+    "tags": [
+     "Shooter",
+     "FPS",
+     "Action",
+     "Multiplayer",
+     "Team-Based",
+     "First-Person",
+     "Competitive",
+     "Tactical"
+    ],
+    "about": "Counter-Strike: Source blends Counter-Strike's award-winning teamplay action with the advanced technology of Source™ technology. THE NEXT INSTALLMENT OF THE WORLD'S # 1 ONLINE ACTION GAME Counter-Stri"
+   },
+   "c5": {
+    "name": "Grand Theft Auto V Legacy",
+    "tags": [
+     "Open World",
+     "Action",
+     "Multiplayer",
+     "Crime",
+     "Automobile Sim",
+     "Third Person",
+     "First-Person",
+     "Shooter"
+    ],
+    "about": "Grand Theft Auto V for PC offers players the option to explore the award-winning world of Los Santos and Blaine County in resolutions of up to 4k and beyond, as well as the chance to experience the ga"
+   },
+   "c6": {
+    "name": "Pixel Strike 3D",
+    "tags": [
+     "Free to Play",
+     "FPS",
+     "Tactical",
+     "Multiplayer",
+     "Action",
+     "Shooter",
+     "First-Person",
+     "Military"
+    ],
+    "about": "Pixel Strike 3D is a Multiplayer First-Person Shooter that features fast-paced gameplay and a wide variety of player customization. Battle friends and foes from all around the world in over 20 unique "
+   },
+   "c7": {
+    "name": "Retail Royale",
+    "tags": [
+     "Battle Royale",
+     "PvP",
+     "FPS",
+     "Shooter",
+     "First-Person",
+     "Character Customization",
+     "Multiplayer",
+     "Funny"
+    ],
+    "about": "A chaotic Battle Royale inside a furniture store where everything is a weapon. Welcome to IDEA! Inside this vast furniture store, 16 players will take part in a battle to the death using anything at h"
+   },
+   "c8": {
+    "name": "Left 4 Dead 2",
+    "tags": [
+     "Zombies",
+     "Co-op",
+     "FPS",
+     "Multiplayer",
+     "Shooter",
+     "Online Co-Op",
+     "Action",
+     "Survival"
+    ],
+    "about": "Set in the zombie apocalypse, Left 4 Dead 2 is a co-operative action horror FPS takes you and your friends through the cities, swamps and cemeteries of the Deep South, from Savannah to New Orleans acr"
+   },
+   "c9": {
+    "name": "Tom Clancy's Rainbow Six Siege",
+    "tags": [
+     "FPS",
+     "PvP",
+     "Multiplayer",
+     "Shooter",
+     "Tactical",
+     "eSports",
+     "Competitive",
+     "Online Co-Op"
+    ],
+    "about": "Tom Clancy's Rainbow Six Siege is an elite, tactical team-based shooter where superior planning and execution triumph. Tom Clancy's Rainbow Six Siege is the undisputed reference in tactical team shoot"
+   },
+   "c10": {
+    "name": "Black Squad",
+    "tags": [
+     "Free to Play",
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Action",
+     "Early Access",
+     "First-Person",
+     "Military"
+    ],
+    "about": "Black Squad is a free-to-play military first-person-shooter. Players can master their skills and show off their strategies with a wide range of game maps, modes, and weapons to choose from. Join thous"
+   },
+   "c11": {
+    "name": "Splitgate",
+    "tags": [
+     "Free to Play",
+     "FPS",
+     "Multiplayer",
+     "Arena Shooter",
+     "Shooter",
+     "Action",
+     "Fast-Paced",
+     "First-Person"
+    ],
+    "about": "Splitgate is a free-to-play, fast-paced multiplayer shooter that features player-controlled portals. This sci-fi shooter takes the FPS genre to a new dimension with its portal mechanics, delivering hi"
+   },
+   "c12": {
+    "name": "Destiny 2",
+    "tags": [
+     "Free to Play",
+     "Open World",
+     "Looter Shooter",
+     "Multiplayer",
+     "MMORPG",
+     "FPS",
+     "Co-op",
+     "PvE"
+    ],
+    "about": "Explore the mysteries of Sol and experience exhilirating first-person shooter combat in Destiny 2. Unlock powerful abilities and collect unique gear across story missions, co-op, and PvP modes.  Explo"
+   }
+  }
+ },
+ "souls_like": {
+  "library": {
+   "ELDEN RING": 380.0,
+   "DARK SOULS™ III": 210.0,
+   "Monster Hunter: World": 150.0,
+   "Sekiro™: Shadows Die Twice - GOTY Edition": 120.0,
+   "DARK SOULS™: REMASTERED": 90.0,
+   "Lies of P": 65.0,
+   "Black Myth: Wukong": 55.0,
+   "Hollow Knight": 30.0,
+   "Lords of the Fallen": 15.0,
+   "Nioh: Complete Edition": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Blade of Darkness",
+    "tags": [
+     "Violent",
+     "Dark Fantasy",
+     "Difficult",
+     "Souls-like",
+     "Action",
+     "Combat",
+     "RPG",
+     "Gore"
+    ],
+    "about": "Blade of Darkness is a hardcore fantasy action-adventure with unique combat mechanics and role-playing elements that pioneered the “soulsborne” genre. Pick one of four characters to hack and slash thr"
+   },
+   "c2": {
+    "name": "Nioh 2 – The Complete Edition",
+    "tags": [
+     "Action",
+     "RPG",
+     "Character Customization",
+     "Souls-like",
+     "Difficult",
+     "Co-op",
+     "Multiplayer",
+     "JRPG"
+    ],
+    "about": "Battle hordes of yokai in this masocore Action RPG. Create your protagonist and embark on an adventure through a myriad of locales across Japan during the Sengoku period. Utilize the new Yokai Shift a"
+   },
+   "c3": {
+    "name": "Salt and Sanctuary",
+    "tags": [
+     "Souls-like",
+     "Metroidvania",
+     "Dark Fantasy",
+     "2D",
+     "Difficult",
+     "RPG",
+     "Action",
+     "Platformer"
+    ],
+    "about": "Explore a haunting, punishing island in this stylized 2D action RPG.\r\n\r\nSalt and Sanctuary combines fast and brutal 2D combat with richly developed RPG mechanics in a cursed realm of forgotten cities,"
+   },
+   "c4": {
+    "name": "Another Crab's Treasure",
+    "tags": [
+     "Souls-like",
+     "3D Platformer",
+     "Funny",
+     "Action RPG",
+     "Cartoony",
+     "Action-Adventure",
+     "Third Person",
+     "Atmospheric"
+    ],
+    "about": "In a vibrant undersea kingdom on the verge of collapse, a hermit crab embarks on a treasure hunt to buy back his repossessed shell. The second game from AGGRO CRAB. Another Crab’s Treasure is a soulsl"
+   },
+   "c5": {
+    "name": "DARK SOULS™ II: Scholar of the First Sin",
+    "tags": [
+     "Souls-like",
+     "Dark Fantasy",
+     "RPG",
+     "Difficult",
+     "Action",
+     "Third Person",
+     "Atmospheric",
+     "Action RPG"
+    ],
+    "about": "DARK SOULS™ II: Scholar of the First Sin brings the franchise’s renowned obscurity & gripping gameplay to a new level. Join the dark journey and experience overwhelming enemy encounters, diabolical ha"
+   },
+   "c6": {
+    "name": "DARK SOULS™: Prepare To Die™ Edition",
+    "tags": [
+     "Souls-like",
+     "RPG",
+     "Difficult",
+     "Dark Fantasy",
+     "Action",
+     "Exploration",
+     "Lore-Rich",
+     "Fantasy"
+    ],
+    "about": "Dark Souls will be the most deeply challenging game you play this year. Can you live through a million deaths and earn your legacy?  New Content for PC Dark Souls™: Prepare to Die™ Edition will includ"
+   },
+   "c7": {
+    "name": "ELDEN RING NIGHTREIGN",
+    "tags": [
+     "Souls-like",
+     "Online Co-Op",
+     "Multiplayer",
+     "Roguelike",
+     "Co-op",
+     "Singleplayer",
+     "PvE",
+     "Action"
+    ],
+    "about": "ELDEN RING NIGHTREIGN is a standalone adventure within the ELDEN RING universe, crafted to offer players a new gaming experience by reimagining the game’s core design. ELDEN RING NIGHTREIGN is a stand"
+   },
+   "c8": {
+    "name": "The Witcher 3: Wild Hunt — Remastered",
+    "tags": [
+     "Open World",
+     "RPG",
+     "Story Rich",
+     "Atmospheric",
+     "Fantasy",
+     "Adventure",
+     "Singleplayer",
+     "Nudity"
+    ],
+    "about": "The Witcher 3: Wild Hunt — Remastered modernizes the acclaimed role-playing game with a range of upgrades and enhancements. Become monster slayer for hire Geralt of Rivia and journey across a dark fan"
+   },
+   "c9": {
+    "name": "Clair Obscur: Expedition 33",
+    "tags": [
+     "Turn-Based Combat",
+     "Story Rich",
+     "Fantasy",
+     "Great Soundtrack",
+     "RPG",
+     "Singleplayer",
+     "JRPG",
+     "Exploration"
+    ],
+    "about": "Lead the members of Expedition 33 on their quest to destroy the Paintress so that she can never paint death again. Explore a world of wonders inspired by Belle Époque France and battle unique enemies "
+   }
+  }
+ },
+ "roguelike_deckbuilder": {
+  "library": {
+   "Slay the Spire": 650.0,
+   "Balatro": 180.0,
+   "Monster Train": 120.0,
+   "Across the Obelisk": 50.0,
+   "Inscryption": 30.0,
+   "Griftlands": 25.0,
+   "Peglin": 20.0,
+   "Dicey Dungeons": 15.0,
+   "Hades": 12.0,
+   "Wildfrost": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Darkest Dungeon®",
+    "tags": [
+     "Turn-Based Combat",
+     "Dungeon Crawler",
+     "Dark Fantasy",
+     "Roguelike",
+     "RPG",
+     "Lovecraftian",
+     "Difficult",
+     "Turn-Based"
+    ],
+    "about": "Darkest Dungeon is a challenging gothic roguelike turn-based RPG about the psychological stresses of adventuring.  Recruit, train, and lead a team of flawed heroes against unimaginable horrors, stress"
+   },
+   "c2": {
+    "name": "Monster Train 2",
+    "tags": [
+     "Roguelike Deckbuilder",
+     "Card Game",
+     "Roguelike",
+     "Deckbuilding",
+     "Turn-Based Strategy",
+     "Strategy",
+     "Turn-Based Tactics",
+     "Singleplayer"
+    ],
+    "about": "Monster Train returns with all new clans, new enemy factions, new challenges, new modes and more! Defend your Pyre in the classic three-tiered, vertical gameplay that made the original roguelike deckb"
+   },
+   "c3": {
+    "name": "Die in the Dungeon",
+    "tags": [
+     "Roguelike",
+     "Strategy",
+     "Deckbuilding",
+     "Card Game",
+     "Roguelike Deckbuilder",
+     "Turn-Based Combat",
+     "Card Battler",
+     "Indie"
+    ],
+    "about": "Fight your way through a mysterious dungeon in this deck-building, turn-based roguelike game where you don't use cards, but dice! Deal with enemies by combining powerful dice on your board, boost thei"
+   },
+   "c4": {
+    "name": "9 Kings",
+    "tags": [
+     "Strategy",
+     "RPG",
+     "Auto Battler",
+     "Roguelike",
+     "Card Game",
+     "Deckbuilding",
+     "Roguelike Deckbuilder",
+     "Multiplayer"
+    ],
+    "about": "A fast-paced roguelike kingdom builder. Grow your empire and fight massive battles against powerful rival kings. Break the game with thousands of insane builds to become the King of Kings.  Build your"
+   },
+   "c5": {
+    "name": "Vault of the Void",
+    "tags": [
+     "Indie",
+     "Roguelike Deckbuilder",
+     "Deckbuilding",
+     "Choices Matter",
+     "Strategy",
+     "Card Battler",
+     "Card Game",
+     "Roguelite"
+    ],
+    "about": "Vault of the Void is a fast-paced roguelike deckbuilder where the power is in your hands. Continuously customise your deck, crafting powerful combos and ingenious strategies. Upgrade your cards with V"
+   },
+   "c6": {
+    "name": "Roguebook",
+    "tags": [
+     "RPG",
+     "Indie",
+     "Card Game",
+     "Deckbuilding",
+     "Strategy",
+     "Singleplayer",
+     "Roguelite",
+     "Turn-Based"
+    ],
+    "about": "Embrace the challenge of a roguelike deckbuilder with unique mechanics from the developers of Faeria and Richard Garfield, creator of Magic: The Gathering™. Build a team of two heroes, unleash powerfu"
+   },
+   "c7": {
+    "name": "Baldur's Gate 3",
+    "tags": [
+     "RPG",
+     "Character Customization",
+     "Choices Matter",
+     "Turn-Based Combat",
+     "Story Rich",
+     "Sexual Content",
+     "CRPG",
+     "Fantasy"
+    ],
+    "about": "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute"
+   },
+   "c8": {
+    "name": "The Binding of Isaac: Rebirth",
+    "tags": [
+     "Action Roguelike",
+     "Roguelike",
+     "Indie",
+     "Replay Value",
+     "Difficult",
+     "Pixel Graphics",
+     "Dungeon Crawler",
+     "Great Soundtrack"
+    ],
+    "about": "The Binding of Isaac: Rebirth is a randomly generated action RPG shooter with heavy Rogue-like elements. Following Isaac on his journey players will find bizarre treasures that change Isaac’s form giv"
+   },
+   "c9": {
+    "name": "DICEOMANCER",
+    "tags": [
+     "Strategy",
+     "Card Game",
+     "Roguelike Deckbuilder",
+     "Card Battler",
+     "Colorful",
+     "Roguelike",
+     "Deckbuilding",
+     "First-Person"
+    ],
+    "about": "DICEOMANCER is a roguelike deck-building game. Though you long for a peaceful life, you're forced to embark on an adventure. In this world of swords, magic, and guns, make good use of your dice and de"
+   },
+   "c10": {
+    "name": "Vampire Survivors",
+    "tags": [
+     "Action Roguelike",
+     "Bullet Hell",
+     "Roguelite",
+     "Pixel Graphics",
+     "Vampires",
+     "2D",
+     "Indie",
+     "Singleplayer"
+    ],
+    "about": "Mow down thousands of night creatures and survive until dawn! \r\n  \r\nVampire Survivors is a gothic horror casual game with rogue-lite elements, where your choices can allow you to quickly snowball agai"
+   }
+  }
+ },
+ "crpg_fan": {
+  "library": {
+   "Baldur's Gate 3": 420.0,
+   "Divinity: Original Sin 2 - Definitive Edition": 260.0,
+   "Pathfinder: Wrath of the Righteous - Enhanced Edition": 180.0,
+   "Pillars of Eternity": 90.0,
+   "The Witcher 3: Wild Hunt — Remastered": 80.0,
+   "Pillars of Eternity II: Deadfire": 70.0,
+   "Baldur's Gate II: Enhanced Edition": 60.0,
+   "Disco Elysium - The Final Cut": 45.0,
+   "Wasteland 3": 35.0,
+   "Planescape: Torment: Enhanced Edition": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Pathfinder: Kingmaker — Enhanced Plus Edition",
+    "tags": [
+     "RPG",
+     "Party-Based RPG",
+     "Fantasy",
+     "CRPG",
+     "Isometric",
+     "Character Customization",
+     "Choices Matter",
+     "Strategy RPG"
+    ],
+    "about": "Pathfinder: Kingmaker - Enhanced Plus Edition is the first isometric party-based cRPG set in the Pathfinder fantasy universe. Enjoy a classic RPG experience inspired by games like Baldur's Gate, Fallo"
+   },
+   "c2": {
+    "name": "Cyberpunk 2077",
+    "tags": [
+     "Cyberpunk",
+     "Open World",
+     "Nudity",
+     "Singleplayer",
+     "RPG",
+     "Story Rich",
+     "Sci-fi",
+     "FPS"
+    ],
+    "about": "Cyberpunk 2077 is an open-world, action-adventure RPG set in the dark future of Night City — a dangerous megalopolis obsessed with power, glamor, and ceaseless body modification."
+   },
+   "c3": {
+    "name": "Warhammer 40,000: Rogue Trader",
+    "tags": [
+     "Choices Matter",
+     "RPG",
+     "CRPG",
+     "Strategy",
+     "Character Customization",
+     "Turn-Based Strategy",
+     "Turn-Based Combat",
+     "War"
+    ],
+    "about": "Made in a close partnership with Games Workshop, Warhammer 40,000: Rogue Trader is a story-rich classical RPG from Owlcat Games, developers of the critically acclaimed game, Pathfinder: Wrath of the R"
+   },
+   "c4": {
+    "name": "Tyranny",
+    "tags": [
+     "RPG",
+     "Choices Matter",
+     "Story Rich",
+     "CRPG",
+     "Isometric",
+     "Dark Fantasy",
+     "Adventure",
+     "Villain Protagonist"
+    ],
+    "about": "Experience a story-driven RPG where your choices mean all the difference in the world. Play an RPG with meaningful, world-altering choices, unique and memorable companions, and a new perspective on mo"
+   },
+   "c5": {
+    "name": "Divinity: Original Sin - Enhanced Edition",
+    "tags": [
+     "RPG",
+     "Turn-Based",
+     "Co-op",
+     "Fantasy",
+     "Adventure",
+     "Party-Based RPG",
+     "Strategy",
+     "Turn-Based Combat"
+    ],
+    "about": "Gather your party and get ready for the kick-ass new version of GameSpot's PC Game of the Year 2014. With hours of new content, new game modes, full voiceovers, split-screen multiplayer, and thousands"
+   },
+   "c6": {
+    "name": "Baldur's Gate: Enhanced Edition",
+    "tags": [
+     "CRPG",
+     "Fantasy",
+     "Story Rich",
+     "Isometric",
+     "Character Customization",
+     "RPG",
+     "Atmospheric",
+     "Party-Based RPG"
+    ],
+    "about": "The classic returns! Baldur’s Gate: Enhanced Edition restores the full original adventure and Tales of the Sword Coast, now polished with quality‑of‑life upgrades for a smoother timeless Dungeons & Dr"
+   }
+  }
+ },
+ "jrpg_fan": {
+  "library": {
+   "Persona 5 Royal": 140.0,
+   "DRAGON QUEST® XI S: Echoes of an Elusive Age™ - Definitive Edition": 110.0,
+   "FINAL FANTASY X/X-2 HD Remaster": 90.0,
+   "Metaphor: ReFantazio": 90.0,
+   "OCTOPATH TRAVELER™": 85.0,
+   "Persona 4 Golden": 75.0,
+   "FINAL FANTASY VII REMAKE INTERGRADE": 70.0,
+   "Tales of ARISE": 65.0,
+   "Yakuza: Like a Dragon": 60.0,
+   "NieR:Automata™": 55.0,
+   "Ys VIII: Lacrimosa of DANA": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Tales of Berseria™",
+    "tags": [
+     "Anime",
+     "JRPG",
+     "RPG",
+     "Female Protagonist",
+     "Story Rich",
+     "Action",
+     "Fantasy",
+     "Action RPG"
+    ],
+    "about": "Players embark on a journey of self-discovery as they assume the role of Velvet, a young woman whose once kind demeanor has been replaced and overcome with a festering anger and hatred after a traumat"
+   },
+   "c2": {
+    "name": "FINAL FANTASY VII REBIRTH",
+    "tags": [
+     "RPG",
+     "Action",
+     "Adventure",
+     "JRPG",
+     "Open World",
+     "Singleplayer",
+     "Action RPG",
+     "Party-Based RPG"
+    ],
+    "about": "The Unknown Journey Continues... After escaping the city of Midgar, Cloud and his friends set out on a journey across the planet. New adventures await in a vibrant, expansive world in this standalone "
+   },
+   "c3": {
+    "name": "OCTOPATH TRAVELER II",
+    "tags": [
+     "RPG",
+     "Turn-Based",
+     "JRPG",
+     "2.5D",
+     "Party-Based RPG",
+     "Pixel Graphics",
+     "Story Rich",
+     "Open World"
+    ],
+    "about": "This game is a brand-new entry in the OCTOPATH TRAVELER series, the first installment of which was initially released in 2018 and sold over 3 million copies worldwide.  The story takes place in Solist"
+   },
+   "c4": {
+    "name": "Persona 3 Reload",
+    "tags": [
+     "JRPG",
+     "Anime",
+     "RPG",
+     "Party-Based RPG",
+     "Story Rich",
+     "Turn-Based Strategy",
+     "Great Soundtrack",
+     "Turn-Based Combat"
+    ],
+    "about": "Dive into the Dark Hour and awaken the depths of your heart.\r\nPersona 3 Reload is a captivating reimagining of the genre-defining RPG, reborn for the modern era with cutting-edge graphics and gameplay"
+   },
+   "c5": {
+    "name": "NieR Replicant™ ver.1.22474487139...",
+    "tags": [
+     "Great Soundtrack",
+     "Story Rich",
+     "Action",
+     "RPG",
+     "JRPG",
+     "Adventure",
+     "Hack and Slash",
+     "Singleplayer"
+    ],
+    "about": "The upgraded prequel of NieR:Automata. A kind young man sets out with Grimoire Weiss, a strange talking book, to search for the \"Sealed verses\" in order to save his sister Yonah, who fell terminally i"
+   },
+   "c6": {
+    "name": "Clair Obscur: Expedition 33",
+    "tags": [
+     "Turn-Based Combat",
+     "Story Rich",
+     "Fantasy",
+     "Great Soundtrack",
+     "RPG",
+     "Singleplayer",
+     "JRPG",
+     "Exploration"
+    ],
+    "about": "Lead the members of Expedition 33 on their quest to destroy the Paintress so that she can never paint death again. Explore a world of wonders inspired by Belle Époque France and battle unique enemies "
+   }
+  }
+ },
+ "racing_sim": {
+  "library": {
+   "Assetto Corsa": 420.0,
+   "iRacing": 300.0,
+   "Assetto Corsa Competizione": 260.0,
+   "BeamNG.drive": 180.0,
+   "Forza Horizon 5": 140.0,
+   "DiRT Rally 2.0": 75.0,
+   "rFactor 2": 40.0,
+   "Automobilista 2": 30.0,
+   "Forza Horizon 4": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "CarX Drift Racing Online",
+    "tags": [
+     "Simulation",
+     "Multiplayer",
+     "Racing",
+     "Moddable",
+     "Sandbox",
+     "PvP",
+     "Physics",
+     "Relaxing"
+    ],
+    "about": "Master realistic drift physics, tune 120+ cars and drift online with up to 16 players across platforms. Compete in TOP-32, build unique setups and explore hundreds of community-made Workshop maps.  Ca"
+   },
+   "c2": {
+    "name": "Euro Truck Simulator 2",
+    "tags": [
+     "Driving",
+     "Transportation",
+     "Simulation",
+     "Open World",
+     "Automobile Sim",
+     "Realistic",
+     "Moddable",
+     "Relaxing"
+    ],
+    "about": "Travel across Europe as king of the road, a trucker who delivers important cargo across impressive distances! With dozens of cities to explore, your endurance, skill and speed will all be pushed to th"
+   },
+   "c3": {
+    "name": "RaceRoom Racing Experience",
+    "tags": [
+     "Free to Play",
+     "Racing",
+     "Automobile Sim",
+     "Realistic",
+     "Multiplayer",
+     "Driving",
+     "Simulation",
+     "Competitive"
+    ],
+    "about": "RaceRoom is free to download and built on true-to-life physics and Force Feedback. Drive DTM, FIA WTCC, WTCR and a huge library of cars and tracks—including the most up-to-date Nordschleife. Jump in, "
+   },
+   "c4": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c5": {
+    "name": "Le Mans Ultimate",
+    "tags": [
+     "Racing",
+     "Automobile Sim",
+     "Multiplayer",
+     "Driving",
+     "Realistic",
+     "VR",
+     "Simulation",
+     "Singleplayer"
+    ],
+    "about": "Step into the world of endurance racing and race on the official game of the FIA World Endurance Championship and 24 Hours of Le Mans. Race the latest Hypercars, LMGT3, LMP2 and GTE machinery on laser"
+   },
+   "c6": {
+    "name": "Automobilista",
+    "tags": [
+     "Racing",
+     "Automobile Sim",
+     "Simulation",
+     "Sports",
+     "Multiplayer",
+     "Realistic",
+     "Driving",
+     "Singleplayer"
+    ],
+    "about": "AUTOMOBILISTA places you in the driving seat of an advanced racing simulator, featuring elite brazilian racing series along with a wide range of racing vehicles and international tracks for a uniquely"
+   },
+   "c7": {
+    "name": "Wreckfest",
+    "tags": [
+     "Racing",
+     "Destruction",
+     "Automobile Sim",
+     "Simulation",
+     "Multiplayer",
+     "Driving",
+     "Physics",
+     "Action"
+    ],
+    "about": "Wreckfest is a demolition derby themed racing game with soft-body damage modeling, sophisticated driving dynamics and in-depth vehicle upgrading, featuring both demolition derbies and more traditional"
+   },
+   "c8": {
+    "name": "DiRT Rally",
+    "tags": [
+     "Racing",
+     "Simulation",
+     "Automobile Sim",
+     "Driving",
+     "Multiplayer",
+     "Offroad",
+     "Realistic",
+     "Difficult"
+    ],
+    "about": "DiRT Rally is the most authentic and thrilling rally game ever made, road-tested over 80 million miles by the DiRT community. It perfectly captures that white knuckle feeling of racing on the edge as "
+   },
+   "c9": {
+    "name": "Project CARS 2",
+    "tags": [
+     "Racing",
+     "Driving",
+     "Automobile Sim",
+     "Simulation",
+     "VR",
+     "Multiplayer",
+     "Realistic",
+     "Sports"
+    ],
+    "about": "THE ULTIMATE DRIVER JOURNEY! Project CARS 2 delivers the soul of motor racing in the world’s most beautiful, authentic, and technically-advanced racing game.  FEATURES: • 180+ elite- brand race & road"
+   }
+  }
+ },
+ "flight_truck_sim": {
+  "library": {
+   "Euro Truck Simulator 2": 650.0,
+   "American Truck Simulator": 280.0,
+   "DCS World Steam Edition": 230.0,
+   "X-Plane 11": 160.0,
+   "Farming Simulator 22": 120.0,
+   "SnowRunner": 90.0,
+   "Microsoft Flight Simulator 2024": 70.0,
+   "Kerbal Space Program": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "War Thunder",
+    "tags": [
+     "Free to Play",
+     "Action",
+     "Vehicular Combat",
+     "Simulation",
+     "Combat",
+     "Flight",
+     "World War II",
+     "VR"
+    ],
+    "about": "War Thunder is the most comprehensive free-to-play, cross-platform, MMO military game dedicated to aviation, armoured vehicles, and naval craft, from the early 20th century to the most advanced modern"
+   },
+   "c2": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c3": {
+    "name": "Microsoft Flight Simulator (2020) 40th Anniversary Edition",
+    "tags": [
+     "Simulation",
+     "Flight",
+     "Realistic",
+     "Multiplayer",
+     "Open World",
+     "VR",
+     "Singleplayer",
+     "Real-Time"
+    ],
+    "about": "From gliders and helicopters to wide-body jets, fly highly detailed and accurate aircraft in the Microsoft Flight Simulator 40th Anniversary Edition. The world is at your fingertips. From light planes"
+   },
+   "c4": {
+    "name": "Construction Simulator",
+    "tags": [
+     "Simulation",
+     "Multiplayer",
+     "Building",
+     "Online Co-Op",
+     "Relaxing",
+     "Open World",
+     "Realistic",
+     "Driving"
+    ],
+    "about": "Construction Simulator has returned – larger and more impressive than ever! Fulfil your ambition to become a successful construction entrepreneur by establishing your business from scratch, assisted b"
+   },
+   "c5": {
+    "name": "Farming Simulator 19",
+    "tags": [
+     "Simulation",
+     "Farming Sim",
+     "Multiplayer",
+     "Agriculture",
+     "Realistic",
+     "Driving",
+     "Open World",
+     "Singleplayer"
+    ],
+    "about": "The best-selling franchise takes a giant leap forward with a complete overhaul of the graphics engine, offering the most striking and immersive visuals and effects, along with the deepest and most com"
+   },
+   "c6": {
+    "name": "X-Plane 12",
+    "tags": [
+     "Simulation",
+     "Flight",
+     "Realistic",
+     "VR",
+     "3D",
+     "Immersive Sim",
+     "Action-Adventure",
+     "First-Person"
+    ],
+    "about": "Ultra-Realistic Flight Simulation  Since 1995, X-Plane has been at the forefront of flight simulation, continually pushing the boundaries of realism and immersion. X-Plane 12 carries this legacy forwa"
+   },
+   "c7": {
+    "name": "Motor Town: Behind The Wheel",
+    "tags": [
+     "Driving",
+     "Open World",
+     "Simulation",
+     "Transportation",
+     "Automobile Sim",
+     "Multiplayer",
+     "Relaxing",
+     "Economy"
+    ],
+    "about": "Enjoy realistic driving in the open world. Relaxing cargo deliveries or driving buses and taxis will give you enough money to buy new cars and parts. You can test your driving skills at the race track"
+   },
+   "c8": {
+    "name": "Arma 3",
+    "tags": [
+     "Military",
+     "Action",
+     "Multiplayer",
+     "Shooter",
+     "Simulation",
+     "Realistic",
+     "First-Person",
+     "Open World"
+    ],
+    "about": "Experience true combat gameplay in a massive military sandbox. Deploy with a wide variety of single- and multiplayer content, a massive arsenal of modern weapons and vehicles, and limitless opportunit"
+   },
+   "c9": {
+    "name": "BeamNG.drive",
+    "tags": [
+     "Simulation",
+     "Driving",
+     "Physics",
+     "Realistic",
+     "Destruction",
+     "Automobile Sim",
+     "Sandbox",
+     "Open World"
+    ],
+    "about": "A dynamic soft-body physics vehicle simulator capable of doing just about anything. BeamNG. drive is an incredibly realistic driving game with near-limitless possibilities. Our soft-body physics engin"
+   }
+  }
+ },
+ "horror_coop": {
+  "library": {
+   "Dead by Daylight": 450.0,
+   "Phasmophobia": 280.0,
+   "Lethal Company": 130.0,
+   "Left 4 Dead 2": 90.0,
+   "R.E.P.O.": 55.0,
+   "The Outlast Trials": 40.0,
+   "GTFO": 30.0,
+   "DEVOUR": 20.0,
+   "Content Warning": 12.0,
+   "Back 4 Blood": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "The Forest",
+    "tags": [
+     "Open World Survival Craft",
+     "Survival",
+     "Horror",
+     "Open World",
+     "Crafting",
+     "Adventure",
+     "Building",
+     "Survival Horror"
+    ],
+    "about": "As the lone survivor of a passenger jet crash, you find yourself in a mysterious forest battling to stay alive against a society of cannibalistic mutants. \r\n\r\nBuild, explore, survive in this terrifyin"
+   },
+   "c2": {
+    "name": "White Noise 2",
+    "tags": [
+     "Horror",
+     "Multiplayer",
+     "Survival Horror",
+     "Team-Based",
+     "Co-op",
+     "Online Co-Op",
+     "Survival",
+     "First-Person"
+    ],
+    "about": "Enjoy a 4vs1 asymmetric horror experience like no other. Be a part of the investigator team, or take control of the creature and devour them!  Enjoy a fresh horror experience with White Noise 2! White"
+   },
+   "c3": {
+    "name": "HELLDIVERS™ 2",
+    "tags": [
+     "Online Co-Op",
+     "PvE",
+     "Third-Person Shooter",
+     "Multiplayer",
+     "Shooter",
+     "Action",
+     "Co-op",
+     "Sci-fi"
+    ],
+    "about": "The Galaxy’s Last Line of Offence. Enlist in the Helldivers and join the fight for freedom across a hostile galaxy in a fast, frantic, and ferocious third-person shooter.  The Galaxy’s Last Line of Of"
+   },
+   "c4": {
+    "name": "Backrooms: Escape Together",
+    "tags": [
+     "Multiplayer",
+     "Horror",
+     "Online Co-Op",
+     "Psychological Horror",
+     "Survival Horror",
+     "Co-op",
+     "Atmospheric",
+     "First-Person"
+    ],
+    "about": "A visually lifelike co-op horror game for 1-6 people. Journey through 11 procedurally generated levels, using what's available to survive and progress deeper into the Backrooms.  Play alone, or team u"
+   },
+   "c5": {
+    "name": "Outlast",
+    "tags": [
+     "Horror",
+     "First-Person",
+     "Survival Horror",
+     "Atmospheric",
+     "Psychological Horror",
+     "Gore",
+     "Singleplayer",
+     "Survival"
+    ],
+    "about": "Hell is an experiment you can't survive in Outlast, a first-person survival horror game developed by veterans of some of the biggest game franchises in history. As investigative journalist Miles Upshu"
+   },
+   "c6": {
+    "name": "Garry's Mod",
+    "tags": [
+     "Sandbox",
+     "Moddable",
+     "Multiplayer",
+     "Physics",
+     "Building",
+     "Funny",
+     "Casual",
+     "First-Person"
+    ],
+    "about": "Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. We give you the tools and leave you to play.  Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. "
+   },
+   "c7": {
+    "name": "Escape the Backrooms",
+    "tags": [
+     "Horror",
+     "Multiplayer",
+     "Online Co-Op",
+     "Psychological Horror",
+     "Co-op",
+     "Survival Horror",
+     "First-Person",
+     "Escape Room"
+    ],
+    "about": "Escape the Backrooms is a 1-4 player co-op horror exploration game. Traverse 30+ eerie backrooms levels while avoiding entities and other dangers. Try to escape but be warned: survival isn't guarantee"
+   },
+   "c8": {
+    "name": "Pacify",
+    "tags": [
+     "Horror",
+     "Online Co-Op",
+     "Multiplayer",
+     "Co-op",
+     "Psychological Horror",
+     "Survival Horror",
+     "Exploration",
+     "First-Person"
+    ],
+    "about": "An online co-op horror game where you pacify, weaken and capture supernatural creatures for PAH Inc. Each level has a different story, unique monsters, and multiple endings. Play single player or toge"
+   },
+   "c9": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c10": {
+    "name": "SCP: Secret Laboratory",
+    "tags": [
+     "Free to Play",
+     "Multiplayer",
+     "Horror",
+     "Co-op",
+     "First-Person",
+     "Survival Horror",
+     "Shooter",
+     "Online Co-Op"
+    ],
+    "about": "Deep within a secure underground facility, a sudden containment breach allows many of the secured anomalies to escape from their chambers. Assist the Foundation in re-securing the facility, help the I"
+   }
+  }
+ },
+ "moba_arena": {
+  "library": {
+   "SMITE®": 160.0,
+   "Paladins®": 60.0,
+   "Brawlhalla": 40.0,
+   "Predecessor": 30.0,
+   "Counter-Strike 2": 25.0,
+   "Team Fortress 2": 20.0,
+   "Dota Underlords": 15.0,
+   "Battlerite": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Atlas Reactor",
+    "tags": [
+     "Free to Play",
+     "Multiplayer",
+     "Strategy",
+     "Turn-Based Tactics",
+     "Turn-Based",
+     "PvP",
+     "Tactical",
+     "Online Co-Op"
+    ],
+    "about": "SEASON 6 NOW LIVE! The battle for Atlas continues as a hot (some might even say fiery) new freelancer enters the scene.  Competitive PvP Compete in 4v4 team battles in Solo, Vs. Bots, PvP, Ranked, and"
+   },
+   "c2": {
+    "name": "Warframe",
+    "tags": [
+     "Free to Play",
+     "Looter Shooter",
+     "Action RPG",
+     "Third-Person Shooter",
+     "Action",
+     "RPG",
+     "Third Person",
+     "Massively Multiplayer"
+    ],
+    "about": "Awaken as an unstoppable warrior and battle alongside your friends in this story-driven free-to-play online action game Confront warring factions throughout a sprawling interplanetary system as you fo"
+   },
+   "c3": {
+    "name": "Unturned",
+    "tags": [
+     "Free to Play",
+     "Survival",
+     "Zombies",
+     "Multiplayer",
+     "Open World",
+     "Co-op",
+     "Sandbox",
+     "Crafting"
+    ],
+    "about": "Unturned is an open-world zombie survival sandbox game. As one of the few not yet turned, you must fight to remain among the living.  SURVIVE THE APOCALYPSE : Scavenge for supplies, hunt for food, and"
+   },
+   "c4": {
+    "name": "Dirty Bomb®",
+    "tags": [
+     "Hero Shooter",
+     "Free to Play",
+     "FPS",
+     "Multiplayer",
+     "Shooter",
+     "Action",
+     "Team-Based",
+     "First-Person"
+    ],
+    "about": "Work together or die alone! Fight to restore peace to London or tear it down for profit in the most challenging team based shooter around. Dirty Bomb takes first person shooters back to their purest r"
+   },
+   "c5": {
+    "name": "Gigantic",
+    "tags": [
+     "Free to Play",
+     "Multiplayer",
+     "MOBA",
+     "Action",
+     "Strategy",
+     "Third-Person Shooter",
+     "PvP",
+     "Third Person"
+    ],
+    "about": "Gigantic is a fast and fluid Strategic Hero Shooter, where you battle against and alongside massive Guardians, in deeply strategic team gameplay. \r\n\r\nThink fast, be bold, Go Gigantic!"
+   },
+   "c6": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c7": {
+    "name": "Garry's Mod",
+    "tags": [
+     "Sandbox",
+     "Moddable",
+     "Multiplayer",
+     "Physics",
+     "Building",
+     "Funny",
+     "Casual",
+     "First-Person"
+    ],
+    "about": "Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. We give you the tools and leave you to play.  Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. "
+   },
+   "c8": {
+    "name": "Monday Night Combat",
+    "tags": [
+     "Hero Shooter",
+     "Action",
+     "Third-Person Shooter",
+     "MOBA",
+     "Indie",
+     "Sports",
+     "Strategy",
+     "Multiplayer"
+    ],
+    "about": "Monday Night Combat is a class-based, third-person shooter… and the most popular lethal sport of the future!  Monday Night Combat is a class-based, third-person shooter… and the most popular lethal sp"
+   },
+   "c9": {
+    "name": "Tom Clancy's Rainbow Six Siege",
+    "tags": [
+     "FPS",
+     "PvP",
+     "Multiplayer",
+     "Shooter",
+     "Tactical",
+     "eSports",
+     "Competitive",
+     "Online Co-Op"
+    ],
+    "about": "Tom Clancy's Rainbow Six Siege is an elite, tactical team-based shooter where superior planning and execution triumph. Tom Clancy's Rainbow Six Siege is the undisputed reference in tactical team shoot"
+   },
+   "c10": {
+    "name": "Dead by Daylight",
+    "tags": [
+     "Horror",
+     "Multiplayer",
+     "Survival Horror",
+     "Gore",
+     "Online Co-Op",
+     "Co-op",
+     "Survival",
+     "Team-Based"
+    ],
+    "about": "10 years of horror. 10 years of jump scares and close calls. 10 years of brutal sacrifices and thrilling escapes.\r\n\r\nTrapped forever in a realm of eldritch evil where even death is not an escape, four"
+   }
+  }
+ },
+ "puzzle_indie_narrative": {
+  "library": {
+   "The Witness": 70.0,
+   "Baba Is You": 60.0,
+   "Portal 2": 45.0,
+   "The Talos Principle": 40.0,
+   "Outer Wilds": 35.0,
+   "Return of the Obra Dinn": 14.0,
+   "Stardew Valley": 10.0,
+   "Portal": 8.0,
+   "Firewatch": 5.0,
+   "INSIDE": 4.0,
+   "What Remains of Edith Finch": 3.0,
+   "Gorogoa": 2.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Superliminal",
+    "tags": [
+     "Puzzle",
+     "First-Person",
+     "Surreal",
+     "Psychological",
+     "Physics",
+     "Singleplayer",
+     "Thriller",
+     "Story Rich"
+    ],
+    "about": "Perception is reality. In this mind-bending first-person puzzler, you escape a surreal dream world through solving impossible puzzles using the ambiguity of depth and perspective.  Superliminal is a f"
+   },
+   "c2": {
+    "name": "INFRA",
+    "tags": [
+     "Exploration",
+     "Puzzle",
+     "Atmospheric",
+     "First-Person",
+     "Walking Simulator",
+     "Adventure",
+     "Mystery",
+     "Story Rich"
+    ],
+    "about": "INFRA puts you into the boots of a structural analyst on a routine mission. Quickly though, your task turns into a fight for survival, all caused by deep-rooted schemes of the past. Your tools are sim"
+   },
+   "c3": {
+    "name": "Hollow Knight",
+    "tags": [
+     "Metroidvania",
+     "Platformer",
+     "Souls-like",
+     "Difficult",
+     "Great Soundtrack",
+     "2D",
+     "Indie",
+     "Singleplayer"
+    ],
+    "about": "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in"
+   },
+   "c4": {
+    "name": "The Room",
+    "tags": [
+     "Puzzle",
+     "Mystery",
+     "Point & Click",
+     "Atmospheric",
+     "Singleplayer",
+     "Adventure",
+     "Hidden Object",
+     "Indie"
+    ],
+    "about": "A mysterious invitation leads to the attic of an abandoned house. In the room is a cast-iron safe laced with strange carvings and on top, a note from your distant companion. It promises something anci"
+   },
+   "c5": {
+    "name": "The Talos Principle 2",
+    "tags": [
+     "Puzzle",
+     "Story Rich",
+     "Philosophical",
+     "First-Person",
+     "Puzzle Platformer",
+     "Sci-fi",
+     "Exploration",
+     "Walking Simulator"
+    ],
+    "about": "The Talos Principle 2 is a thought-provoking first-person puzzle experience that greatly expands on the first game's philosophical themes and stunning environments with increasingly mind-bending chall"
+   },
+   "c6": {
+    "name": "GRIS",
+    "tags": [
+     "Beautiful",
+     "Atmospheric",
+     "Great Soundtrack",
+     "Indie",
+     "Female Protagonist",
+     "Adventure",
+     "Hand-drawn",
+     "Platformer"
+    ],
+    "about": "Gris is a hopeful young girl lost in her own world, dealing with a painful experience in her life. Her journey through sorrow is manifested in her dress, which grants new abilities to better navigate "
+   },
+   "c7": {
+    "name": "Chants of Sennaar",
+    "tags": [
+     "Puzzle",
+     "Adventure",
+     "Singleplayer",
+     "Indie",
+     "Colorful",
+     "Word Game",
+     "Point & Click",
+     "Atmospheric"
+    ],
+    "about": "In this award-winning puzzle adventure game, play as the Traveler on a quest to reunite the Peoples of the Tower. Observe, listen, and decipher ancient languages in a fascinating universe inspired by "
+   },
+   "c8": {
+    "name": "Obduction",
+    "tags": [
+     "Adventure",
+     "Puzzle",
+     "Exploration",
+     "Indie",
+     "First-Person",
+     "Mystery",
+     "Surreal",
+     "VR"
+    ],
+    "about": "A new sci-fi adventure from Cyan, the creators of Myst. Abducted far across the universe, you find yourself on a broken alien landscape with odd pieces of Earth. Explore, uncover, solve, and find a wa"
+   },
+   "c9": {
+    "name": "Homesick",
+    "tags": [
+     "Atmospheric",
+     "Puzzle",
+     "Exploration",
+     "First-Person",
+     "Indie",
+     "Walking Simulator",
+     "Horror",
+     "Adventure"
+    ],
+    "about": "Explore an abandoned building, encountering puzzles and clues to discover what happened, as you try to escape in both your nightmares and the waking world. Be immersed in the hauntingly beautiful 3D a"
+   },
+   "c10": {
+    "name": "The Swapper",
+    "tags": [
+     "Puzzle",
+     "Sci-fi",
+     "Atmospheric",
+     "Indie",
+     "Space",
+     "Platformer",
+     "Puzzle Platformer",
+     "Singleplayer"
+    ],
+    "about": "What if someone knew your mind better than you did?\r\nThe Swapper is an award-winning, narrative driven puzzle game set in the furthest reaches of space. What if someone knew your mind better than you "
+   },
+   "c11": {
+    "name": "Half-Life 2",
+    "tags": [
+     "FPS",
+     "Action",
+     "Sci-fi",
+     "Classic",
+     "Singleplayer",
+     "Story Rich",
+     "Shooter",
+     "First-Person"
+    ],
+    "about": "Reawakened from stasis in the occupied metropolis of City 17, Gordon Freeman is joined by Alyx Vance as he leads a desperate human resistance. Experience the landmark first-person shooter packed with "
+   },
+   "c12": {
+    "name": "Celeste",
+    "tags": [
+     "Precision Platformer",
+     "Difficult",
+     "Pixel Graphics",
+     "Great Soundtrack",
+     "Indie",
+     "Platformer",
+     "2D Platformer",
+     "Female Protagonist"
+    ],
+    "about": "Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight platformer from the creators of TowerFall. Brave hundreds of hand-crafted challenges, uncover "
+   }
+  }
+ },
+ "visual_novel_reader": {
+  "library": {
+   "CLANNAD": 80.0,
+   "Phoenix Wright: Ace Attorney Trilogy": 70.0,
+   "STEINS;GATE": 60.0,
+   "Zero Escape: The Nonary Games": 55.0,
+   "The House in Fata Morgana": 45.0,
+   "Danganronpa 2: Goodbye Despair": 40.0,
+   "Danganronpa: Trigger Happy Havoc": 35.0,
+   "AI: The Somnium Files": 30.0,
+   "VA-11 Hall-A: Cyberpunk Bartender Action": 12.0,
+   "Doki Doki Literature Club Plus!": 10.0,
+   "Coffee Talk": 6.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Zero Escape: Zero Time Dilemma",
+    "tags": [
+     "Puzzle",
+     "Visual Novel",
+     "Story Rich",
+     "Psychological Horror",
+     "Mystery",
+     "Choices Matter",
+     "Adventure",
+     "Anime"
+    ],
+    "about": "Nine participants awaken, trapped in an underground facility. To escape, they must play a game with deadly consequences. Who will live, and who will die? The choice is yours. Let the Decision Game beg"
+   },
+   "c2": {
+    "name": "Danganronpa V3: Killing Harmony",
+    "tags": [
+     "Visual Novel",
+     "Detective",
+     "Female Protagonist",
+     "Anime",
+     "Story Rich",
+     "Mystery",
+     "Great Soundtrack",
+     "Singleplayer"
+    ],
+    "about": "A new cast of 16 characters find themselves kidnapped and imprisoned in a school. Inside, some will kill, some will die, and some will be punished. Reimagine what you thought high-stakes, fast-paced i"
+   },
+   "c3": {
+    "name": "STEINS;GATE 0",
+    "tags": [
+     "Visual Novel",
+     "Story Rich",
+     "Anime",
+     "Time Travel",
+     "Sci-fi",
+     "Great Soundtrack",
+     "Multiple Endings",
+     "Adventure"
+    ],
+    "about": "If you can't save the one you love… How can you save humanity?\r\nSequel to the visual novel cult classic.\r\nExperience an alternate worldline of STEINS;GATE. A new story in the critically-acclaimed STEI"
+   },
+   "c4": {
+    "name": "Persona 4 Golden",
+    "tags": [
+     "JRPG",
+     "Great Soundtrack",
+     "Story Rich",
+     "Anime",
+     "Turn-Based Combat",
+     "RPG",
+     "Singleplayer",
+     "Party-Based RPG"
+    ],
+    "about": "A coming of age story that sets the protagonist and his friends on a journey kickstarted by a chain of serial murders.  Inaba—a quiet town in rural Japan sets the scene for budding adolescence in Pers"
+   },
+   "c5": {
+    "name": "Raging Loop",
+    "tags": [
+     "Visual Novel",
+     "Mystery",
+     "Adventure",
+     "Psychological Horror",
+     "Indie",
+     "Story Rich",
+     "Detective",
+     "Psychological"
+    ],
+    "about": "The feast has begun, can you escape the village alive? Immerse yourself in a thrilling psychological horror story taking place in the secluded Japanese village of Yasumizu. A heavy mist surrounds the "
+   },
+   "c6": {
+    "name": "Doki Doki Literature Club!",
+    "tags": [
+     "Psychological Horror",
+     "Visual Novel",
+     "Anime",
+     "Free to Play",
+     "Dating Sim",
+     "Horror",
+     "Cute",
+     "Dark"
+    ],
+    "about": "The Literature Club is full of cute girls! Will you write the way into their heart? This game is not suitable for children or those who are easily disturbed.  Hi, Monika here! Welcome to the Literatur"
+   }
+  }
+ },
+ "rhythm_player": {
+  "library": {
+   "Beat Saber": 320.0,
+   "Muse Dash": 140.0,
+   "Geometry Dash": 90.0,
+   "Synth Riders": 45.0,
+   "Crypt of the NecroDancer": 30.0,
+   "Rhythm Doctor": 30.0,
+   "Hi-Fi RUSH": 25.0,
+   "AudioSurf": 20.0,
+   "Thumper": 8.0,
+   "Pistol Whip": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "A Dance of Fire and Ice",
+    "tags": [
+     "Rhythm",
+     "Music",
+     "Difficult",
+     "Level Editor",
+     "Singleplayer",
+     "2D",
+     "Indie",
+     "Arcade"
+    ],
+    "about": "A Dance of Fire and Ice is a strict rhythm game. Keep your focus as you guide two orbiting planets along a winding path without breaking their perfect equilibrium.  A Dance of Fire and Ice is a simple"
+   },
+   "c2": {
+    "name": "Rift of the NecroDancer",
+    "tags": [
+     "Rhythm",
+     "Music",
+     "Difficult",
+     "Indie",
+     "Female Protagonist",
+     "Arcade",
+     "Action",
+     "Great Soundtrack"
+    ],
+    "about": "The NecroDancer's back in an all-new rhythm game! Dragged into a strange new world, Cadence must engage in musical combat with monsters surging through the Rift! Face pulse-pounding Rhythm Rifts where"
+   },
+   "c3": {
+    "name": "Just Shapes & Beats",
+    "tags": [
+     "Rhythm",
+     "Great Soundtrack",
+     "Music",
+     "Bullet Hell",
+     "Difficult",
+     "Multiplayer",
+     "2D",
+     "Indie"
+    ],
+    "about": "\"Just Shapes & Beats\" is a chaotic co-op musical bullet-hell based on three simple things: avoid Shapes, move to the kick-ass Beats, and die, repeatedly.  \"Just Shapes & Beats\" is a chaotic co-op musi"
+   },
+   "c4": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c5": {
+    "name": "Half-Life: Alyx",
+    "tags": [
+     "VR",
+     "FPS",
+     "Story Rich",
+     "Horror",
+     "Female Protagonist",
+     "Shooter",
+     "Singleplayer",
+     "First-Person"
+    ],
+    "about": "Half-Life: Alyx is Valve’s VR return to the Half-Life series. It’s the story of an impossible fight against a vicious alien race known as the Combine, set between the events of Half-Life and Half-Life"
+   },
+   "c6": {
+    "name": "Hatsune Miku: Project DIVA Mega Mix+",
+    "tags": [
+     "Rhythm",
+     "Anime",
+     "Arcade",
+     "Cute",
+     "3D",
+     "Music",
+     "Action",
+     "Female Protagonist"
+    ],
+    "about": "Take center stage in Hatsune Miku’s premier rhythm game starring the world’s #1 virtual pop star! With a stunner setlist and enormous wardrobe to style, it’s Miku’s ultimate tour—all it needs is you. "
+   },
+   "c7": {
+    "name": "DJMAX RESPECT V",
+    "tags": [
+     "Rhythm",
+     "Music",
+     "Casual",
+     "Anime",
+     "Action",
+     "Multiplayer",
+     "Cute",
+     "Singleplayer"
+    ],
+    "about": "DJMAX RESPECT V is the latest installment from the creators of the critically acclaimed rhythm game franchise ‘DJMAX.’ Experience tracks from popular artists such as Marshmello, Porter Robinson, and Y"
+   }
+  }
+ },
+ "fighting_games": {
+  "library": {
+   "Street Fighter™ 6": 380.0,
+   "TEKKEN 8": 250.0,
+   "GUILTY GEAR -STRIVE-": 210.0,
+   "DRAGON BALL FighterZ": 120.0,
+   "TEKKEN 7": 90.0,
+   "Mortal Kombat 11": 60.0,
+   "Mortal Kombat 1": 40.0,
+   "Brawlhalla": 30.0,
+   "Skullgirls 2nd Encore": 25.0,
+   "Granblue Fantasy Versus: Rising": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "GUILTY GEAR Xrd REV 2",
+    "tags": [
+     "Fighting",
+     "Anime",
+     "2D Fighter",
+     "Great Soundtrack",
+     "Action",
+     "Multiplayer",
+     "2.5D",
+     "Local Multiplayer"
+    ],
+    "about": "Astonishing 3D cell animations and overwhelming content volume, the next-generation fighting game \"GUILTY GEAR Xrd REV 2\" is now out on Steam! Total cast of 25 unique characters, and tons of game mode"
+   },
+   "c2": {
+    "name": "ELDEN RING",
+    "tags": [
+     "Souls-like",
+     "Open World",
+     "Dark Fantasy",
+     "RPG",
+     "Difficult",
+     "Action RPG",
+     "Multiplayer",
+     "Third Person"
+    ],
+    "about": "THE CRITICALLY ACCLAIMED FANTASY ACTION RPG.\r\nRise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.  THE CRITICALLY ACCLAIMED F"
+   },
+   "c3": {
+    "name": "DRAGON BALL: Sparking! ZERO",
+    "tags": [
+     "Anime",
+     "Multiplayer",
+     "Action",
+     "Fighting",
+     "Local Multiplayer",
+     "3D Fighter",
+     "PvP",
+     "Combat"
+    ],
+    "about": "DRAGON BALL: Sparking! ZERO takes the legendary gameplay of the Budokai Tenkaichi series and raises it to whole new levels. Make yours the destructive power of the strongest fighters ever to appear in"
+   },
+   "c4": {
+    "name": "BlazBlue Centralfiction",
+    "tags": [
+     "Fighting",
+     "Anime",
+     "2D Fighter",
+     "Action",
+     "Great Soundtrack",
+     "Visual Novel",
+     "Story Rich",
+     "Multiplayer"
+    ],
+    "about": "Combining a 2D fighting game with a visual novel, the BlazBlue series continues on with massive fan support! The latest installation, BlazBlue: Centralfiction, serves as the ending to the Azure Saga, "
+   },
+   "c5": {
+    "name": "Street Fighter V",
+    "tags": [
+     "Fighting",
+     "Action",
+     "2D Fighter",
+     "Multiplayer",
+     "Competitive",
+     "Arcade",
+     "Local Multiplayer",
+     "eSports"
+    ],
+    "about": "Experience the intensity of head-to-head battles with Street Fighter® V! Choose from 16 iconic characters, then battle against friends online or offline with a robust variety of match options. Experie"
+   },
+   "c6": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c7": {
+    "name": "Mortal Kombat X",
+    "tags": [
+     "Fighting",
+     "Gore",
+     "Action",
+     "Multiplayer",
+     "Violent",
+     "Local Multiplayer",
+     "2D Fighter",
+     "Competitive"
+    ],
+    "about": "Experience the Next Generation of the #1 Fighting Franchise.\r\n\r\nMortal Kombat X combines unparalleled, cinematic presentation with all new gameplay. Who’s Next? Experience the Next Generation of the #"
+   },
+   "c8": {
+    "name": "Rivals of Aether",
+    "tags": [
+     "Fighting",
+     "2D Fighter",
+     "Pixel Graphics",
+     "Multiplayer",
+     "Indie",
+     "Local Multiplayer",
+     "Competitive",
+     "Moddable"
+    ],
+    "about": "RIVALS OF AETHER is an indie fighting game where warring civilizations summon the power of Fire, Water, Air, and Earth. Play with up to four players either locally or online.  Overview RIVALS OF AETHE"
+   }
+  }
+ },
+ "colony_sim": {
+  "library": {
+   "RimWorld": 780.0,
+   "Oxygen Not Included": 320.0,
+   "Kenshi": 160.0,
+   "Dwarf Fortress": 140.0,
+   "Timberborn": 60.0,
+   "Prison Architect": 50.0,
+   "Going Medieval": 45.0,
+   "Frostpunk": 30.0,
+   "Songs of Syx": 25.0,
+   "Planetbase": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Mount & Blade II: Bannerlord",
+    "tags": [
+     "Medieval",
+     "Strategy",
+     "Open World",
+     "RPG",
+     "War",
+     "Multiplayer",
+     "Sandbox",
+     "Singleplayer"
+    ],
+    "about": "A strategy/action RPG. Create a character, engage in diplomacy, craft, trade and conquer new lands in a vast medieval sandbox. Raise armies to lead into battle and command and fight alongside your tro"
+   },
+   "c2": {
+    "name": "Space Haven",
+    "tags": [
+     "Colony Sim",
+     "Base Building",
+     "Survival",
+     "Strategy",
+     "Space",
+     "Management",
+     "Simulation",
+     "Sandbox"
+    ],
+    "about": "Embark on a space voyage with your ragtag crew of civilians in search of a new home. Build spaceships tile by tile, create optimal gas conditions, manage the needs and moods of their crew, encounter o"
+   },
+   "c3": {
+    "name": "Banished",
+    "tags": [
+     "City Builder",
+     "Colony Sim",
+     "Strategy",
+     "Simulation",
+     "Survival",
+     "Indie",
+     "Singleplayer",
+     "Sandbox"
+    ],
+    "about": "In this city-building strategy game, you control a group of exiled travelers who decide to restart their lives in a new land. They have only the clothes on their backs and a cart filled with supplies "
+   },
+   "c4": {
+    "name": "Colony Survival",
+    "tags": [
+     "Colony Sim",
+     "Survival",
+     "Base Building",
+     "Building",
+     "Multiplayer",
+     "Sandbox",
+     "Strategy",
+     "Open World"
+    ],
+    "about": "Colony Survival is a unique first-person strategy game developed by a two-man team. Build your own colony in a voxel world. Command guards, farmers, miners and other colonists. Defend your colony agai"
+   },
+   "c5": {
+    "name": "Oxygen: First Breath",
+    "tags": [
+     "Strategy",
+     "Base Building",
+     "City Builder",
+     "Simulation",
+     "Survival",
+     "Resource Management",
+     "Colony Sim",
+     "Building"
+    ],
+    "about": "This is a free version of Oxygen, featuring the first 50 game-days. Build your city around the Oxygen Center and ensure your people's survival in a post-apocalyptic future, threatened by crack explosi"
+   },
+   "c6": {
+    "name": "Against the Storm",
+    "tags": [
+     "Strategy",
+     "Simulation",
+     "City Builder",
+     "Base Building",
+     "Building",
+     "Grand Strategy",
+     "Management",
+     "Resource Management"
+    ],
+    "about": "A dark fantasy city builder where you must rebuild civilization in the face of apocalyptic rains. As the Queen’s Viceroy, lead humans, beavers, lizards, foxes, and harpies to reclaim the wilderness an"
+   },
+   "c7": {
+    "name": "They Are Billions",
+    "tags": [
+     "Base Building",
+     "Colony Sim",
+     "Strategy",
+     "Zombies",
+     "Survival",
+     "RTS",
+     "Tower Defense",
+     "City Builder"
+    ],
+    "about": "They Are Billions is a Steampunk strategy game set on a post-apocalyptic planet. Build and defend colonies to survive against the billions of the infected that seek to annihilate the few remaining liv"
+   },
+   "c8": {
+    "name": "Project Zomboid",
+    "tags": [
+     "Survival",
+     "Zombies",
+     "Open World",
+     "Multiplayer",
+     "Open World Survival Craft",
+     "Sandbox",
+     "Post-apocalyptic",
+     "Co-op"
+    ],
+    "about": "Project Zomboid is the ultimate in zombie survival. \r\nAlone or in MP: you loot, build, craft, fight, farm and fish in a struggle to survive. A hardcore RPG skillset, a vast map, massively customisable"
+   },
+   "c9": {
+    "name": "Ratopia",
+    "tags": [
+     "Building",
+     "Colony Sim",
+     "Base Building",
+     "Survival",
+     "Difficult",
+     "Strategy",
+     "City Builder",
+     "2D"
+    ],
+    "about": "Ratopia is a new game that has combined elements of both strategic survival and city building.\r\nWith plenty of content available, and more planned, enjoy a vast world to adventure and populate with ci"
+   },
+   "c10": {
+    "name": "Founders' Fortune",
+    "tags": [
+     "Colony Sim",
+     "Base Building",
+     "City Builder",
+     "Simulation",
+     "Building",
+     "Strategy",
+     "Survival",
+     "Sandbox"
+    ],
+    "about": "A fantasy village builder focusing on creative building, colonist psychology and base defense.\r\nHandle resources, farming, production, tools, diplomacy, families, trading, defense, and research, as we"
+   },
+   "c11": {
+    "name": "Cities: Skylines",
+    "tags": [
+     "City Builder",
+     "Simulation",
+     "Building",
+     "Management",
+     "Strategy",
+     "Sandbox",
+     "Singleplayer",
+     "Economy"
+    ],
+    "about": "Cities: Skylines is a modern take on the classic city simulation. The game introduces new game play elements to realize the thrill and hardships of creating and maintaining a real city whilst expandin"
+   },
+   "c12": {
+    "name": "Factorio",
+    "tags": [
+     "Automation",
+     "Base Building",
+     "Resource Management",
+     "Sandbox",
+     "Crafting",
+     "Strategy",
+     "Multiplayer",
+     "Survival"
+    ],
+    "about": "Factorio is a game about building and creating automated factories to produce items of increasing complexity, within an infinite 2D world. Use your imagination to design your factory, combine simple e"
+   },
+   "c13": {
+    "name": "Stellaris",
+    "tags": [
+     "Space",
+     "Strategy",
+     "Grand Strategy",
+     "Sci-fi",
+     "4X",
+     "Exploration",
+     "Sandbox",
+     "Simulation"
+    ],
+    "about": "Explore a galaxy full of wonders in this sci-fi grand strategy game from Paradox Development Studios. Interact with diverse alien races, discover strange new worlds with unexpected events and expand t"
+   }
+  }
+ },
+ "automation_factory": {
+  "library": {
+   "Factorio": 800.0,
+   "Satisfactory": 450.0,
+   "Dyson Sphere Program": 220.0,
+   "Mindustry": 60.0,
+   "Captain of Industry": 50.0,
+   "shapez": 40.0,
+   "shapez 2 - Factory": 35.0,
+   "Oxygen Not Included": 30.0,
+   "Opus Magnum": 25.0,
+   "Space Engineers": 4.0,
+   "Infinifactory": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c2": {
+    "name": "Hydroneer",
+    "tags": [
+     "Base Building",
+     "Automation",
+     "Mining",
+     "Sandbox",
+     "Co-op",
+     "Multiplayer",
+     "Open World",
+     "Building"
+    ],
+    "about": "Hydroneer is a mining and base building sandbox. Dig for gold and other resources to turn a profit and enhance your mining operation. Build a base of operations, forge weapons, go fishing, and dig dee"
+   },
+   "c3": {
+    "name": "Timberborn",
+    "tags": [
+     "City Builder",
+     "Colony Sim",
+     "Voxel",
+     "Sandbox",
+     "Automation",
+     "Building",
+     "Nature",
+     "Management"
+    ],
+    "about": "Humans are long gone. In a world struck by droughts and toxic waste, will your lumberpunk beavers do any better? A sandbox city-building game featuring ingenious animals, vertical architecture, water "
+   },
+   "c4": {
+    "name": "Desynced",
+    "tags": [
+     "Strategy",
+     "Automation",
+     "Base Building",
+     "Programming",
+     "Sandbox",
+     "City Builder",
+     "RTS",
+     "Sci-fi"
+    ],
+    "about": "Desynced is a sci-fi strategy game with fully customizable units and behaviors. Gather, build, research, and explore the unknown. Alone or with friends, unveil the mystery of an AI on the edge of self"
+   },
+   "c5": {
+    "name": "The Planet Crafter",
+    "tags": [
+     "Base Building",
+     "Open World Survival Craft",
+     "Survival",
+     "Online Co-Op",
+     "Co-op",
+     "Building",
+     "Crafting",
+     "Space"
+    ],
+    "about": "A space survival open world terraforming crafting game, designed for 1 to 10 players. Alter the ecosystem of an inhospitable planet to render it habitable for humanity. Survive, gather resources, and "
+   },
+   "c6": {
+    "name": "Autonauts",
+    "tags": [
+     "Automation",
+     "Programming",
+     "Simulation",
+     "Indie",
+     "Casual",
+     "Base Building",
+     "Colony Sim",
+     "Crafting"
+    ],
+    "about": "In Autonauts you must build, create, and automate. Start by establishing a colony, crafting bots and teaching them via Scratch-style programming to build an ever evolving autonomous paradise of agricu"
+   },
+   "c7": {
+    "name": "ASTRONEER",
+    "tags": [
+     "Multiplayer",
+     "Open World Survival Craft",
+     "Open World",
+     "Space",
+     "Survival",
+     "Exploration",
+     "Base Building",
+     "Co-op"
+    ],
+    "about": "Interact with strange new worlds in a unique and tactile way, molding the environment itself as if it were clay in your hands. Build your base, master resource management, automate your production lin"
+   },
+   "c8": {
+    "name": "Factory Town",
+    "tags": [
+     "Automation",
+     "Base Building",
+     "Resource Management",
+     "City Builder",
+     "Colony Sim",
+     "Sandbox",
+     "Management",
+     "Crafting"
+    ],
+    "about": "Build, automate, and optimize a giant factory on 3D terrain using conveyor belts, trains, chutes, pipes, and airships. Sell your goods to nearby villages to expand their borders, increase happiness, a"
+   },
+   "c9": {
+    "name": "RimWorld",
+    "tags": [
+     "Colony Sim",
+     "Base Building",
+     "Survival",
+     "Strategy",
+     "Sandbox",
+     "Management",
+     "Singleplayer",
+     "Moddable"
+    ],
+    "about": "A sci-fi colony sim driven by an intelligent AI storyteller. Generates stories by simulating psychology, ecology, gunplay, melee combat, climate, biomes, diplomacy, interpersonal relationships, art, m"
+   },
+   "c10": {
+    "name": "Beltmatic",
+    "tags": [
+     "Automation",
+     "Casual",
+     "Base Building",
+     "Resource Management",
+     "Sandbox",
+     "Simulation",
+     "Strategy",
+     "Crafting"
+    ],
+    "about": "Beltmatic is a casual factory game where you combine\r\nnumbers using mathematical operations. Beltmatic is a game where you build mathematical factories. Extract numbers from the map Construct building"
+   },
+   "c11": {
+    "name": "FOUNDRY",
+    "tags": [
+     "Base Building",
+     "Automation",
+     "Multiplayer",
+     "Open World",
+     "Crafting",
+     "Co-op",
+     "Building",
+     "Resource Management"
+    ],
+    "about": "Build a sophisticated robot factory optimized to perfection in an infinite voxel world. Mine and harvest resources, automate your production lines and manage complex systems while researching your way"
+   }
+  }
+ },
+ "tactics_xcom_like": {
+  "library": {
+   "XCOM® 2": 340.0,
+   "Battle Brothers": 180.0,
+   "XCOM: Enemy Unknown": 120.0,
+   "Jagged Alliance 3": 70.0,
+   "Into the Breach": 60.0,
+   "Wartales": 45.0,
+   "Gears Tactics": 30.0,
+   "Invisible, Inc.": 25.0,
+   "Marvel's Midnight Suns": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Cyber Knights: Flashpoint",
+    "tags": [
+     "Turn-Based Combat",
+     "Tactical",
+     "Isometric",
+     "Cyberpunk",
+     "Perma Death",
+     "Turn-Based Tactics",
+     "Post-apocalyptic",
+     "Turn-Based Strategy"
+    ],
+    "about": "Cyberpunk mercenaries RPG! Turn-based squad tactics with unique heist-planning strategy. Build your crew wisely; their stories will become interwoven with your own. Pull off heists with powerful cyber"
+   },
+   "c2": {
+    "name": "Sid Meier's Civilization® V",
+    "tags": [
+     "Turn-Based Strategy",
+     "Strategy",
+     "Turn-Based",
+     "Multiplayer",
+     "Historical",
+     "4X",
+     "Addictive",
+     "Singleplayer"
+    ],
+    "about": "Create, discover, and download new player-created maps, scenarios, interfaces, and more! The Flagship Turn-Based Strategy Game Returns Become Ruler of the World by establishing and leading a civilizat"
+   },
+   "c3": {
+    "name": "Mutant Year Zero: Road to Eden",
+    "tags": [
+     "Strategy",
+     "RPG",
+     "Turn-Based Combat",
+     "Post-apocalyptic",
+     "Turn-Based Tactics",
+     "Tactical",
+     "Turn-Based",
+     "Adventure"
+    ],
+    "about": "A tactical game combining the turn-based combat of XCOM with story, exploration, stealth, and strategy. Take control of a team of Mutants navigating a post-human Earth. Created by a team including for"
+   },
+   "c4": {
+    "name": "Showgunners",
+    "tags": [
+     "Turn-Based Tactics",
+     "Turn-Based Combat",
+     "Tactical",
+     "Turn-Based Strategy",
+     "Action",
+     "Sci-fi",
+     "Isometric",
+     "Strategy"
+    ],
+    "about": "As a contestant on a high stakes reality game show of the future, you must survive a\r\ndangerous urban environment packed with traps, confounding puzzles, and\r\nheavily armed psychopaths. Turn-based com"
+   },
+   "c5": {
+    "name": "XCOM®: Chimera Squad",
+    "tags": [
+     "Strategy",
+     "Turn-Based Tactics",
+     "Turn-Based Strategy",
+     "Turn-Based",
+     "Singleplayer",
+     "Aliens",
+     "Sci-fi",
+     "Futuristic"
+    ],
+    "about": "XCOM: Chimera Squad delivers an all-new story and turn-based tactical combat experience in the XCOM universe.  XCOM: Chimera Squad delivers an all-new story and turn-based tactical combat experience i"
+   },
+   "c6": {
+    "name": "Tactical Breach Wizards",
+    "tags": [
+     "Turn-Based Tactics",
+     "Puzzle",
+     "Story Rich",
+     "Turn-Based Strategy",
+     "Turn-Based",
+     "Funny",
+     "Tactical",
+     "Singleplayer"
+    ],
+    "about": "In Tactical Breach Wizards, you lead a team of renegade wizards in kevlar through turn-based battles to unravel a modern conspiracy plot. Combine their unique spells in clever ways, or rewind time to "
+   },
+   "c7": {
+    "name": "Baldur's Gate 3",
+    "tags": [
+     "RPG",
+     "Character Customization",
+     "Choices Matter",
+     "Turn-Based Combat",
+     "Story Rich",
+     "Sexual Content",
+     "CRPG",
+     "Fantasy"
+    ],
+    "about": "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute"
+   },
+   "c8": {
+    "name": "Wasteland 3",
+    "tags": [
+     "CRPG",
+     "Character Customization",
+     "Choices Matter",
+     "Story Rich",
+     "Post-apocalyptic",
+     "RPG",
+     "Sexual Content",
+     "Violent"
+    ],
+    "about": "Following the critically acclaimed 2014 Game of the Year winner Wasteland 2, the RPG series that pioneered the post-apocalyptic genre in video games returns with Wasteland 3.  In Wasteland 3 you take "
+   },
+   "c9": {
+    "name": "The Last Spell",
+    "tags": [
+     "Turn-Based Strategy",
+     "Strategy",
+     "RPG",
+     "Singleplayer",
+     "Turn-Based Tactics",
+     "Tactical",
+     "Turn-Based Combat",
+     "Turn-Based"
+    ],
+    "about": "Defend the last bastion of humanity with your squad of heroes! Exterminate fiendish monsters with magic and brute force by night and re-build your battered city defenses by day in this tactical RPG wi"
+   },
+   "c10": {
+    "name": "FTL: Faster Than Light",
+    "tags": [
+     "Roguelike",
+     "Space",
+     "Strategy",
+     "Sci-fi",
+     "Indie",
+     "Singleplayer",
+     "Perma Death",
+     "Difficult"
+    ],
+    "about": "This \"spaceship simulation roguelike-like\" allows you to take your ship and crew on an adventure through a randomly generated galaxy filled with glory and bitter defeat. FTL is now available in 9 lang"
+   },
+   "c11": {
+    "name": "Darkest Dungeon®",
+    "tags": [
+     "Turn-Based Combat",
+     "Dungeon Crawler",
+     "Dark Fantasy",
+     "Roguelike",
+     "RPG",
+     "Lovecraftian",
+     "Difficult",
+     "Turn-Based"
+    ],
+    "about": "Darkest Dungeon is a challenging gothic roguelike turn-based RPG about the psychological stresses of adventuring.  Recruit, train, and lead a team of flawed heroes against unimaginable horrors, stress"
+   }
+  }
+ },
+ "open_world_action_adventure": {
+  "library": {
+   "Red Dead Redemption 2": 210.0,
+   "The Witcher 3: Wild Hunt — Remastered": 160.0,
+   "Cyberpunk 2077": 140.0,
+   "Assassin's Creed® Odyssey": 90.0,
+   "Hogwarts Legacy": 70.0,
+   "Ghost of Tsushima DIRECTOR'S CUT": 60.0,
+   "Middle-earth™: Shadow of War™": 45.0,
+   "Marvel’s Spider-Man Remastered": 40.0,
+   "Days Gone": 35.0,
+   "Sleeping Dogs: Definitive Edition": 25.0,
+   "Mafia: Definitive Edition": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Baldur's Gate 3",
+    "tags": [
+     "RPG",
+     "Character Customization",
+     "Choices Matter",
+     "Turn-Based Combat",
+     "Story Rich",
+     "Sexual Content",
+     "CRPG",
+     "Fantasy"
+    ],
+    "about": "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute"
+   },
+   "c2": {
+    "name": "Marvel’s Spider-Man: Miles Morales",
+    "tags": [
+     "Open World",
+     "Action",
+     "Superhero",
+     "Singleplayer",
+     "Adventure",
+     "Third Person",
+     "Combat",
+     "Parkour"
+    ],
+    "about": "After the events of Marvel’s Spider-Man Remastered, teenage Miles Morales is adjusting to his new home while following in the footsteps of his mentor, Peter Parker, as a new Spider-Man. When a fierce "
+   },
+   "c3": {
+    "name": "Middle-earth™: Shadow of Mordor™",
+    "tags": [
+     "Open World",
+     "Action",
+     "Fantasy",
+     "Adventure",
+     "Third Person",
+     "Stealth",
+     "Singleplayer",
+     "RPG"
+    ],
+    "about": "Fight through Mordor and uncover the truth of the spirit that compels you, discover the origins of the Rings of Power, build your legend and ultimately confront the evil of Sauron in this new chronicl"
+   },
+   "c4": {
+    "name": "The Elder Scrolls V: Skyrim Special Edition",
+    "tags": [
+     "Open World",
+     "RPG",
+     "Fantasy",
+     "Adventure",
+     "Singleplayer",
+     "Character Customization",
+     "Moddable",
+     "Dragons"
+    ],
+    "about": "Winner of more than 200 Game of the Year Awards, The Elder Scrolls V: Skyrim Special Edition brings the epic fantasy to life in stunning detail. The Special Edition includes the critically acclaimed g"
+   },
+   "c5": {
+    "name": "The Elder Scrolls IV: Oblivion Remastered",
+    "tags": [
+     "RPG",
+     "Open World",
+     "Fantasy",
+     "Singleplayer",
+     "Adventure",
+     "Character Customization",
+     "Exploration",
+     "First-Person"
+    ],
+    "about": "Explore Cyrodiil like never before with stunning new visuals and refined gameplay in The Elder Scrolls IV: Oblivion™ Remastered.  The Elder Scrolls IV: Oblivion™ Remastered modernizes the 2006 Game of"
+   },
+   "c6": {
+    "name": "Grand Theft Auto V Legacy",
+    "tags": [
+     "Open World",
+     "Action",
+     "Multiplayer",
+     "Crime",
+     "Automobile Sim",
+     "Third Person",
+     "First-Person",
+     "Shooter"
+    ],
+    "about": "Grand Theft Auto V for PC offers players the option to explore the award-winning world of Los Santos and Blaine County in resolutions of up to 4k and beyond, as well as the chance to experience the ga"
+   },
+   "c7": {
+    "name": "God of War",
+    "tags": [
+     "Action",
+     "Singleplayer",
+     "Story Rich",
+     "Mythology",
+     "Adventure",
+     "Combat",
+     "Third Person",
+     "Hack and Slash"
+    ],
+    "about": "His vengeance against the Gods of Olympus years behind him, Kratos now lives as a man in the realm of Norse Gods and monsters. It is in this harsh, unforgiving world that he must fight to survive… and"
+   },
+   "c8": {
+    "name": "ELDEN RING",
+    "tags": [
+     "Souls-like",
+     "Open World",
+     "Dark Fantasy",
+     "RPG",
+     "Difficult",
+     "Action RPG",
+     "Multiplayer",
+     "Third Person"
+    ],
+    "about": "THE CRITICALLY ACCLAIMED FANTASY ACTION RPG.\r\nRise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.  THE CRITICALLY ACCLAIMED F"
+   }
+  }
+ },
+ "mmo_player": {
+  "library": {
+   "FINAL FANTASY XIV Online": 800.0,
+   "The Elder Scrolls® Online": 420.0,
+   "Guild Wars 2®": 380.0,
+   "Warframe": 210.0,
+   "Lost Ark": 150.0,
+   "Path of Exile": 120.0,
+   "Black Desert": 60.0,
+   "New World: Aeternum": 45.0,
+   "Albion Online": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "The Lord of the Rings Online™",
+    "tags": [
+     "Free to Play",
+     "MMORPG",
+     "Open World",
+     "Massively Multiplayer",
+     "Fantasy",
+     "RPG",
+     "Adventure",
+     "Multiplayer"
+    ],
+    "about": "Join the world’s greatest fellowship of players in the award-winning online re-creation of J. R. R. Tolkien’s legendary Middle-earth. In The Lord of the Rings Online™ , join the world’s greatest fello"
+   },
+   "c2": {
+    "name": "Neverwinter",
+    "tags": [
+     "Free to Play",
+     "MMORPG",
+     "RPG",
+     "Massively Multiplayer",
+     "Adventure",
+     "Multiplayer",
+     "Fantasy",
+     "Action"
+    ],
+    "about": "Neverwinter is a free, action MMORPG based on the acclaimed Dungeons & Dragons fantasy roleplaying game. Epic stories, action combat and classic roleplaying await those heroes courageous enough to ent"
+   },
+   "c3": {
+    "name": "STAR WARS™: The Old Republic™",
+    "tags": [
+     "Free to Play",
+     "MMORPG",
+     "Multiplayer",
+     "Character Customization",
+     "Open World",
+     "RPG",
+     "Story Rich",
+     "Choices Matter"
+    ],
+    "about": "STAR WARS™: The Old Republic™ is a free-to-play MMORPG that puts you at the center of your own story-driven saga. Play as a Jedi, Sith, Bounty Hunter, or one of many other iconic STAR WARS roles in th"
+   },
+   "c4": {
+    "name": "Valheim",
+    "tags": [
+     "Open World Survival Craft",
+     "Survival",
+     "Online Co-Op",
+     "Open World",
+     "Multiplayer",
+     "Building",
+     "Crafting",
+     "Base Building"
+    ],
+    "about": "A collaborative exploration and survival game for 1-10 players, set in a procedurally generated afterlife inspired by Viking culture. Battle, build, and conquer your way to a saga worthy of Odin’s pat"
+   },
+   "c5": {
+    "name": "Destiny 2",
+    "tags": [
+     "Free to Play",
+     "Open World",
+     "Looter Shooter",
+     "Multiplayer",
+     "MMORPG",
+     "FPS",
+     "Co-op",
+     "PvE"
+    ],
+    "about": "Explore the mysteries of Sol and experience exhilirating first-person shooter combat in Destiny 2. Unlock powerful abilities and collect unique gear across story missions, co-op, and PvP modes.  Explo"
+   },
+   "c6": {
+    "name": "RuneScape ®",
+    "tags": [
+     "Free to Play",
+     "MMORPG",
+     "Open World",
+     "Massively Multiplayer",
+     "RPG",
+     "Multiplayer",
+     "Fantasy",
+     "Character Customization"
+    ],
+    "about": "RuneScape is a high fantasy open world MMORPG. Explore an ever changing and evolving living world where new challenges, skills, and quests await. Featuring unprecedented player freedom, you choose how"
+   },
+   "c7": {
+    "name": "The Elder Scrolls V: Skyrim Special Edition",
+    "tags": [
+     "Open World",
+     "RPG",
+     "Fantasy",
+     "Adventure",
+     "Singleplayer",
+     "Character Customization",
+     "Moddable",
+     "Dragons"
+    ],
+    "about": "Winner of more than 200 Game of the Year Awards, The Elder Scrolls V: Skyrim Special Edition brings the epic fantasy to life in stunning detail. The Special Edition includes the critically acclaimed g"
+   },
+   "c8": {
+    "name": "Baldur's Gate 3",
+    "tags": [
+     "RPG",
+     "Character Customization",
+     "Choices Matter",
+     "Turn-Based Combat",
+     "Story Rich",
+     "Sexual Content",
+     "CRPG",
+     "Fantasy"
+    ],
+    "about": "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute"
+   }
+  }
+ },
+ "party_coop_with_friends": {
+  "library": {
+   "Deep Rock Galactic": 260.0,
+   "Fall Guys": 60.0,
+   "Valheim": 50.0,
+   "Stardew Valley": 45.0,
+   "Overcooked! 2": 40.0,
+   "Golf With Your Friends": 35.0,
+   "Among Us": 30.0,
+   "Lethal Company": 30.0,
+   "It Takes Two": 25.0,
+   "Pummel Party": 25.0,
+   "Ultimate Chicken Horse": 20.0,
+   "Gang Beasts": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Phasmophobia",
+    "tags": [
+     "Horror",
+     "Online Co-Op",
+     "Multiplayer",
+     "Psychological Horror",
+     "Co-op",
+     "VR",
+     "Supernatural",
+     "First-Person"
+    ],
+    "about": "Phasmophobia is a 4 player online co-op psychological horror. Paranormal activity is on the rise and it’s up to you and your team to use all the ghost-hunting equipment at your disposal in order to ga"
+   },
+   "c2": {
+    "name": "Tricky Towers",
+    "tags": [
+     "Party Game",
+     "Puzzle",
+     "Multiplayer",
+     "Physics",
+     "Casual",
+     "Building",
+     "Funny",
+     "Family Friendly"
+    ],
+    "about": "With your brilliant robe and magic powers, it’s time to build some Tricky Towers! Stack your bricks in this land of fable, whose marvelous tower will be the most stable? Battle your friends and rise t"
+   },
+   "c3": {
+    "name": "Levelhead",
+    "tags": [
+     "Platformer",
+     "Co-op",
+     "Level Editor",
+     "Party Game",
+     "Local Co-Op",
+     "Casual",
+     "Multiplayer",
+     "2D Platformer"
+    ],
+    "about": "Deliver those goods, real good - or get turned into scrap trying! Chaotic co-op platforming, genre-bending power-ups, a challenging campaign, and endless community-built levels await, so grab a friend"
+   },
+   "c4": {
+    "name": "Stick Fight: The Game",
+    "tags": [
+     "Multiplayer",
+     "Funny",
+     "Fighting",
+     "Local Multiplayer",
+     "Action",
+     "2D Fighter",
+     "4 Player Local",
+     "PvP"
+    ],
+    "about": "Stick Fight is a physics-based couch/online fighting game where you battle it out as the iconic stick figures from the golden age of the internet. Stick Fight is a physics-based couch/online fighting "
+   },
+   "c5": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c6": {
+    "name": "Human Fall Flat",
+    "tags": [
+     "Co-op",
+     "Funny",
+     "Puzzle",
+     "Multiplayer",
+     "Physics",
+     "Adventure",
+     "Sandbox",
+     "Puzzle Platformer"
+    ],
+    "about": "Human Fall Flat is a hilarious, light-hearted platformer set in floating dreamscapes that can be played solo or with up to 8 players online. Free new levels keep its vibrant community rewarded.  ***NE"
+   },
+   "c7": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c8": {
+    "name": "R.E.P.O.",
+    "tags": [
+     "Horror",
+     "Online Co-Op",
+     "Multiplayer",
+     "Comedy",
+     "Co-op",
+     "Physics",
+     "First-Person",
+     "3D"
+    ],
+    "about": "An online co-op horror game with up to 6 players. Locate valuable, fully physics-based objects and handle them with care as you retrieve and extract to satisfy your creator's desires.  R.E.P.O. is an "
+   },
+   "c9": {
+    "name": "Party Animals",
+    "tags": [
+     "Multiplayer",
+     "Funny",
+     "Casual",
+     "Cute",
+     "Party Game",
+     "Co-op",
+     "Fighting",
+     "Action"
+    ],
+    "about": "Fight your friends as puppies, kittens and other fuzzy creatures in PARTY ANIMALS! Paw it out with your friends remotely, or huddle together for chaotic fun on the same screen. Interact with the world"
+   },
+   "c10": {
+    "name": "Heave Ho",
+    "tags": [
+     "Multiplayer",
+     "Indie",
+     "Co-op",
+     "Adventure",
+     "Local Co-Op",
+     "Funny",
+     "4 Player Local",
+     "Local Multiplayer"
+    ],
+    "about": "Heave Ho is a riotous multiplayer party game for up to four players in couch co-op and versus play, or online with Steam Remote Play. Reach out, get a grip, and swing to victory — or meet your messy e"
+   },
+   "c11": {
+    "name": "PICO PARK",
+    "tags": [
+     "Multiplayer",
+     "Online Co-Op",
+     "Co-op",
+     "Puzzle Platformer",
+     "Local Co-Op",
+     "Cute",
+     "Casual",
+     "Local Multiplayer"
+    ],
+    "about": "PICO PARK is a cooperative local/online multiplay action puzzle game for 2-8 players.  * If you are connecting more than 5 Xbox controllers, please enable \"Xbox Extended Feature Support\" in Controller"
+   }
+  }
+ },
+ "roguelite_action": {
+  "library": {
+   "The Binding of Isaac: Rebirth": 520.0,
+   "Risk of Rain 2": 260.0,
+   "Hades": 180.0,
+   "Dead Cells": 140.0,
+   "Enter the Gungeon": 110.0,
+   "Hades II": 90.0,
+   "Vampire Survivors": 85.0,
+   "Brotato": 60.0,
+   "Returnal™": 30.0,
+   "Cult of the Lamb": 25.0,
+   "Noita": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Risk of Rain (2013)",
+    "tags": [
+     "Action Roguelike",
+     "Roguelike",
+     "Indie",
+     "Platformer",
+     "Action",
+     "Pixel Graphics",
+     "Great Soundtrack",
+     "Online Co-Op"
+    ],
+    "about": "Risk of Rain is an action platformer with roguelike elements . With permanent death as a primary feature, players will have to play their best to get as far as possible. Fight on a mysterious planet w"
+   },
+   "c2": {
+    "name": "Gunfire Reborn",
+    "tags": [
+     "Roguelite",
+     "Roguelike",
+     "FPS",
+     "Online Co-Op",
+     "Co-op",
+     "Multiplayer",
+     "Looter Shooter",
+     "Indie"
+    ],
+    "about": "Gunfire Reborn is a level-based adventure game featuring FPS, Roguelite and RPG. Players can control heroes with various abilities to experience diverse Build gameplay, use various weapons to explore "
+   },
+   "c3": {
+    "name": "Dreamscaper",
+    "tags": [
+     "Action Roguelike",
+     "Roguelite",
+     "Action",
+     "Indie",
+     "RPG",
+     "Dungeon Crawler",
+     "Singleplayer",
+     "Female Protagonist"
+    ],
+    "about": "By night, delve deep into your subconscious and discover powerful artifacts to conquer your nightmares. By day, explore the city of Redhaven and build relationships to unlock the power of your dreams."
+   },
+   "c4": {
+    "name": "Skul: The Hero Slayer",
+    "tags": [
+     "Indie",
+     "Action",
+     "Action Roguelike",
+     "Pixel Graphics",
+     "Roguelike",
+     "2D",
+     "Roguelite",
+     "Singleplayer"
+    ],
+    "about": "Guide 'Skul' on his quest to single-handedly take on the Imperial Army and rescue his King from captivity, in an action-packed rogue-lite 2D platformer for the ages.  The Demon King's Castle in Ruins "
+   },
+   "c5": {
+    "name": "Nuclear Throne",
+    "tags": [
+     "Action Roguelike",
+     "Roguelike",
+     "Pixel Graphics",
+     "Indie",
+     "Difficult",
+     "Bullet Hell",
+     "Action",
+     "Roguelite"
+    ],
+    "about": "Nuclear Throne is a post-apocalyptic roguelike-like top-down shooter. Not 'the final hope of humanity' post-apocalyptic, but 'humanity is extinct and mutants and monsters now roam the world' post-apoc"
+   },
+   "c6": {
+    "name": "Slay the Spire",
+    "tags": [
+     "Roguelike Deckbuilder",
+     "Card Game",
+     "Card Battler",
+     "Roguelike",
+     "Deckbuilding",
+     "Turn-Based",
+     "Strategy",
+     "Singleplayer"
+    ],
+    "about": "We fused card games and roguelikes together to make the best single player deckbuilder we could. Craft a unique deck, encounter bizarre creatures, discover relics of immense power, and Slay the Spire!"
+   },
+   "c7": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c8": {
+    "name": "The Binding of Isaac",
+    "tags": [
+     "Action Roguelike",
+     "Roguelike",
+     "Indie",
+     "Replay Value",
+     "Difficult",
+     "Procedural Generation",
+     "Dark",
+     "Action"
+    ],
+    "about": "Now 20% More Evil with the Free Halloween update! When Isaac’s mother starts hearing the voice of God demanding a sacrifice be made to prove her faith, Isaac escapes into the basement facing droves of"
+   },
+   "c9": {
+    "name": "Hollow Knight",
+    "tags": [
+     "Metroidvania",
+     "Platformer",
+     "Souls-like",
+     "Difficult",
+     "Great Soundtrack",
+     "2D",
+     "Indie",
+     "Singleplayer"
+    ],
+    "about": "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in"
+   },
+   "c10": {
+    "name": "Streets of Rogue",
+    "tags": [
+     "Roguelite",
+     "Action Roguelike",
+     "Pixel Graphics",
+     "Multiplayer",
+     "RPG",
+     "Roguelike",
+     "Action",
+     "Indie"
+    ],
+    "about": "Fight, sneak, and hack your way through randomly generated cities.  It's like Nuclear Throne meets Deus Ex, mixed with the anarchy of GTA.  Rogue-lite meets immersive sim, and goes completely insane. "
+   },
+   "c11": {
+    "name": "Dungreed",
+    "tags": [
+     "Action Roguelike",
+     "Pixel Graphics",
+     "Roguelike",
+     "Roguelite",
+     "Action",
+     "Indie",
+     "2D",
+     "Dungeon Crawler"
+    ],
+    "about": "Dungreed is a 2D side-scrolling action game with 2D Rogue-LITE elements. You become an adventurer exploring a continuously evolving dungeon to prevent the town from being destroyed. Eliminate enemies,"
+   }
+  }
+ },
+ "platformer_precision": {
+  "library": {
+   "Celeste": 120.0,
+   "Super Meat Boy": 60.0,
+   "Hollow Knight": 50.0,
+   "Cuphead": 45.0,
+   "Jump King": 35.0,
+   "Pizza Tower": 30.0,
+   "Rayman® Legends": 25.0,
+   "A Hat in Time": 20.0,
+   "Getting Over It with Bennett Foddy": 20.0,
+   "The End Is Nigh": 18.0,
+   "Super Meat Boy Forever": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Downwell",
+    "tags": [
+     "Precision Platformer",
+     "Action Roguelike",
+     "Pixel Graphics",
+     "Indie",
+     "Platformer",
+     "Arcade",
+     "2D Platformer",
+     "Action"
+    ],
+    "about": "Downwell is a curious game about a young person venturing down a well in search of untold treasures with only his Gunboots to protect him. Downwell is a curious game about a young person venturing dow"
+   },
+   "c2": {
+    "name": "VVVVVV",
+    "tags": [
+     "Pixel Graphics",
+     "Precision Platformer",
+     "Platformer",
+     "Indie",
+     "2D Platformer",
+     "Great Soundtrack",
+     "Difficult",
+     "Retro"
+    ],
+    "about": "VVVVVV is a platform game all about exploring one simple mechanical idea - what if you reversed gravity instead of jumping? Help! Everyone has been teleported away randomly! As the heroic Captain Viri"
+   },
+   "c3": {
+    "name": "Geometry Dash",
+    "tags": [
+     "Difficult",
+     "Music",
+     "Level Editor",
+     "2D",
+     "Great Soundtrack",
+     "Rhythm",
+     "Precision Platformer",
+     "Singleplayer"
+    ],
+    "about": "Jump and fly your way through danger in this rhythm-based action platformer! Jump and fly your way through danger in this rhythm-based action platformer! Prepare for a near impossible challenge in the"
+   },
+   "c4": {
+    "name": "Undertale",
+    "tags": [
+     "Great Soundtrack",
+     "Story Rich",
+     "Choices Matter",
+     "Multiple Endings",
+     "Pixel Graphics",
+     "Funny",
+     "RPG",
+     "Singleplayer"
+    ],
+    "about": "UNDERTALE! The RPG game where you don't have to destroy anyone. Welcome to UNDERTALE. In this RPG, you control a human who falls underground into the world of monsters. Now you must find your way out."
+   },
+   "c5": {
+    "name": "Dustforce DX",
+    "tags": [
+     "Precision Platformer",
+     "Platformer",
+     "Great Soundtrack",
+     "Indie",
+     "Difficult",
+     "Time Attack",
+     "2D",
+     "Action"
+    ],
+    "about": "Take control of a nimble janitor to rid the world of dust and debris. Clean up the world with style! As an acrobatic janitor, you are an adept force against dust and disorder. Leap and dash off walls "
+   },
+   "c6": {
+    "name": "The Binding of Isaac: Rebirth",
+    "tags": [
+     "Action Roguelike",
+     "Roguelike",
+     "Indie",
+     "Replay Value",
+     "Difficult",
+     "Pixel Graphics",
+     "Dungeon Crawler",
+     "Great Soundtrack"
+    ],
+    "about": "The Binding of Isaac: Rebirth is a randomly generated action RPG shooter with heavy Rogue-like elements. Following Isaac on his journey players will find bizarre treasures that change Isaac’s form giv"
+   },
+   "c7": {
+    "name": "Electronic Super Joy",
+    "tags": [
+     "Platformer",
+     "Great Soundtrack",
+     "Indie",
+     "Difficult",
+     "Music",
+     "Singleplayer",
+     "Action",
+     "Pixel Graphics"
+    ],
+    "about": "Electronic Super Joy is a brutally hard platformer set in a world of pulse-pounding electronic music. Run, jump, smash & fly your way through 45+ weird & different levels, with low-gravity, world rota"
+   },
+   "c8": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   }
+  }
+ },
+ "stealth_immersive_sim": {
+  "library": {
+   "HITMAN World of Assassination": 280.0,
+   "METAL GEAR SOLID V: THE PHANTOM PAIN": 120.0,
+   "Dishonored 2": 75.0,
+   "Dishonored": 60.0,
+   "Prey": 55.0,
+   "Deus Ex: Mankind Divided": 50.0,
+   "Deus Ex: Human Revolution - Director's Cut": 45.0,
+   "Cyberpunk 2077": 40.0,
+   "Thief Gold (1999)": 20.0,
+   "Mark of the Ninja: Remastered": 15.0,
+   "Styx: Shards of Darkness": 4.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "HITMAN™ 2",
+    "tags": [
+     "Stealth",
+     "Assassins",
+     "Action",
+     "Singleplayer",
+     "Third Person",
+     "Multiplayer",
+     "Violent",
+     "Open World"
+    ],
+    "about": "Travel the globe and track your targets across exotic sandbox locations in HITMAN™ 2. From sun-drenched streets to dark and dangerous rainforests, nowhere is safe from the world’s most creative assass"
+   },
+   "c2": {
+    "name": "The Witcher 3: Wild Hunt — Remastered",
+    "tags": [
+     "Open World",
+     "RPG",
+     "Story Rich",
+     "Atmospheric",
+     "Fantasy",
+     "Adventure",
+     "Singleplayer",
+     "Nudity"
+    ],
+    "about": "The Witcher 3: Wild Hunt — Remastered modernizes the acclaimed role-playing game with a range of upgrades and enhancements. Become monster slayer for hire Geralt of Rivia and journey across a dark fan"
+   },
+   "c3": {
+    "name": "DEATHLOOP",
+    "tags": [
+     "FPS",
+     "Action",
+     "Stealth",
+     "Immersive Sim",
+     "First-Person",
+     "Shooter",
+     "Singleplayer",
+     "Multiplayer"
+    ],
+    "about": "DEATHLOOP is a next-gen FPS from Arkane Lyon, the award-winning studio behind Dishonored. In DEATHLOOP, two rival assassins are trapped in a mysterious timeloop on the island of Blackreef, doomed to r"
+   },
+   "c4": {
+    "name": "Dishonored®: Death of the Outsider™",
+    "tags": [
+     "Stealth",
+     "Action",
+     "First-Person",
+     "Assassins",
+     "Female Protagonist",
+     "Singleplayer",
+     "Steampunk",
+     "Atmospheric"
+    ],
+    "about": "From the award-winning developers at Arkane® Studios comes Dishonored®: Death of the Outsider, the next standalone adventure in the critically-acclaimed Dishonored® series.  GAME DESCRIPTION: From the"
+   },
+   "c5": {
+    "name": "Deus Ex: Game of the Year Edition",
+    "tags": [
+     "Cyberpunk",
+     "RPG",
+     "Stealth",
+     "Immersive Sim",
+     "Classic",
+     "FPS",
+     "Sci-fi",
+     "Action"
+    ],
+    "about": "The year is 2052. The world's economies are close to collapse and the gap between the insanely wealthy and the desperately poor grows ever wider. Worst of all, an ages old conspiracy bent on world dom"
+   },
+   "c6": {
+    "name": "Styx: Master of Shadows",
+    "tags": [
+     "Stealth",
+     "Singleplayer",
+     "Action",
+     "Adventure",
+     "Atmospheric",
+     "Assassins",
+     "Violent",
+     "Third Person"
+    ],
+    "about": "Styx: Master of Shadows is an infiltration game with RPG elements taking place in a dark fantasy universe, where you sneak, steal and assassinate your way through as Styx, a Goblin two-centuries of ag"
+   },
+   "c7": {
+    "name": "DOOM",
+    "tags": [
+     "FPS",
+     "Gore",
+     "Action",
+     "Shooter",
+     "Great Soundtrack",
+     "Demons",
+     "First-Person",
+     "Multiplayer"
+    ],
+    "about": "Now includes all three premium DLC packs (Unto the Evil, Hell Followed, and Bloodfall), maps, modes, and weapons, as well as all feature updates including Arcade Mode, Photo Mode, and the latest Updat"
+   },
+   "c8": {
+    "name": "BioShock Infinite",
+    "tags": [
+     "Action",
+     "Shooter",
+     "First-Person",
+     "FPS",
+     "Story Rich",
+     "Singleplayer",
+     "RPG",
+     "Fantasy"
+    ],
+    "about": "Indebted to the wrong people, with his life on the line, veteran of the U.S. Cavalry and now hired gun, Booker DeWitt has only one opportunity to wipe his slate clean. He must rescue Elizabeth, a myst"
+   },
+   "c9": {
+    "name": "Thief: Deadly Shadows",
+    "tags": [
+     "Stealth",
+     "Atmospheric",
+     "Action",
+     "Steampunk",
+     "First-Person",
+     "Classic",
+     "Dark",
+     "Third Person"
+    ],
+    "about": "You are Garrett, the master thief. Rarely seen and never caught, Garrett is the best that ever was. Able to sneak past any guard, pick any lock, and break into the most ingeniously secured residences."
+   }
+  }
+ },
+ "sports_player": {
+  "library": {
+   "Football Manager 2024": 650.0,
+   "Rocket League®": 420.0,
+   "Football Manager 2023": 300.0,
+   "NBA 2K24": 180.0,
+   "Madden NFL 24": 60.0,
+   "PGA TOUR 2K23": 45.0,
+   "Session: Skate Sim": 25.0,
+   "Golf It!": 20.0,
+   "Riders Republic": 4.0,
+   "WWE 2K24": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Football Manager 2022",
+    "tags": [
+     "Sports",
+     "Management",
+     "Football (Soccer)",
+     "Simulation",
+     "Football (American)",
+     "Real Time Tactics",
+     "Strategy",
+     "Multiplayer"
+    ],
+    "about": "The closest thing to real football management. FM22 brings new, progressive ways to find your winning edge, instill your footballing style and earn it on the pitch. Football isn’t just about being the"
+   },
+   "c2": {
+    "name": "Football Manager 2020 Touch",
+    "tags": [
+     "Sports",
+     "Simulation",
+     "Football (Soccer)",
+     "Management"
+    ],
+    "about": "Quick-paced football management for bosses pursuing the fast track to success and footballing glory. FM20 Touch is the slick alternate to the world’s favourite football management game, focusing only "
+   },
+   "c3": {
+    "name": "Golf With Your Friends",
+    "tags": [
+     "Multiplayer",
+     "Casual",
+     "Mini Golf",
+     "Sports",
+     "Golf",
+     "Indie",
+     "Funny",
+     "Family Friendly"
+    ],
+    "about": "Why have friends if not to play Golf... With Your Friends! Nothing is out of bounds as you take on  courses filled with fast paced, exciting, simultaneous mini golf for up to 12 players!  Why have fri"
+   },
+   "c4": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c5": {
+    "name": "Kopanito All-Stars Soccer",
+    "tags": [
+     "Sports",
+     "Football (Soccer)",
+     "Local Multiplayer",
+     "Indie",
+     "Action",
+     "Funny",
+     "Local Co-Op",
+     "Multiplayer"
+    ],
+    "about": "Fast-paced football game without a referee on the pitch and with crazy super-powers! It may not look serious, but we guarantee, that it is. Kopanito’s match engine is well-balanced and entirely skill-"
+   },
+   "c6": {
+    "name": "Pro Soccer Online",
+    "tags": [
+     "Sports",
+     "Football (Soccer)",
+     "PvP",
+     "Competitive",
+     "eSports",
+     "Character Customization",
+     "3D",
+     "First-Person"
+    ],
+    "about": "Pro Soccer Online is a 1st/3rd person, highly skill based, online multiplayer soccer game. It offers a sports game experience unlike any other with smooth, physics based, input driven gameplay that is"
+   },
+   "c7": {
+    "name": "PGA TOUR 2K21",
+    "tags": [
+     "Sports",
+     "Simulation",
+     "Local Multiplayer",
+     "Golf",
+     "Turn-Based",
+     "Singleplayer",
+     "Character Customization",
+     "Action"
+    ],
+    "about": "Play against the pros. Play with your crew. In PGA TOUR 2K21, you can play by the rules or create your own featuring a new PGA TOUR Career Mode, licensed courses and more! Powered by The Golf Club.  T"
+   }
+  }
+ },
+ "idle_casual": {
+  "library": {
+   "Melvor Idle": 600.0,
+   "Cookie Clicker": 450.0,
+   "Bloons TD 6": 160.0,
+   "Vampire Survivors": 70.0,
+   "Clicker Heroes": 60.0,
+   "Idle Champions of the Forgotten Realms": 55.0,
+   "Plants vs. Zombies GOTY Edition": 25.0,
+   "Stardew Valley": 15.0,
+   "Unpacking": 6.0,
+   "Bejeweled® 3": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Digseum",
+    "tags": [
+     "Incremental",
+     "Casual",
+     "Idler",
+     "Management",
+     "Simulation",
+     "Relaxing",
+     "Minimalist",
+     "Pixel Graphics"
+    ],
+    "about": "Digseum is a short incremental journey about digging up ancient relics and building the greatest museum ever!  Digseum is a short, unique incremental journey about digging up ancient relics and buildi"
+   },
+   "c2": {
+    "name": "NGU IDLE",
+    "tags": [
+     "Free to Play",
+     "Incremental",
+     "Idler",
+     "Indie",
+     "Adventure",
+     "Funny",
+     "Simulation",
+     "Singleplayer"
+    ],
+    "about": "NGU Idle is a Free To Play Idle game that's full of weird humor, tons of upgrades and hundreds of hours of content! Try out NGU Idle today and experience the joy of Numbers Going Up! Everyone likes nu"
+   },
+   "c3": {
+    "name": "Mr.Mine",
+    "tags": [
+     "Idler",
+     "Incremental",
+     "Free to Play",
+     "Simulation",
+     "Mining",
+     "Strategy",
+     "Casual",
+     "Crafting"
+    ],
+    "about": "Explore the depths of the earth and uncover hidden treasures in this addictive idle mining game. Unlock the power of your drill with hundreds of upgrades, discover mysterious relics, and unearth price"
+   },
+   "c4": {
+    "name": "Leaf Blower Revolution - Idle Game",
+    "tags": [
+     "Incremental",
+     "Idler",
+     "Indie",
+     "Casual",
+     "Free to Play",
+     "Crafting",
+     "Pixel Graphics",
+     "Collectathon"
+    ],
+    "about": "Blow leaves, upgrade your gear, and automate your progress as you explore the Leaf Universe. A satisfying incremental idle game where every leaf blown brings you closer to the next big upgrade. Simple"
+   },
+   "c5": {
+    "name": "Kiwi Clicker - Juiced Up",
+    "tags": [
+     "Incremental",
+     "Casual",
+     "Indie",
+     "Idler",
+     "Collectathon",
+     "Management",
+     "Economy",
+     "Strategy"
+    ],
+    "about": "Deliver more and more kiwis to satiate the kings' hunger - sacrifice their pulp and transcend beyond your fruital form!  Make kiwis, bag'em up, get'em xrayed and delivered in exchange for Koins Each u"
+   },
+   "c6": {
+    "name": "The Binding of Isaac: Rebirth",
+    "tags": [
+     "Action Roguelike",
+     "Roguelike",
+     "Indie",
+     "Replay Value",
+     "Difficult",
+     "Pixel Graphics",
+     "Dungeon Crawler",
+     "Great Soundtrack"
+    ],
+    "about": "The Binding of Isaac: Rebirth is a randomly generated action RPG shooter with heavy Rogue-like elements. Following Isaac on his journey players will find bizarre treasures that change Isaac’s form giv"
+   },
+   "c7": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c8": {
+    "name": "AdVenture Capitalist",
+    "tags": [
+     "Idler",
+     "Automation",
+     "Capitalism",
+     "Economy",
+     "Management",
+     "Tutorial",
+     "Life Sim",
+     "Character Customization"
+    ],
+    "about": "Welcome, eager young investor, to AdVenture Capitalist! Arguably the world's greatest Capitalism simulator! Hey there Fancy Pants! Have you ever found yourself queuing up for your favourite interactiv"
+   }
+  }
+ },
+ "mixed_everything_a": {
+  "library": {
+   "Counter-Strike 2": 120.0,
+   "Terraria": 90.0,
+   "The Witcher 3: Wild Hunt — Remastered": 70.0,
+   "Sid Meier’s Civilization® VI": 60.0,
+   "Cyberpunk 2077": 55.0,
+   "Rocket League®": 45.0,
+   "Stardew Valley": 40.0,
+   "Hades": 30.0,
+   "Portal 2": 15.0,
+   "ELDEN RING": 4.0,
+   "Among Us": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "Hades II",
+    "tags": [
+     "Action",
+     "Roguelike",
+     "Roguelite",
+     "Hack and Slash",
+     "Mythology",
+     "Action Roguelike",
+     "Female Protagonist",
+     "RPG"
+    ],
+    "about": "Battle beyond the Underworld using dark sorcery to take on the Titan of Time in this bewitching sequel to the award-winning rogue-like dungeon crawler.  The first-ever sequel from Supergiant Games bui"
+   },
+   "c2": {
+    "name": "Rust",
+    "tags": [
+     "Survival",
+     "Crafting",
+     "Multiplayer",
+     "Open World",
+     "Open World Survival Craft",
+     "Building",
+     "PvP",
+     "Sandbox"
+    ],
+    "about": "The only aim in Rust is to survive. Everything wants you to die - the island’s wildlife, other inhabitants, the environment, and other survivors. Do whatever it takes to last another night.  The only "
+   },
+   "c3": {
+    "name": "Portal",
+    "tags": [
+     "Puzzle",
+     "Puzzle Platformer",
+     "First-Person",
+     "3D Platformer",
+     "Singleplayer",
+     "Sci-fi",
+     "Comedy",
+     "Female Protagonist"
+    ],
+    "about": "Portal™ is a new single player game from Valve. Set in the mysterious Aperture Science Laboratories, Portal has been called one of the most innovative new games on the horizon and will offer gamers ho"
+   },
+   "c4": {
+    "name": "Garry's Mod",
+    "tags": [
+     "Sandbox",
+     "Moddable",
+     "Multiplayer",
+     "Physics",
+     "Building",
+     "Funny",
+     "Casual",
+     "First-Person"
+    ],
+    "about": "Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. We give you the tools and leave you to play.  Garry's Mod is a physics sandbox. There aren't any predefined aims or goals. "
+   },
+   "c5": {
+    "name": "Don't Starve Together",
+    "tags": [
+     "Survival",
+     "Open World Survival Craft",
+     "Multiplayer",
+     "Co-op",
+     "Open World",
+     "Adventure",
+     "Crafting",
+     "Online Co-Op"
+    ],
+    "about": "Fight, Farm, Build and Explore Together in the standalone multiplayer expansion to the uncompromising wilderness survival game, Don't Starve.  Fight, Farm, Build and Explore Together in the standalone"
+   },
+   "c6": {
+    "name": "Baldur's Gate 3",
+    "tags": [
+     "RPG",
+     "Character Customization",
+     "Choices Matter",
+     "Turn-Based Combat",
+     "Story Rich",
+     "Sexual Content",
+     "CRPG",
+     "Fantasy"
+    ],
+    "about": "Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute"
+   },
+   "c7": {
+    "name": "Monster Hunter: World",
+    "tags": [
+     "Co-op",
+     "Multiplayer",
+     "Action",
+     "Open World",
+     "RPG",
+     "Character Customization",
+     "Third Person",
+     "Adventure"
+    ],
+    "about": "Welcome to a new world!\r\nIn Monster Hunter: World, the latest installment\r\nin the series, you can enjoy the ultimate hunting\r\nexperience, using everything at your disposal to\r\nhunt monsters in a new w"
+   },
+   "c8": {
+    "name": "Hollow Knight",
+    "tags": [
+     "Metroidvania",
+     "Platformer",
+     "Souls-like",
+     "Difficult",
+     "Great Soundtrack",
+     "2D",
+     "Indie",
+     "Singleplayer"
+    ],
+    "about": "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in"
+   }
+  }
+ },
+ "mixed_everything_b": {
+  "library": {
+   "Baldur's Gate 3": 110.0,
+   "Apex Legends™": 80.0,
+   "Red Dead Redemption 2": 65.0,
+   "RimWorld": 60.0,
+   "Bloons TD 6": 50.0,
+   "Slay the Spire": 40.0,
+   "Deep Rock Galactic": 35.0,
+   "Euro Truck Simulator 2": 30.0,
+   "Hollow Knight": 25.0,
+   "Cookie Clicker": 20.0,
+   "Phasmophobia": 15.0,
+   "Cities: Skylines": 3.0
+  },
+  "candidates": {
+   "c1": {
+    "name": "HELLCARD",
+    "tags": [
+     "Co-op",
+     "Roguelike",
+     "Card Battler",
+     "Roguelite",
+     "RPG",
+     "Deckbuilding",
+     "Turn-Based Combat",
+     "Strategy"
+    ],
+    "about": "Hellcard is a unique cooperative deck builder rogue-like game. Descend into the paper dungeons on your own, recruit computer-controlled companions or join other players' lobbies in fast-paced tactical"
+   },
+   "c2": {
+    "name": "Balatro",
+    "tags": [
+     "Card Game",
+     "Roguelike",
+     "Roguelike Deckbuilder",
+     "Deckbuilding",
+     "Singleplayer",
+     "Strategy",
+     "Pixel Graphics",
+     "Replay Value"
+    ],
+    "about": "The poker roguelike. Balatro is a hypnotically satisfying deckbuilder where you play illegal poker hands, discover game-changing jokers, and trigger adrenaline-pumping, outrageous combos.  Balatro is "
+   },
+   "c3": {
+    "name": "Counter-Strike 2",
+    "tags": [
+     "FPS",
+     "Shooter",
+     "Multiplayer",
+     "Competitive",
+     "Action",
+     "Team-Based",
+     "eSports",
+     "Tactical"
+    ],
+    "about": "For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. T"
+   },
+   "c4": {
+    "name": "ELDEN RING",
+    "tags": [
+     "Souls-like",
+     "Open World",
+     "Dark Fantasy",
+     "RPG",
+     "Difficult",
+     "Action RPG",
+     "Multiplayer",
+     "Third Person"
+    ],
+    "about": "THE CRITICALLY ACCLAIMED FANTASY ACTION RPG.\r\nRise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.  THE CRITICALLY ACCLAIMED F"
+   },
+   "c5": {
+    "name": "Avatar: Frontiers of Pandora™",
+    "tags": [
+     "Open World",
+     "Adventure",
+     "Action",
+     "Multiplayer",
+     "Online Co-Op",
+     "Singleplayer",
+     "Exploration",
+     "First-Person"
+    ],
+    "about": "Avatar: Frontiers of Pandora™ is a third and first-person action-adventure game set in the Western Frontier. Reconnect with your lost heritage and discover what it means to be Na'vi.  RISE AGAINST THE"
+   },
+   "c6": {
+    "name": "Terraria",
+    "tags": [
+     "Open World Survival Craft",
+     "Sandbox",
+     "Survival",
+     "Multiplayer",
+     "2D",
+     "Pixel Graphics",
+     "Adventure",
+     "Crafting"
+    ],
+    "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available! Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for surv"
+   },
+   "c7": {
+    "name": "Red Dead Online",
+    "tags": [
+     "Open World",
+     "Multiplayer",
+     "Western",
+     "Action",
+     "Adventure",
+     "Horses",
+     "Realistic",
+     "Shooter"
+    ],
+    "about": "Step into the vibrant, ever-evolving world of Red Dead Online and experience life in frontier America.\r\n\r\nChase down bounties, battle outlaw gangs and other players, hunt, fish and trade, search for e"
+   },
+   "c8": {
+    "name": "Grand Theft Auto V Legacy",
+    "tags": [
+     "Open World",
+     "Action",
+     "Multiplayer",
+     "Crime",
+     "Automobile Sim",
+     "Third Person",
+     "First-Person",
+     "Shooter"
+    ],
+    "about": "Grand Theft Auto V for PC offers players the option to explore the award-winning world of Los Santos and Blaine County in resolutions of up to 4k and beyond, as well as the chance to experience the ga"
+   },
+   "c9": {
+    "name": "Bloons TD 5",
+    "tags": [
+     "Tower Defense",
+     "Strategy",
+     "Co-op",
+     "Family Friendly",
+     "Action",
+     "Casual",
+     "Multiplayer",
+     "Singleplayer"
+    ],
+    "about": "Five-star tower defense with unrivaled depth and replayability. The Bloons are back in full HD glory and this time they mean business! Build awesome towers, choose your favorite upgrades, hire new Spe"
+   }
+  }
+ }
+}

@@ -79,7 +79,8 @@ def simulation():
     d = json.loads((ROOT / ".cache" / "simulate_inputs.json").read_text(encoding="utf-8"))
     w = d["weights"]
     head = (f'<p class="status-note"><b>{e(d["made"][:10])} 用正式系统重跑：</b>下面四个例子走的是 <code>src/playnext/</code> 的完整流程'
-            f'（当前权重：同好 {w["colike"]}、标签 {w["tag"]}、介绍 {w["desc"]}、血统 {w["lineage"]}；有偏好原话或感觉时 LLM 精排，w_r = {d["rerank_w"]}；'
+            f'（当前权重：同好 {w["colike"]}、标签 {w["tag"]}'
+            f'{"、介绍 " + str(w["desc"]) if "desc" in w else ""}、血统 {w["lineage"]}；有偏好原话或感觉时 LLM 精排，w_r = {d["rerank_w"]}；'
             f'口碑先验 α = {d["alpha_beta"][0]}、β = {d["alpha_beta"][1]}），名单、证据、价格和理由都是系统原样输出，脚本 <code>scripts/simulate_inputs.py</code>，'
             '结果存在 <code>.cache/simulate_inputs.json</code>。只有 Steam 游戏库是编的（不查真实账号），价格用当天的每日快照而不是实时价。'
             '契合度是本次候选里的相对分，1.00 表示这次最高。</p>')
