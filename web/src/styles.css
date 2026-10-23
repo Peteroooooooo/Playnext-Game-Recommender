@@ -341,6 +341,16 @@ main { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; paddin
 .left-out a:hover { text-decoration: underline; }
 .left-out li span { color: var(--ink-3); }
 
+/* near misses: closed by default, one faint line at the bottom; opened only by someone looking for it */
+.near { margin-top: 56px; font-size: 13px; }
+.near summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 4px; color: var(--ink-3);
+  opacity: .7; transition: opacity .2s; }
+.near summary:hover, .near summary:focus-visible, .near[open] summary { opacity: 1; }
+.near summary::-webkit-details-marker { display: none; }
+.near summary::after { content: "›"; font-size: 16px; transition: transform .2s; }
+.near[open] summary::after { transform: rotate(90deg); }
+.near .shelf { margin-top: 14px; opacity: .8; }
+
 .foot { margin-top: 72px; font-size: 12px; line-height: 1.6; color: var(--ink-3); }
 
 /* ---------- detail sheet ---------- */
