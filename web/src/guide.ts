@@ -59,8 +59,7 @@ export function removePart(text: string, part: string, sep: string): string {
 }
 
 export function splitParts(text: string, sep: string): string[] {
-  return text
-    .split(sep.trim() || sep)
+  return (sep ? text.split(sep.trim() || sep) : [text])
     .map((x) => x.trim())
     .filter(Boolean);
 }
