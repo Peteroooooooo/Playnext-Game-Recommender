@@ -119,6 +119,20 @@ def test_mechanics_top_up_after_strict_matches(kb):
     assert any("后面补上" in n for n in res.notes)
 
 
+def test_seed_only_requests_are_reranked_on_seed_facts(kb):
+    one = targets_with_words(SessionSpec(seeds=[HADES]), kb)
+    assert set(one) == {"me"} and "Hades" in one["me"] and "store facts" in one["me"]
+    assert targets_with_words(SessionSpec(seeds=[HADES])) == {}           # no kb: old behaviour
+    assert targets_with_words(SessionSpec(), kb) == {}                    # nothing to compare
+    spec = group(2, interaction="coop")
+    spec.seeds = [TERRARIA]
+    spec.members[1].seeds = [HADES]
+    texts = targets_with_words(spec, kb)
+    assert set(texts) == {"shared", 1} and "Terraria" in texts["shared"] and "Hades" in texts[1]
+    # with words the words win, as before
+    assert targets_with_words(SessionSpec(seeds=[HADES], preference_text="轻松"), kb)["me"] == "轻松"
+
+
 def test_rerank_per_target_and_combine(kb):
     spec = group(2, preference_text="轻松合作", interaction="coop")
     spec.members[1].preference_text = "想要射击"
