@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 
 from . import appindex, config as C
 from .cards import write_reasons
+from .i18n import L, set_lang
 from .library import LibraryError, fetch_library, library_from_profile, openid_login_url, openid_verify
 from .profiles import Store, apply as apply_feedback, profile_key
 from .spec import REGION_CURRENCY, Budget, Library, Member, SessionSpec, Site
@@ -36,20 +37,14 @@ def rec():
     with _state["lock"]:
         if _state["rec"] is None:
             from .pipeline import Recommender
-            llm = encoder = None
             try:
                 from .llm import LLM
                 llm = LLM()
             except Exception:
                 llm = None  # no LLM: free text unavailable, forms still work
-            try:
-                from .encoder import Encoder
-                encoder = Encoder()
-            except Exception:
-                encoder = None
             from .db import PathFinder
             paths = PathFinder()
-            _state["rec"] = Recommender(llm=llm, encoder=encoder, live_prices=True, reasons=False,
+            _state["rec"] = Recommender(llm=llm, live_prices=True, reasons=False,
                                         paths=paths if paths.available() else None)
             _state["store"] = Store()
             # design 4.6 'daily snapshot': a background thread refreshes the whole-library prices when the
@@ -82,10 +77,28 @@ def session(sid: Optional[str], create=True):
         SESSIONS[sid]["t"] = now
         return sid, SESSIONS[sid]
     if not create:
-        raise HTTPException(404, "session expired")
+        raise HTTPException(404, L("会话已过期，请重新提交一次需求", "Session expired, please send your request again"))
     sid = secrets.token_urlsafe(12)
-    SESSIONS[sid] = {"t": now, "libraries": {}, "accounts": {}, "spec": None, "parsed": None, "result": None}
+    SESSIONS[sid] = {"t": now, "libraries": {}, "accounts": {}, "spec": None, "parsed": None, "result": None,
+                     "lang": "zh"}
     return sid, SESSIONS[sid]
+
+
+Lang = Literal["zh", "en"]
+
+
+def begin(s, lang: Optional[str]):
+    """The session remembers the page language; every text this request builds uses it."""
+    if lang:
+        s["lang"] = lang
+    set_lang(s["lang"])
+
+
+def begin_existing(sid: str, lang: Optional[str]):
+    set_lang(lang)  # the 404 below is already in the page language
+    sid, s = session(sid, create=False)
+    begin(s, lang)
+    return sid, s
 
 
 # ---------- reference data ----------
@@ -94,13 +107,14 @@ def session(sid: Optional[str], create=True):
 def health():
     r = rec()
     from .refresh import LAST
-    return {"ok": True, "games": r.kb.n, "llm": r.llm is not None, "encoder": r.encoder is not None,
+    return {"ok": True, "games": r.kb.n, "llm": r.llm is not None,
             "pg": r.paths is not None, "feedback_saved": store().persistent, "price_snapshot": r.prices.snapshot_date,
             "price_refresh": dict(LAST)}
 
 
 @app.get("/api/search")
-def search(q: str, limit: int = 8):
+def search(q: str, limit: int = 8, lang: Lang = "zh"):
+    set_lang(lang)
     r = rec()
     kb = r.kb
     from .aliases import norm
@@ -126,11 +140,12 @@ FEEL_TAGS = ["Relaxing", "Casual", "Cozy", "Wholesome", "Cute", "Story Rich", "A
 
 
 @app.get("/api/tags")
-def tags():
+def tags(lang: Lang = "zh"):
+    set_lang(lang)
     kb = rec().kb
     by = {n: int(t) for t, n in kb.tag_en.items()}
-    common = [{"tagid": by[n], "name": kb.tag_zh[by[n]], "name_en": n} for n in FEEL_TAGS if n in by]
-    return {"common": common, "all": [{"tagid": int(t), "name": kb.tag_zh[t], "name_en": kb.tag_en[t]} for t in kb.tag_en.index]}
+    common = [{"tagid": by[n], "name": kb.tag_name(by[n]), "name_en": n} for n in FEEL_TAGS if n in by]
+    return {"common": common, "all": [{"tagid": int(t), "name": kb.tag_name(t), "name_en": kb.tag_en[t]} for t in kb.tag_en.index]}
 
 
 # ---------- library (paths A and B) ----------
@@ -139,6 +154,7 @@ class LibraryIn(BaseModel):
     session_id: Optional[str] = None
     member: int = 0
     profile: str
+    lang: Lang = "zh"
 
 
 def lib_summary(lib: Library, kb):
@@ -153,13 +169,14 @@ def lib_summary(lib: Library, kb):
 
 @app.post("/api/library")
 def connect_library(body: LibraryIn):
+    set_lang(body.lang)
     sid, s = session(body.session_id)
     try:
         lib, account = library_from_profile(body.profile)
     except LibraryError as e:
         raise HTTPException(400, str(e))
     except Exception:
-        raise HTTPException(502, "Steam 接口暂时不可用，请稍后再试")
+        raise HTTPException(502, L("Steam 接口暂时不可用，请稍后再试", "Steam is not answering right now, please try again later"))
     s["libraries"][body.member] = lib
     s["accounts"][body.member] = account
     return {"session_id": sid, "member": body.member, "library": lib_summary(lib, rec().kb)}
@@ -179,7 +196,7 @@ def steam_callback(request: Request, session_id: str, member: int = 0):
     params = dict(request.query_params)
     steamid = openid_verify({k: v for k, v in params.items() if k.startswith("openid.")})
     if not steamid:
-        raise HTTPException(400, "Steam 登录校验失败")
+        raise HTTPException(400, L("Steam 登录校验失败", "Steam sign-in could not be verified"))
     s["libraries"][member] = fetch_library(steamid)
     s["accounts"][member] = profile_key(steamid)
     return RedirectResponse(f"/?session_id={sid}&connected={member}")
@@ -220,12 +237,13 @@ class RecommendIn(BaseModel):
     session_id: Optional[str] = None
     text: Optional[str] = None
     form: Optional[FormIn] = None
+    lang: Lang = "zh"
 
 
 def form_spec(form: FormIn, libraries: dict) -> SessionSpec:
     members = []
     for i, m in enumerate(form.members):
-        members.append(Member(name=m.name, region=m.region, seeds=m.seeds, feel_want=m.feel_want, feel_avoid=m.feel_avoid,
+        members.append(Member(name=L("我", "Me") if m.name == "我" else m.name, region=m.region, seeds=m.seeds, feel_want=m.feel_want, feel_avoid=m.feel_avoid,
                               avoid_tags=m.avoid_tags, avoid_content=m.avoid_content, language=m.language,
                               platform=m.platform, owned_extra=m.owned_extra, library=libraries.get(i),
                               preference_text=(m.preference_text or "").strip() or None))
@@ -250,18 +268,27 @@ def form_spec(form: FormIn, libraries: dict) -> SessionSpec:
 def merge_form(spec: SessionSpec, form: FormIn, libraries: dict) -> SessionSpec:
     """Free text + form: the text decides the request, the form adds members' libraries and picks."""
     f = form_spec(form, libraries)
+    # a currency said in the text ("$20 以内") names the store; the page's region switch only fills in when it does not
+    stated = spec.budget is not None and spec.budget.currency in REGION_CURRENCY.values()
     while len(spec.members) < len(f.members):
-        spec.members.append(Member(name=f"成员{len(spec.members) + 1}"))
+        n = len(spec.members) + 1
+        spec.members.append(Member(name=L(f"成员{n}", f"Player {n}")))
     for i, m in enumerate(f.members):
         t = spec.members[i]
         if m.name and m.name != "我" or i == 0:
             t.name = m.name if i or m.name != "我" else t.name
-        t.region, t.library = m.region, m.library or t.library
+        t.library = m.library or t.library
+        if not stated:
+            t.region = m.region
         t.seeds = list(dict.fromkeys(t.seeds + m.seeds))
         t.avoid_tags = list(dict.fromkeys(t.avoid_tags + m.avoid_tags))
         t.owned_extra = list(dict.fromkeys(t.owned_extra + m.owned_extra))
         t.language, t.platform = t.language or m.language, t.platform or m.platform
         t.preference_text = t.preference_text or m.preference_text
+    # people named only in the text ("我们 4 个人") shop in the store region the page has selected
+    for t in spec.members[len(f.members):]:
+        if not stated:
+            t.region = f.members[0].region
     spec.seeds = list(dict.fromkeys(spec.seeds + f.seeds))
     if f.sites and not spec.sites:
         spec.sites = f.sites
@@ -280,13 +307,14 @@ def respond(sid, s, res):
 def recommend(body: RecommendIn):
     r = rec()
     sid, s = session(body.session_id)
+    begin(s, body.lang)
     if body.text:
         if r.understander is None:
-            raise HTTPException(503, "LLM 不可用：请用问卷方式填写")
+            raise HTTPException(503, L("现在没法理解自然语言，请搜索一款游戏开始", "Free text is unavailable right now; search for a game to start"))
         try:
             parsed, spec = r.understand(body.text)
         except Exception:
-            raise HTTPException(502, "需求理解失败（LLM 无响应或输出无效），可以改用问卷方式")
+            raise HTTPException(502, L("需求理解失败（LLM 无响应或输出无效），请再试一次", "Could not understand the request (no valid answer from the LLM), please try again"))
         s["parsed"] = parsed
         if body.form:
             spec = merge_form(spec, body.form, s["libraries"])
@@ -298,29 +326,30 @@ def recommend(body: RecommendIn):
         s["parsed"] = None
         spec = form_spec(body.form, s["libraries"])
     else:
-        raise HTTPException(400, "text or form required")
+        raise HTTPException(400, L("请先输入需求", "Please describe what you want first"))
     return respond(sid, s, r.recommend(with_feedback(spec, s)))
 
 
 class FollowIn(BaseModel):
     session_id: str
     text: str
+    lang: Optional[Lang] = None
 
 
 @app.post("/api/followup")
 def followup(body: FollowIn):
     r = rec()
-    sid, s = session(body.session_id, create=False)
+    sid, s = begin_existing(body.session_id, body.lang)
     if s["spec"] is None:
-        raise HTTPException(400, "no earlier request in this session")
+        raise HTTPException(400, L("还没有可以修改的推荐，请先提交一次需求", "No recommendation to change yet, send a request first"))
     if r.understander is None:
-        raise HTTPException(503, "LLM 不可用")
+        raise HTTPException(503, L("现在没法理解自然语言", "Free text is unavailable right now"))
     from .understand import ParsedRequest
     parsed = s["parsed"] or ParsedRequest()
     try:
         parsed, spec = r.understand(body.text, s["spec"], parsed)
     except Exception:
-        raise HTTPException(502, "没能理解这次修改，请换个说法")
+        raise HTTPException(502, L("没能理解这次修改，请换个说法", "Could not understand that change, try saying it another way"))
     for m_new, m_old in zip(spec.members, s["spec"].members):
         m_new.library = m_new.library or m_old.library
         m_new.owned_extra = list(dict.fromkeys(m_new.owned_extra + m_old.owned_extra))
@@ -341,6 +370,7 @@ class CardAction(BaseModel):
     appid: int
     action: Literal["played", "owned", "not_interested", "liked", "disliked"]
     member: int = 0
+    lang: Optional[Lang] = None
 
 
 @app.post("/api/card")
@@ -348,10 +378,10 @@ def card_action(body: CardAction):
     """'玩过了' excludes the game (design 4.1 rule 3); 'owned' ticks ownership for a guest; 喜欢 / 不喜欢 feed the
     slow loop (design 5.3 Step 6): saved for a bound account, session-only for guests."""
     r = rec()
-    sid, s = session(body.session_id, create=False)
+    sid, s = begin_existing(body.session_id, body.lang)
     spec = s["spec"]
     if spec is None:
-        raise HTTPException(400, "no earlier request")
+        raise HTTPException(400, L("还没有推荐结果，请先提交一次需求", "No recommendation yet, send a request first"))
     k = min(body.member, len(spec.members) - 1)
     m = spec.members[k]
     if body.action == "owned":
@@ -366,14 +396,57 @@ def card_action(body: CardAction):
     if body.action in ("played", "liked", "disliked"):
         account = s["accounts"].get(k)
         if account is None:
-            feedback = {"saved": False, "message": "访客的反馈只在这次会话里生效"}
+            feedback = {"saved": False, "message": L("访客的反馈只在这次会话里生效", "As a guest, this only counts for this session")}
         elif store().save(account, body.appid, body.action):
-            feedback = {"saved": True, "message": "已记下，下次用同一个 Steam 账号接入时会用上"}
+            feedback = {"saved": True, "message": L("已记下，下次用同一个 Steam 账号接入时会用上", "Saved; it will be used the next time you connect this Steam account")}
         else:
-            feedback = {"saved": False, "message": "数据库暂时不可用，这条反馈只在服务运行期间有效"}
+            feedback = {"saved": False, "message": L("数据库暂时不可用，这条反馈只在服务运行期间有效", "The database is unavailable; this only counts until the service restarts")}
     out = respond(sid, s, r.recommend(with_feedback(spec, s)))
     if feedback:
         out["feedback"] = feedback
+    return out
+
+
+class RelaxIn(BaseModel):
+    session_id: str
+    key: Literal["budget", "discount", "mechanics", "solo", "setup", "unknown"]
+    lang: Optional[Lang] = None
+
+
+@app.post("/api/relax")
+def relax(body: RelaxIn):
+    """'不在乎这条': the last request again with one condition dropped, offered on a near miss. No LLM call."""
+    r = rec()
+    sid, s = begin_existing(body.session_id, body.lang)
+    if s["spec"] is None:
+        raise HTTPException(400, L("还没有推荐结果，请先提交一次需求", "No recommendation yet, send a request first"))
+    from .pipeline import relax_spec
+    return respond(sid, s, r.recommend(with_feedback(relax_spec(s["spec"], body.key), s)))
+
+
+class RerunIn(BaseModel):
+    session_id: str
+    lang: Optional[Lang] = None
+
+
+@app.post("/api/rerun")
+def rerun(body: RerunIn):
+    """The last request again with the Steam libraries connected since then (the page calls it right after an import).
+    No LLM understanding step. `played_out`: earlier picks that are now left out because they have Steam playtime."""
+    r = rec()
+    sid, s = begin_existing(body.session_id, body.lang)
+    spec = s["spec"]
+    if spec is None:
+        raise HTTPException(400, L("还没有推荐结果，请先提交一次需求", "No recommendation yet, send a request first"))
+    before = [c["appid"] for c in s["result"].picks] if s["result"] else []
+    for i, lib in s["libraries"].items():
+        if i < len(spec.members):
+            spec.members[i].library = lib
+    out = respond(sid, s, r.recommend(with_feedback(spec, s)))
+    now = {c["appid"] for c in out["picks"]}
+    # Steam playtime only excludes for one player (rules.py, rule "exclude")
+    played = spec.members[0].library.played if spec.party_size == 1 and spec.members[0].library else set()
+    out["played_out"] = [a for a in before if a not in now and a in played]
     return out
 
 
@@ -389,22 +462,23 @@ def report(body: ReportIn):
     """A user says a card fact is wrong (design 5.3 Step 6): recorded without any account or session data and
     checked against the sources at the next data refresh; nothing is changed automatically."""
     if body.appid not in rec().kb.pos:
-        raise HTTPException(404, "unknown game")
+        raise HTTPException(404, L("没有这款游戏", "Unknown game"))
     return {"ok": store().report(body.appid, body.field, body.text)}
 
 
 class ReasonsIn(BaseModel):
     session_id: str
+    lang: Optional[Lang] = None
 
 
 @app.post("/api/reasons")
 def reasons(body: ReasonsIn):
     """LLM reasons for the current picks; called after the cards are shown, so the first answer is fast."""
     r = rec()
-    sid, s = session(body.session_id, create=False)
+    sid, s = begin_existing(body.session_id, body.lang)
     res = s["result"]
     if res is None:
-        raise HTTPException(400, "no result")
+        raise HTTPException(400, L("还没有推荐结果", "No recommendation yet"))
     write_reasons(res.picks, r.llm, res.spec.request_text)
     return {c["appid"]: {"reason": c["reason"], "source": c["reason_source"]} for c in res.picks}
 

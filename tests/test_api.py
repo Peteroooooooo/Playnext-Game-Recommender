@@ -4,11 +4,12 @@ from fastapi.testclient import TestClient
 from conftest import HADES, IT_TAKES_TWO
 from playnext import api
 from playnext.pipeline import Recommender
+from playnext.spec import Budget, Library, Member, SessionSpec
 
 
 @pytest.fixture(scope="module")
 def client(kb):
-    api._state["rec"] = Recommender(kb=kb, llm=None, encoder=None, live_prices=False, reasons=False)
+    api._state["rec"] = Recommender(kb=kb, llm=None, live_prices=False, reasons=False)
     return TestClient(api.app)
 
 
@@ -32,6 +33,56 @@ def test_form_group(client):
             "seeds": [IT_TAKES_TWO], "interaction": "coop", "budget": 100}
     r = client.post("/api/recommend", json={"form": form}).json()
     assert r["picks"] and all(c["setup"]["kind"] == "online" for c in r["picks"])
+
+
+def test_near_misses_carry_poster_facts_and_relax(client):
+    form = {"members": [{"name": "A", "site": 0, "avoid_tags": [1667]}, {"name": "B", "site": 1}],
+            "seeds": [IT_TAKES_TWO], "interaction": "coop", "budget": 1}
+    r = client.post("/api/recommend", json={"form": form}).json()
+    assert r["failed"]
+    for f in r["failed"]:
+        assert "price" in f and "pct_positive" in f and f["miss"]["cause"]
+        assert not any("雷区" in w for w in f["why"])   # what the user ruled out is never a near miss
+    budget = [f for f in r["failed"] if f["miss"]["cause"] == "budget"]
+    assert budget and all(f["relax"] == "budget" for f in budget)
+    r2 = client.post("/api/relax", json={"session_id": r["session_id"], "key": "budget"}).json()
+    assert len(r2["picks"]) == 5 and r2["understood"]["budget"] is None
+
+
+def test_rerun_after_library_import_drops_played_picks(client):
+    r = client.post("/api/recommend", json={"form": {"seeds": [HADES]}}).json()
+    sid, picks = r["session_id"], [c["appid"] for c in r["picks"]]
+    played, owned_only = picks[0], picks[1]
+    api.SESSIONS[sid]["libraries"][0] = Library(is_public=True, owned={played: 120.0, owned_only: 0.0})
+    r2 = client.post("/api/rerun", json={"session_id": sid}).json()
+    now = [c["appid"] for c in r2["picks"]]
+    assert played not in now and r2["played_out"] == [played]
+    assert owned_only in now   # owned but never played stays in, marked on the card
+    assert r2["libraries"]["0"]["owned"] == 2
+    assert client.post("/api/rerun", json={"session_id": "nope"}).status_code == 404
+
+
+def test_english_output(client):
+    r = client.post("/api/recommend", json={"form": {"seeds": [HADES]}, "lang": "en"}).json()
+    c = r["picks"][0]
+    assert c["name"] == c["name_en"]
+    assert client.post("/api/followup", json={"session_id": "nope", "text": "x", "lang": "en"}).json()["detail"] \
+        == "Session expired, please send your request again"
+
+
+def test_merge_form_region_covers_people_from_text():
+    spec = SessionSpec(members=[Member(name="我"), Member(name="成员2"), Member(name="成员3")])
+    form = api.FormIn(members=[api.MemberIn(region="US")])
+    out = api.merge_form(spec, form, {})
+    assert [m.region for m in out.members] == ["US", "US", "US"]
+
+
+def test_merge_form_keeps_currency_said_in_text():
+    spec = SessionSpec(members=[Member(name="我", region="US"), Member(name="成员2", region="US")],
+                       budget=Budget(amount=20, currency="USD"))
+    form = api.FormIn(members=[api.MemberIn(region="CN")])
+    out = api.merge_form(spec, form, {})
+    assert [m.region for m in out.members] == ["US", "US"]
 
 
 def test_text_needs_llm(client):
