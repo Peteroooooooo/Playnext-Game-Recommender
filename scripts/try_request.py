@@ -1,4 +1,4 @@
-"""Run one or more requests through the full system (LLM understanding, query encoder, live prices, LLM reasons).
+"""Run one or more requests through the full system (LLM understanding, LLM rerank, live prices, LLM reasons).
 Usage: uv run python scripts/try_request.py "我以前沉迷《文明6》和《星露谷》，今晚想找类似的轻松游戏，60 块以内" ["follow-up" ...]
 Later arguments are follow-ups (Step 6 patches) on the first request."""
 import json
@@ -7,7 +7,6 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-from playnext.encoder import Encoder  # noqa: E402
 from playnext.llm import LLM  # noqa: E402
 from playnext.pipeline import Recommender  # noqa: E402
 
@@ -36,7 +35,7 @@ def show(res):
 
 def main():
     t0 = time.time()
-    rec = Recommender(llm=LLM(), encoder=Encoder(), live_prices=True)
+    rec = Recommender(llm=LLM(), live_prices=True)
     print(f"ready {time.time() - t0:.1f}s")
     texts = sys.argv[1:]
     parsed, res = rec.ask(texts[0])
