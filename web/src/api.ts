@@ -1,5 +1,13 @@
 // Typed client for the Playnext FastAPI backend (src/playnext/api.py).
 // Shapes follow web_fixtures/api_samples.json; optional fields are the ones the backend only sets sometimes.
+import { DICTS, type Lang } from "./i18n";
+
+/** Language sent with every request; the backend writes its text in it. */
+let apiLang: Lang = "zh";
+export function setApiLang(l: Lang) {
+  apiLang = l;
+}
+const T = () => DICTS[apiLang];
 
 export type Region = "CN" | "US";
 export type Platform = "windows" | "mac" | "linux" | "deck";
@@ -20,7 +28,6 @@ export interface Health {
   ok: boolean;
   games: number;
   llm: boolean;
-  encoder: boolean;
   /** Date of the price snapshot the backend serves (YYYY-MM-DD, may carry a time part). */
   price_snapshot?: string | null;
   pg?: boolean;
@@ -220,17 +227,38 @@ export interface Backup {
   setup?: SetupKind;
 }
 
-export interface UnknownItem {
+/** Which condition "skip this condition" drops (POST /api/relax). */
+export type RelaxKey = "budget" | "discount" | "mechanics" | "solo" | "setup" | "unknown";
+
+export type MissCause =
+  | "budget"
+  | "players"
+  | "mode"
+  | "region"
+  | "discount"
+  | "mechanics"
+  | "solo"
+  | "players_unknown"
+  | "unknown"
+  | "other";
+
+/** A near miss: a game that ranked high but broke one hard condition or lacks a fact. */
+export interface NearMiss {
   appid: number;
   name: string;
   why: string[];
+  price: PriceFacts;
+  pct_positive: number | null;
+  /** value: the player limit for "players", the setup kind for "mode", the price for "budget". */
+  miss: { cause: MissCause; value: number | string | null };
+  relax: RelaxKey | null;
 }
 
+/** A game that misses a fact (e.g. no player count anywhere). */
+export type UnknownItem = NearMiss;
+
 /** A game that would have ranked high but broke a hard condition. */
-export interface FailedItem {
-  appid: number;
-  name: string;
-  why: string[];
+export interface FailedItem extends NearMiss {
   relevance: number;
 }
 
@@ -305,6 +333,8 @@ export interface RecommendResult {
   failed?: FailedItem[];
   /** Only on /api/card answers to liked / disliked. */
   feedback?: CardFeedback;
+  /** Only on /api/rerun: earlier picks now left out because the imported library shows playtime. */
+  played_out?: number[];
 }
 
 export interface ReasonEntry {
@@ -332,25 +362,16 @@ export class ApiError extends Error {
   }
 }
 
-/** Backend `detail` values that are not in Chinese, mapped to text a user can act on. */
-const DETAIL_ZH: Record<string, string> = {
-  "session expired": "会话已过期，请重新提交一次需求",
-  "no earlier request in this session": "还没有可以修改的推荐，请先提交一次需求",
-  "no earlier request": "还没有推荐结果，请先提交一次需求",
-  "no result": "还没有推荐结果",
-  "text or form required": "请先输入需求或填写问卷",
-};
-
 function detailText(body: unknown): string | null {
   if (!body || typeof body !== "object" || !("detail" in body)) return null;
   const detail = (body as { detail: unknown }).detail;
-  if (typeof detail === "string") return DETAIL_ZH[detail] ?? detail;
+  if (typeof detail === "string") return detail;
   if (Array.isArray(detail)) {
     // FastAPI validation errors: [{loc, msg, type}]
     const msgs = detail
       .map((d) => (d && typeof d === "object" && "msg" in d ? String((d as { msg: unknown }).msg) : ""))
       .filter(Boolean);
-    return `请求格式有误${msgs.length ? `：${msgs.join("；")}` : ""}`;
+    return T().errBadRequest(msgs.join("; "));
   }
   return null;
 }
@@ -368,7 +389,7 @@ async function request<T>(path: string, init?: RequestInit & { json?: unknown })
     res = await fetch(path, opts);
   } catch (e) {
     if (e instanceof DOMException && e.name === "AbortError") throw e;
-    throw new ApiError(0, "连不上推荐服务，请确认后端已启动");
+    throw new ApiError(0, T().errOffline);
   }
   let body: unknown = null;
   try {
@@ -377,7 +398,7 @@ async function request<T>(path: string, init?: RequestInit & { json?: unknown })
     body = null;
   }
   if (!res.ok) {
-    throw new ApiError(res.status, detailText(body) ?? `请求失败（HTTP ${res.status}）`);
+    throw new ApiError(res.status, detailText(body) ?? T().errHttp(res.status));
   }
   return body as T;
 }
@@ -386,12 +407,12 @@ export const api = {
   health: () => request<Health>("/api/health"),
 
   search: (q: string, limit = 8, signal?: AbortSignal) =>
-    request<GameHit[]>(`/api/search?${new URLSearchParams({ q, limit: String(limit) })}`, { signal }),
+    request<GameHit[]>(`/api/search?${new URLSearchParams({ q, limit: String(limit), lang: apiLang })}`, { signal }),
 
-  tags: () => request<TagsResponse>("/api/tags"),
+  tags: () => request<TagsResponse>(`/api/tags?lang=${apiLang}`),
 
   library: (sessionId: string | null, member: number, profile: string) =>
-    request<LibraryResponse>("/api/library", { json: { session_id: sessionId, member, profile } }),
+    request<LibraryResponse>("/api/library", { json: { session_id: sessionId, member, profile, lang: apiLang } }),
 
   /** Full-page navigation target for Steam OpenID login (path B). */
   steamLoginUrl: (sessionId: string | null, member: number) => {
@@ -400,15 +421,23 @@ export const api = {
     return `/api/auth/steam/login?${p}`;
   },
 
-  recommend: (body: RecommendBody) => request<RecommendResult>("/api/recommend", { json: body }),
+  recommend: (body: RecommendBody) => request<RecommendResult>("/api/recommend", { json: { ...body, lang: apiLang } }),
 
   followup: (sessionId: string, text: string) =>
-    request<RecommendResult>("/api/followup", { json: { session_id: sessionId, text } }),
+    request<RecommendResult>("/api/followup", { json: { session_id: sessionId, text, lang: apiLang } }),
 
   card: (sessionId: string, appid: number, action: CardActionKind, member = 0) =>
-    request<RecommendResult>("/api/card", { json: { session_id: sessionId, appid, action, member } }),
+    request<RecommendResult>("/api/card", { json: { session_id: sessionId, appid, action, member, lang: apiLang } }),
 
-  reasons: (sessionId: string) => request<ReasonsResponse>("/api/reasons", { json: { session_id: sessionId } }),
+  /** "Skip this condition" on a near miss: the last request again without it; no LLM call. */
+  relax: (sessionId: string, key: RelaxKey) =>
+    request<RecommendResult>("/api/relax", { json: { session_id: sessionId, key, lang: apiLang } }),
+
+  /** The last request again with the libraries imported since; no understanding step. */
+  rerun: (sessionId: string) => request<RecommendResult>("/api/rerun", { json: { session_id: sessionId, lang: apiLang } }),
+
+  reasons: (sessionId: string) =>
+    request<ReasonsResponse>("/api/reasons", { json: { session_id: sessionId, lang: apiLang } }),
 
   /** "事实有误？": stored for the next data refresh, does not change the current result. */
   report: (body: ReportBody) => request<{ ok: boolean }>("/api/report", { json: body }),
@@ -417,5 +446,5 @@ export const api = {
 export function errorMessage(e: unknown): string {
   if (e instanceof ApiError) return e.message;
   if (e instanceof Error) return e.message;
-  return "出了点问题，请稍后再试";
+  return T().errGeneric;
 }

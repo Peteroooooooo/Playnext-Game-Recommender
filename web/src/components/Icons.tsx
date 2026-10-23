@@ -1,50 +1,25 @@
-export function XIcon() {
+export function SteamIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-      <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    <svg className="ico" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path d="M10 1.5a8.5 8.5 0 0 0-8.47 7.8l4.56 1.88a2.4 2.4 0 0 1 1.37-.42h.13l2.03-2.94v-.04a3.2 3.2 0 1 1 3.2 3.2h-.07l-2.9 2.07v.11a2.4 2.4 0 0 1-4.76.44L1.83 12.3A8.5 8.5 0 1 0 10 1.5Zm-3.63 12.9-1.04-.43a1.8 1.8 0 1 0 1.04-2.3l1.08.45a1.33 1.33 0 1 1-1.08 2.28ZM14.95 8a2.13 2.13 0 1 0-4.26 0 2.13 2.13 0 0 0 4.26 0Zm-3.73 0a1.6 1.6 0 1 1 3.2 0 1.6 1.6 0 0 1-3.2 0Z" />
     </svg>
   );
 }
 
-export function ArrowIcon() {
+export function LockIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M3 8h9.5M8.5 4L12.5 8l-4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <svg className="ico lock" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden="true">
+      <rect x="4" y="9" width="12" height="8.5" rx="2" />
+      <path d="M7 9V6.5a3 3 0 0 1 6 0V9" />
     </svg>
   );
 }
 
-export function ExtIcon() {
+export function GlobeIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-      <path d="M4.5 2.5h5v5M9.5 2.5l-7 7" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    <svg className="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <circle cx="10" cy="10" r="7.5" />
+      <path d="M2.5 10h15M10 2.5c2.2 2.3 3.2 4.8 3.2 7.5s-1 5.2-3.2 7.5M10 2.5C7.8 4.8 6.8 7.3 6.8 10s1 5.2 3.2 7.5" />
     </svg>
-  );
-}
-
-export function CheckIcon() {
-  return (
-    <svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true">
-      <path d="M2 5.2l2 2L8 3" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-export function Logo() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
-      <rect width="28" height="28" rx="8" fill="var(--accent)" />
-      <path d="M8 8.5v11l7-5.5z" fill="var(--accent-ink)" />
-      <path d="M15 8.5v11l7-5.5z" fill="var(--accent-ink)" opacity=".5" />
-    </svg>
-  );
-}
-
-/** Member avatar: first character on the member colour. */
-export function Avatar({ name, index, small }: { name: string; index: number; small?: boolean }) {
-  return (
-    <span className={`av${small ? " sm" : ""}`} style={{ ["--h" as string]: `var(--m${(index % 6) + 1})` }} aria-hidden="true">
-      {Array.from(name.trim() || "?")[0]}
-    </span>
   );
 }

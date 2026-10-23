@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playnext 引导方案</title>
+<style>
+:root {
+  --bg: #0b0d12; --sheet: #1c1c1e;
+  --fill: rgba(255,255,255,.08); --fill-2: rgba(255,255,255,.14); --material: rgba(255,255,255,.12);
+  --ink: #f5f5f7; --ink-2: rgba(235,235,245,.7); --ink-3: rgba(235,235,245,.5);
+  --accent: #0a84ff; --green: #30d158;
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei UI", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei UI", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; color: inherit; }
+img { display: block; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* backdrop (final values from 2026-10-22) */
+.backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.backdrop img { position: absolute; left: -10%; top: -10%; width: 120%; height: 120%; object-fit: cover;
+  filter: blur(12px) saturate(1.2) brightness(.85); opacity: 0; transition: opacity 1.7s ease; animation: zoom 14s linear infinite alternate; }
+.backdrop img.on { opacity: 1; }
+@keyframes zoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.backdrop::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11,13,18,.3), rgba(11,13,18,.6) 50%, rgba(11,13,18,1) 95%); }
+
+/* ---------- top bar ---------- */
+.top { position: absolute; top: 0; left: 0; right: 0; z-index: 5; max-width: 1180px; margin: 0 auto; padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font: 600 17px/1 var(--font-display); letter-spacing: -.01em; }
+.top-actions { display: flex; align-items: center; gap: 8px; }
+.pill { appearance: none; border: 0; border-radius: 980px; height: 34px; padding: 0 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.1); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
+  color: var(--ink); font-size: 14px; transition: background .2s; }
+.pill:hover, .pill[aria-expanded="true"] { background: rgba(255,255,255,.2); }
+.pill svg { width: 16px; height: 16px; flex: none; }
+.pill .sep { width: 1px; height: 12px; background: rgba(255,255,255,.25); }
+.pill .dim { color: var(--ink-2); }
+.pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+.pop-wrap { position: relative; }
+.pop { position: absolute; right: 0; top: calc(100% + 10px); width: min(340px, calc(100vw - 32px)); padding: 18px; border-radius: 20px;
+  background: rgba(36,36,40,.92); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: 0 20px 60px rgba(0,0,0,.5); animation: rise .22s ease both; font-size: 14px; }
+.pop[hidden] { display: none; }
+.pop h3 { margin: 0 0 8px; font: 600 13px/1.3 var(--font); color: var(--ink-3); }
+.pop .row + .row { margin-top: 18px; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 3px; border-radius: 11px; background: rgba(118,118,128,.24); }
+.seg button { border: 0; background: none; cursor: pointer; padding: 7px 10px; border-radius: 8px; font-size: 14px; color: var(--ink-2); transition: background .2s, color .2s; }
+.seg button[aria-pressed="true"] { background: rgba(255,255,255,.22); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.cap { margin: 8px 2px 0; font-size: 12.5px; color: var(--ink-3); }
+
+/* Steam popover: the picture says what connecting does */
+.lib-demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.lib-demo figure { margin: 0; position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 2/3; background: var(--fill); }
+.lib-demo img { width: 100%; height: 100%; object-fit: cover; }
+.lib-demo .owned img { filter: grayscale(1) brightness(.45); }
+.lib-demo .owned figcaption, .lib-demo .fav figcaption { position: absolute; left: 6px; right: 6px; bottom: 6px; text-align: center; font-size: 11.5px; font-weight: 600;
+  padding: 3px 0; border-radius: 6px; background: rgba(0,0,0,.6); }
+.lib-demo .fav figcaption { background: rgba(48,209,88,.85); color: #00230b; }
+.lib-demo .rec figcaption { position: absolute; left: 6px; right: 6px; bottom: 6px; text-align: center; font-size: 11.5px; font-weight: 600;
+  padding: 3px 0; border-radius: 6px; background: #fff; color: #000; }
+.lib-demo .rec { box-shadow: 0 0 0 2px #fff; }
+.lib-line { margin: 0 0 16px; color: var(--ink-2); font-size: 13.5px; line-height: 1.6; }
+.btn { border: 0; border-radius: 980px; padding: 10px 16px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;
+  background: #fff; color: #000; width: 100%; }
+.btn svg { width: 16px; height: 16px; }
+.alt { margin-top: 10px; display: block; width: 100%; text-align: center; border: 0; background: none; color: var(--ink-3); cursor: pointer; font-size: 13px; padding: 4px; }
+.alt:hover { color: var(--ink-2); }
+.paste { display: flex; gap: 8px; margin-top: 10px; }
+.paste[hidden] { display: none; }
+.paste input { flex: 1; min-width: 0; border: 0; border-radius: 10px; padding: 9px 12px; background: var(--fill); outline: none; font-size: 14px; }
+.paste input:focus { box-shadow: 0 0 0 2px var(--accent); }
+.paste button { border: 0; border-radius: 10px; padding: 0 14px; background: var(--fill-2); cursor: pointer; }
+.fine { margin: 14px 0 0; font-size: 12px; color: var(--ink-3); text-align: center; }
+
+/* ---------- hero + search ---------- */
+main { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 16px 80px; }
+.hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 72px 0 48px;
+  transition: min-height .6s var(--ease), padding .6s var(--ease); }
+.guiding .hero { min-height: 0; padding-top: 18vh; }
+h1 { font: 700 clamp(34px, 6vw, 56px)/1.1 var(--font-display); letter-spacing: -.02em; margin: 0 0 28px; text-align: center; }
+.search { position: relative; width: min(680px, 100%); display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 8px 0 20px; border-radius: 28px;
+  background: var(--material); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); transition: background .2s; }
+.search:focus-within { background: rgba(255,255,255,.18); }
+.search > svg { flex: none; width: 18px; height: 18px; color: var(--ink-3); }
+.search input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; font-size: 17px; outline: none; }
+.search input::placeholder { color: var(--ink-3); }
+.kbd { flex: none; font-size: 12px; color: var(--ink-3); border: 1px solid rgba(255,255,255,.22); border-radius: 6px; padding: 1px 7px; display: none; }
+@media (hover: hover) and (pointer: fine) { .search.empty:focus-within .kbd { display: inline-block; } }
+.icon-btn { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; cursor: pointer; display: grid; place-items: center; padding: 0; }
+.clear { background: none; color: rgba(235,235,245,.45); }
+.clear:hover { color: rgba(235,235,245,.75); }
+.clear svg { width: 18px; height: 18px; }
+.help { background: var(--fill-2); color: var(--ink-2); font: 600 14px/1 var(--font); transition: background .2s, color .2s; }
+.help:hover { color: #fff; }
+.help[aria-expanded="true"] { background: #fff; color: #000; }
+/* a few hops on the home screen until the guide has been opened once */
+.help { position: relative; transform-origin: 50% 100%; }
+.help::after { content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; opacity: 0; }
+.help.hint { animation: hop 1.3s cubic-bezier(.3,.7,.4,1) both; background: rgba(255,255,255,.28); color: #fff; }
+.help.hint::after { animation: halo 1.3s ease-out both; }
+@keyframes hop {
+  0%   { transform: none; }
+  10%  { transform: scale(1.14, .84); }
+  28%  { transform: translateY(-14px) scale(.9, 1.12); }
+  44%  { transform: translateY(0) scale(1.14, .86); }
+  54%  { transform: translateY(-4px) scale(.98, 1.02); }
+  62%  { transform: none; }
+  70%  { transform: rotate(-14deg); }
+  78%  { transform: rotate(11deg); }
+  86%  { transform: rotate(-6deg); }
+  93%  { transform: rotate(3deg); }
+  100% { transform: none; }
+}
+@keyframes halo {
+  0%, 40% { opacity: 0; box-shadow: 0 0 0 0 rgba(255,255,255,.5); }
+  45%     { opacity: 1; }
+  100%    { opacity: 0; box-shadow: 0 0 0 14px rgba(255,255,255,0); }
+}
+.search.empty .help { margin-right: 6px; }
+.go { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #fff; color: #000; cursor: pointer; display: grid; place-items: center; animation: pop-in .2s ease both; }
+.go svg { width: 18px; height: 18px; }
+.search.empty .go, .search.empty .clear { display: none; }
+@keyframes pop-in { from { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ---------- guide (opened by ?) ---------- */
+.guide { width: min(960px, 100%); margin: 0 auto; }
+.guide[hidden] { display: none; }
+.guide > section { margin-top: 56px; animation: rise .45s var(--ease) both; }
+.guide > section:nth-child(2) { animation-delay: .06s; }
+.guide > section:nth-child(3) { animation-delay: .12s; }
+.guide > section:nth-child(4) { animation-delay: .18s; }
+.g-title { margin: 0 0 18px; font: 600 20px/1.3 var(--font-display); text-align: center; }
+.g-sub { margin: -10px 0 22px; text-align: center; font-size: 14px; color: var(--ink-3); }
+
+/* 1. one sentence, its parts underline one after another */
+.anatomy { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px 6px; margin-top: 36px; }
+.anatomy span { display: grid; justify-items: center; gap: 10px; }
+.anatomy b { font-weight: 500; font-size: 19px; padding: 0 4px 9px; position: relative; }
+.anatomy b::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 1px; background: rgba(255,255,255,.55);
+  transform: scaleX(0); transform-origin: left; animation: line .5s var(--ease) forwards; }
+.anatomy i { font-style: normal; font-size: 13px; color: var(--ink-3); opacity: 0; animation: rise .4s ease forwards; }
+.anatomy span:nth-child(1) b::after, .anatomy span:nth-child(1) i { animation-delay: .25s; }
+.anatomy span:nth-child(2) b::after, .anatomy span:nth-child(2) i { animation-delay: .6s; }
+.anatomy span:nth-child(3) b::after, .anatomy span:nth-child(3) i { animation-delay: .95s; }
+@keyframes line { to { transform: scaleX(1); } }
+
+/* 2. pieces that can be added to the sentence */
+.parts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 720px; margin: 0 auto; }
+.part { border: 0; border-radius: 980px; padding: 7px 14px; cursor: pointer; background: var(--fill); color: var(--ink); font-size: 14px;
+  display: inline-flex; align-items: center; gap: 6px; transition: background .2s, transform .2s; }
+.part::before { content: "+"; color: var(--ink-3); font-weight: 600; }
+.part:hover { background: var(--fill-2); }
+.part:active { transform: scale(.96); }
+.part.added { background: rgba(255,255,255,.9); color: #000; }
+.part.added::before { content: "✓"; color: #000; }
+
+/* 3. example gallery: each example sits on the art of a game it would find */
+.gallery { display: grid; gap: 34px; }
+.group h4 { margin: 0 0 12px 2px; font: 600 15px/1.3 var(--font-display); color: var(--ink-2); }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 980px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .tiles { grid-template-columns: 1fr; } }
+.ex { all: unset; cursor: pointer; display: block; align-self: start; min-width: 0; border-radius: 14px; }
+.ex .art { position: relative; aspect-ratio: 460/215; border-radius: 12px; overflow: hidden; background: var(--fill); box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  transition: transform .4s var(--ease), box-shadow .4s; }
+.ex .art img { width: 100%; height: 100%; object-fit: cover; }
+.ex p { margin: 10px 2px 0; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+.ex small { display: block; margin: 3px 2px 0; font-size: 12.5px; color: var(--ink-3); }
+@media (hover: hover) { .ex:hover .art { transform: translateY(-4px) scale(1.02); box-shadow: 0 22px 48px rgba(0,0,0,.55); } }
+.ex:focus-visible .art { box-shadow: 0 0 0 3px #fff; }
+
+/* 4. the two buttons at the top right, in miniature */
+.corner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 760px; margin: 0 auto; }
+@media (max-width: 600px) { .corner { grid-template-columns: 1fr; } }
+.corner div { background: var(--fill); border-radius: 16px; padding: 16px 18px; display: grid; gap: 10px; align-content: start; }
+.corner .pill { pointer-events: none; justify-self: start; height: 30px; font-size: 13px; }
+.corner p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+.corner.one { grid-template-columns: 1fr; max-width: 420px; }
+
+/* Steam boost in the guide: before / after on the same shelf */
+.boost { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 32px; align-items: center; padding: 28px; border-radius: 24px;
+  background: rgba(255,255,255,.08); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); }
+@media (max-width: 760px) { .boost { grid-template-columns: 1fr; padding: 20px; gap: 20px; } }
+.boost h2 { margin: 0 0 16px; font: 700 22px/1.3 var(--font-display); letter-spacing: -.01em; }
+.boost-seg { max-width: 220px; }
+.boost-cap { margin: 14px 0 20px; min-height: 3em; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); }
+.boost-go { width: auto; padding: 10px 18px; }
+.boost .fine { text-align: left; margin-top: 10px; }
+.boost .done { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+.boost .done::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.boost-shelf { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.bp { position: relative; aspect-ratio: 2/3; border-radius: 12px; overflow: hidden; background: var(--fill); box-shadow: 0 10px 26px rgba(0,0,0,.35); }
+.bp img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .6s ease, filter .6s ease; }
+.bp img.b { opacity: 0; }
+.bp em { position: absolute; left: 6px; right: 6px; bottom: 6px; text-align: center; font-style: normal; font-size: 11.5px; font-weight: 600; line-height: 1.3;
+  padding: 4px 4px; border-radius: 7px; transition: opacity .4s ease; }
+.bp em.a { background: rgba(0,0,0,.72); }
+.bp em.b { background: rgba(48,209,88,.9); color: #00230b; opacity: 0; }
+.bp.owned img.a { filter: grayscale(1) brightness(.45); }
+.boost.after .bp.swap img.a { opacity: 0; }
+.boost.after .bp.swap img.b { opacity: 1; }
+.boost.after .bp em.a { opacity: 0; }
+.boost.after .bp em.b { opacity: 1; }
+.boost:not(.after) .bp em.b, .boost.after .bp em.a { pointer-events: none; }
+
+/* compact guide: the two settings side by side, one row of examples */
+.guiding .hero { padding-top: 9vh; }
+.guide > section { margin-top: 40px; }
+.anatomy { margin-top: 30px; }
+.parts { margin-top: 26px; align-items: center; }
+.parts-lbl { font-size: 13px; color: var(--ink-3); margin-right: 4px; }
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { .duo { grid-template-columns: 1fr; } }
+.duo .boost { grid-template-columns: 1fr; align-content: start; gap: 14px; padding: 22px; }
+.duo .boost-text { display: contents; }
+.duo .boost h2 { order: 1; margin: 0; font-size: 19px; }
+.duo .boost-seg { order: 2; }
+.duo .boost-shelf { order: 3; gap: 10px; }
+.duo .boost-cap { order: 4; margin: 0; min-height: 0; font-size: 14px; }
+.duo #boostAct, .duo .lock-note { order: 5; }
+.duo .bp em { font-size: 10.5px; }
+.duo .store-shelf .price { font-size: 13px; }
+
+/* store section: same shelf in both stores */
+.store-shelf .bp { display: flex; flex-direction: column; aspect-ratio: auto; overflow: visible; background: none; box-shadow: none; }
+.store-shelf .bp .pic { position: relative; aspect-ratio: 2/3; border-radius: 12px; overflow: hidden; background: var(--fill); box-shadow: 0 10px 26px rgba(0,0,0,.35); }
+.store-shelf .bp .pic img { transition: filter .6s ease; }
+.store-shelf .price { margin: 8px 2px 0; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; min-height: 1.5em; }
+.store-shelf .price span { transition: opacity .4s; }
+.store-shelf .bp.blocked .pic img { filter: grayscale(1) brightness(.4); }
+.store-shelf .bp em { opacity: 0; }
+.store-shelf .bp.blocked em { opacity: 1; background: rgba(0,0,0,.72); }
+.store-shelf .bp.blocked .price { color: var(--ink-3); font-weight: 400; }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 14px; padding: 0; list-style: none; }
+.flow li { display: flex; align-items: center; gap: 6px; }
+.flow li + li::before { content: "›"; color: var(--ink-3); font-size: 18px; line-height: 1; }
+.pill.mini { pointer-events: none; height: 28px; padding: 0 11px; font-size: 13px; }
+.pill.mini svg { width: 14px; height: 14px; }
+.lock-note { display: flex; gap: 10px; align-items: flex-start; margin: 0; padding: 12px 14px; border-radius: 14px; background: rgba(255,159,10,.14);
+  font-size: 13.5px; line-height: 1.55; }
+.lock-note svg { flex: none; width: 16px; height: 16px; margin-top: 2px; color: #ff9f0a; }
+.x-glyph { display: inline-grid; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: rgba(235,235,245,.45); color: #2c2c30;
+  font-size: 12px; line-height: 1; vertical-align: -2px; }
+
+/* store switch in the popover once results are on screen */
+.seg[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.lock-cap { display: none; align-items: flex-start; gap: 8px; margin: 10px 2px 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.lock-cap svg { flex: none; width: 14px; height: 14px; margin-top: 2px; color: #ff9f0a; }
+.running .lock-cap { display: flex; }
+.running .store-cap { display: none; }
+.pill .lk { width: 12px; height: 12px; display: none; color: var(--ink-3); }
+.running .pill .lk { display: inline-block; }
+
+/* ---------- results (only to show the Steam nudge in context) ---------- */
+.running .hero { min-height: 0; padding: 72px 0 0; }
+.running h1 { display: none; }
+.results { margin-top: 36px; }
+.results[hidden] { display: none; }
+.results h2 { font: 700 24px/1.2 var(--font-display); letter-spacing: -.01em; margin: 0 0 18px; }
+.shelf { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px 20px; }
+@media (max-width: 980px) { .shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; } }
+.card { min-width: 0; animation: rise .45s var(--ease) both; }
+.card .poster { position: relative; aspect-ratio: 2/3; border-radius: 14px; overflow: hidden; background: var(--fill); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.card .poster img { width: 100%; height: 100%; object-fit: cover; transition: filter .6s; }
+.card b { display: block; margin: 12px 2px 0; font: 600 16px/1.3 var(--font-display); }
+.card span { display: block; margin: 4px 2px 0; font-size: 14px; color: var(--ink-2); }
+.card .own { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%) scale(.8); opacity: 0; white-space: nowrap;
+  padding: 4px 10px; border-radius: 980px; background: rgba(0,0,0,.7); font-size: 12.5px; font-weight: 600; transition: opacity .3s, transform .3s; }
+.card.owned .poster img { filter: grayscale(1) brightness(.4); }
+.card.owned .own { opacity: 1; transform: translateX(-50%); }
+.card.leaving { animation: leave .5s ease forwards; }
+@keyframes leave { to { opacity: 0; transform: scale(.94); } }
+
+/* the nudge: appears once, right where the value is visible */
+.nudge { display: flex; align-items: center; gap: 14px; margin: 0 0 22px; padding: 12px 12px 12px 14px; border-radius: 18px; max-width: 720px;
+  background: rgba(255,255,255,.1); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
+  animation: rise .5s var(--ease) both; }
+.nudge[hidden] { display: none; }
+.nudge .stack { display: flex; flex: none; }
+.nudge .stack img { width: 30px; height: 45px; object-fit: cover; border-radius: 5px; box-shadow: 0 0 0 2px rgba(20,20,24,.9); }
+.nudge .stack img + img { margin-left: -10px; }
+.nudge .stack img:first-child { filter: grayscale(1) brightness(.5); }
+.nudge p { flex: 1; min-width: 0; margin: 0; font-size: 14px; line-height: 1.45; }
+.nudge p span { display: block; color: var(--ink-2); font-size: 13px; }
+.nudge .go2 { flex: none; border: 0; border-radius: 980px; padding: 8px 14px; background: #fff; color: #000; font-weight: 600; font-size: 14px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; }
+.nudge .go2 svg { width: 15px; height: 15px; }
+.nudge .x { flex: none; width: 28px; height: 28px; border: 0; border-radius: 50%; background: none; color: var(--ink-3); cursor: pointer; font-size: 18px; line-height: 1; }
+.nudge .x:hover { color: var(--ink); background: var(--fill); }
+@media (max-width: 520px) { .nudge { flex-wrap: wrap; } .nudge p { flex-basis: calc(100% - 100px); } .nudge .go2 { margin-left: 84px; } }
+
+/* the pill nudges itself once: a soft ring that fades after the first results */
+.pill.ping { animation: ping 1.6s ease 2; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.45); } 100% { box-shadow: 0 0 0 12px rgba(255,255,255,0); } }
+
+.pop .lead { margin: 0 0 12px; font: 600 16px/1.35 var(--font-display); }
+
+.toast { position: fixed; left: 50%; bottom: 28px; z-index: 50; transform: translateX(-50%) translateY(20px); opacity: 0; pointer-events: none;
+  background: rgba(60,60,67,.92); backdrop-filter: blur(20px); padding: 10px 18px; border-radius: 980px; font-size: 14px; transition: opacity .25s, transform .25s; }
+.toast.show { opacity: 1; transform: translateX(-50%); }
+
+@media (max-width: 520px) {
+  .pill .wide { display: none; }
+  .pill { padding: 0 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="backdrop" aria-hidden="true"><img id="bdA" alt=""><img id="bdB" alt=""></div>
+
+  <header class="top">
+    <div class="brand">Playnext</div>
+    <div class="top-actions">
+      <!-- language + store merged: one pill, two segmented switches inside -->
+      <div class="pop-wrap">
+        <button class="pill" id="locBtn" aria-expanded="false" aria-controls="locPop" aria-label="语言和价格">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M2.5 10h15M10 2.5c2.2 2.3 3.2 4.8 3.2 7.5s-1 5.2-3.2 7.5M10 2.5C7.8 4.8 6.8 7.3 6.8 10s1 5.2 3.2 7.5"/></svg>
+          <span id="locLang">中文</span><span class="sep"></span><span class="dim" id="locCur">¥ 国区</span><svg class="lk" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4" y="9" width="12" height="8.5" rx="2"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9"/></svg>
+        </button>
+        <div class="pop" id="locPop" role="dialog" aria-label="语言和价格" hidden>
+          <div class="row">
+            <h3>语言</h3>
+            <div class="seg" data-k="lang"><button aria-pressed="true" data-v="中文">中文</button><button aria-pressed="false" data-v="English">English</button></div>
+          </div>
+          <div class="row">
+            <h3>价格按哪个商店</h3>
+            <div class="seg" data-k="store" id="storeSwitch"><button aria-pressed="true" data-v="¥ 国区">¥ 国区</button><button aria-pressed="false" data-v="$ 美区">$ 美区</button></div>
+            <p class="cap store-cap">不同商店能买到的游戏和价格不一样，问之前选好。句子里写了“$20 以内”会自动换成美区。</p>
+            <p class="lock-cap"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="4" y="9" width="12" height="8.5" rx="2"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9"/></svg>
+              <span>这次结果按<b id="lockStore">国区</b>挑的。要换商店，先按搜索框里的 × 重新开始。</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Steam: the popover shows what connecting does instead of explaining it -->
+      <div class="pop-wrap">
+        <button class="pill" id="steamBtn" aria-expanded="false" aria-controls="steamPop">
+          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.5a8.5 8.5 0 0 0-8.47 7.8l4.56 1.88a2.4 2.4 0 0 1 1.37-.42h.13l2.03-2.94v-.04a3.2 3.2 0 1 1 3.2 3.2h-.07l-2.9 2.07v.11a2.4 2.4 0 0 1-4.76.44L1.83 12.3A8.5 8.5 0 1 0 10 1.5Zm-3.63 12.9-1.04-.43a1.8 1.8 0 1 0 1.04-2.3l1.08.45a1.33 1.33 0 1 1-1.08 2.28ZM14.95 8a2.13 2.13 0 1 0-4.26 0 2.13 2.13 0 0 0 4.26 0Zm-3.73 0a1.6 1.6 0 1 1 3.2 0 1.6 1.6 0 0 1-3.2 0Z"/></svg>
+          <span id="steamLbl"><span class="wide">导入 Steam </span>游戏库</span>
+        </button>
+        <div class="pop" id="steamPop" role="dialog" aria-label="Steam 游戏库" hidden>
+          <p class="lead">按你真正玩过的来推荐</p>
+          <div class="lib-demo" aria-hidden="true">
+            <figure class="owned"><img src="https://cdn.akamai.steamstatic.com/steam/apps/413150/library_600x900.jpg" alt=""><figcaption>已拥有</figcaption></figure>
+            <figure class="fav"><img src="https://cdn.akamai.steamstatic.com/steam/apps/367520/library_600x900.jpg" alt=""><figcaption>玩了 120 小时</figcaption></figure>
+            <figure class="rec"><img src="https://cdn.akamai.steamstatic.com/steam/apps/504230/library_600x900.jpg" alt=""><figcaption>所以推荐它</figcaption></figure>
+          </div>
+          <p class="lib-line">已经有的不再推荐你买，玩得多的当成你的口味。不导入也能用。</p>
+          <button class="btn" id="steamLogin">用 Steam 登录</button>
+          <button class="alt" id="pasteToggle" aria-expanded="false" aria-controls="paste">或者粘贴个人主页链接</button>
+          <form class="paste" id="paste" hidden><input placeholder="steamcommunity.com/id/…" aria-label="Steam 个人主页链接"><button type="submit">连接</button></form>
+          <p class="fine">只读公开的游戏列表和时长 · 不保存 Steam ID</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>下一款玩什么</h1>
+      <form class="search empty" id="search" role="search">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>
+        <label for="q" class="sr-only">想玩什么样的游戏</label>
+        <input id="q" autocomplete="off" maxlength="300">
+        <span class="kbd" aria-hidden="true">Tab</span>
+        <button class="icon-btn clear" type="button" id="clear" aria-label="清空">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="M7 7l6 6M13 7l-6 6" stroke="#2c2c30" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn help" type="button" id="help" aria-expanded="false" aria-controls="guide" aria-label="怎么用">?</button>
+        <button class="go" type="submit" aria-label="推荐"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16V4M4.5 9.5 10 4l5.5 5.5"/></svg></button>
+      </form>
+
+      <div class="guide" id="guide" hidden>
+        <section>
+          <div class="anatomy" id="anatomy"></div>
+          <div class="parts" id="parts"></div>
+        </section>
+        <section class="duo">
+          <div class="boost" id="boost">
+            <div class="boost-text">
+              <h2>导入 Steam 游戏库，推荐更准</h2>
+              <div class="seg boost-seg" id="boostSeg" role="group" aria-label="对比">
+                <button type="button" aria-pressed="true" data-s="a">没导入</button><button type="button" aria-pressed="false" data-s="b">导入后</button>
+              </div>
+              <p class="boost-cap" id="boostCap"></p>
+              <div id="boostAct">
+                <button class="btn boost-go" type="button" id="boostGo"></button>
+                <p class="fine">只读公开的游戏列表和时长 · 不保存 Steam ID</p>
+              </div>
+            </div>
+            <div class="boost-shelf" id="boostShelf" aria-hidden="true"></div>
+          </div>
+          <div class="boost store" id="store">
+            <div class="boost-text">
+              <h2>先选好在哪个商店买</h2>
+              <div class="seg boost-seg" id="storeSeg" role="group" aria-label="商店">
+                <button type="button" aria-pressed="true" data-s="CN">¥ 国区</button><button type="button" aria-pressed="false" data-s="US">$ 美区</button>
+              </div>
+              <p class="boost-cap" id="storeCap"></p>
+              <p class="lock-note"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="4" y="9" width="12" height="8.5" rx="2"/><path d="M7 9V6.5a3 3 0 0 1 6 0V9"/></svg>
+                <span>出结果以后商店就定了，结果不会跟着改。想换，先按搜索框里的 <b class="x-glyph">×</b> 重新开始。</span></p>
+            </div>
+            <div class="boost-shelf store-shelf" id="storeShelf" aria-hidden="true"></div>
+          </div>
+        </section>
+        <section>
+          <h2 class="g-title">别人这样问</h2>
+          <p class="g-sub">点一下放进搜索框</p>
+          <div class="gallery" id="gallery"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="results" id="results" hidden aria-live="polite">
+      <div class="nudge" id="nudge" hidden>
+        <div class="stack" id="nudgeStack" aria-hidden="true"></div>
+        <p>这里面有你已经买过的吗？<span>导入 Steam 游戏库，有的就换掉，玩得多的当成你的口味。</span></p>
+        <button class="go2" type="button" id="nudgeGo">导入</button>
+        <button class="x" type="button" id="nudgeX" aria-label="不用了">×</button>
+      </div>
+      <h2>为你挑了 5 款</h2>
+      <div class="shelf" id="shelf"></div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+</div>
+
+<script>
+const ART = (id, f) => `https://cdn.akamai.steamstatic.com/steam/apps/${id}/${f}`;
+
+const ANATOMY = [["我们 4 个人各自在家", "几个人 · 在哪玩"], ["想玩轻松搞笑的合作", "想要的感觉"], ["每人不超过 100 块", "预算"]];
+const PARTS = ["两个人同屏", "4 个人各自在家", "要对战的", "每人 50 块以内", "越便宜越好", "在打折的", "像《空洞骑士》那样", "不要恐怖的", "先看库里有的"];
+
+// every example carries a game it would plausibly find; that game is the tile art and the home backdrop while it is the placeholder
+const GROUPS = [
+  { name: "一个人玩", items: [
+    { t: "想玩个轻松治愈的，种田经营那种，别太肝", id: 413150, g: "星露谷物语" },
+    { t: "下班只有半小时，想玩一局就能停的", id: 646570, g: "杀戮尖塔" },
+    { t: "剧情好、玩完会想很久的", id: 753640, g: "星际拓荒" },
+    { t: "很难但很公平，死了还想再来", id: 504230, g: "蔚蓝" },
+  ]},
+  { name: "和朋友一起", items: [
+    { t: "我们 4 个人各自在家，想玩轻松搞笑的合作，每人 100 块以内", id: 1966720, g: "致命公司" },
+    { t: "两个人同屏，情侣一起玩的", id: 1426210, g: "双人成行" },
+    { t: "4 个人开黑，打怪打得爽的", id: 548430, g: "深岩银河" },
+    { t: "和朋友一起盖房子、生存，能玩很久", id: 892970, g: "英灵神殿" },
+  ]},
+  { name: "从喜欢的游戏出发", items: [
+    { t: "像《哈迪斯》那样的，但别那么难", id: 1145360, g: "哈迪斯" },
+    { t: "喜欢《黑暗之魂》，想要开放世界的", id: 1245620, g: "艾尔登法环" },
+    { t: "像《泰拉瑞亚》，但画面更好", id: 105600, g: "泰拉瑞亚" },
+    { t: "玩腻了《吸血鬼幸存者》，找类似的", id: 1794680, g: "吸血鬼幸存者" },
+  ]},
+  { name: "看预算", items: [
+    { t: "50 块以内、现在在打折的好游戏", id: 1868140, g: "潜水员戴夫" },
+    { t: "越便宜越好的合作游戏，3 个人", id: 322330, g: "饥荒联机版" },
+    { t: "安静放松的，不要打打杀杀", id: 1135690, g: "Unpacking" },
+    { t: "不要恐怖的，适合和不太玩游戏的朋友一起", id: 728880, g: "胡闹厨房 2" },
+  ]},
+];
+const ALL = GROUPS.flatMap((g) => g.items);
+
+const $ = (id) => document.getElementById(id);
+const app = $("app"), q = $("q"), search = $("search"), guide = $("guide"), help = $("help");
+const STEAM_SVG = $("steamBtn").querySelector("svg").outerHTML;
+
+/* ---------- backdrop ---------- */
+let bdFront = $("bdA"), bdBack = $("bdB"), bdCur = null;
+function backdrop(id) {
+  if (id === bdCur) return;
+  bdCur = id;
+  const img = bdBack;
+  img.onload = () => { img.classList.add("on"); bdFront.classList.remove("on"); [bdFront, bdBack] = [img, bdFront]; };
+  img.onerror = () => { if (!img.src.endsWith("header.jpg")) img.src = ART(id, "header.jpg"); };
+  img.src = ART(id, "library_hero.jpg");
+}
+
+/* ---------- home: backdrop and placeholder cycle together ---------- */
+let pos = 0, typer = 0, cycle = 0, ghost = ALL[0].t;
+function typePlaceholder(s) {
+  clearInterval(typer);
+  let i = 0;
+  q.placeholder = "";
+  typer = setInterval(() => { i += 1; q.placeholder = s.slice(0, i); if (i >= s.length) clearInterval(typer); }, 45);
+}
+function show(i) {
+  const ex = ALL[i % ALL.length];
+  ghost = ex.t;
+  backdrop(ex.id);
+  typePlaceholder(ex.t);
+}
+function startCycle() {
+  clearInterval(cycle);
+  cycle = setInterval(() => { if (!q.value) { pos += 1; show(pos); } }, 7000);
+}
+show(0);
+startCycle();
+ALL.forEach((e) => { new Image().src = ART(e.id, "library_hero.jpg"); });
+
+/* ---------- search field ---------- */
+function sync() { search.classList.toggle("empty", !q.value.trim()); }
+function fill(s) { q.value = s; sync(); q.focus(); q.setSelectionRange(s.length, s.length); }
+q.addEventListener("input", sync);
+q.addEventListener("keydown", (e) => {
+  if (e.key === "Tab" && !e.shiftKey && !q.value) { e.preventDefault(); clearInterval(typer); fill(ghost); stopHint(); }
+});
+$("clear").onclick = () => {
+  q.value = ""; sync(); q.focus();
+  document.querySelectorAll(".part.added").forEach((p) => p.classList.remove("added"));
+  app.classList.remove("running"); $("results").hidden = true; lockStore(false);
+};
+search.onsubmit = (e) => { e.preventDefault(); if (q.value.trim()) showResults(); };
+
+/* ---------- results + the one-time Steam nudge ---------- */
+const PICKS = [
+  { id: 413150, n: "星露谷物语", cn: "¥48", us: "$14.99" },
+  { id: 1055540, n: "A Short Hike", cn: "¥32", us: "$7.99" },
+  { id: 972660, n: "灵魂摆渡人", cn: "¥109", us: "$29.99" },
+  { id: 1135690, n: "Unpacking 装箱", cn: "¥70", us: "$19.99" },
+  { id: 1455840, n: "Dorfromantik", cn: "¥47", us: "$13.99" },
+];
+const SWAP = { id: 433340, n: "史莱姆牧场", cn: "¥17.5", us: "$4.99" };
+const storeNow = () => ($("locCur").textContent.includes("美") ? "US" : "CN");
+let isConnected = false, nudgeDismissed = false, nudgeT = 0;
+const cardHtml = (g) => `<div class="card" data-id="${g.id}"><div class="poster"><img src="${ART(g.id, "library_600x900.jpg")}" alt=""
+  onerror="this.onerror=null;this.src='${ART(g.id, "header.jpg")}'"><em class="own">已拥有 · 换掉</em></div><b>${g.n}</b><span>${storeNow() === "US" ? g.us : g.cn}</span></div>`;
+
+/* the store is fixed while results are on screen; × unlocks it */
+function lockStore(on) {
+  const sw = $("storeSwitch");
+  if (on) { sw.setAttribute("aria-disabled", "true"); $("lockStore").textContent = storeNow() === "US" ? "美区" : "国区"; }
+  else sw.removeAttribute("aria-disabled");
+  sw.querySelectorAll("button").forEach((b) => { b.disabled = on; });
+}
+
+function showResults() {
+  setGuide(false);
+  closePops();
+  app.classList.add("running");
+  lockStore(true);
+  $("results").hidden = false;
+  $("shelf").innerHTML = PICKS.map(cardHtml).join("");
+  backdrop(PICKS[0].id);
+  $("nudge").hidden = true;
+  clearTimeout(nudgeT);
+  if (!isConnected && !nudgeDismissed) {
+    $("nudgeStack").innerHTML = PICKS.slice(0, 3).map((g) => `<img src="${ART(g.id, "library_600x900.jpg")}" alt="">`).join("");
+    // after the posters have landed, so it reads as a follow-up and not as a popup
+    nudgeT = setTimeout(() => { $("nudge").hidden = false; $("steamBtn").classList.add("ping"); }, 1400);
+  }
+}
+$("nudgeX").onclick = () => { nudgeDismissed = true; $("nudge").hidden = true; };
+$("nudgeGo").onclick = (e) => { e.stopPropagation(); openPop("steamBtn"); };
+
+/* after connecting with results on screen: the owned game greys out, then is replaced */
+function swapOwned() {
+  const card = document.querySelector(`.card[data-id="${PICKS[0].id}"]`);
+  if (!card) return;
+  card.classList.add("owned");
+  setTimeout(() => {
+    card.classList.add("leaving");
+    setTimeout(() => {
+      card.outerHTML = cardHtml(SWAP);
+      backdrop(SWAP.id);
+      toast(`你已经有《${PICKS[0].n}》，换成了《${SWAP.n}》`);
+    }, 500);
+  }, 1500);
+}
+
+/* ---------- guide ---------- */
+function setGuide(open) {
+  guide.hidden = !open;
+  help.setAttribute("aria-expanded", String(open));
+  app.classList.toggle("guiding", open);
+  if (open) { renderAnatomy(); boostAction(); boostStart(); storeStart(); } else { clearInterval(boostAuto); clearInterval(storeAuto); }
+}
+help.onclick = () => { stopHint(); setGuide(guide.hidden); };
+
+/* ---------- "?" hops a few times to draw the eye, then never again ---------- */
+// nothing is remembered: every visit hops again until the user types or opens the guide
+let hintLeft = Infinity, hintT = 0;
+function helpSeen() { return false; }
+function stopHint() {
+  hintLeft = 0;
+  clearTimeout(hintT);
+  help.classList.remove("hint");
+}
+function hintOnce() {
+  // only on the quiet home screen: not while typing, reading the guide or looking at results
+  const idle = !q.value && guide.hidden && !app.classList.contains("running");
+  if (hintLeft <= 0) return;
+  if (idle) {
+    hintLeft -= 1;
+    help.classList.remove("hint");
+    void help.offsetWidth;
+    help.classList.add("hint");
+  }
+  hintT = setTimeout(hintOnce, 6000);
+}
+help.addEventListener("animationend", (e) => { if (e.animationName === "hop") help.classList.remove("hint"); });
+q.addEventListener("input", () => { if (q.value) stopHint(); });
+if (!helpSeen() && !matchMedia("(prefers-reduced-motion: reduce)").matches) hintT = setTimeout(hintOnce, 1500);
+
+/* ---------- guide: Steam before / after ---------- */
+// the same shelf twice: without the library one pick is a game you own; with it, that slot follows your most-played game
+const BOOST = [
+  { a: 413150, ea: "你早就有了", b: 433340, eb: "像你玩了 120 小时的星露谷" },
+  { a: 1055540 },
+  { a: 972660, ea: "", b: 1145360, eb: "你常玩动作游戏" },
+  { a: 1135690 },
+];
+const CAPS = {
+  a: "推荐里可能混着你早就买过的，也不知道你平时爱玩什么。",
+  b: "已经有的换掉；你玩得最多的游戏，决定往哪个方向推荐。",
+};
+$("boostShelf").innerHTML = BOOST.map((x) => `<div class="bp${x.b ? " swap" : ""}${x.ea ? " owned" : ""}">
+  <img class="a" src="${ART(x.a, "library_600x900.jpg")}" alt="">
+  ${x.b ? `<img class="b" src="${ART(x.b, "library_600x900.jpg")}" alt="">` : ""}
+  ${x.ea ? `<em class="a">${x.ea}</em>` : ""}${x.eb ? `<em class="b">${x.eb}</em>` : ""}</div>`).join("");
+let boostAuto = 0;
+function boostShow(s) {
+  $("boost").classList.toggle("after", s === "b");
+  $("boostSeg").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.s === s)));
+  $("boostCap").textContent = CAPS[s];
+}
+function boostStart() {
+  clearInterval(boostAuto);
+  let s = "a";
+  boostShow(s);
+  boostAuto = setInterval(() => { s = s === "a" ? "b" : "a"; boostShow(s); }, 3200);
+}
+$("boostSeg").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  clearInterval(boostAuto);
+  boostShow(b.dataset.s);
+});
+$("boost").addEventListener("mouseenter", () => clearInterval(boostAuto));
+/* ---------- guide: CN / US store on the same shelf (prices from data/processed/prices.parquet) ---------- */
+const STORE = [
+  { id: 367520, cn: "¥58", us: "$14.99" },
+  { id: 387290, cn: null, us: "$19.99" },
+  { id: 504230, cn: "¥17", us: "$4.99" },
+  { id: 1145360, cn: "¥92", us: "$24.99" },
+];
+const STORE_CAPS = {
+  CN: "国区买不到的游戏不会推荐，价格和预算都按人民币算。",
+  US: "美区能买到更多游戏，价格和预算都按美元算。",
+};
+$("storeShelf").innerHTML = STORE.map((x) => `<div class="bp" data-cn="${x.cn ?? ""}">
+  <div class="pic"><img class="a" src="${ART(x.id, "library_600x900.jpg")}" alt="">${x.cn ? "" : `<em class="a">国区买不到</em>`}</div>
+  <p class="price"><span></span></p></div>`).join("");
+let storeAuto = 0;
+function storeShow(s) {
+  $("storeSeg").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.s === s)));
+  $("storeCap").textContent = STORE_CAPS[s];
+  $("storeShelf").querySelectorAll(".bp").forEach((el, i) => {
+    const blocked = s === "CN" && !STORE[i].cn;
+    el.classList.toggle("blocked", blocked);
+    el.querySelector(".price span").textContent = blocked ? "不会出现在结果里" : s === "CN" ? STORE[i].cn : STORE[i].us;
+  });
+}
+function storeStart() {
+  clearInterval(storeAuto);
+  let s = "CN";
+  storeShow(s);
+  storeAuto = setInterval(() => { s = s === "CN" ? "US" : "CN"; storeShow(s); }, 3200);
+}
+$("storeSeg").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  clearInterval(storeAuto);
+  storeShow(b.dataset.s);
+});
+$("store").addEventListener("mouseenter", () => clearInterval(storeAuto));
+
+function boostAction() {
+  $("boostAct").innerHTML = isConnected
+    ? `<span class="done">已导入 412 款，推荐会按你的库来</span>`
+    : `<button class="btn boost-go" type="button" id="boostGo">${STEAM_SVG}导入 Steam 游戏库</button><p class="fine">只读公开的游戏列表和时长 · 不保存 Steam ID</p>`;
+  const go = $("boostGo");
+  if (go) go.onclick = (e) => { e.stopPropagation(); window.scrollTo({ top: 0, behavior: "smooth" }); openPop("steamBtn"); };
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { setGuide(false); closePops(); } });
+
+function renderAnatomy() {
+  // re-created on every open so the underline plays again
+  $("anatomy").innerHTML = ANATOMY.map(([b, i]) => `<span><b>${b}</b><i>${i}</i></span>`).join("");
+}
+
+$("parts").innerHTML = `<span class="parts-lbl">还可以加上</span>` + PARTS.map((p) => `<button type="button" class="part">${p}</button>`).join("");
+$("parts").addEventListener("click", (e) => {
+  const b = e.target.closest(".part");
+  if (!b) return;
+  const p = b.textContent;
+  // this one needs the library: ask for it right here instead of failing later
+  if (p === "先看库里有的" && !isConnected) { e.stopPropagation(); window.scrollTo({ top: 0, behavior: "smooth" }); openPop("steamBtn"); return; }
+  const cur = q.value.trim();
+  if (b.classList.contains("added")) {
+    fill(cur.split("，").filter((x) => x !== p).join("，"));
+    b.classList.remove("added");
+  } else {
+    fill(cur ? `${cur}，${p}` : p);
+    b.classList.add("added");
+  }
+});
+
+$("gallery").innerHTML = GROUPS.map((g) => `
+  <div class="group"><h4>${g.name}</h4><div class="tiles">${g.items.map((x) => `
+    <button type="button" class="ex" data-id="${x.id}" data-t="${x.t}">
+      <div class="art"><img src="${ART(x.id, "header.jpg")}" alt=""></div>
+      <p>${x.t}</p><small>可能会找到：${x.g}</small>
+    </button>`).join("")}</div></div>`).join("");
+$("gallery").addEventListener("mouseover", (e) => { const b = e.target.closest(".ex"); if (b) backdrop(Number(b.dataset.id)); });
+$("gallery").addEventListener("click", (e) => {
+  const b = e.target.closest(".ex");
+  if (!b) return;
+  backdrop(Number(b.dataset.id));
+  setGuide(false);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  fill(b.dataset.t);
+});
+
+/* ---------- top-right popovers ---------- */
+const pops = [["locBtn", "locPop"], ["steamBtn", "steamPop"]];
+function closePops(except) {
+  pops.forEach(([b, p]) => { if (b !== except) { $(p).hidden = true; $(b).setAttribute("aria-expanded", "false"); } });
+}
+function openPop(btn) {
+  const p = pops.find(([b]) => b === btn)[1];
+  closePops(btn);
+  $(p).hidden = false;
+  $(btn).setAttribute("aria-expanded", "true");
+  $(btn).classList.remove("ping");
+}
+pops.forEach(([b, p]) => {
+  $(b).onclick = (e) => { e.stopPropagation(); if ($(p).hidden) openPop(b); else closePops(); };
+  $(p).addEventListener("click", (e) => e.stopPropagation());
+});
+document.addEventListener("click", () => closePops());
+
+document.querySelectorAll("#locPop .seg").forEach((seg) => seg.addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  seg.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  $(seg.dataset.k === "lang" ? "locLang" : "locCur").textContent = b.dataset.v;
+}));
+
+$("pasteToggle").onclick = () => {
+  const p = $("paste");
+  p.hidden = !p.hidden;
+  $("pasteToggle").setAttribute("aria-expanded", String(!p.hidden));
+  if (!p.hidden) p.querySelector("input").focus();
+};
+function connected() {
+  if (isConnected) return;
+  isConnected = true;
+  $("steamLbl").innerHTML = `<span class="dot" aria-hidden="true"></span> 我的库<span class="wide"> · 412 款</span>`;
+  $("steamBtn").classList.remove("ping");
+  closePops();
+  $("nudge").hidden = true;
+  clearTimeout(nudgeT);
+  if (!guide.hidden) boostAction();
+  if (!$("results").hidden) swapOwned();
+  else toast("已导入你的 Steam 游戏库");
+}
+$("steamLogin").onclick = connected;
+$("paste").onsubmit = (e) => { e.preventDefault(); connected(); };
+
+let toastT = 0;
+function toast(s) { const t = $("toast"); t.textContent = s; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2200); }
+</script>
+</body>
+</html>
