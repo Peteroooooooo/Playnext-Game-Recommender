@@ -3,6 +3,13 @@ import { EXAMPLES, addPart, removePart, splitParts } from "./guide";
 import { DICTS } from "./i18n";
 
 describe("guide chips", () => {
+  it("treats text as one part when no separator is supplied", () => {
+    expect(splitParts(" cozy ", "")).toEqual(["cozy"]);
+    expect(splitParts("轻松", "")).toEqual(["轻松"]);
+    expect(splitParts("  ", "")).toEqual([]);
+    expect(removePart("cozy", "cozy", "")).toBe("");
+  });
+
   it("trims removal targets without matching substrings", () => {
     expect(removePart("cozy, on sale", " on sale ", ", ")).toBe("cozy");
     expect(removePart("轻松，两个人同屏", " 两个人同屏 ", "，")).toBe("轻松");
