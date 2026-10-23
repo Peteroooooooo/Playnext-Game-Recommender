@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { LibrarySummary, Region } from "../api";
 import { useT, type Lang } from "../i18n";
 import type { LibState } from "../types";
-import { GlobeIcon, LockIcon, SteamIcon } from "./icons";
+import { GlobeIcon, LockIcon, SteamIcon } from "./Icons";
 import { LibraryConnect } from "./LibraryConnect";
 
 interface Props {

@@ -4,7 +4,7 @@ import { STEAM_DEMO } from "../guide";
 import { useT } from "../i18n";
 import { art } from "../present";
 import type { LibState } from "../types";
-import { SteamIcon } from "./icons";
+import { SteamIcon } from "./Icons";
 
 interface Props {
   member: number;
