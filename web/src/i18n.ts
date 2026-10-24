@@ -377,7 +377,7 @@ const en: Dict = {
   comma: ", ",
   relaxLead: "Change one thing and there are games to pick from:",
   relaxNone: "Try dropping a condition or two.",
-  relaxCount: (n) => `${n} games`,
+  relaxCount: (n) => (n === 1 ? "1 game" : `${n} games`),
   more: "You might also like",
   showMore: (n) => `${n} more`,
   showLess: "Show less",

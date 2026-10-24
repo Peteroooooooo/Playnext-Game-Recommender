@@ -109,11 +109,18 @@ export function missLabel(m: NearMiss["miss"], t: Dict): string {
   }
 }
 
-/** Price line under a poster; in a group the price is what each person pays. */
+/** Only online play needs a copy per person; same screen, Remote Play and mixed setups share copies. */
+export const eachBuys = (setup: Card["setup"] | undefined) => setup?.kind === "online";
+
+/** Price line under a poster; in an online group the price is what each person pays. */
 export function metaText(c: Card, group: boolean, t: Dict): string {
   const price = priceLabel(c.price, t);
   if (group && c.setup) {
-    const bits = [price && (c.price.free ? price : t.perPerson(price)), t.setupMax(c.setup.kind_zh, c.setup.max_players ?? "?")];
+    const max = c.setup.max_players;
+    const bits = [
+      price && (c.price.free || !eachBuys(c.setup) ? price : t.perPerson(price)),
+      max != null ? t.setupMax(c.setup.kind_zh, max) : c.setup.kind_zh,
+    ];
     return bits.filter(Boolean).join(" · ");
   }
   return price ?? "";

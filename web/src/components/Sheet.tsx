@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Backup, Card, CardActionKind, NearMiss, RelaxKey } from "../api";
 import { useT } from "../i18n";
-import { art, englishName, missLabel, priceLabel, revealCps, revealed, shortName, shortTime } from "../present";
+import { art, eachBuys, englishName, missLabel, priceLabel, revealCps, revealed, shortName, shortTime } from "../present";
 import { FactReportForm } from "./FactReport";
 
 export interface ReasonState {
@@ -187,12 +187,12 @@ function PickBody({ card: c, reason, group, busy, sessionId, onAction }: { card:
   const name = shortName(c.name);
   const sub = [englishName(c), c.year, c.developer].filter(Boolean).join(" · ");
 
-  const tiles: ReactNode[] = [<PriceTile key="p" p={c.price} each={group} />];
+  const tiles: ReactNode[] = [<PriceTile key="p" p={c.price} each={group && eachBuys(c.setup)} />];
   if (c.rating.pct_positive != null) {
     tiles.push(<Tile key="r" k={t.rating} v={`${c.rating.pct_positive}%`} s={t.reviews(c.rating.reviews.toLocaleString())} />);
   }
   if (c.time_to_beat) tiles.push(<Tile key="t" k={t.timeToBeat} v={shortTime(c.time_to_beat, t)} />);
-  if (group && c.setup) tiles.push(<Tile key="s" k={t.howToPlay} v={c.setup.kind_zh} s={t.upTo(c.setup.max_players ?? "?")} />);
+  if (group && c.setup) tiles.push(<Tile key="s" k={t.howToPlay} v={c.setup.kind_zh} s={c.setup.max_players != null ? t.upTo(c.setup.max_players) : null} />);
   else if (c.library) tiles.push(<Tile key="l" k={t.yourLibrary} v={c.library} s={c.library_hint} />);
 
   const warns = [
