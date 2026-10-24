@@ -94,6 +94,11 @@ describe("card text", () => {
     expect(metaText(card({ setup }), true, zh)).toBe("每人 ¥66 · 在线组队 4 人");
     expect(metaText(card({ setup: { ...setup!, kind_zh: "Online" } }), true, en)).toBe("¥66 each · Online 4 players");
     expect(metaText(card(), false, zh)).toBe("¥66");
+    const local = { ...setup!, kind: "local", kind_zh: "Same screen", players: 2, max_players: null } as Card["setup"];
+    expect(metaText(card({ setup: local }), true, en)).toBe("¥66 · Same screen");
+    expect(metaText(card({ setup: { ...local!, max_players: 2 } }), true, en)).toBe("¥66 · Same screen 2 players");
+    expect(en.relaxCount(1)).toBe("1 game");
+    expect(en.relaxCount(3)).toBe("3 games");
     expect(metaText(card({ price: { region: "US", text: "", free: true } }), false, en)).toBe("Free");
     expect(metaText(card({ price: { region: "US", text: "", final: 2.5 } }), false, en)).toBe("$2.50");
     expect(metaText(card({ price: { region: "CN", text: "", final: 17.5 } }), false, zh)).toBe("¥17.5");
