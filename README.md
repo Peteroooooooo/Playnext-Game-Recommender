@@ -2,9 +2,9 @@
 
 # Playnext
 
-**Tell it what you feel like playing. Get five Steam games that fit, and why.**
+**Tell it what you feel like playing. Get Steam games that fit, and why.**
 
-[**Try it → playnext.peteroooooooo.com**](https://playnext.peteroooooooo.com)
+Try it: [playnext.peteroooooooo.com](https://playnext.peteroooooooo.com)
 
 English · 中文 · CN and US Steam store
 
